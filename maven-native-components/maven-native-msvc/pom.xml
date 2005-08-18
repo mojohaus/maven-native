@@ -1,0 +1,25 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.codehaus.mojo.natives</groupId>
+    <artifactId>maven-native-components</artifactId>
+    <version>1.0-alpha-1-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>maven-native-msvc</artifactId>
+  
+  <name>Maven Native MSVC C/C++ compiler and linker</name>
+  
+  <dependencies>
+  
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-generic-c</artifactId>
+      <version>1.0-alpha-1-SNAPSHOT</version>
+    </dependency>
+  
+  </dependencies>
+  
+</project>

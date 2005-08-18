@@ -1,0 +1,114 @@
+<model>
+  <id>native-dependencies</id>
+  <name>History</name>
+  <description><![CDATA[
+    A mapping definition to track native object build dependencies
+  ]]></description>
+  <defaults>
+    <default>
+      <key>package</key>
+      <value>org.apache.maven.plugin.natives.history</value>
+    </default>
+  </defaults>
+  <classes>
+    <class rootElement="true" xml.tagName="history">
+      <name>History</name>
+      <description><![CDATA[
+         Root element of history.xml.
+      ]]></description>
+      <version>1.0.0</version>
+      <fields>
+        <field>
+          <name>processors</name>
+          <version>1.0.0</version>
+          <description><![CDATA[
+            Configuration to build a native object
+          ]]></description>
+          <association>
+            <type>Processor</type>
+            <multiplicity>*</multiplicity>
+          </association>
+        </field>
+      </fields>
+    </class>
+    <class>
+      <name>Processor</name>
+      <version>1.0.0</version>
+      <fields>
+        <field xml.attribute="true">
+          <name>signature</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description>linker/compiler + arguments except output and input files</description>
+          <type>String</type>
+        </field>
+      
+        <field>
+          <name>targets</name>
+          <version>1.0.0</version>
+          <description></description>
+          <association>
+            <type>Target</type>
+            <multiplicity>*</multiplicity>
+          </association>
+        </field>
+      </fields>
+    </class>
+    
+    <class>
+      <name>Target</name>
+      <version>1.0.0</version>
+      <fields>
+        <field xml.attribute="true" >
+          <name>file</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description></description>
+          <type>String</type>
+        </field>
+        <field xml.attribute="true" >
+          <name>lastModified</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description></description>
+          <type>long</type>
+        </field>
+
+        <field>
+          <name>sources</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description>
+          </description>
+          <association>
+            <type>Source</type>
+            <multiplicity>*</multiplicity>
+          </association>
+        </field>
+      </fields>
+    </class>
+    
+    <class>
+      <name>Source</name>
+      <version>1.0.0</version>
+      <fields>
+        <field xml.attribute="true">
+          <name>file</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description></description>
+          <type>String</type>
+        </field>
+        <field xml.attribute="true">
+          <name>lastModified</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description></description>
+          <type>long</type>
+        </field>
+      </fields>
+    </class>
+
+  </classes>
+</model>
+

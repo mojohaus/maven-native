@@ -1,0 +1,41 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.codehaus.mojo.natives.manager.CompilerManager</role>
+      <role-hint>native-compiler-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultCompilerManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.compiler.Compiler</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+      
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.manager.LinkerManager</role>
+      <role-hint>native-linker-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultLinkerManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.linker.Linker</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    
+    <component>
+      <role>org.codehaus.mojo.natives.manager.JavahManager</role>
+      <role-hint>native-javah-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultJavahManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.javah.Javah</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+    </component>    
+    
+  </components>
+</component-set>

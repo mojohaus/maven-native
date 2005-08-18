@@ -1,0 +1,101 @@
+package org.codehaus.mojo.natives.plugin;
+
+/*
+ * The MIT License
+ *
+ * Copyright (c) 2004, The Codehaus
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do
+ * so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
+
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.project.MavenProject;
+
+import java.io.File;
+
+
+/**
+ * @author <a href="dantran@gmail.com">Dan T. Tran</a>
+ * @version $Id:$
+ */
+public abstract class AbstractNativeMojo
+    extends AbstractMojo
+{
+	
+    /**
+     * @parameter 
+     * @optional
+     * @description Some compiler can take advantage of this setting to add 
+     *              addional environments ( ex msvc, bcc, etc)
+     */
+    protected File providerHome;
+	
+    /**
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    protected MavenProject project;
+	
+	
+    /**
+     * @description where the place the final packaging
+     * @parameter expression="${project.build.directory}"
+     * @required
+     * @readonly
+     */
+    protected File outputDirectory;
+
+    /**
+     * TODO component needs to handle this
+     * @parameter expression="${basedir}
+     * @required
+     * @readonly
+     */
+	protected File basedir;
+
+    /**
+     * @description base directory to look for source
+     * @parameter expression="${basedir}/src/main/c"
+     * @required
+     */
+    protected File sourceDir;
+    
+    /**
+     * TODO use String []
+     * @description Comma separated list of includes file patterns relative to ${sourceDir}. 
+     * @parameter default-value= "";
+     * @required
+     */
+    protected String sourceIncludes ;
+    
+    /**
+     * TODO use String []
+     * @description Comma separated list of excludes file patterns relative to ${sourceDir}
+     * @parameter default-value=""
+     */
+    protected String sourceExcludes;
+    
+    /**
+     * @parameter expression="${objectFileExtension}" default-value="o"
+     * @description The extension of object file name. The default extension should work for all compiler
+     */
+    protected String objectFileExtension;    
+    
+}

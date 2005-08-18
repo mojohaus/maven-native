@@ -1,0 +1,12 @@
+<component-set>
+  <components>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Linker</role>
+      <role-hint>generic-c-linker</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.TlibLinker</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+  </components>
+</component-set>

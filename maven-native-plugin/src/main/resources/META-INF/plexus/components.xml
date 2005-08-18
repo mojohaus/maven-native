@@ -1,0 +1,111 @@
+<component-set>
+<components>
+
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>dll</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+        <package>org.codehaus.mojo:maven-native-plugin:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>deploy:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+  
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>lib</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+        <package>org.codehaus.mojo:maven-native-plugin:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+  
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>exe</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+        <package>org.codehaus.mojo:maven-native-plugin:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+    
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>a</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+        <package>org.codehaus.mojo:maven-native-plugin:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+      
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>so</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+        <package>org.codehaus.mojo:maven-native-plugin:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+        
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>si</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>native:compile</compile>
+        <package>native:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+          
+  <component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>uxe</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+      <phases>
+        <generate-sources></generate-sources>
+        <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+        <package>org.codehaus.mojo:maven-native-plugin:link</package>
+        <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+        <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+    </configuration>
+  </component>
+            
+  
+</components>
+</component-set>

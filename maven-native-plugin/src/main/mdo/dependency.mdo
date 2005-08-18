@@ -1,0 +1,88 @@
+<model>
+  <id>native-source-dependencies</id>
+  <name>Dependencies</name>
+  <description><![CDATA[
+    A mapping definition to for c/cpp source dependency analysis
+  ]]></description>
+  <defaults>
+    <default>
+      <key>package</key>
+      <value>org.apache.maven.plugin.natives.dependency</value>
+    </default>
+  </defaults>
+  <classes>
+    <class rootElement="true" xml.tagName="dependencies">
+      <name>DependencyCache</name>
+      <description><![CDATA[
+         Root element of dependency.xml
+      ]]></description>
+      <version>1.0.0</version>
+      <fields>
+        <field>
+          <name>dependencies</name>
+          <version>1.0.0</version>
+          <description><![CDATA[
+            A map of source files
+          ]]></description>
+          <type>Map</type>
+          <association stash.keyType="String" >
+            <type>Dependency</type>
+            <multiplicity>*</multiplicity>
+          </association>
+        </field>
+      </fields>
+    </class>
+    
+    <class>
+    
+      <name>Dependency</name>
+      
+      <version>1.0.0</version>
+      
+      <fields>  
+          
+        <field xml.attribute="true" >
+          <name>source</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description></description>
+          <type>String</type>
+        </field>
+        
+        <field xml.attribute="true" >
+          <name>lastModified</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description></description>
+          <type>long</type>
+        </field>
+
+        <field>
+          <name>dependencies</name>
+          <required>true</required>          
+          <version>1.0.0</version>
+          <description>
+          </description>
+          <association>
+            <type>Dependency</type>
+            <multiplicity>*</multiplicity>
+          </association>
+        </field>  
+              
+      </fields>  
+         
+      <codeSegments>
+        <codeSegment>
+          <version>1.0.0</version>
+          <code><![CDATA[
+          
+              
+          ]]></code>
+        </codeSegment>
+      </codeSegments>         
+    </class>
+    
+
+  </classes>
+</model>
+

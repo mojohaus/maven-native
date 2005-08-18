@@ -1,0 +1,19 @@
+<component-set>
+  <components>
+    
+    <component>
+      <role>org.codehaus.mojo.natives.compiler.Compiler</role>
+      <role-hint>msvc6</role-hint>
+      <implementation>org.codehaus.mojo.natives.msvc.MSVCCompiler</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Linker</role>
+      <role-hint>msvc6</role-hint>
+      <implementation>org.codehaus.mojo.natives.msvc.MSVCLinker</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+  </components>
+</component-set>
