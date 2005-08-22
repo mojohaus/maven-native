@@ -45,11 +45,11 @@ public class LinkerConfiguration
 	/**
 	 * Will be passed to compiler executable 
 	 */
-	private String optionsStart="";
+	private String [] startOptions;
 
-	private String optionsMiddle="";
+	private String [] middleOptions;
 
-	private String optionsEnd="";
+	private String [] endOptions;
 
 	private File   outputDirectory = new File ("");
 	
@@ -106,34 +106,34 @@ public class LinkerConfiguration
 		this.workingDirectory = dir;
 	}
 
-	public String getOptionsStart()
+	public String [] getStartOptions()
 	{
-		return this.optionsStart;
+		return this.startOptions;
 	}
 
-	public void setOptionsStart( String options )
+	public void setStartOptions( String [] options )
 	{
-		this.optionsStart = options;
+		this.startOptions = options;
 	}
 
-	public String getOptionsMiddle()
+	public String [] getMiddleOptions()
 	{
-		return this.optionsMiddle;
+		return this.middleOptions;
 	}
 
-	public void setOptionsMiddle( String options )
+	public void setMiddleOptions( String [] options )
 	{
-		this.optionsMiddle = options;
+		this.middleOptions = options;
 	}
 
-	public String getOptionsEnd()
+	public String [] getEndOptions()
 	{
-		return this.optionsEnd;
+		return this.endOptions;
 	}
 
-	public void setOptionsEnd( String options )
+	public void setEndOptions( String [] options )
 	{
-		this.optionsEnd = options;
+		this.endOptions = options;
 	}
 	
 	public String getExecutable()

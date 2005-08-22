@@ -24,6 +24,7 @@ package org.codehaus.mojo.natives.c;
  * SOFTWARE.
 */
 
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -38,9 +39,9 @@ public class CLinker
 	public CLinker ()
 	{
 	}
-	
-	
+		
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+        throws NativeBuildException	
 	{
 	    Commandline cl = new Commandline();
 
@@ -48,7 +49,13 @@ public class CLinker
 
 	    cl.createArgument().setValue( config.getExecutable() );
 
-	    cl.createArgument().setLine( config.getOptionsStart() );
+	    for ( int i = 0; i < config.getStartOptions().length; ++i )
+	    {
+	      cl.createArgument().setValue( config.getStartOptions()[i] );
+	    }
+
+	    //TODO better handling -o
+	    cl.createArgument().setValue( this.getLinkerOutputOption() + config.getOutputFilePath());
 
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {
@@ -63,11 +70,6 @@ public class CLinker
 	    {
 		    cl.createArgument().setValue( externalLibs[i].getPath() );
 	    }
-	    
-
-	    cl.createArgument().setValue( this.getLinkerOutputOption());
-
-	    cl.createArgument().setValue( config.getOutputFilePath() );
 
 	    return cl;
 		

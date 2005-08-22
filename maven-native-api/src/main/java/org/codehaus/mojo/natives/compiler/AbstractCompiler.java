@@ -44,12 +44,12 @@ public abstract class AbstractCompiler
 
 	protected abstract Parser getParser();
 	
-	protected abstract Commandline getCommandLine(File src, File dest, CompilerConfiguration config );
+	protected abstract Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
+	    throws NativeBuildException;
 	
-    public void compile( CompilerConfiguration config, FileSet sourceSet )
+    public void compile( CompilerConfiguration config, File [] sourceFiles )
     	throws NativeBuildException
     {
-    	File [] sourceFiles = sourceSet.getFiles();
 
 	    for ( int i = 0 ; i < sourceFiles.length; ++i )
 	    {
@@ -67,12 +67,12 @@ public abstract class AbstractCompiler
 
 	    	    if ( ! objectFile.exists() )
 	    	    {
-	    	    	throw new NativeBuildException ( "Internal error: " + objectFile + " not found.");
+	    	    	throw new NativeBuildException ( "Internal error: " + objectFile + " not found after successfull compilation.");
 	    	    }
 	    	}
 	    	else
 	    	{
-	    		this.getLogger().info( ( objectFile + " is up to date." ) );
+	    		this.getLogger().debug( ( objectFile + " is up to date." ) );
 	    	}
 	    }
     }

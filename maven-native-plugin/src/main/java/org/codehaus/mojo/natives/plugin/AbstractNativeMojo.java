@@ -26,8 +26,11 @@ package org.codehaus.mojo.natives.plugin;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.StringUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -42,7 +45,7 @@ public abstract class AbstractNativeMojo
      * @parameter 
      * @optional
      * @description Some compiler can take advantage of this setting to add 
-     *              addional environments ( ex msvc, bcc, etc)
+     *              additional environments ( ex msvc, bcc, etc)
      */
     protected File providerHome;
 	
@@ -55,7 +58,7 @@ public abstract class AbstractNativeMojo
 	
 	
     /**
-     * @description where the place the final packaging
+     * @description where to place the final packaging
      * @parameter expression="${project.build.directory}"
      * @required
      * @readonly
@@ -71,6 +74,7 @@ public abstract class AbstractNativeMojo
 	protected File basedir;
 
     /**
+     * TOTO support multiple sourceDirs
      * @description base directory to look for source
      * @parameter expression="${basedir}/src/main/c"
      * @required
@@ -78,24 +82,67 @@ public abstract class AbstractNativeMojo
     protected File sourceDir;
     
     /**
-     * TODO use String []
-     * @description Comma separated list of includes file patterns relative to ${sourceDir}. 
+     * @description relative to sourceDir. 
      * @parameter default-value= "";
      * @required
      */
-    protected String sourceIncludes ;
+    protected String [] sourceIncludes ;
     
-    /**
-     * TODO use String []
-     * @description Comma separated list of excludes file patterns relative to ${sourceDir}
-     * @parameter default-value=""
-     */
-    protected String sourceExcludes;
-    
-    /**
+   /**
      * @parameter expression="${objectFileExtension}" default-value="o"
-     * @description The extension of object file name. The default extension should work for all compiler
+     * @description The extension of object file name. The default extension should work for all compilers
+     * @optional
      */
     protected String objectFileExtension;    
     
+    protected File [] getSourceFiles()
+    {
+    	this.sourceIncludes = trimParams( this.sourceIncludes );
+
+    	File [] sourceFiles = new File[ this.sourceIncludes.length ];
+    	    	
+    	for ( int i = 0; i < this.sourceIncludes.length; ++i )
+    	{
+    		sourceFiles[i] = new File( this.sourceDir.getAbsolutePath() + "/" + sourceIncludes[i] );
+    	}
+    	
+    	return sourceFiles;
+    }
+    
+    protected static String [] removeEmptyOptions( String [] args )
+    {
+    	return trimParams ( args );
+    }
+    
+    protected static String [] trimParams( String [] args )
+    {
+    	if ( args == null )
+    	{
+    		return new String[0];
+    	}
+
+    	List tokenArray = new ArrayList();
+
+    	for ( int i = 0; i < args.length; ++i )
+    	{    		
+    		if ( args[i] == null || args[i].length() == 0 )
+    		{
+    			continue;
+    		}
+    		
+    		String [] tokens = StringUtils.split( args[i] );
+
+    		for ( int k = 0 ; k < tokens.length; ++k )
+    		{  			
+    			if ( tokens[k] == null || tokens[k].trim().length() == 0 )
+    			{
+    				continue;
+    			}
+    			
+    			tokenArray.add( tokens[k].trim() ); 			
+    		}
+    	}
+    	
+		return (String []) tokenArray.toArray( new String[0] );
+    }
 }

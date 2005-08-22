@@ -48,11 +48,11 @@ public class CompilerConfiguration
 	/**
 	 * Will be passed to compiler executable 
 	 */
-	private String optionsStart="";
+	private String [] startOptions;
 
-	private String optionsMiddle="";
+	private String [] middleOptions;
 
-	private String optionsEnd="";
+	private String [] endOptions;
 
 	
 	private File [] includePaths;
@@ -162,34 +162,38 @@ public class CompilerConfiguration
 		return this.getEnvIncludePaths();
 	}
 	
-	public String getOptionsStart()
+	public String [] getStartOptions()
 	{
-		return this.optionsStart;
+		if ( this.startOptions == null )
+		{
+			return new String [0];
+		}
+		return this.startOptions;
 	}
 
-	public void setOptionsStart( String options )
+	public void setStartOptions( String [] options )
 	{
-		this.optionsStart = options;
+		this.startOptions = options;
 	}
 
-	public String getOptionsMiddle()
+	public String [] getMiddleOptions()
 	{
-		return this.optionsMiddle;
+		return this.middleOptions;
 	}
 
-	public void setOptionsMiddle( String options )
+	public void setMiddleOptions( String [] options )
 	{
-		this.optionsMiddle = options;
+		this.middleOptions = options;
 	}
 
-	public String getOptionsEnd()
+	public String [] getEndOptions()
 	{
-		return this.optionsEnd;
+		return this.endOptions;
 	}
 
-	public void setOptionsEnd( String options )
+	public void setEndOptions( String [] options )
 	{
-		this.optionsEnd = options;
+		this.endOptions = options;
 	}
 
 	public File getProviderHome()

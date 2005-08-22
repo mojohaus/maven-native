@@ -24,11 +24,13 @@ package org.codehaus.mojo.natives.msvc;
  * SOFTWARE.
 */
 
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 
 import org.codehaus.plexus.util.cli.Commandline;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -45,18 +47,28 @@ public class MSVCLinker
 	}
 	
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+        throws NativeBuildException
 	{
 		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
 		{
-			config.setExecutable ( "cl" );
+			config.setExecutable ( "link" );
 		}
 				
 		Commandline cl = super.createLinkerCommandLine( objectFiles, config );
 		
-		MSVCEnv.setCommandLineEnv( config.getProviderHome(), cl );
+		this.setupCommandLineEnv( config.getProviderHome(), cl );
 		
 		return cl;
 	}
 	
+	protected String getLinkerOutputOption()
+	{
+		return "/out:";
+	}
 
+	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
+	    throws NativeBuildException
+	{
+		// user must setup their env accourding compiler provided setup script
+	}	
 }

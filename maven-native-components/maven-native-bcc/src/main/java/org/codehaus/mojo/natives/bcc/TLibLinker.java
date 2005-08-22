@@ -58,7 +58,10 @@ public class TLibLinker
 	    
 	    cl.createArgument().setValue( config.getOutputFilePath() );
 
-	    cl.createArgument().setLine( config.getOptionsStart() );
+	    for ( int i = 0; i < config.getStartOptions().length; ++i )
+	    {
+	      cl.createArgument().setValue( config.getStartOptions()[i] );
+	    }
 
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {

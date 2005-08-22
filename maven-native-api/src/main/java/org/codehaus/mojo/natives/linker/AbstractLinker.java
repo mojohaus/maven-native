@@ -42,12 +42,12 @@ public abstract class AbstractLinker
     implements Linker 
 {
 	
-	protected abstract Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config );
+	protected abstract Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+        throws NativeBuildException;
 	
-	public List link ( LinkerConfiguration config, FileSet sources )
-    throws NativeBuildException, IOException
+	public List link ( LinkerConfiguration config, File [] sourceFiles )
+        throws NativeBuildException, IOException
     {
-		File [] sourceFiles = sources.getFiles();
 	
 		List objectFiles = new ArrayList( sourceFiles.length );
 	

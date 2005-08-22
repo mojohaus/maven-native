@@ -29,19 +29,64 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.HashMap;
 
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
- * Settup ENV according msvc 6.0's VCVARS32.BAT
+ * Settup ENV according msvc  VCVARS32.BAT
  * @author dtran
  *
  */
 public class MSVCEnv 
 {
-	public static void setCommandLineEnv( File vsDir, Commandline cl )
+	private static File DEFAULT_MSVC6_HOME = new File( "C:/Program Files/Microsoft Visual Studio" );
+
+	private static File DEFAULT_MSVC2003_HOME = new File( "C:/Program Files/Microsoft Visual Studio .NET 2003" );
+
+	public static void setupMSVC6CommandLineEnv( File vsDir, Commandline cl )
+	    throws NativeBuildException
 	{
-		Map envs = createAdditionEnvs ( vsDir );
+		File msvc6Home = checkMSVCHome ( vsDir, DEFAULT_MSVC6_HOME );
+				
+		Map envs = createAdditionalMSVC6Envs ( msvc6Home );
 		
+		setupCommandlineEnv( envs, cl );
+		
+	}
+	
+	public static void setupMSVC2003CommandLineEnv( File vsDir, Commandline cl )
+        throws NativeBuildException
+    {
+    	File msvc6Home = checkMSVCHome ( vsDir, DEFAULT_MSVC2003_HOME );
+			
+	    Map envs = createAdditionalMSVC2003Envs ( msvc6Home );
+	
+	    setupCommandlineEnv( envs, cl );
+    }	
+		
+	private static File checkMSVCHome ( File userGivenHomeDir, File defaultHomeDir )
+	{
+		File homeDir = userGivenHomeDir;
+		
+		if ( homeDir == null || !homeDir.isDirectory() )
+		{
+			homeDir =  defaultHomeDir;
+			
+			if ( ! homeDir.isDirectory() )
+			{
+				String message = "User given: " + userGivenHomeDir + 
+				                  " or the fall back " + defaultHomeDir + 
+				                  " directory is not available.";
+				
+				new NativeBuildException( message );
+			}
+		}				
+		
+		return homeDir;
+				
+	}
+	private static void setupCommandlineEnv( Map envs, Commandline cl )
+	{
 		Iterator iter = envs.keySet().iterator();
 		
 		while ( iter.hasNext() )
@@ -51,8 +96,28 @@ public class MSVCEnv
 			cl.addEnvironment( key, (String) envs.get( key ) );
 		}
 	}
+	
+    private static String getEnv( String envKey ) 
+	{
+		String envValue = "";
 		
-	public static Map createAdditionEnvs( File vsDir )
+		try 
+		{
+			//TODO move this to an env object to will work for JVM 1.4.x
+			//  similar to Ant Environment
+			envValue = System.getenv( envKey );
+		}
+		catch ( Error e )
+		{
+			//according to my tests, msvc should work even this fails
+			
+			//ignore
+		}
+		
+		return envValue;
+	}
+    
+	private static Map createAdditionalMSVC6Envs( File vsDir )
 	{
 		Map envs = new HashMap();
 		
@@ -114,22 +179,68 @@ public class MSVCEnv
 		
 	}
 	
-    private static String getEnv( String envKey ) 
+	private static Map createAdditionalMSVC2003Envs( File vcInstallDir )
 	{
-		String envValue = "";
+		Map envs = new HashMap();
+				
+		File vsInstallDir = new File( vcInstallDir.getPath() + "/Common7/IDE" );
 		
-		try 
-		{
-			envValue = System.getenv( envKey );
-		}
-		catch ( Error e )
-		{
-			//according to my tests, msvc should work even this fails
-			
-			//ignore
-		}
+		//TODO get winhome dir
+		File frameworkDir= new File( "c:/WINDOWS/Microsoft.NET/Framework" );
+		envs.put( "FrameworkDir", frameworkDir.getPath() );
 		
-		return envValue;
+		File frameworkSDKDir= new File( vcInstallDir.getPath() + "/SDK/v1.1" );
+		envs.put( "FrameworkSDKDir", frameworkSDKDir.getPath() );
+				
+		String frameworkVersion= "v1.1.4322";
+		envs.put( "frameworkVersion", frameworkVersion );
+		
+		File devEnvDir= vsInstallDir;
+		
+		File msvcDir= new File ( vcInstallDir.getPath() + "/VC7" );
+				
+		//setup new PATH
+		String currentPath = getEnv ( "PATH" );
+				
+		String newPath = devEnvDir.getPath()+";" + 
+					     msvcDir.getPath() + "\\BIN;" + 
+					     vcInstallDir.getPath() + "\\Common7\\Tools;" +
+					     vcInstallDir.getPath() + "\\Common7\\Tools\\bin\\prerelease;" +
+					     vcInstallDir.getPath() + "\\Common7\\Tools\\bin;" +
+					     frameworkSDKDir.getPath() + "\\bin;" + 
+					     frameworkDir.getPath() + "\\" + frameworkVersion + ";" + 
+					     currentPath; 
+
+		envs.put( "PATH", newPath );
+		
+		//setup new INCLUDE PATH
+		String currentIncludePath = getEnv( "INCLUDE" );
+		
+		String newIncludePath = msvcDir.getPath() + "\\ATLMFC\\INCLUDE;" + 
+                                msvcDir.getPath() + "\\INCLUDE;" + 
+				                msvcDir.getPath() + "\\PlatformSDK\\include\\prerelease;" + 
+				                msvcDir.getPath() + "\\PlatformSDK\\include;" + 
+				                frameworkSDKDir.getPath() + "\\include;" +
+                                currentIncludePath ; 
+
+		envs.put( "INCLUDE", newIncludePath );
+		
+
+		//
+		//setup new LIB PATH
+		//
+		String currentLibPath = getEnv( "LIB" );
+		
+		String newLibPath = msvcDir.getPath() + "\\ATLMFC\\LIB;" + 
+				            msvcDir.getPath() + "\\LIB;" + 
+				            msvcDir.getPath() + "\\PlatformSDK\\lib\\prerelease;" + 
+				            msvcDir.getPath() + "\\PlatformSDK\\lib;" + 
+                            currentLibPath ; 		
+		
+		envs.put( "LIB", newLibPath );
+		
+		return envs;
+		
 	}
-	
+    
 }

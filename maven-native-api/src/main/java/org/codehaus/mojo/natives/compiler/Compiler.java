@@ -24,13 +24,14 @@ package org.codehaus.mojo.natives.compiler;
  * SOFTWARE.
 */
 
+import java.io.File;
+
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.util.FileSet;
 
 public interface Compiler
 {
 	String ROLE = Compiler.class.getName();
 	
-	void compile( CompilerConfiguration config, FileSet sourceFiles ) throws NativeBuildException;
+	void compile( CompilerConfiguration config, File [] sourceFiles ) throws NativeBuildException;
 
 }

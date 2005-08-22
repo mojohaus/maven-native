@@ -3,7 +3,9 @@ package org.codehaus.mojo.natives.compiler;
 import java.io.File;
 
 import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.StringUtils;
 
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.parser.CParser;
 
@@ -50,6 +52,7 @@ public abstract class AbstractCCompiler
 		return this.parser;
 	}
 	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
+	    throws NativeBuildException
 	{
 	    Commandline cl = new Commandline();
 	    
@@ -57,9 +60,10 @@ public abstract class AbstractCCompiler
 
 	    cl.createArgument().setValue( config.getExecutable() );
 	    
-	    cl.createArgument().setValue("-c");
-	    
-	    cl.createArgument().setValue( src.getPath() );
+	    for ( int i =0 ;i < config.getStartOptions().length; ++i ) 
+	    {
+	    	cl.createArgument().setValue( config.getStartOptions()[i]);
+	    }
 	    
 	    File [] includePaths = config.getIncludePaths();
 	    
@@ -75,7 +79,6 @@ public abstract class AbstractCCompiler
 	    	cl.createArgument().setValue( "-I" + systemIncludePaths[i].getPath() );
 	    }	    
 	    
-	    cl.createArgument().setLine( config.getOptionsStart() );
 	    
 	    String outputFileOption = this.getOutputFileOption();
 	    
@@ -89,6 +92,10 @@ public abstract class AbstractCCompiler
 	    {
     	    cl.createArgument().setValue( dest.getPath() );
 	    }
+
+	    cl.createArgument().setValue("-c");
+	    cl.createArgument().setValue( src.getPath() );
+
 	    
 	    return cl;
 	}

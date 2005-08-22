@@ -61,6 +61,12 @@ public class NativeLinkMojo
      * @parameter default-value="generic"
      * @optional
      */
+    private String compilerType;
+	
+    /**
+     * @parameter
+     * @optional
+     */
     private String linkerType;
 
     /**
@@ -70,22 +76,22 @@ public class NativeLinkMojo
     private String linkerExecutable;
 
     /**
-     * @parameter default-value=""
+     * @parameter 
      * @optional
      */
-    private String linkerOptionsStart;
+    private String [] linkerStartOptions;
     
     /**
-     * @parameter default-value=""
+     * @parameter 
      * @optional
      */
-    private String linkerOptionsMiddle;
+    private String [] linkerMiddleOptions;
     
     /**
-     * @parameter default-value=""
+     * @parameter 
      * @optional
      */
-    private String linkerOptionsEnd;
+    private String [] linkerEndOptions;
     
     /**
      * @parameter expression="${project.artifactId}-${project.version}"
@@ -105,7 +111,7 @@ public class NativeLinkMojo
      * @parameter default-value="" 
      * @optional
      */
-    private String linkerSecondaryOuputExtensions;
+    private String linkerSecondaryOuputExtensions = "";
 
     /**
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.LinkerManager}"
@@ -129,6 +135,11 @@ public class NativeLinkMojo
     	
     	try 
     	{
+    		if ( this.linkerType == null )
+    		{
+    			this.linkerType = this.compilerType;
+    		}
+    		
     		linker = this.manager.getLinker( this.linkerType );
     	}
     	catch ( NoSuchNativeProviderException pe )
@@ -141,9 +152,9 @@ public class NativeLinkMojo
     	config.setWorkingDirectory( this.basedir );
     	config.setExecutable( this.linkerExecutable );
     	config.setObjectFileExtention( this.objectFileExtension );
-    	config.setOptionsStart( this.linkerOptionsStart );
-    	config.setOptionsMiddle( this.linkerOptionsMiddle );
-    	config.setOptionsEnd( this.linkerOptionsEnd );
+    	config.setStartOptions( removeEmptyOptions( this.linkerStartOptions ) );
+    	config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );
+    	config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
     	config.setOutputDirectory( this.outputDirectory );
     	config.setOutputFileName( this.linkerOutputFileName );
     	config.setOutputFileExtension( this.linkerPrimaryOutputFileExtension );
@@ -151,9 +162,7 @@ public class NativeLinkMojo
     	
     	try 
     	{
-    		FileSet sources = new FileSet( this.sourceDir, this.sourceIncludes, this.sourceExcludes );
-    		
-    		linker.link( config, sources );
+    		linker.link( config, this.getSourceFiles() );
     	}
     	catch ( IOException ioe )
     	{
@@ -192,6 +201,7 @@ public class NativeLinkMojo
         {
         	/* TODO should be handled by compiler specific type */
         	Artifact artifact = (Artifact) iter.next();
+        	this.getLog().info("found dependency lib: " + artifact.getFile().getPath() );
             if ( !Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) &&
                  !Artifact.SCOPE_TEST.equals( artifact.getScope() ) &&
                  ( ".a".equals( artifact.getArtifactHandler().getExtension() ) ||
@@ -203,13 +213,6 @@ public class NativeLinkMojo
             }
         }
         
-        File [] libs = new File[ libList.size() ];
-        
-        for ( int i = 0; i < libs.length; ++i )
-        {
-        	libs[i] = (File) libList.get( i );
-        }
-        
-        return libs;
+        return ( File []) libList.toArray( new File [0] );
     }    
 }

@@ -24,6 +24,7 @@ package org.codehaus.mojo.natives.msvc;
  * SOFTWARE.
 */
 
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -50,6 +51,7 @@ public class MSVCCompiler
 	}
 	
 	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
+	   throws NativeBuildException
 	{
 		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
 		{
@@ -58,9 +60,15 @@ public class MSVCCompiler
 				
 		Commandline cl = super.getCommandLine( src, dest, config );
 	    
-		MSVCEnv.setCommandLineEnv( config.getProviderHome(), cl );
+		this.setupCommandLineEnv( config.getProviderHome(), cl );
 		
 		return cl;
+	}
+	
+	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
+	    throws NativeBuildException
+	{
+		// user must setup their env accourding compiler provided setup script
 	}
 
 }

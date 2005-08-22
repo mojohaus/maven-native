@@ -76,24 +76,25 @@ public class NativeCompileMojo
      * @parameter default-value=""
      */
     private String includePaths;
-
+    
+    /**
+     * @description Compiler options
+     * @parameter 
+     */
+    private String [] compilerStartOptions;
+    
+    
     /**
      * @description Compiler options to produce native object file
-     * @parameter default-value=""
+     * @parameter 
      */
-    private String compilerOptionsStart;
+    private String [] compilerMiddleOptions;
     
     /**
      * @description Compiler options to produce native object file
      * @parameter default-value=""
      */
-    private String compilerOptionsMiddle;
-    
-    /**
-     * @description Compiler options to produce native object file
-     * @parameter default-value=""
-     */
-    private String compilerOptionsEnd;
+    private String [] compilerEndOptions;
     
     /**
      * @parameter default-value=""
@@ -153,9 +154,9 @@ public class NativeCompileMojo
     	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.basedir );
     	config.setExecutable( this.compilerExecutable );
-    	config.setOptionsStart( this.compilerOptionsStart );
-    	config.setOptionsMiddle( this.compilerOptionsMiddle );
-    	config.setOptionsEnd( this.compilerOptionsEnd);
+    	config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );
+    	config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );
+    	config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
     	config.setIncludePaths( this.includePaths );
     	config.setSystemIncludePaths( this.systemIncludePaths );
     	config.setObjectFileExtension ( this.objectFileExtension );
@@ -163,13 +164,7 @@ public class NativeCompileMojo
     	    	
     	try 
     	{
-    		FileSet sourceSet = new FileSet( this.sourceDir, this.sourceIncludes, this.sourceExcludes ) ;
-    		
-    		compiler.compile( config, sourceSet );
-    	}
-    	catch ( IOException ioe )
-    	{
-    		throw new MojoExecutionException ( "Error retreiving source files.  Reason: " + ioe.getMessage(), ioe );
+    		compiler.compile( config, this.getSourceFiles() );
     	}
     	catch ( NativeBuildException e ) 
     	{

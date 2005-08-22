@@ -24,16 +24,16 @@ package org.codehaus.mojo.natives.linker;
  * SOFTWARE.
 */
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.util.FileSet;
 
 public interface Linker
 {
 	String ROLE = Linker.class.getName();
 	
-	List link( LinkerConfiguration config, FileSet sourceFiles ) throws NativeBuildException, IOException;
+	List link( LinkerConfiguration config, File [] sourceFiles ) throws NativeBuildException, IOException;
 
 }

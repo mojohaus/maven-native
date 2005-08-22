@@ -46,7 +46,8 @@ public class TLibLinkerTest
 		
 		config.setWorkingDirectory( new File( "." ) );
 		
-		config.setOptionsStart ( "/C" );
+		String [] options = {"/C"};
+		config.setStartOptions ( options );
 		config.setOutputFileName("tlib");
 		config.setOutputFileExtension("lib");
 		config.setOutputDirectory( new File ( "target" ) );
