@@ -48,6 +48,7 @@ import java.util.Set;
 /**
  * @goal link
  * @phase package
+ * @requiresDependencyResolution 
  * @description Link all previoius built and external lib ( if any )
  *
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
@@ -201,14 +202,14 @@ public class NativeLinkMojo
         {
         	/* TODO should be handled by compiler specific type */
         	Artifact artifact = (Artifact) iter.next();
-        	this.getLog().info("found dependency lib: " + artifact.getFile().getPath() );
             if ( !Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) &&
                  !Artifact.SCOPE_TEST.equals( artifact.getScope() ) &&
-                 ( ".a".equals( artifact.getArtifactHandler().getExtension() ) ||
-                   ".lib".equals( artifact.getArtifactHandler().getExtension() )
+                 ( "a".equals( artifact.getArtifactHandler().getExtension() ) ||
+                   "lib".equals( artifact.getArtifactHandler().getExtension() )
                   ) 
                 )
             {
+            	this.getLog().info("found dependency lib: " + artifact.getFile().getPath() );
             	libList.add( artifact.getFile() );
             }
         }

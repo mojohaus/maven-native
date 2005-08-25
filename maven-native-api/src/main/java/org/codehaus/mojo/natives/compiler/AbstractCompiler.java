@@ -59,7 +59,7 @@ public abstract class AbstractCompiler
 	    	
 	    	Parser parser = this.getParser();
 	    	
-	    	if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config ) ) 
+	    	if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) ) 
 	    	{
 	    		Commandline cl = getCommandLine(source, objectFile, config );
 	    		

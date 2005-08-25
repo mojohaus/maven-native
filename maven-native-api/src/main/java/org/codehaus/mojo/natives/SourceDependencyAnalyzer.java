@@ -33,7 +33,7 @@ import org.codehaus.mojo.natives.parser.Parser;
 
 public class SourceDependencyAnalyzer 
 {
-	public static boolean isStaled ( File source, File dest, Parser parser, CompilerConfiguration config )
+	public static boolean isStaled ( File source, File dest, Parser parser, File [] includePaths )
     	throws NativeBuildException
 	{
 	    if ( ! source.exists() )
@@ -49,7 +49,7 @@ public class SourceDependencyAnalyzer
 		}
 
 		//analyze the depenencies of the source file to detect any new changes
-		Dependency dependency = new Dependency( null, source, parser, config.getIncludePaths() );
+		Dependency dependency = new Dependency( null, source, parser, includePaths );
 
 		try 
 		{

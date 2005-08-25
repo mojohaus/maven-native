@@ -89,7 +89,14 @@ public class Dependency
     	
     	this.parser = parser;
     	
-    	this.includePaths = includePaths;
+    	if ( includePaths == null )
+    	{
+        	this.includePaths = new File[0];
+    	}
+    	else
+    	{
+    		this.includePaths = includePaths;
+    	}
     }
     
     public void analyze() 

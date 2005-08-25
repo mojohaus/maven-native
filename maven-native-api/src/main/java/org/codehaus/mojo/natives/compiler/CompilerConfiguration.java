@@ -87,9 +87,9 @@ public class CompilerConfiguration
 		this.executable = executable;
 	}
 	
-	public void setSystemIncludePaths( String paths )
+	public void setSystemIncludePaths( File [] paths )
 	{
-		this.systemIncludePaths = this.breakPaths( paths );
+		this.systemIncludePaths = paths;
 	}
 	
 	public File [] getSystemIncludePaths() 
@@ -103,9 +103,9 @@ public class CompilerConfiguration
 	}
 	
 	
-	public void setIncludePaths ( String paths )
+	public void setIncludePaths ( File [] paths )
 	{
-		this.includePaths = this.breakPaths( paths );
+		this.includePaths = paths;
 	}
 	
 	public File [] getIncludePaths() 

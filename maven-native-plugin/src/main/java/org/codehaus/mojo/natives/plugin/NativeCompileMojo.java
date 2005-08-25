@@ -33,6 +33,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.util.FileSet;
 import org.codehaus.plexus.util.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.util.List;
@@ -64,18 +65,18 @@ public class NativeCompileMojo
     private String compilerExecutable;
 	
     /**
-     * @description Comma separated include paths. They are not participating in dependency analysis
+     * @description Include paths to be participated in dependency analysis
+     * @parameter default-value=""
+     */
+    private File [] includePaths;
+
+    /**
+     * @description Include paths not participating in dependency analysis
      * ${java.home}/../include will be appended automaticall at compile time if javah is involved.
      * @parameter default-value=""
      */
-    private String systemIncludePaths;
+    private File [] systemIncludePaths;
 
-    /**
-     * TODO use File [] instead
-     * @description Comma separated include paths to be participate in dependency analysis
-     * @parameter default-value=""
-     */
-    private String includePaths;
     
     /**
      * @description Compiler options
@@ -125,31 +126,9 @@ public class NativeCompileMojo
     	}
     	
     	FileUtils.mkdir( project.getBuild().getDirectory() );
+
+    	this.addJavahIncludePath();
     	
-        List additionalIncludePaths = project.getCompileSourceRoots();
-        
-        if ( additionalIncludePaths.size() > 1 )
-        {
-        	//javah was invoked
-        	
-        	String jdkIncludeDir = System.getProperty("java.home");
-        	
-        	this.systemIncludePaths += "," + jdkIncludeDir + "/../include";
-        	
-        	if ( this.javahOS != null && this.javahOS.trim().length() > 0 )
-        	{
-            	this.systemIncludePaths += "," + jdkIncludeDir + "/../include/" + this.javahOS;
-        	}
-        	
-            for ( int i = 1; i < additionalIncludePaths.size(); ++i )
-            {
-            	String additionalPath = (String) additionalIncludePaths.get( i );
-            	this.includePaths += ",";
-            	this.includePaths += additionalPath;
-            }
-        	
-        }
-        
     	CompilerConfiguration config = new CompilerConfiguration();
     	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.basedir );
@@ -172,5 +151,32 @@ public class NativeCompileMojo
     	}
 
     }
-    
+
+	private void addJavahIncludePath()
+	{
+    	/*
+        List additionalIncludePaths = project.getCompileSourceRoots();
+        if ( additionalIncludePaths.size() > 1 )
+        {
+        	//javah was invoked
+        	
+        	String jdkIncludeDir = System.getProperty("java.home");
+        	
+        	this.systemIncludePaths += "," + jdkIncludeDir + "/../include";
+        	
+        	if ( this.javahOS != null && this.javahOS.trim().length() > 0 )
+        	{
+            	this.systemIncludePaths += "," + jdkIncludeDir + "/../include/" + this.javahOS;
+        	}
+        	
+        	/*
+            for ( int i = 1; i < additionalIncludePaths.size(); ++i )
+            {
+            	String additionalPath = (String) additionalIncludePaths.get( i );
+            	this.includePaths += ",";
+            	this.includePaths += additionalPath;
+            }
+		}
+        	*/
+	}
 }
