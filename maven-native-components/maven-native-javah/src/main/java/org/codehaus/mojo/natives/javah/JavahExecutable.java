@@ -82,30 +82,32 @@ public class JavahExecutable
 	    	cl.createArgument().setValue( "-d" );
 	    	cl.createArgument().setValue( config.getDestdir() );
 	    }
-		
-	    if ( config.getClassPath() != null && config.getClassPath().length() > 0 )
-	    {
-	    	char classPathSeparator = ';';
+
+        char classPathSeparator = System.getProperty( "path.separator" ).charAt( 0 );
+        
+        String [] classPaths = config.getClassPaths();
+        
+        StringBuffer classPathBuffer = new StringBuffer();
+        
+        for ( int i = 0 ; i < classPaths.length ; ++ i )
+        {
+            classPathBuffer.append( classPaths[i] );
+            if ( i != classPaths.length - 1 )
+            {
+                classPathBuffer.append( classPathSeparator );
+            }
+        }
+
+     	cl.createArgument().setValue( "-classpath" );
 	    	
-			if ( !Os.isFamily( "windows") )
-			{
-				classPathSeparator = ':';
-			}
-			
-	    	cl.createArgument().setValue( "-classpath" );
-	    	
-	    	cl.createArgument().setValue( config.getClassPath().replace( ',', classPathSeparator ) );
-	    }
+	   	cl.createArgument().setValue( classPathBuffer.toString() );
 
 	    if ( config.getVerbose() )
 	    {
 	    	cl.createArgument().setValue( "-verbose" );
 	    }
 
-	    if ( config.getClassNames() != null && config.getClassNames().length() > 0 )
-	    {
-	    	cl.createArgument().setLine( config.getClassNames().toString().replace( ',', ' ' ) );
-	    }
+        cl.addArguments( config.getClassNames() );
 	    
         return cl;
 	}

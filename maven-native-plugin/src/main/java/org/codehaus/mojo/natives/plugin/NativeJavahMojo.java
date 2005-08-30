@@ -69,7 +69,12 @@ public class NativeJavahMojo
      * @description Javah Provider Type
      */
     private String javahType;	
-	
+
+    /**
+     * @parameter 
+     */
+    private String [] classNames;
+
     /**
      * @parameter expression="${project}"
      * @required
@@ -108,7 +113,7 @@ public class NativeJavahMojo
     	JavahConfiguration config = new JavahConfiguration();
     	config.setVerbose( this.verboseJavah );
     	config.setDestDir( this.outputDirectory );
-    	config.setClassPath( this.getJavahClassPath() );
+    	config.setClassPaths( this.getJavahClassPath() );
     	config.setClassNames( this.getNativeClassNames() );
     	
     	try
@@ -153,42 +158,44 @@ public class NativeJavahMojo
         return list;
     }
 
-    private String getJavahClassPath()
+    private String [] getJavahClassPath()
     {
-    	StringBuffer buffer = new StringBuffer();
-    	
         List artifacts = this.getJavahArtifacts();
 
-        for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
+        String [] classPaths = new String[ artifacts.size() ];
+        
+        Iterator iter = artifacts.iterator();
+        
+        for ( int i = 0 ; i < classPaths.length; ++i ) 
         {
             Artifact artifact = (Artifact) iter.next();
             
-     		if ( buffer.length() != 0 )
-     		{
-     			buffer.append(",");
-   		    }
-			
-     		buffer.append( artifact.getFile().getPath() );
+            classPaths[i] = artifact.getFile().getPath();
         }
         
-        return buffer.toString();
-    	
+        return classPaths;
     }
     
     
 	/**
 	 * 
-	 * Get appliable class names to be "javahed"
+	 * Get appliable class names to be "javahed" 
 	 * 
      */
  
-    private String getNativeClassNames() 
+    private String [] getNativeClassNames() 
         throws MojoExecutionException
     {
-    	// store classnames separated by comas
-		StringBuffer classes = new StringBuffer();
+        if ( this.classNames != null )
+        {
+            return this.classNames;
+        }
 
+        //scan the immediate dependency list for jni classes
+        
         List artifacts = this.getJavahArtifacts();
+        
+        List scannedClassNames = new ArrayList();
 
         for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
         {
@@ -216,12 +223,7 @@ public class NativeJavahMojo
            	    		{
            	    			if ( methods[j].isNative() )
            	    			{
-               	    			if ( classes.length() != 0 )
-               	    			{
-               	    				classes.append(",");
-               	    			}
-            	    			
-           	        			classes.append( clazz.getClassName() );
+                                scannedClassNames.add( clazz.getClassName() );
 
            	    	        	this.getLog().info("Found native class: " + clazz.getClassName() );
            	        			
@@ -237,7 +239,7 @@ public class NativeJavahMojo
             }
         }
     	
-    	return classes.toString();
+    	return ( String [] ) scannedClassNames.toArray( new String[0] );
     }
     
 }

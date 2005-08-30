@@ -25,8 +25,15 @@ package org.codehaus.mojo.natives.plugin;
 */
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.cli.DefaultConsumer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,20 +80,13 @@ public abstract class AbstractNativeMojo
      */
 	protected File basedir;
 
-    /**
-     * TOTO support multiple sourceDirs
-     * @description base directory to look for source
-     * @parameter expression="${basedir}/src/main/c"
-     * @required
-     */
-    protected File sourceDir;
     
     /**
-     * @description relative to sourceDir. 
-     * @parameter default-value= "";
+     * Compilable source files see TODO api of NativeSource here
+     * @parameter 
      * @required
      */
-    protected String [] sourceIncludes ;
+    protected NativeSources [] sources;
     
    /**
      * @parameter expression="${objectFileExtension}" default-value="o"
@@ -95,26 +95,13 @@ public abstract class AbstractNativeMojo
      */
     protected String objectFileExtension;    
     
-    protected File [] getSourceFiles()
-    {
-    	this.sourceIncludes = trimParams( this.sourceIncludes );
-
-    	File [] sourceFiles = new File[ this.sourceIncludes.length ];
-    	    	
-    	for ( int i = 0; i < this.sourceIncludes.length; ++i )
-    	{
-    		sourceFiles[i] = new File( this.sourceDir.getAbsolutePath() + "/" + sourceIncludes[i] );
-    	}
-    	
-    	return sourceFiles;
-    }
     
     protected static String [] removeEmptyOptions( String [] args )
     {
     	return trimParams ( args );
     }
     
-    protected static String [] trimParams( String [] args )
+    static String [] trimParams( String [] args )
     {
     	if ( args == null )
     	{
@@ -145,4 +132,30 @@ public abstract class AbstractNativeMojo
     	
 		return (String []) tokenArray.toArray( new String[0] );
     }
+    
+	static void executeCommandline( Commandline cl, Log logger ) 
+       throws MojoExecutionException
+    {
+        int ok;
+
+        try 
+        {
+    	    DefaultConsumer stdout = new DefaultConsumer();
+
+    	    DefaultConsumer stderr = stdout;
+
+    	    logger.info( cl.toString() );
+
+    	    ok = CommandLineUtils.executeCommandLine( cl, stdout, stderr );
+        }
+        catch ( CommandLineException ecx) 
+        {
+        	throw new MojoExecutionException( "Error executing command line", ecx );
+        }
+
+        if ( ok != 0 )
+        {
+        	throw new MojoExecutionException( "Error executing command line. Exit code:" + ok );
+        }		
+    }    
 }

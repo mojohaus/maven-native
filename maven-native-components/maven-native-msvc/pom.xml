@@ -15,7 +15,7 @@
   <dependencies>
   
     <dependency>
-      <groupId>org.codehaus.mojo.natives</groupId>
+      <groupId>org.codehaus.mojo</groupId>
       <artifactId>maven-native-generic-c</artifactId>
       <version>1.0-alpha-1-SNAPSHOT</version>
     </dependency>

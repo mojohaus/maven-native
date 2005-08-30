@@ -25,14 +25,13 @@ package org.codehaus.mojo.natives.javah;
 */
 
 import java.io.File;
-import java.util.List;
 
 public class JavahConfiguration 
 {
 	/*
 	 *  the fully-qualified name of a class/or classes separated by a ','
 	 */
-	private String classNames;
+	private String [] classNames;
 	
 	/**
 	 *  Sets the directory where javah saves the header files or the stub files
@@ -42,7 +41,7 @@ public class JavahConfiguration
 	/**
 	 * ClassPaths to locate classNames, separated by a ','
 	 */
-	private String classPath;
+	private String [] classPaths;
 	
 	private boolean verbose = false;
 	
@@ -56,14 +55,14 @@ public class JavahConfiguration
     	return this.destDir.getPath();
     }
     
-    public String getClassPath()
+    public String [] getClassPaths()
     {
-    	return this.classPath;
+    	return this.classPaths;
     }
     
-    public void setClassPath(String classPath ) 
+    public void setClassPaths(String [] paths ) 
     {
-    	this.classPath = classPath;
+    	this.classPaths = paths;
     }
 
     public void setVerbose( boolean flag )
@@ -76,12 +75,12 @@ public class JavahConfiguration
     	return this.verbose;
     }
     
-    public void setClassNames ( String names )
+    public void setClassNames ( String [] names )
     {
     	this.classNames = names;
     }
     
-    public String getClassNames() 
+    public String [] getClassNames() 
     {
     	return this.classNames;
     }

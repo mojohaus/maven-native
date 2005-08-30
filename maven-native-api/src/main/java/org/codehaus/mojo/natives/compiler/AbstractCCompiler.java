@@ -54,6 +54,11 @@ public abstract class AbstractCCompiler
 	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
 	    throws NativeBuildException
 	{
+        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+        {
+            config.setExecutable ( "gcc" );
+        }
+        
 	    Commandline cl = new Commandline();
 	    
 	    cl.setWorkingDirectory( config.getBaseDir().getPath() );

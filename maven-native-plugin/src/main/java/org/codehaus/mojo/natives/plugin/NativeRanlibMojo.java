@@ -24,10 +24,19 @@ package org.codehaus.mojo.natives.plugin;
  * SOFTWARE.
 */
 
+import java.io.File;
+
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.exec.Exec;
+import org.codehaus.mojo.natives.linker.Ranlib;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.Commandline;
 
 /**
  * @goal ranlib
+ * @phase package
  * @description ranlib a linker output file on unix
  *
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
@@ -37,10 +46,43 @@ public class NativeRanlibMojo
     extends AbstractNativeMojo
 {
 
+    /**
+     * @parameter expression="${project.artifactId}-${project.version}"
+     * @optional
+     */
+    
+    private String finalName;
 
+    /**
+     * @parameter expression="${project.artifact}"
+     * @required
+     * @readonly
+     */
+    private Artifact artifact;
+       
+    /**
+     * @parameter expression="${component.org.codehaus.mojo.natives.linker.Ranlib}"
+     * @required
+     * @readonly
+     */
+  
+    private Ranlib ranlib; 
+    
     public void execute()
         throws MojoExecutionException
     {
+        try 
+        {
+            File outputFile = new File ( this.outputDirectory.getAbsolutePath() + "/" + 
+                                         this.finalName + "." + 
+                                         this.artifact.getArtifactHandler().getExtension() );
+            
+            ranlib.run( outputFile );
+        }
+        catch ( NativeBuildException e )
+        {
+    		throw new MojoExecutionException( "Error executing ranlib.", e );
+		}
     }
     
 }

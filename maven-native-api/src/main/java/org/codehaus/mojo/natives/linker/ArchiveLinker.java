@@ -1,5 +1,4 @@
-package org.codehaus.mojo.natives.c;
-
+package org.codehaus.mojo.natives.linker;
 /*
  * The MIT License
  *
@@ -24,7 +23,6 @@ package org.codehaus.mojo.natives.c;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -32,57 +30,47 @@ import org.codehaus.plexus.util.cli.Commandline;
 import java.io.File;
 import java.util.List;
 
-public class CLinker 
+public class ArchiveLinker
     extends AbstractLinker
 {
-	
-	public CLinker ()
-	{
-	}
-		
-	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
-        throws NativeBuildException	
-	{
-	    Commandline cl = new Commandline();
 
-	    cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+    public static final String EXECUTABLE = "ar";
 
-        if ( config.getExecutable() == null || config.getExecutable().length() == 0 )
+    public ArchiveLinker ()
+    {
+    }
+
+    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+    {
+        Commandline cl = new Commandline();
+
+        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+
+        String executable = EXECUTABLE;
+        
+        if ( config.getExecutable() != null && config.getExecutable().trim().length() != 0 )
         {
-            cl.setExecutable( "gcc" );
+            executable = config.getExecutable();
         }
-        else
+        
+        cl.setExecutable( executable );
+
+        for ( int i = 0; i < config.getStartOptions().length; ++i )
         {
-            cl.createArgument().setValue( config.getExecutable() );
+          cl.createArgument().setValue( config.getStartOptions()[i] );
+        }
+        
+        cl.createArgument().setValue( config.getOutputFilePath() );
+
+        
+        for ( int i = 0; i < objectFiles.size(); ++i )
+        {
+            File objFile = (File) objectFiles.get(i);
+
+            cl.createArgument().setValue( objFile.getPath() );
         }
 
-	    for ( int i = 0; i < config.getStartOptions().length; ++i )
-	    {
-	      cl.createArgument().setValue( config.getStartOptions()[i] );
-	    }
-
-	    cl.createArgument().setValue( this.getLinkerOutputOption() + config.getOutputFilePath());
-
-	    for ( int i = 0; i < objectFiles.size(); ++i )
-	    {
-	    	File objFile = (File) objectFiles.get(i);
-
-		    cl.createArgument().setValue( objFile.getPath() );
-	    }
-	    
-	    File [] externalLibs = config.getExternalLibraries();
-	    
-	    for ( int i = 0; i < externalLibs.length; ++i )
-	    {
-		    cl.createArgument().setValue( externalLibs[i].getPath() );
-	    }
-
-	    return cl;
-		
-	}
-	
-	protected String getLinkerOutputOption()
-	{
-		return "-o";
-	}
+        return cl;
+        
+    }
 }
