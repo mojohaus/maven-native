@@ -118,7 +118,7 @@ public class NativeCompileMojo
     	
     	FileUtils.mkdir( project.getBuild().getDirectory() );
 
-    	this.addJavahIncludePath();
+    	this.addAdditionalIncludePath();
     	
     	CompilerConfiguration config = new CompilerConfiguration();
     	config.setProviderHome( this.providerHome );
@@ -128,7 +128,7 @@ public class NativeCompileMojo
     	config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );
     	config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
     	config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
-    	config.setSystemIncludePaths( NativeSources.getSystemPaths( this.sources ) );
+    	config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
     	config.setObjectFileExtension ( this.objectFileExtension );
     	config.setOutputDirectory ( this.outputDirectory );
         
@@ -143,41 +143,67 @@ public class NativeCompileMojo
 
     }
 
-	private void addJavahIncludePath()
+    
+    private void addJavaHIncludePaths( List includePaths )
+    {
+        if ( this.javahOS != null && this.javahOS.trim().length() > 0 )
+        {
+            File jdkIncludeDir = new File( System.getProperty( "java.home" )  + "/../include" ) ;
+            
+            NativeSources jdkIncludeSource = new NativeSources();
+            
+            jdkIncludeSource.setDirectory( jdkIncludeDir );
+            
+            jdkIncludeSource.setDependencyAnalysisParticipation( false );
+            
+            includePaths.add( jdkIncludeSource );
+            
+            File jdkOsIncludeDir = new File ( jdkIncludeDir.getPath() + "/" +  this.javahOS );
+            
+            NativeSources jdkIncludeOsSource = new NativeSources();
+            
+            jdkIncludeOsSource.setDirectory( jdkOsIncludeDir );
+            
+            jdkIncludeOsSource.setDependencyAnalysisParticipation( false );
+            
+            includePaths.add( jdkIncludeOsSource );
+        }
+    }
+    
+    
+	private void addAdditionalIncludePath()
 	{
         List additionalIncludePaths = project.getCompileSourceRoots();
         
+        if ( additionalIncludePaths.size() < 2 || this.javahOS == null || this.javahOS.trim().length() == 0 )
+        {
+            return;
+        }
+        
+        if (  this.sources == null )
+        {
+            return;
+        }
+        
+        List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
+        
+        this.addJavaHIncludePaths( sourceArray );
+        
         if ( additionalIncludePaths.size() > 1 )
         {
-        	//javah was invoked
-            
-            List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
-        	
-        	File jdkIncludeDir = new File( System.getProperty("java.home" + "/../include" ) );
-            
-            NativeSources jdkIncludeSource = new NativeSources();
-            jdkIncludeSource.setDirectory( jdkIncludeDir );
-            jdkIncludeSource.setDependencyAnalysisParticipation( false );
-            
-            sourceArray.add( jdkIncludeSource );
-        	
-            //TODO it many be safe to put all directory under  javahome.include
-            
-        	if ( this.javahOS != null && this.javahOS.trim().length() > 0 )
-        	{
-                File jdkOsIncludeDir = new File ( jdkIncludeDir.getPath() + "/" +  this.javahOS );
+            for ( int i = 1; i < additionalIncludePaths.size(); ++i )
+            {
+                File genIncludeDir = new File ( additionalIncludePaths.get( i ).toString() );
                 
-                NativeSources jdkIncludeOsSource = new NativeSources();
+                NativeSources genIncludeSource = new NativeSources();
                 
-                jdkIncludeOsSource.setDirectory( jdkOsIncludeDir );
+                genIncludeSource.setDirectory( genIncludeDir );
                 
-                jdkIncludeOsSource.setDependencyAnalysisParticipation( false );
-                
-                sourceArray.add( jdkIncludeOsSource );
-        	}
-            
-            this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[0] ); 
-        	
+                sourceArray.add( genIncludeSource );
+            }
 		}
+
+        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[0] );
+        
 	}
 }

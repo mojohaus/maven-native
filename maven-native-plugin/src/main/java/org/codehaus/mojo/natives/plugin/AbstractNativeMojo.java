@@ -84,7 +84,7 @@ public abstract class AbstractNativeMojo
     /**
      * Compilable source files see TODO api of NativeSource here
      * @parameter 
-     * @required
+     * 
      */
     protected NativeSources [] sources;
     

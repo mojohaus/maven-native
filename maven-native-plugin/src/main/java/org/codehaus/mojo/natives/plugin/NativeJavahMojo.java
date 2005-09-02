@@ -63,6 +63,8 @@ import java.util.zip.ZipFile;
 public class NativeJavahMojo
     extends AbstractNativeMojo
 {
+    
+    
     /**
      * @parameter default-value="sun"
      * @required
@@ -132,7 +134,7 @@ public class NativeJavahMojo
     	}
     	
     	this.project.addCompileSourceRoot( this.outputDirectory.getAbsolutePath() );
-    	
+        
     }
     
     private List getJavahArtifacts()

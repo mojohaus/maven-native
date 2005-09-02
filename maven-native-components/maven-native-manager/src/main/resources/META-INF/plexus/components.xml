@@ -36,6 +36,30 @@
         </requirement>
       </requirements>
     </component>    
+
+    <component>
+      <role>org.codehaus.mojo.natives.manager.MessageCompilerManager</role>
+      <role-hint>native-message-compiler-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultMessageCompilerManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.compiler.MessageCompiler</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+    </component>    
+
+    <component>
+      <role>org.codehaus.mojo.natives.manager.ResourceCompilerManager</role>
+      <role-hint>native-resource-compiler-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultResourceCompilerManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.compiler.ResourceCompiler</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+    </component>    
     
   </components>
 </component-set>

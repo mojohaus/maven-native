@@ -142,6 +142,11 @@ public class NativeSources
      */
     public static File [] getAllSourceFiles( NativeSources [] sources )
     {
+        if ( sources == null ) 
+        {
+            return new File [0];
+        }
+        
         List sourceFiles = new ArrayList();
         
         for ( int i = 0 ; i < sources.length; ++i )
@@ -161,6 +166,11 @@ public class NativeSources
      */
     public static File [] getAllSourceFilesWithExtensionTranslation( NativeSources [] sources, String extension )
     {
+        if ( sources == null ) 
+        {
+            return new File [0];
+        }
+        
         List sourceFiles = new ArrayList();
         
         for ( int i = 0 ; i < sources.length; ++i )
@@ -186,6 +196,11 @@ public class NativeSources
     
     public static File [] getIncludePaths( NativeSources [] sources )
     {
+        if ( sources == null ) 
+        {
+            return new File [0];
+        }
+        
         List list = new ArrayList();
 
         for ( int i = 0 ; i < sources.length; ++i )
@@ -199,8 +214,13 @@ public class NativeSources
         return ( File [] ) list.toArray( new File[0] ) ;
     }
             
-    public static File [] getSystemPaths( NativeSources [] sources )
+    public static File [] getSystemIncludePaths( NativeSources [] sources )
     {
+        if ( sources == null ) 
+        {
+            return new File [0];
+        }
+        
         List list = new ArrayList();
 
         for ( int i = 0 ; i < sources.length; ++i )

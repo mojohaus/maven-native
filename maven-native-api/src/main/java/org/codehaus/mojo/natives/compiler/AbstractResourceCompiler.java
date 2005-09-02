@@ -27,7 +27,9 @@ package org.codehaus.mojo.natives.compiler;
 import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
+import org.codehaus.mojo.natives.parser.CParser;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 
@@ -36,65 +38,58 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 
 
-public abstract class AbstractCompiler 
+public abstract class AbstractResourceCompiler 
     extends AbstractLogEnabled
-    implements Compiler 
+    implements ResourceCompiler 
 {
 
-	protected abstract Parser getParser();
-	
-	protected abstract Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
+	protected abstract Commandline getCommandLine(ResourceCompilerConfiguration config, File source )
 	    throws NativeBuildException;
 	
-    public void compile( CompilerConfiguration config, File [] sourceFiles )
+    public void compile( ResourceCompilerConfiguration config, NativeSources [] sources )
     	throws NativeBuildException
     {
+        File [] sourceFiles = NativeSources.getAllSourceFiles( sources );
+        
+        config.setIncludePaths( NativeSources.getIncludePaths( sources ) );
+        
+        config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( sources ) );
+        
+        for (int i = 0 ;i < sourceFiles.length; ++i )
+        {
+            File src = sourceFiles[i];
 
-	    for ( int i = 0 ; i < sourceFiles.length; ++i )
-	    {
-	    	File source = new File( sourceFiles[i].toString() );
-		
-	    	File objectFile = this.getObjectFile( source, config );
-	    	
-	    	Parser parser = this.getParser();
-	    	
-	    	if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) ) 
-	    	{
-	    		Commandline cl = getCommandLine(source, objectFile, config );
-	    		
-	    	    CommandLineUtil.execute( cl, this.getLogger() );
-
-	    	    if ( ! objectFile.exists() )
-	    	    {
-	    	    	throw new NativeBuildException ( "Internal error: " + objectFile + " not found after successfull compilation.");
-	    	    }
-	    	}
-	    	else
-	    	{
-	    		this.getLogger().debug( ( objectFile + " is up to date." ) );
-	    	}
-	    }
-    }
-
-	/**
-	 * Figure out the object file path from a given source file
-	 * @param sourceFile
-	 * @return
-	 */
-	private File getObjectFile ( File sourceFile, CompilerConfiguration config )
-	{
-		String fileName = sourceFile.getName();
-		
-		String fileNameWithNoExtension = FileUtils.removeExtension( fileName );
-		
-		return new File ( config.getOutputDirectory().getPath() + 
-				          "/" +
-				          fileNameWithNoExtension +
-				          "." + 
-				          config.getObjectFileExtension() 
-				         );	
-	}	
-	
+            if ( isResourceFileStaled( src, config.getOutputFile( src ), config.getIncludePaths() ) )
+            {
+                Commandline cl = getCommandLine( config, src );
+                
+                CommandLineUtil.execute( cl, this.getLogger() );
+            }
+        }
+        
+    }	
+    
+    private boolean isResourceFileStaled( File src, File dest, File [] includePaths )
+        throws NativeBuildException
+    {
+        Parser parser = new CParser();
+    
+        try 
+        {
+            if ( ! SourceDependencyAnalyzer.isStaled( src, dest, parser, includePaths ) )
+            {
+                this.getLogger().info( src.getPath() + " is up to date.");
+                return false;
+            }
+        }
+        catch ( NativeBuildException ioe )
+        {
+            throw new NativeBuildException( "Error analyzing " + src.getPath() + " dependencies.", ioe ); 
+        }
+        
+        return true;
+}
+    
 
 	    
 }
