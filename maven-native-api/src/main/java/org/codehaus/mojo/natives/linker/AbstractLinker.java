@@ -31,9 +31,9 @@ import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
-import org.codehaus.mojo.natives.util.FileSet;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
 
@@ -45,41 +45,14 @@ public abstract class AbstractLinker
 	protected abstract Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException;
 	
-	public List link ( LinkerConfiguration config, File [] sourceFiles )
+	public File link ( LinkerConfiguration config, List compilerOutputFiles )
         throws NativeBuildException, IOException
     {
+       Commandline cl = this.createLinkerCommandLine( compilerOutputFiles, config );
+           
+       CommandLineUtil.execute( cl, this.getLogger() );
 	
-		List objectFiles = new ArrayList( sourceFiles.length );
-	
-		for ( int i = 0 ; i < sourceFiles.length; ++i )
-		{
-			objectFiles.add( this.getObjectFile( sourceFiles[i], config ));
-		}		
-	
-		Commandline cl = this.createLinkerCommandLine( objectFiles, config );
-	
-		CommandLineUtil.execute( cl, this.getLogger() );
-	
-		return null;
+	   return new File( config.getOutputFilePath() );
     }
-	
-	/**
-	 * Figure out the object file path from a given source file
-	 * @param sourceFile
-	 * @return
-	 */
-	private File getObjectFile ( File sourceFile, LinkerConfiguration config )
-	{
-		String fileName = sourceFile.getName();
-		
-		String fileNameWithNoExtension = FileUtils.removeExtension( fileName );
-		
-		return new File ( config.getOutputDirectory().getPath() + 
-				          "/" +
-				          fileNameWithNoExtension +
-				          "." + 
-				          config.getObjectFileExtention() 
-				         );	
-	}	
-	
+
 }

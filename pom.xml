@@ -1,15 +1,21 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
+  <!--
   <parent>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>mojo</artifactId>
-    <version>2-SNAPSHOT</version>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-plugin-parent</artifactId>
+    <version>2.0-beta-1-SNAPSHOT</version>
   </parent>
+  -->
+  
+  <packaging>pom</packaging>
+
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
   <version>1.0-alpha-1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+
   <name>Maven Native</name>
+
   <developers>
     <developer>
       <id>dtran</id>
@@ -21,9 +27,103 @@
       </roles>
     </developer>
   </developers>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/scm/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/scm/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/maven/scm/</url>
+  </scm>
+  
   <modules>
     <module>maven-native-api</module>
     <module>maven-native-components</module>
     <module>maven-native-plugin</module>
+    <!--module>maven-exec-plugin</module-->
   </modules>
+  
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-project</artifactId>
+        <version>2.0-beta-1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>plexus</groupId>
+        <artifactId>plexus-container-default</artifactId>
+        <version>1.0-alpha-6-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>plexus</groupId>
+        <artifactId>plexus-utils</artifactId>
+        <version>1.0.2-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0-beta-1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
+    <repositories>
+      <repository>
+        <id>snapshots</id>
+        <name>Maven Central Development Repository</name>
+        <url>http://snapshots.maven.codehaus.org/maven2</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </repository>
+    </repositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <id>snapshots</id>
+        <name>Maven Central Plugins Development Repository</name>
+        <url>http://snapshots.maven.codehaus.org/maven2/plugins</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </pluginRepository>
+    </pluginRepositories>
+    
+    
+  <distributionManagement>
+  
+    <repository>
+      <id>repo1</id>
+      <name>Cupertino Maven Central Repository</name>
+      <url>file://\\\\uscus-ebulnx2.borland.com\\usr\\scm\\tmp\\cu\\release</url>
+    </repository>
+
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>Cupertino Maven Central Snapshots Repository</name>
+      <url>file://\\\\uscus-ebulnx2.borland.com\\usr\\scm\\tmp\\cu\\snapshot</url>
+    </snapshotRepository>
+
+    <site>
+      <id>website</id>
+      <url>file://\\\\uscus-ebulnx2.borland.com\\usr\\scm\\site\\scm\\projects\\plugins</url> <!-- FIXME -->
+    </site>
+    
+    <site>
+      <id>website</id>
+      <url>file://\\\\uscus-ebulnx2.borland.com\\usr\\scm\\site\\scm\\projects</url>
+    </site>
+    
+  </distributionManagement>
+  
+    
+
 </project>

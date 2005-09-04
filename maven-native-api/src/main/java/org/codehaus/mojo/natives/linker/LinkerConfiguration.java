@@ -55,8 +55,6 @@ public class LinkerConfiguration
 	
 	private String outputFileExtension;
 
-	private String objectFileExtension;
-
 	private String outputFileName; /* should not have extension */
 	
 	private File [] externalLibraries;
@@ -154,16 +152,6 @@ public class LinkerConfiguration
 	public void setOutputFileName ( String name ) 
 	{
 		this.outputFileName = name; 
-	}
-	
-	public String getObjectFileExtention()
-	{
-		return this.objectFileExtension;
-	}
-
-	public void setObjectFileExtention( String ext )
-	{
-		this.objectFileExtension = ext;
 	}
 	
 	public String getOutputFilePath() 

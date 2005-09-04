@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.compiler;
 */
 
 import java.io.File;
+import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
@@ -32,6 +33,13 @@ public interface Compiler
 {
 	String ROLE = Compiler.class.getName();
 	
-	void compile( CompilerConfiguration config, File [] sourceFiles ) throws NativeBuildException;
+    /**
+     * 
+     * @param config
+     * @param sourceFiles
+     * @return List of compiler ouput files (ie, .o, .obj )
+     * @throws NativeBuildException
+     */
+	List compile( CompilerConfiguration config, File [] sourceFiles ) throws NativeBuildException;
 
 }

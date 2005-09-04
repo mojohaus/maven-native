@@ -25,6 +25,8 @@ package org.codehaus.mojo.natives.compiler;
 */
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
@@ -32,6 +34,7 @@ import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 
@@ -46,16 +49,19 @@ public abstract class AbstractCompiler
 	protected abstract Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
 	    throws NativeBuildException;
 	
-    public void compile( CompilerConfiguration config, File [] sourceFiles )
+    public List  compile( CompilerConfiguration config, File [] sourceFiles )
     	throws NativeBuildException
     {
-
+        List compilerOutputFiles = new ArrayList( sourceFiles.length );
+        
 	    for ( int i = 0 ; i < sourceFiles.length; ++i )
 	    {
 	    	File source = new File( sourceFiles[i].toString() );
 		
 	    	File objectFile = this.getObjectFile( source, config );
 	    	
+            compilerOutputFiles.add( objectFile );
+            
 	    	Parser parser = this.getParser();
 	    	
 	    	if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) ) 
@@ -74,6 +80,25 @@ public abstract class AbstractCompiler
 	    		this.getLogger().debug( ( objectFile + " is up to date." ) );
 	    	}
 	    }
+        
+        return compilerOutputFiles;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    protected String getObjectFileExtension()
+    {
+        // TODO is it a good assumption?
+        if ( Os.isFamily( "windows") )
+        {
+            return "obj";
+        }
+        else
+        {
+            return "o";
+        }
     }
 
 	/**
@@ -83,16 +108,14 @@ public abstract class AbstractCompiler
 	 */
 	private File getObjectFile ( File sourceFile, CompilerConfiguration config )
 	{
-		String fileName = sourceFile.getName();
-		
-		String fileNameWithNoExtension = FileUtils.removeExtension( fileName );
-		
-		return new File ( config.getOutputDirectory().getPath() + 
-				          "/" +
-				          fileNameWithNoExtension +
-				          "." + 
-				          config.getObjectFileExtension() 
-				         );	
+        
+        String srcPath = sourceFile.getPath();
+            
+        String destPath = config.getOutputDirectory().getPath() + "/" + 
+                          FileUtils.basename( srcPath ) + this.getObjectFileExtension();
+
+        return new File ( destPath );
+        
 	}	
 	
 

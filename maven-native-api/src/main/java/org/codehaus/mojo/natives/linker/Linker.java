@@ -34,6 +34,6 @@ public interface Linker
 {
 	String ROLE = Linker.class.getName();
 	
-	List link( LinkerConfiguration config, File [] sourceFiles ) throws NativeBuildException, IOException;
+	File link( LinkerConfiguration config, List compilerOutputFiles ) throws NativeBuildException, IOException;
 
 }

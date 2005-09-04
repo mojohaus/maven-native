@@ -25,6 +25,8 @@ package org.codehaus.mojo.natives.compiler;
 */
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
@@ -46,7 +48,7 @@ public abstract class AbstractResourceCompiler
 	protected abstract Commandline getCommandLine(ResourceCompilerConfiguration config, File source )
 	    throws NativeBuildException;
 	
-    public void compile( ResourceCompilerConfiguration config, NativeSources [] sources )
+    public List compile( ResourceCompilerConfiguration config, NativeSources [] sources )
     	throws NativeBuildException
     {
         File [] sourceFiles = NativeSources.getAllSourceFiles( sources );
@@ -55,17 +57,25 @@ public abstract class AbstractResourceCompiler
         
         config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( sources ) );
         
+        List compilerOutputFiles = new ArrayList( sourceFiles.length );
+        
         for (int i = 0 ;i < sourceFiles.length; ++i )
         {
             File src = sourceFiles[i];
+            
+            File outputFile = config.getOutputFile( src );
+            
+            compilerOutputFiles.add( outputFile );
 
-            if ( isResourceFileStaled( src, config.getOutputFile( src ), config.getIncludePaths() ) )
+            if ( isResourceFileStaled( src, outputFile, config.getIncludePaths() ) )
             {
                 Commandline cl = getCommandLine( config, src );
                 
                 CommandLineUtil.execute( cl, this.getLogger() );
             }
         }
+        
+        return compilerOutputFiles;
         
     }	
     

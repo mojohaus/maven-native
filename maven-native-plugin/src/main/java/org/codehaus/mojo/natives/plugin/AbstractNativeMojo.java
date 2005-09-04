@@ -29,6 +29,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.NativeSources;
+import org.codehaus.mojo.natives.util.FileUtil;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
@@ -36,6 +39,9 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +53,7 @@ import java.util.List;
 public abstract class AbstractNativeMojo
     extends AbstractMojo
 {
+    protected static final List EMPTY_FILE_LIST = new ArrayList();
 	
     /**
      * @parameter 
@@ -80,21 +87,14 @@ public abstract class AbstractNativeMojo
      */
 	protected File basedir;
 
-    
     /**
-     * Compilable source files see TODO api of NativeSource here
-     * @parameter 
-     * 
+     * All compiler appends it ouput file paths so that link mojo can pick it up
+     * @parameter expression="${project.build.directory}/object-file-list.txt
+     * @required
+     * @readonly
      */
-    protected NativeSources [] sources;
-    
-   /**
-     * @parameter expression="${objectFileExtension}" default-value="o"
-     * @description The extension of object file name. The default extension should work for all compilers
-     * @optional
-     */
-    protected String objectFileExtension;    
-    
+    protected File compilerOuputListFile;
+
     
     protected static String [] removeEmptyOptions( String [] args )
     {
@@ -158,4 +158,78 @@ public abstract class AbstractNativeMojo
         	throw new MojoExecutionException( "Error executing command line. Exit code:" + ok );
         }		
     }    
+    
+    protected static void appendFilePathsToFile( File dest, List filePaths )
+      throws MojoExecutionException
+    {
+        FileOutputStream fs = null;
+        
+        StringBuffer buffer = new StringBuffer();
+
+        try 
+        {
+            fs = new  FileOutputStream(dest, true );
+            
+            for ( int i = 0; i < filePaths.size(); ++i )
+            {
+                File file = (File) filePaths.get(i);
+                
+                buffer.append( file.getPath() );
+                
+                buffer.append(" ");
+            }
+            
+            fs.write( buffer.toString().getBytes() );
+        }
+        catch ( IOException ioe )
+        {
+            throw new MojoExecutionException( "Error storing object file list at " + dest.getPath() );
+        }
+        finally
+        {
+            if ( fs != null )
+            {
+                try 
+                {
+                    fs.close();
+                }
+                catch ( IOException ioe )
+                {
+                    throw new MojoExecutionException( "Error storing object file list at " + dest.getPath() );
+                }
+            }
+        }
+                
+    }
+    
+    protected static List getCompilerOuputFiles ( File from )
+        throws MojoExecutionException
+    {
+        if ( ! from.exists() )
+        {
+            return new ArrayList();
+        }
+        
+        try 
+        {
+            String fileLists = FileUtils.fileRead( from );
+            
+            String [] fileNames = StringUtils.split( fileLists );
+            
+            List filePaths = new ArrayList( fileNames.length );
+            
+            for ( int i = 0; i < fileNames.length; ++i )
+            {
+                filePaths.add( new File( fileNames[i] ) );
+            }
+            
+            return filePaths;
+        }
+        catch ( IOException ioe )
+        {
+            throw new MojoExecutionException( "Error reading object file list at " + from.getPath() );
+        }
+    }
+    
+    
 }

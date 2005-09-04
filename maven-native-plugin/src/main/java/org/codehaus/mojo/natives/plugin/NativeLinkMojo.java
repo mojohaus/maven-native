@@ -30,7 +30,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.manager.LinkerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.linker.Linker;
@@ -162,7 +161,8 @@ public class NativeLinkMojo
 	    
     	try 
     	{
-    		linker.link( config, NativeSources.getAllSourceFiles( this.sources ) );
+            List compilerOuputFiles = AbstractNativeMojo.getCompilerOuputFiles( this.compilerOuputListFile );
+    		linker.link( config, compilerOuputFiles );
     	}
     	catch ( IOException ioe )
     	{
@@ -187,7 +187,6 @@ public class NativeLinkMojo
     	config.setProviderHome( this.providerHome );
     	config.setWorkingDirectory( this.basedir );
     	config.setExecutable( this.linkerExecutable );
-    	config.setObjectFileExtention( this.objectFileExtension );
     	config.setStartOptions( removeEmptyOptions( this.linkerStartOptions ) );
     	config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );
     	config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );

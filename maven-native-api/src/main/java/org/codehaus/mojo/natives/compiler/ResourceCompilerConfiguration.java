@@ -34,7 +34,10 @@ import org.codehaus.plexus.util.FileUtils;
  */
 public class ResourceCompilerConfiguration
 {
-	
+    private static final File[] EMPTY_FILE_ARRAY = new File[0];
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
 	private File providerHome;
 	
 	private File baseDir;
@@ -43,11 +46,11 @@ public class ResourceCompilerConfiguration
 
     private File debugOutputDirectory;
 
-    private String [] options = new String [0];
+    private String [] options = EMPTY_STRING_ARRAY;
     
-    private File [] includePaths = new File[0];
+    private File [] includePaths = EMPTY_FILE_ARRAY;
     
-    private File [] systemIncludePaths = new File[0];
+    private File [] systemIncludePaths = EMPTY_FILE_ARRAY;
     
 	public ResourceCompilerConfiguration ()
 	{
@@ -74,10 +77,8 @@ public class ResourceCompilerConfiguration
 
         if ( this.options == null ) 
         {
-            this.options = new String [0];
-            
+            this.options = EMPTY_STRING_ARRAY;
         }
-        
 	}
 
 	public File getProviderHome()
@@ -121,7 +122,7 @@ public class ResourceCompilerConfiguration
         
         if ( this.includePaths == null )
         {
-            this.includePaths = new File[0];
+            this.includePaths = EMPTY_FILE_ARRAY;
         }
     }
 
@@ -136,7 +137,7 @@ public class ResourceCompilerConfiguration
         
         if ( this.systemIncludePaths == null )
         {
-            this.systemIncludePaths = new File[0];
+            this.systemIncludePaths = EMPTY_FILE_ARRAY;
         }
     }
     

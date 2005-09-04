@@ -29,10 +29,7 @@ import java.io.File;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.exec.Exec;
 import org.codehaus.mojo.natives.linker.Ranlib;
-import org.codehaus.plexus.util.cli.CommandLineException;
-import org.codehaus.plexus.util.cli.Commandline;
 
 /**
  * @goal ranlib

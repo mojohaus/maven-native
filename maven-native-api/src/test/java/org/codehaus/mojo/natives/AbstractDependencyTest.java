@@ -71,12 +71,6 @@ public class AbstractDependencyTest
 		}
 	}
 
-	protected void appendFile ( String filePath, String content)
-	    throws IOException
-	{
-		
-	}
-
 	protected void removeFile ( String filePath )
       throws IOException
 	{

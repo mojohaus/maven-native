@@ -1,4 +1,4 @@
-package org.codehaus.mojo.natives.compiler;
+package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
@@ -24,22 +24,42 @@ package org.codehaus.mojo.natives.compiler;
  * SOFTWARE.
 */
 
-import java.util.List;
+import java.io.File;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.NativeSources;
+import org.codehaus.mojo.natives.linker.Ranlib;
 
-public interface ResourceCompiler
+/**
+ * @goal initialize
+ * @phase initialize
+ * @description prepare maven-native-plugin build lifecycle
+ * @author <a href="dantran@gmail.com">Dan T. Tran</a>
+ * @version $Id:$
+ */
+public class NativeInitializeMojo
+    extends AbstractNativeMojo
 {
-	String ROLE = ResourceCompiler.class.getName();
-	
-    /**
-     * 
-     * @param config
-     * @param sources
-     * @return List of resource ouput files
-     * @throws NativeBuildException
-     */
-	List  compile( ResourceCompilerConfiguration config, NativeSources [] sources ) throws NativeBuildException;
 
+    public void execute()
+        throws MojoExecutionException
+    {
+        if ( this.compilerOuputListFile.exists() )
+        {
+            if ( ! this.compilerOuputListFile.delete() )
+            {
+                throw new MojoExecutionException( "Unable to remove: " + this.compilerOuputListFile.getPath() );
+            }
+        }
+        
+        if ( ! this.outputDirectory.exists() )
+        {
+            if ( ! this.outputDirectory.mkdirs() )
+            {
+                throw new MojoExecutionException( "Unable to create directory: " + this.outputDirectory.getPath() );
+            }
+        }
+    }
+    
 }

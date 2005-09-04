@@ -96,6 +96,14 @@ public class NativeCompileMojo
     private String javahOS;
 
     /**
+     * Compilable source files see TODO api of NativeSource here
+     * @parameter 
+     * 
+     */
+    protected NativeSources [] sources;
+    
+    
+    /**
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.CompilerManager}"
      * @required
      */
@@ -129,17 +137,19 @@ public class NativeCompileMojo
     	config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
     	config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
     	config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
-    	config.setObjectFileExtension ( this.objectFileExtension );
     	config.setOutputDirectory ( this.outputDirectory );
         
+        List objectFiles;
     	try 
     	{
-    		compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
+    		objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
     	}
     	catch ( NativeBuildException e ) 
     	{
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
+        
+        appendFilePathsToFile( this.compilerOuputListFile, objectFiles );
 
     }
 

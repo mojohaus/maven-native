@@ -24,8 +24,6 @@ package org.codehaus.mojo.natives.compiler;
  * SOFTWARE.
 */
 
-import org.codehaus.plexus.util.StringUtils;
-
 import java.io.File;
 
 
@@ -59,8 +57,6 @@ public class CompilerConfiguration
 
 	private File [] systemIncludePaths;
 		
-	private String objectFileExtension= "o";
-	
 	private File   outputDirectory;
 
 	public CompilerConfiguration ()
@@ -117,25 +113,6 @@ public class CompilerConfiguration
 		
 		return this.includePaths;
 	}
-	
-    private File [] breakPaths( String paths )
-    {
-    	if ( paths ==  null | paths.trim().length() == 0 )
-    	{
-    		return new File[0];
-    	}
-    	
-    	String [] tokens = StringUtils.split( paths, "," );
-    	
-    	File [] files = new File [ tokens.length ];
-    	
-    	for ( int i = 0 ; i < tokens.length; ++i )
-    	{
-    		files[i] = new File ( tokens[i].trim() );
-    	}
-    	
-    	return files;
-    }
     
 	public File getOutputDirectory()
 	{
@@ -145,16 +122,6 @@ public class CompilerConfiguration
 	public void setOutputDirectory( File dir )
 	{
 		this.outputDirectory = dir;
-	}
-	
-	public String getObjectFileExtension() 
-	{
-		return this.objectFileExtension;
-	}
-
-	public void setObjectFileExtension( String extension ) 
-	{
-		this.objectFileExtension = extension;
 	}
 	
 	public File [] getEnvIncludePaths()

@@ -36,6 +36,7 @@ import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
+import java.util.List;
 
 
 /**
@@ -47,7 +48,7 @@ import java.io.File;
  */
 
 public class NativeResourceCompileMojo
-    extends AbstractMojo
+    extends AbstractNativeMojo
 {
 
     /**
@@ -57,39 +58,13 @@ public class NativeResourceCompileMojo
      */
     private String provider;
 
-    /**
-     * @parameter default-value=""
-     * @description Provider Installation Directory
-     */
-    private File providerHome;
-    
+ 
     /**
      * @description Compiler options
      * @parameter 
      */
     private String [] options;
 
-    /**
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    protected MavenProject project;
-    
-    /**
-     * @description where to place the genered include files
-     * @parameter expression="${project.build.directory}/native"
-     * @required
-     */
-    protected File outputDirectory;
-
-    /**
-     * @parameter expression="${basedir}
-     * @required
-     * @readonly
-     */
-    protected File basedir;
-    
     /**
      * @parameter
      */
@@ -117,7 +92,7 @@ public class NativeResourceCompileMojo
         
     	try 
     	{
-    	    compiler = this.manager.getResourceCompiler( this.provider );
+            compiler = this.manager.getResourceCompiler( this.provider );
     	}
     	catch ( NoSuchNativeProviderException pe )
     	{
@@ -133,15 +108,18 @@ public class NativeResourceCompileMojo
     	config.setOptions( AbstractNativeMojo.trimParams( this.options )  );
     	config.setOutputDirectory ( this.outputDirectory );
         
+        List resourceOutputFiles;
     	try 
     	{
-    		compiler.compile( config, this.sources  );
+            resourceOutputFiles = compiler.compile( config, this.sources  );
     	}
     	catch ( NativeBuildException e ) 
     	{
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
-
+        
+        AbstractNativeMojo.appendFilePathsToFile( this.compilerOuputListFile, resourceOutputFiles );
+        
     }
 
 }
