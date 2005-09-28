@@ -113,6 +113,210 @@
     </configuration>
   </component>
   
- </components>
+  
+    <!--
+     |			native-lib
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-lib</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-lib</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-lib</type>
+        <extension>lib</extension>
+      </configuration>
+    </component>  
 
+    <!--
+     |			native-dll
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-dll</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-dll</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-dll</type>
+        <extension>dll</extension>
+      </configuration>
+    </component>  
+    
+    
+    <!--
+     |			native-exe
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-exe</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-exe</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-exe</type>
+        <extension>exe</extension>
+      </configuration>
+    </component>  
+        
+    <!--
+     |			native-a
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-a</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-a</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-a</type>
+        <extension>a</extension>
+      </configuration>
+    </component>   
+    
+    <!--
+     |			native-so
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-so</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-so</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-so</type>
+        <extension>so</extension>
+      </configuration>
+    </component>       
+          
+    <!--
+     |			native-si
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-si</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-so</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-si</type>
+        <extension>si</extension>
+      </configuration>
+    </component>                
+
+    <!--
+     |			native-uexe  unix executable requires an extension
+     -->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>native-uexe</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <phases>
+          <initialize>org.codehaus.mojo:maven-native-plugin:initialize</initialize>
+          <generate-sources></generate-sources>
+          <compile>org.codehaus.mojo:maven-native-plugin:compile</compile>
+          <package>org.codehaus.mojo:maven-native-plugin:link</package>
+          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+        </phases>
+      </configuration>
+    </component>  
+    
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>native-uexe</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>native-uexe</type>
+        <extension>uexe</extension>
+      </configuration>
+    </component>                
+                  
+  </components> 
 </component-set>
