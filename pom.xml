@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo</artifactId>
-    <version>2-SNAPSHOT</version>
+    <version>3</version>
   </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
@@ -21,6 +21,58 @@
       </roles>
     </developer>
   </developers>
+  
+  <dependencyManagement>
+  
+    <dependencies>
+      
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+      <version>1.0-alpha-6</version>
+    </dependency>
+  
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.0.3</version>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0-beta-2</version>
+    </dependency>    
+
+
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-api</artifactId>
+      <version>1.0-alpha-1-SNAPSHOT</version>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-javah</artifactId>
+      <version>1.0-alpha-1-SNAPSHOT</version>
+    </dependency>    
+  
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-generic-c</artifactId>
+      <version>1.0-alpha-1-SNAPSHOT</version>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-manager</artifactId>
+      <version>1.0-alpha-1-SNAPSHOT</version>
+    </dependency>    
+
+    </dependencies>
+       
+  </dependencyManagement>
+  
   <modules>
     <module>maven-native-api</module>
     <module>maven-native-components</module>
