@@ -13,7 +13,7 @@
   <name>Maven Native Plugin</name>
   
   <groupId>org.codehaus.mojo</groupId>
-  <artifactId>maven-native-plugin</artifactId>
+  <artifactId>native-maven-plugin</artifactId>
   
   <inceptionYear>2005</inceptionYear>
   
@@ -24,6 +24,14 @@
       <artifactId>maven-project</artifactId>
     </dependency>    
 
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>    
+
+    <!--
+     |		Maven Native Artifacts
+     -->
     <dependency>
       <groupId>org.codehaus.mojo.natives</groupId>
       <artifactId>maven-native-api</artifactId>
@@ -37,6 +45,16 @@
     <dependency>
       <groupId>org.codehaus.mojo.natives</groupId>
       <artifactId>maven-native-generic-c</artifactId>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-msvc</artifactId>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-bcc</artifactId>
     </dependency>    
 
     <dependency>

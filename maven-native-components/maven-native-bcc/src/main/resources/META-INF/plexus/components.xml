@@ -4,7 +4,7 @@
     <component>
       <role>org.codehaus.mojo.natives.linker.Linker</role>
       <role-hint>generic-c-linker</role-hint>
-      <implementation>org.codehaus.mojo.natives.bcc.TlibLinker</implementation>
+      <implementation>org.codehaus.mojo.natives.bcc.TLibLinker</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
