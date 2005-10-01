@@ -25,23 +25,9 @@ package org.codehaus.mojo.natives.plugin;
 */
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.mojo.natives.NativeSources;
-import org.codehaus.mojo.natives.util.FileUtil;
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.IOUtil;
-import org.codehaus.plexus.util.StringUtils;
-import org.codehaus.plexus.util.cli.CommandLineException;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
-import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.util.cli.DefaultConsumer;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,10 +42,10 @@ public abstract class AbstractNativeMojo
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 	
     /**
+     * Some compiler can take advantage of this setting to add 
+     * additional environments ( ex msvc, bcc, etc)
      * @parameter 
      * @optional
-     * @description Some compiler can take advantage of this setting to add 
-     *              additional environments ( ex msvc, bcc, etc)
      */
     protected File providerHome;
 	
@@ -80,7 +66,7 @@ public abstract class AbstractNativeMojo
     protected File outputDirectory;
 
     /**
-     * TODO component needs to handle this
+     * Internal readonly property
      * @parameter expression="${basedir}
      * @required
      * @readonly
@@ -88,7 +74,8 @@ public abstract class AbstractNativeMojo
 	protected File basedir;
 
     /**
-     * All compiler appends it ouput file paths so that link mojo can pick it up
+     * All compilations appends their object file paths to this file 
+     * so that link step can pick them up.
      * @parameter expression="${project.build.directory}/object-file-list.txt
      * @required
      * @readonly
@@ -98,138 +85,7 @@ public abstract class AbstractNativeMojo
     
     protected static String [] removeEmptyOptions( String [] args )
     {
-    	return trimParams ( args );
+    	return NativeMojoUtils.trimParams ( args );
     }
-    
-    static String [] trimParams( String [] args )
-    {
-    	if ( args == null )
-    	{
-    		return new String[0];
-    	}
-
-    	List tokenArray = new ArrayList();
-
-    	for ( int i = 0; i < args.length; ++i )
-    	{    		
-    		if ( args[i] == null || args[i].length() == 0 )
-    		{
-    			continue;
-    		}
-    		
-    		String [] tokens = StringUtils.split( args[i] );
-
-    		for ( int k = 0 ; k < tokens.length; ++k )
-    		{  			
-    			if ( tokens[k] == null || tokens[k].trim().length() == 0 )
-    			{
-    				continue;
-    			}
-    			
-    			tokenArray.add( tokens[k].trim() ); 			
-    		}
-    	}
-    	
-		return (String []) tokenArray.toArray( new String[0] );
-    }
-    
-	static void executeCommandline( Commandline cl, Log logger ) 
-       throws MojoExecutionException
-    {
-        int ok;
-
-        try 
-        {
-    	    DefaultConsumer stdout = new DefaultConsumer();
-
-    	    DefaultConsumer stderr = stdout;
-
-    	    logger.info( cl.toString() );
-
-    	    ok = CommandLineUtils.executeCommandLine( cl, stdout, stderr );
-        }
-        catch ( CommandLineException ecx) 
-        {
-        	throw new MojoExecutionException( "Error executing command line", ecx );
-        }
-
-        if ( ok != 0 )
-        {
-        	throw new MojoExecutionException( "Error executing command line. Exit code:" + ok );
-        }		
-    }    
-    
-    protected static void appendFilePathsToFile( File dest, List filePaths )
-      throws MojoExecutionException
-    {
-        FileOutputStream fs = null;
-        
-        StringBuffer buffer = new StringBuffer();
-
-        try 
-        {
-            fs = new  FileOutputStream(dest, true );
-            
-            for ( int i = 0; i < filePaths.size(); ++i )
-            {
-                File file = (File) filePaths.get(i);
-                
-                buffer.append( file.getPath() );
-                
-                buffer.append(" ");
-            }
-            
-            fs.write( buffer.toString().getBytes() );
-        }
-        catch ( IOException ioe )
-        {
-            throw new MojoExecutionException( "Error storing object file list at " + dest.getPath() );
-        }
-        finally
-        {
-            if ( fs != null )
-            {
-                try 
-                {
-                    fs.close();
-                }
-                catch ( IOException ioe )
-                {
-                    throw new MojoExecutionException( "Error storing object file list at " + dest.getPath() );
-                }
-            }
-        }
-                
-    }
-    
-    protected static List getCompilerOuputFiles ( File from )
-        throws MojoExecutionException
-    {
-        if ( ! from.exists() )
-        {
-            return new ArrayList();
-        }
-        
-        try 
-        {
-            String fileLists = FileUtils.fileRead( from );
-            
-            String [] fileNames = StringUtils.split( fileLists );
-            
-            List filePaths = new ArrayList( fileNames.length );
-            
-            for ( int i = 0; i < fileNames.length; ++i )
-            {
-                filePaths.add( new File( fileNames[i] ) );
-            }
-            
-            return filePaths;
-        }
-        catch ( IOException ioe )
-        {
-            throw new MojoExecutionException( "Error reading object file list at " + from.getPath() );
-        }
-    }
-    
     
 }

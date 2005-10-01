@@ -24,9 +24,7 @@ package org.codehaus.mojo.natives.plugin;
  * SOFTWARE.
 */
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.compiler.ResourceCompiler;
@@ -35,7 +33,6 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
 
-import java.io.File;
 import java.util.List;
 
 
@@ -105,7 +102,7 @@ public class NativeResourceCompileMojo
     	ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
     	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.basedir );
-    	config.setOptions( AbstractNativeMojo.trimParams( this.options )  );
+    	config.setOptions( NativeMojoUtils.trimParams( this.options )  );
     	config.setOutputDirectory ( this.outputDirectory );
         
         List resourceOutputFiles;
@@ -118,7 +115,7 @@ public class NativeResourceCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-        AbstractNativeMojo.appendFilePathsToFile( this.compilerOuputListFile, resourceOutputFiles );
+        NativeMojoUtils.appendFilePathsToFile( this.compilerOuputListFile, resourceOutputFiles );
         
     }
 

@@ -133,7 +133,7 @@ public class NativeMessageCompileMojo
     	config.setBaseDir( this.basedir );
     	config.setOutputDirectory ( this.outputDirectory );
         config.setDebugOutputDirectory ( this.debugOutputDirectory );
-        config.setOptions( AbstractNativeMojo.trimParams( this.options ) );
+        config.setOptions( NativeMojoUtils.trimParams( this.options ) );
         
     	try 
     	{

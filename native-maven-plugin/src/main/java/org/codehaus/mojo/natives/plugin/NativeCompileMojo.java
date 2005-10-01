@@ -31,11 +31,9 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.manager.CompilerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
-import org.codehaus.mojo.natives.util.FileSet;
 import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,7 +147,7 @@ public class NativeCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-        appendFilePathsToFile( this.compilerOuputListFile, objectFiles );
+        NativeMojoUtils.appendFilePathsToFile( this.compilerOuputListFile, objectFiles );
 
     }
 

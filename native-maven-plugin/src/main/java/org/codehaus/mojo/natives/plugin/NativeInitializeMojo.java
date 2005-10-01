@@ -24,17 +24,13 @@ package org.codehaus.mojo.natives.plugin;
  * SOFTWARE.
 */
 
-import java.io.File;
-
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.linker.Ranlib;
 
 /**
+ * This goal automatically invoked by native-maven-plugin build lifecycle
+ * to setup file system.
  * @goal initialize
  * @phase initialize
- * @description prepare maven-native-plugin build lifecycle
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id:$
  */

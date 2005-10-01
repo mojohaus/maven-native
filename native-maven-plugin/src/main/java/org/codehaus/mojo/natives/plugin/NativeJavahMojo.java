@@ -73,14 +73,19 @@ public class NativeJavahMojo
     private String javahType;	
 
     /**
+     * List of class names to generate native files. Default is a all
+     * JNI classes available in the classpath excluding the 
+     * transitive dependencies.     
      * @parameter 
      */
     private String [] classNames;
 
     /**
+     * Internal readonly property.
      * @parameter expression="${project}"
      * @required
      * @readonly
+     * @description 
      */
     private MavenProject project;
 
