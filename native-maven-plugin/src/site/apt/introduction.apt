@@ -1,0 +1,16 @@
+ ------
+ Maven 2 Native Plugin
+ ------
+ Dan T. Tran
+ <dantran@gmail.com>
+ ------
+ September 29, 2005
+
+Introduction
+
+  This is a plugin that allows to compile c and c++ code under maven 2 with different 
+  compilers such as gcc, msvc, bcc, ... 
+
+  
+
+
