@@ -2,7 +2,7 @@
   <components>
     <component>
       <role>org.codehaus.mojo.natives.javah.Javah</role>
-      <role-hint>sun</role-hint>
+      <role-hint>default</role-hint>
       <implementation>org.codehaus.mojo.natives.javah.JavahExecutable</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
