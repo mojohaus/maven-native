@@ -119,7 +119,7 @@ public class NativeLinkMojo
      * @description The order of dependencies to link
      */
     
-    private String [] dependencyLinkingOrders = new String[0];    
+    //private String [] dependencyLinkingOrders = new String[0];    
     
     /**
      * @parameter default-value="" 

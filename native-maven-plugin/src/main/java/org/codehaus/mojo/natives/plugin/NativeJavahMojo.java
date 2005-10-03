@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.plugin;
 */
 
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.artifact.Artifact;
 
@@ -52,6 +53,7 @@ import java.util.zip.ZipFile;
 
 
 /**
+ * Generate jni include files based on a set of class names
  * @goal javah
  * @description generate jni include files
  * @phase generate-sources
@@ -61,19 +63,20 @@ import java.util.zip.ZipFile;
  */
 
 public class NativeJavahMojo
-    extends AbstractNativeMojo
+    extends AbstractMojo
 {
     
-    
     /**
-     * @parameter default-value="sun"
+     * The compiler implementation to use. 
+     * If this attribute is not set, the default compiler for the current VM will be used.
+     * Currently the only available implemention is 'default'.
+     * @parameter default-value="default"
      * @required
-     * @description Javah Provider Type
      */
-    private String javahType;	
+    private String implementation;	
 
     /**
-     * List of class names to generate native files. Default is a all
+     * List of class names to generate native files. Default is all
      * JNI classes available in the classpath excluding the 
      * transitive dependencies.     
      * @parameter 
@@ -90,19 +93,22 @@ public class NativeJavahMojo
     private MavenProject project;
 
     /**
+     * Generated native source files go here
      * @parameter expression="${project.build.directory}/native/javah" 
      * @required
      */
     private File outputDirectory;
 
     /**
+     * Enable javah verbose mode
      * @parameter default-value="false"
      * @optional
      */
 
-    private boolean verboseJavah;
+    private boolean verbose;
     
     /**
+     * To look up javah implementation
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.JavahManager}"
      * @required
      */
@@ -118,14 +124,14 @@ public class NativeJavahMojo
     	}
 
     	JavahConfiguration config = new JavahConfiguration();
-    	config.setVerbose( this.verboseJavah );
+    	config.setVerbose( this.verbose );
     	config.setDestDir( this.outputDirectory );
     	config.setClassPaths( this.getJavahClassPath() );
     	config.setClassNames( this.getNativeClassNames() );
     	
     	try
     	{
-       	    Javah javah = this.manager.getJavah( this.javahType );
+       	    Javah javah = this.manager.getJavah( this.implementation );
        	     		
             javah.compile( config );
     	}
