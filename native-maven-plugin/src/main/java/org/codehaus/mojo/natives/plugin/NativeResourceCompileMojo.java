@@ -33,6 +33,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -115,7 +116,7 @@ public class NativeResourceCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-        NativeMojoUtils.appendFilePathsToFile( this.compilerOutputListFile, resourceOutputFiles );
+    	this.saveCompilerOuputFilePaths( resourceOutputFiles );
         
     }
 

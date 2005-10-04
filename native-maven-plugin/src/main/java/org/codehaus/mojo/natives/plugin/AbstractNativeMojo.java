@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.plugin;
 */
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 import java.io.File;
@@ -39,6 +40,8 @@ import java.util.List;
 public abstract class AbstractNativeMojo
     extends AbstractMojo
 {
+	public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
+		
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 	
     /**
@@ -73,18 +76,36 @@ public abstract class AbstractNativeMojo
      */
 	protected File basedir;
 
-    /**
-     * Temporary file to store all linkable input file paths by other mojos
-     * @parameter expression="${project.build.directory}/object-file-list.txt
-     * @required
-     * @readonly
-     */
-    protected File compilerOutputListFile;
- 
-    
     protected static String [] removeEmptyOptions( String [] args )
     {
     	return NativeMojoUtils.trimParams ( args );
     }
     
+    protected List getAllCompilersOuputFileList( )
+    {
+        List list = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
+        
+        if ( list == null ) 
+        {
+        	list = new ArrayList();
+        	
+        	this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list );
+        }
+        
+        return list;
+
+    }
+    
+    protected void saveCompilerOuputFilePaths( List filePaths )
+       throws MojoExecutionException
+    {
+    	List allCompilerOutputFileList = getAllCompilersOuputFileList();
+    	
+        for ( int i = 0; i < filePaths.size(); ++i )
+        {
+    	    File file = (File) filePaths.get(i);
+    	    allCompilerOutputFileList.add( file );
+        }
+    }
 }
+    
