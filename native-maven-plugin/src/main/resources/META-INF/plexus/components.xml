@@ -7,7 +7,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
         <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -23,7 +23,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
         <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -39,7 +39,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
         <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -55,7 +55,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
         <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -71,7 +71,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
         <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -87,7 +87,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>native:compile</compile>
         <package>native:link</package>
@@ -103,7 +103,7 @@
     <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
     <configuration>
       <phases>
-        <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+        <initialize></initialize>
         <generate-sources></generate-sources>
         <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
         <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -123,7 +123,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -152,7 +152,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -182,7 +182,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -211,7 +211,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -240,7 +240,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -269,7 +269,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
@@ -298,7 +298,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
+          <initialize></initialize>
           <generate-sources></generate-sources>
           <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
           <package>org.codehaus.mojo:native-maven-plugin:link</package>
