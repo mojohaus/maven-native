@@ -24,6 +24,9 @@ package org.codehaus.mojo.natives.plugin;
  * SOFTWARE.
 */
 
+import java.io.File;
+
+import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
@@ -35,25 +38,25 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @version $Id:$
  */
 public class NativeInitializeMojo
-    extends AbstractNativeMojo
+    extends AbstractMojo
 {
 
+    /**
+     * Temporary file to store all linkable input file paths by other mojos
+     * @parameter expression="${project.build.directory}/object-file-list.txt
+     * @required
+     * @readonly
+     */
+    protected File compilerOutputListFile;
+    
     public void execute()
         throws MojoExecutionException
     {
-        if ( this.compilerOuputListFile.exists() )
+        if ( this.compilerOutputListFile.exists() )
         {
-            if ( ! this.compilerOuputListFile.delete() )
+            if ( ! this.compilerOutputListFile.delete() )
             {
-                throw new MojoExecutionException( "Unable to remove: " + this.compilerOuputListFile.getPath() );
-            }
-        }
-        
-        if ( ! this.outputDirectory.exists() )
-        {
-            if ( ! this.outputDirectory.mkdirs() )
-            {
-                throw new MojoExecutionException( "Unable to create directory: " + this.outputDirectory.getPath() );
+                throw new MojoExecutionException( "Unable to remove: " + this.compilerOutputListFile.getPath() );
             }
         }
     }

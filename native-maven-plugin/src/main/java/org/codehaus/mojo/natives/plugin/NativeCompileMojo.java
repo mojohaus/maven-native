@@ -147,7 +147,7 @@ public class NativeCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-        NativeMojoUtils.appendFilePathsToFile( this.compilerOuputListFile, objectFiles );
+        NativeMojoUtils.appendFilePathsToFile( this.compilerOutputListFile, objectFiles );
 
     }
 

@@ -74,14 +74,13 @@ public abstract class AbstractNativeMojo
 	protected File basedir;
 
     /**
-     * All compilations appends their object file paths to this file 
-     * so that link step can pick them up.
+     * Temporary file to store all linkable input file paths by other mojos
      * @parameter expression="${project.build.directory}/object-file-list.txt
      * @required
      * @readonly
      */
-    protected File compilerOuputListFile;
-
+    protected File compilerOutputListFile;
+ 
     
     protected static String [] removeEmptyOptions( String [] args )
     {

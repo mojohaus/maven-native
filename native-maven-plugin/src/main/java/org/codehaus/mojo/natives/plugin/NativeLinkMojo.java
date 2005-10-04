@@ -161,7 +161,7 @@ public class NativeLinkMojo
 	    
     	try 
     	{
-            List compilerOuputFiles = NativeMojoUtils.getCompilerOuputFiles( this.compilerOuputListFile );
+            List compilerOuputFiles = NativeMojoUtils.getCompilerOuputFiles( this.compilerOutputListFile );
     		linker.link( config, compilerOuputFiles );
     	}
     	catch ( IOException ioe )

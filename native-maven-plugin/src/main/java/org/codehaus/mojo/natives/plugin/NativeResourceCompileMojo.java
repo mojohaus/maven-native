@@ -115,7 +115,7 @@ public class NativeResourceCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-        NativeMojoUtils.appendFilePathsToFile( this.compilerOuputListFile, resourceOutputFiles );
+        NativeMojoUtils.appendFilePathsToFile( this.compilerOutputListFile, resourceOutputFiles );
         
     }
 
