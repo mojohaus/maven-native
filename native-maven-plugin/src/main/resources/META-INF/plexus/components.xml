@@ -140,6 +140,7 @@
       <configuration>
         <type>native-lib</type>
         <extension>lib</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>  
 
@@ -169,6 +170,7 @@
       <configuration>
         <type>native-dll</type>
         <extension>dll</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>  
     
@@ -199,6 +201,7 @@
       <configuration>
         <type>native-exe</type>
         <extension>exe</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>  
         
@@ -228,6 +231,7 @@
       <configuration>
         <type>native-a</type>
         <extension>a</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>   
     
@@ -257,6 +261,7 @@
       <configuration>
         <type>native-so</type>
         <extension>so</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>       
           
@@ -286,6 +291,7 @@
       <configuration>
         <type>native-si</type>
         <extension>si</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>                
 
@@ -315,6 +321,7 @@
       <configuration>
         <type>native-uexe</type>
         <extension>uexe</extension>
+        <includesDependencies>false</includesDependencies>
       </configuration>
     </component>                
                   
