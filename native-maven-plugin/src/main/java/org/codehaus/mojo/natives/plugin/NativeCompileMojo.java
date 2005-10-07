@@ -40,8 +40,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Compile source files into native object files
  * @goal compile
- * @description compile all source into native object files
  * @phase compile
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id:$

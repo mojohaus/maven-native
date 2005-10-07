@@ -38,6 +38,7 @@ import java.util.List;
 
 
 /**
+ * Compile Windows resource files
  * @goal resource-compile
  * @description compile all source into native object files
  * @phase compile

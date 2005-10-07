@@ -48,10 +48,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Link all previously built object and dependent library files
  * @goal link
  * @phase package
  * @requiresDependencyResolution 
- * @description Link all previously built object files and dependent lib files
  *
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id:$

@@ -38,8 +38,11 @@
          <item name="mojo" href="http://mojo.codehaus.org"/>
       </menu>
       <menu name="Native Plugin">
-               <item name="Introduction" href="introduction.html"/>
-               <item name="How to use" href="howto.html"/>
+         <item name="Overview" href="introduction.html"/>
+         <item name="Build Lifecycle" href="lifecycle.html"/>
+         <item name="Providers" href="providers.html"/>
+         <item name="Examples" href="examples.html"/>
+         <item name="Howto" href="howto.html"/>
       </menu>
       ${reports}
    </body>

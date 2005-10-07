@@ -32,10 +32,9 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Ranlib;
 
 /**
+ * ranlib a linker output file on unix
  * @goal ranlib
  * @phase package
- * @description ranlib a linker output file on unix
- *
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id:$
  */

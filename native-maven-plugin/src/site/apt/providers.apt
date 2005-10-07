@@ -1,0 +1,20 @@
+ ------
+ Maven 2 Native Plugin - Providers
+ ------
+ Dan T. Tran
+ <dantran@gmail.com>
+ ------
+ September 29, 2005
+
+Providers
+
+
+* generic
+
+* msvc
+
+* bcc
+
+
+
+

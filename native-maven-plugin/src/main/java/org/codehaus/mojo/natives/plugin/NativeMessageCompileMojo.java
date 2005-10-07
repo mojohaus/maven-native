@@ -36,8 +36,8 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import java.io.File;
 
 /**
+ * Compile Windows message files
  * @goal compile-message
- * @description compile all source into native object files
  * @phase generate-sources
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id:$
