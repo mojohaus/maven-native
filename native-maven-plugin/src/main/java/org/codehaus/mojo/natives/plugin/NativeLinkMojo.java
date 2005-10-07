@@ -61,19 +61,22 @@ public class NativeLinkMojo
 {
 
     /**
+     * Override this property if permitted by compilerProvider
      * @parameter default-value="generic"
      * @optional
      * @description provider type
      */
-    private String compilerType;
+    private String compilerProvider;
 	
     /**
+     * Default value is ${compilerProvider}
      * @parameter
      * @optional
      */
-    private String linkerType;
+    private String linkerProvider;
 
     /**
+     * Override this property if permitted by linkerProvider
      * @parameter 
      * @optional
      * @description default to compilerType if not provided
@@ -106,9 +109,10 @@ public class NativeLinkMojo
     private String finalName;
     
     /**
+     * There are cases where linker will take Maven format depenendencies, 
+     * use this property to rename the required ones.
      * @parameter 
      * @optional
-     * @description rename a set of dependencies to desired name
      */
     
     private Map renameDependencyLibs = new HashMap();
@@ -205,12 +209,12 @@ public class NativeLinkMojo
     	
        	try 
     	{
-    		if ( this.linkerType == null )
+    		if ( this.linkerProvider == null )
     		{
-    			this.linkerType = this.compilerType;
+    			this.linkerProvider = this.compilerProvider;
     		}
     		
-    		linker = this.manager.getLinker( this.linkerType );
+    		linker = this.manager.getLinker( this.linkerProvider );
     	}
     	catch ( NoSuchNativeProviderException pe )
     	{

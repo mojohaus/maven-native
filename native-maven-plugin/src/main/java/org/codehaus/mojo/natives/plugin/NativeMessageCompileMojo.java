@@ -80,10 +80,6 @@ public class NativeMessageCompileMojo
      */
     protected File outputDirectory;
 
-    /**
-     * @parameter 
-     */
-    protected File debugOutputDirectory;
 
     /**
      * @parameter expression="${basedir}
@@ -98,7 +94,6 @@ public class NativeMessageCompileMojo
      */
     protected File [] messageFiles;
     
-
 
     /**
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.MessageCompilerManager}"
@@ -132,7 +127,6 @@ public class NativeMessageCompileMojo
     	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.basedir );
     	config.setOutputDirectory ( this.outputDirectory );
-        config.setDebugOutputDirectory ( this.debugOutputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.options ) );
         
     	try 

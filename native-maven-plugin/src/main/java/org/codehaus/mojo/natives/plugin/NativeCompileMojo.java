@@ -56,7 +56,7 @@ public class NativeCompileMojo
      * @required
      * @description Compiler Provider Type
      */
-    private String compilerType;
+    private String compilerProvider;
         
     /**
      * @parameter 
@@ -115,7 +115,7 @@ public class NativeCompileMojo
         
     	try 
     	{
-    	    compiler = this.manager.getCompiler( this.compilerType );
+    	    compiler = this.manager.getCompiler( this.compilerProvider );
     	}
     	catch ( NoSuchNativeProviderException pe )
     	{
