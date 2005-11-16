@@ -30,7 +30,18 @@
       <configuration>
         <type>native-lib</type>
         <extension>lib</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>  
+
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>lib</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>lib</type>
+        <extension>lib</extension>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>  
 
@@ -63,10 +74,20 @@
       <configuration>
         <type>native-dll</type>
         <extension>dll</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>  
     
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>dll</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>dll</type>
+        <extension>dll</extension>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>  
     
     <!--
      |			native-exe
@@ -97,7 +118,18 @@
       <configuration>
         <type>native-exe</type>
         <extension>exe</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>  
+
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>exe</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>exe</type>
+        <extension>exe</extension>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>  
         
@@ -130,7 +162,18 @@
       <configuration>
         <type>native-a</type>
         <extension>a</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>   
+
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>a</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>a</type>
+        <extension>a</extension>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>   
     
@@ -165,7 +208,18 @@
       <configuration>
         <type>native-so</type>
         <extension>so</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>       
+
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>so</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>so</type>
+        <extension>so</extension>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>       
           
@@ -193,12 +247,23 @@
     
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-so</role-hint>
+      <role-hint>native-si</role-hint>
       <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
       <configuration>
         <type>native-si</type>
         <extension>si</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>                
+
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>si</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>si</type>
+        <extension>si</extension>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>                
 
@@ -231,7 +296,18 @@
       <configuration>
         <type>native-uexe</type>
         <extension>uexe</extension>
-        <includesDependencies>false</includesDependencies>
+        <includesDependencies>true</includesDependencies>
+      </configuration>
+    </component>                
+
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>uexe</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <type>uexe</type>
+        <extension>uexe</extension>
+        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>                
                   
