@@ -8,12 +8,18 @@
 
 Providers
 
+*-----------+----------+--------+------------------------------------------------------+
+| Provider  | compiler | linker | Note
+*-----------+-------------------+------------------------------------------------------+
+| generic   | gcc      | gcc    | Overidable thru compilerExecutable and linkerExecutable
+*--------- -+-------------------+-------------------------------------------+
+| msvc      | cl       | link   | Ensure to invoke the environment script provided by MSVC
+*-----------+---------------------------------------------------------------+
+| msvc6     | cl       | link   | Automatically setup MSVC 6 environment
+*-----------+---------------------------------------------------------------+
+| msvc2003  | cl       | link   | Automatically setup MSVC 2003 environment
+*-----------+---------------------------------------------------------------+
 
-* generic
-
-* msvc
-
-* bcc
 
 
 

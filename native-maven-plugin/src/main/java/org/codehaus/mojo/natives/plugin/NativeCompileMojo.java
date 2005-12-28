@@ -181,7 +181,7 @@ public class NativeCompileMojo
     
     /**
      * Pickup additional source paths that previous phases added to source root 
-     * Note: we intentional ignore the first item of source root since this
+     * Note: we intentionally ignore the first item of source root since this
      * plugin never use it.
      */
 	private void addAdditionalIncludePath()

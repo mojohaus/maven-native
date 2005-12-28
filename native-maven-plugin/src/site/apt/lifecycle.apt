@@ -8,6 +8,31 @@
 
 Build Lifecycle
 
+   The native build lifecycle consists of the following phases with corresponding goals:
+
+*-----------------------+---------------------------------------------------------------+
+| <Phase>               | <Goal>
+*-----------------------+---------------------------------------------------------------+
+| initialize            |
+*-----------------------+---------------------------------------------------------------+
+| generate-sources      |
+*-----------------------+---------------------------------------------------------------+
+| compile               | org.codehaus.mojo:native-maven-plugin:compile
+*-----------------------+---------------------------------------------------------------+
+| package               | org.codehaus.mojo:native-maven-plugin:link
+*-----------------------+---------------------------------------------------------------+
+| process-test-resources| org.apache.maven.plugins:maven-resources-plugin:testResources
+*-----------------------+---------------------------------------------------------------+
+| test-compile          | org.apache.maven.plugins:maven-compiler-plugin:testCompile
+*-----------------------+---------------------------------------------------------------+
+| test                  | org.apache.maven.plugins:maven-surefire-plugin:test
+*-----------------------+---------------------------------------------------------------+
+| install               | org.apache.maven.plugins:maven-install-plugin:install
+*-----------------------+---------------------------------------------------------------+
+| deploy                | org.apache.maven.plugins:maven-deploy-plugin:deploy
+*-----------------------+---------------------------------------------------------------+
+    
+
 
 
 

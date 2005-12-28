@@ -14,7 +14,7 @@ Examples
 -------------------
 <project>
    ...
-   <packaging>native-dll</packaging>
+   <packaging>dll</packaging>
    
    ...
 
@@ -31,36 +31,36 @@ Examples
              <compilerStartOption>-D_WIN32_WINNT=0x0500 </compilerStartOption>
            </compilerStartOptions>
           
-           <!-- tell compiler to add ${java.home}/../include and ${java.home}/../include to system include path -->
+           <!-- tell javah mojo to add ${java.home}/../include and ${java.home}/../include to system include path -->
            <javahOS>win32</javahOS>
           
            <sources>
              <source>
-  	       <directory> a relative directory to ${basedir} </directory>
-	       <fileNames>
+               <directory> a relative directory to ${basedir} </directory>
+               <fileNames>
                  <fileName>file1.c</fileName>
                  <fileName>file2.c</fileName>
                  <fileName>...</fileName>
-	       </fileNames>
+               </fileNames>
              </source>
              <source>
-	       <directory> a relative directory to ${basedir} </directory>
-	       <fileNames>
+               <directory> a relative directory to ${basedir} </directory>
+               <fileNames>
                  <fileName>file3.c</fileName>
                  <fileName>file4.c</fileName>
                  <fileName>...</fileName>
-	       </fileNames>
+               </fileNames>
              </source>          
             
              <!-- additional include path -->
              <source>
-	       <directory> a relative directory to ${basedir} </directory>
+               <directory> a relative directory to ${basedir} </directory>
              </source>          
 
              <!-- additional system include path -->
              <source>
-	       <directory> a relative directory to ${basedir} </directory>
-	       <dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>
+               <directory> a relative directory to ${basedir} </directory>
+               <dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>
              </source>          
            </sources>
 
@@ -85,6 +85,14 @@ Examples
                  <className>class2</className>
                  <className>...</className>
                </classNames>
+               <!-- 
+                |   Note: 
+                |    1. Without classNames, javah mojo will search for all JNI classes 
+                |       in your dependency list.
+                |    2. Without this execution, javaOS is ignored and no JNI system include
+                |       paths are added to include path.  You can explicitly add JNI system
+                |       paths to include path using source configuration.
+               -->
              </configuration>
              <goals>
                <goal>javah</goal> 
@@ -98,7 +106,7 @@ Examples
     
 </project>
 -------------------
-
+  
   
   
   
