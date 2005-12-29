@@ -10,6 +10,6 @@
   
   <artifactId>maven-native-generic-c</artifactId>
   
-  <name>Maven Native C/C++ compiler linker</name>
+  <name>Maven Native Provider - Generic C/C++ compiler and linker</name>
   
 </project>

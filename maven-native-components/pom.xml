@@ -12,7 +12,7 @@
   
   <artifactId>maven-native-components</artifactId>
   
-  <name>Maven Native BCC Compiler/Linker</name>
+  <name>Maven Native Components</name>
   
   <dependencies>
   

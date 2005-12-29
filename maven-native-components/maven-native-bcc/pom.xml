@@ -10,6 +10,15 @@
   
   <artifactId>maven-native-bcc</artifactId>
   
-  <name>Maven Native Borland</name>
+  <name>Maven Native Provider - Borland Compiler</name>
+  
+  <dependencies>
+  
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-generic-c</artifactId>
+    </dependency>
+  
+  </dependencies>
   
 </project>

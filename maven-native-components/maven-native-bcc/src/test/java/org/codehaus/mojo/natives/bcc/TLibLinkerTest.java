@@ -39,6 +39,7 @@ public class TLibLinkerTest
 	private static String FS = File.separator;
 
 	public void testCommandLine()
+        throws Exception
 	{
 		TLibLinker linker = new TLibLinker();
 		

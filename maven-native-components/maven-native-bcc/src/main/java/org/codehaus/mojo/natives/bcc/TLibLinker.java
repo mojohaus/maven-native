@@ -24,6 +24,7 @@ package org.codehaus.mojo.natives.bcc;
  * SOFTWARE.
 */
 
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -47,9 +48,10 @@ public class TLibLinker
 	}
 
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+        throws NativeBuildException
 	{
 	    Commandline cl = new Commandline();
-
+        
 	    cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
 
 	    String executable = EXECUTABLE;

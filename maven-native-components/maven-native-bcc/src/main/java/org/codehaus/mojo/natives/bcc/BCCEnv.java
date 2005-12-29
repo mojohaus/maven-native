@@ -44,10 +44,10 @@ public class BCCEnv
 	private static File DEFAULT_BCC_HOME = new File( "C:/Borland/bcc" );
 
 
-	public static void setupBCCCommandLineEnv( File vsDir, Commandline cl )
+	public static void setupBCCCommandLineEnv( File providerHome, Commandline cl )
 	    throws NativeBuildException
 	{
-		File bccHome = checkBCCHome ( vsDir, DEFAULT_BCC_HOME );
+		File bccHome = checkBCCHome ( providerHome, DEFAULT_BCC_HOME );
 				
 		Map envs = createAdditionalBCCEnvs ( bccHome );
 		
