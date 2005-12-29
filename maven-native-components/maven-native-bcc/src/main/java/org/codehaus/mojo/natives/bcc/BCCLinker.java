@@ -42,7 +42,7 @@ public class BCCLinker
     extends CLinker
 {
 	
-    public static final String DEFAULT_EXECUTABLE = "tlib";
+    public static final String DEFAULT_EXECUTABLE = "ilink32";
     
     public BCCLinker ()
     {
