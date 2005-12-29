@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<faqs title="HowTo">
+
+<part id="" >
+  <title>Linker</title>
+  
+  <faq id="Strip dependency artifact at link phase">
+    <question>How to link to dependencies without version in the file name.</question>
+    <answer>
+      <br/>
+      
+     </answer>
+   </faq>
+   
+  
+  </part>
+      
+  
+</faqs>

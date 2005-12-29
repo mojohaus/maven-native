@@ -31,7 +31,9 @@ Examples
              <compilerStartOption>-D_WIN32_WINNT=0x0500 </compilerStartOption>
            </compilerStartOptions>
           
-           <!-- tell javah mojo to add ${java.home}/../include and ${java.home}/../include to system include path -->
+           <!-- 
+            | Add jdk include directories to system include path
+            -->
            <javahOS>win32</javahOS>
           
            <sources>
@@ -54,7 +56,7 @@ Examples
             
              <!-- additional include path -->
              <source>
-               <directory> a relative directory to ${basedir} </directory>
+               <directory>a relative directory to ${basedir} </directory>
              </source>          
 
              <!-- additional system include path -->
@@ -75,6 +77,7 @@ Examples
          <!-- Generate JNI header files based on a list of class name on the classpath -->
          <!-- The generated include directory is automatically added to include path at compile phase -->
          <!-- Ensure to have appropriate denpendency jar file(s) in your pom -->
+         
          <executions>
            <execution>
              <id>javah</id>
@@ -106,6 +109,16 @@ Examples
     
 </project>
 -------------------
+
+  Note:
+  
+  * User is responsible to provide all neccessary compiler and  linker options
+  
+  * msvc provider can be replaced with msvc6, msvc2003, etc so that this plugin will
+    automatically setup the environment such as path, predefine include, lib paths
+    recommending by msvc compilers.  This feature is extremely useful when you need to 
+    use various compilers in you build system and it is impossible to set up single
+    global environment to accomodate all compilers.
   
   
   

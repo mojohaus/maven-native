@@ -32,7 +32,7 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Ranlib;
 
 /**
- * ranlib a linker output file on unix
+ * ranlib a Unix linker output file
  * @goal ranlib
  * @phase package
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
@@ -41,22 +41,9 @@ import org.codehaus.mojo.natives.linker.Ranlib;
 public class NativeRanlibMojo
     extends AbstractNativeMojo
 {
-
-    /**
-     * @parameter expression="${project.artifactId}-${project.version}"
-     * @optional
-     */
-    
-    private String finalName;
-
-    /**
-     * @parameter expression="${project.artifact}"
-     * @required
-     * @readonly
-     */
-    private Artifact artifact;
        
     /**
+     * Ranlib engine
      * @parameter expression="${component.org.codehaus.mojo.natives.linker.Ranlib}"
      * @required
      * @readonly
@@ -69,9 +56,13 @@ public class NativeRanlibMojo
     {
         try 
         {
+            String finalName = this.project.getBuild().getFinalName();
+            
+            Artifact artifact = this.project.getArtifact();
+            
             File outputFile = new File ( this.outputDirectory.getAbsolutePath() + "/" + 
-                                         this.finalName + "." + 
-                                         this.artifact.getArtifactHandler().getExtension() );
+                                         finalName + "." + 
+                                         artifact.getArtifactHandler().getExtension() );
             
             ranlib.run( outputFile );
         }

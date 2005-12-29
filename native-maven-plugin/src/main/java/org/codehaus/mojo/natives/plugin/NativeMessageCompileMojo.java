@@ -79,14 +79,6 @@ public class NativeMessageCompileMojo
      * @required
      */
     protected File outputDirectory;
-
-
-    /**
-     * @parameter expression="${basedir}
-     * @required
-     * @readonly
-     */
-    protected File basedir;
     
     /**
      * @parameter 
@@ -125,7 +117,7 @@ public class NativeMessageCompileMojo
     	MessageCompilerConfiguration config = new MessageCompilerConfiguration();
         
     	config.setProviderHome( this.providerHome );
-    	config.setBaseDir( this.basedir );
+    	config.setBaseDir( this.project.getBasedir() );
     	config.setOutputDirectory ( this.outputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.options ) );
         

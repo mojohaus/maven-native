@@ -48,7 +48,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Link all previously built object and dependent library files
+ * Link all previously built object and dependent library files into final build artifact
  * @goal link
  * @phase package
  * @requiresDependencyResolution 
@@ -101,15 +101,9 @@ public class NativeLinkMojo
      */
     private String [] linkerEndOptions = new String[0];
     
-    /**
-     * @parameter expression="${project.artifactId}-${project.version}"
-     * @optional
-     */
-    
-    private String finalName;
     
     /**
-     * There are cases where linker will take Maven format depenendencies, 
+     * There are cases where linker does not take Maven artifact file name convension, 
      * use this property to rename the required ones.
      * @parameter 
      * @optional
@@ -133,12 +127,6 @@ public class NativeLinkMojo
      */
     private String linkerSecondaryOuputExtensions = "";
 
-    /**
-     * @parameter expression="${project.artifact.artifactHandler.extension}" 
-     * @required
-     * @readonly
-     */
-    private String linkerPrimaryOutputFileExtension;
     
     /**
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.LinkerManager}"
@@ -180,7 +168,9 @@ public class NativeLinkMojo
     	
     	Artifact primaryArtifact = this.project.getArtifact();
     	    	
-    	primaryArtifact.setFile( new File( this.outputDirectory + "/" + this.finalName + "." + this.linkerPrimaryOutputFileExtension )) ;
+    	primaryArtifact.setFile( new File( this.outputDirectory + "/" + 
+                                           this.project.getBuild().getFinalName() + "." + 
+                                           this.project.getArtifact().getArtifactHandler().getExtension() )) ;
     	
     	this.attachSecondaryArtifacts();
     }
@@ -190,14 +180,14 @@ public class NativeLinkMojo
     {
     	LinkerConfiguration config = new LinkerConfiguration();
     	config.setProviderHome( this.providerHome );
-    	config.setWorkingDirectory( this.basedir );
+    	config.setWorkingDirectory( this.project.getBasedir() );
     	config.setExecutable( this.linkerExecutable );
     	config.setStartOptions( removeEmptyOptions( this.linkerStartOptions ) );
     	config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );
     	config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
     	config.setOutputDirectory( this.outputDirectory );
-    	config.setOutputFileName( this.finalName );
-    	config.setOutputFileExtension( this.linkerPrimaryOutputFileExtension );
+    	config.setOutputFileName( this.project.getBuild().getFinalName() );
+    	config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
     	config.setExternalLibraries( this.getLibDependencies() );
     	
     	return config;
@@ -235,7 +225,9 @@ public class NativeLinkMojo
             Artifact artifact = artifactFactory.createArtifact( project.getGroupId(),
                                                                               project.getArtifactId(),
                                                                               project.getVersion(), null, tokens[i].trim());
-            artifact.setFile( new File( this.outputDirectory + "/" + this.finalName + "." + tokens[i].trim() )) ; 
+            artifact.setFile( new File( this.outputDirectory + "/" + 
+                                        this.project.getBuild().getFinalName() + "." + 
+                                        tokens[i].trim() )) ; 
 
             project.addAttachedArtifact( artifact );
     	}

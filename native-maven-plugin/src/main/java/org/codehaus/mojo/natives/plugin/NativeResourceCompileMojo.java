@@ -33,14 +33,11 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Compile Windows resource files
  * @goal resource-compile
- * @description compile all source into native object files
  * @phase compile
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id:$
@@ -51,20 +48,20 @@ public class NativeResourceCompileMojo
 {
 
     /**
+     * Compiler Provider Type
      * @parameter default-value="msvc"
      * @required
-     * @description Compiler Provider Type
      */
     private String provider;
-
  
     /**
-     * @description Compiler options
+     * Resource compiler options
      * @parameter 
      */
     private String [] options;
 
     /**
+     * Array of NativeSources containing include directories and source files
      * @parameter
      */
     
@@ -103,7 +100,7 @@ public class NativeResourceCompileMojo
     	
     	ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
     	config.setProviderHome( this.providerHome );
-    	config.setBaseDir( this.basedir );
+    	config.setBaseDir( this.project.getBasedir() );
     	config.setOptions( NativeMojoUtils.trimParams( this.options )  );
     	config.setOutputDirectory ( this.outputDirectory );
         

@@ -53,6 +53,7 @@ public abstract class AbstractNativeMojo
     protected File providerHome;
 	
     /**
+     * POM
      * @parameter expression="${project}"
      * @required
      * @readonly
@@ -61,20 +62,13 @@ public abstract class AbstractNativeMojo
 	
 	
     /**
-     * @description where to place the final packaging
+     * Where to place the final packaging and compiler object files
      * @parameter expression="${project.build.directory}"
      * @required
      * @readonly
      */
     protected File outputDirectory;
 
-    /**
-     * Internal readonly property
-     * @parameter expression="${basedir}
-     * @required
-     * @readonly
-     */
-	protected File basedir;
 
     protected static String [] removeEmptyOptions( String [] args )
     {

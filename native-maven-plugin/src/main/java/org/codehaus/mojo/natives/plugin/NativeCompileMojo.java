@@ -52,58 +52,72 @@ public class NativeCompileMojo
 {
 
     /**
+     * Compiler Provider Type
      * @parameter default-value="generic"
      * @required
-     * @description Compiler Provider Type
      */
     private String compilerProvider;
         
     /**
+     * Use this field to override provider specific compiler executable
      * @parameter 
      * @optional
-     * @description override provider specific executable
      */
     private String compilerExecutable;
 	
     
     /**
-     * @description Compiler options
+     * Compiler options
      * @parameter 
      */
-    private String [] compilerStartOptions;
+    private String[] compilerStartOptions;
     
     
     /**
+     * Compiler options ( Not in use )
      * @description Compiler options to produce native object file
      * @parameter 
      */
-    private String [] compilerMiddleOptions;
+    private String[] compilerMiddleOptions;
     
     /**
+     * Compiler options ( Not in use )
      * @description Compiler options to produce native object file
-     * @parameter default-value=""
+     * @parameter
      */
-    private String [] compilerEndOptions;
+    private String[] compilerEndOptions;
     
     /**
-     * @parameter default-value=""
-     * @description Directory name of OS specific include directory under ${java.home}/../include directory
+     * Javah OS name.
+     * ${javahIncludePath} and ${javahIncludePath}/${javaOS} are added to system include path 
+     * when this field is set
+     * @parameter 
      * @optional
      */
 
     private String javahOS;
 
     /**
-     * Compilable source files see TODO api of NativeSource here
+     * Javah include directory
+     * @parameter  default-value="${java.home}/../include"
+     * @optional
+     */
+
+    private File javahIncludePath;
+    
+    /**
+     * Array of NativeSources containing include directories and source files. 
      * @parameter 
-     * 
+     * @optional
      */
     protected NativeSources [] sources;
     
     
     /**
+     * Internal 
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.CompilerManager}"
      * @required
+     * @readonly
      */
 
     private CompilerManager manager;
@@ -124,11 +138,16 @@ public class NativeCompileMojo
     	
     	FileUtils.mkdir( project.getBuild().getDirectory() );
 
+        if ( this.javahOS != null )
+        {
+            this.addJavaHIncludePaths();
+        }
+        
     	this.addAdditionalIncludePath();
     	
     	CompilerConfiguration config = new CompilerConfiguration();
     	config.setProviderHome( this.providerHome );
-    	config.setBaseDir( this.basedir );
+    	config.setBaseDir( this.project.getBasedir() );
     	config.setExecutable( this.compilerExecutable );
     	config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );
     	config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );
@@ -152,30 +171,30 @@ public class NativeCompileMojo
     }
 
     
-    private void addJavaHIncludePaths( List includePaths )
+    private void addJavaHIncludePaths( )
     {
-        if ( this.javahOS != null && this.javahOS.trim().length() > 0 )
-        {
-            File jdkIncludeDir = new File( System.getProperty( "java.home" )  + "/../include" ) ;
+        List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
+
+        NativeSources jdkIncludeSource = new NativeSources();
             
-            NativeSources jdkIncludeSource = new NativeSources();
+        jdkIncludeSource.setDirectory( this.javahIncludePath );
             
-            jdkIncludeSource.setDirectory( jdkIncludeDir );
+        jdkIncludeSource.setDependencyAnalysisParticipation( false );
             
-            jdkIncludeSource.setDependencyAnalysisParticipation( false );
+        sourceArray.add( jdkIncludeSource );
             
-            includePaths.add( jdkIncludeSource );
+        File jdkOsIncludeDir = new File ( this.javahIncludePath, this.javahOS );
             
-            File jdkOsIncludeDir = new File ( jdkIncludeDir.getPath() + "/" +  this.javahOS );
+        NativeSources jdkIncludeOsSource = new NativeSources();
             
-            NativeSources jdkIncludeOsSource = new NativeSources();
+        jdkIncludeOsSource.setDirectory( jdkOsIncludeDir );
             
-            jdkIncludeOsSource.setDirectory( jdkOsIncludeDir );
+        jdkIncludeOsSource.setDependencyAnalysisParticipation( false );
             
-            jdkIncludeOsSource.setDependencyAnalysisParticipation( false );
+        sourceArray.add( jdkIncludeOsSource );
             
-            includePaths.add( jdkIncludeOsSource );
-        }
+        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[0] );
+        
     }
     
     
@@ -188,7 +207,7 @@ public class NativeCompileMojo
 	{
         List additionalIncludePaths = project.getCompileSourceRoots();
         
-        if ( additionalIncludePaths.size() < 2 || this.javahOS == null || this.javahOS.trim().length() == 0 )
+        if ( additionalIncludePaths.size() < 2 )
         {
             return;
         }
@@ -199,8 +218,6 @@ public class NativeCompileMojo
         }
         
         List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
-        
-        this.addJavaHIncludePaths( sourceArray );
         
         if ( additionalIncludePaths.size() > 1 )
         {

@@ -34,9 +34,6 @@
          <item name="Mojo" href="http://mojo.codehaus.org"/>
          <item name="Maven" href="http://maven.apache.org/maven2"/>
       </links>
-      <menu name="Mojo">
-         <item name="mojo" href="http://mojo.codehaus.org"/>
-      </menu>
       <menu name="Native Plugin">
          <item name="Overview" href="introduction.html"/>
          <item name="Build Lifecycle" href="lifecycle.html"/>
