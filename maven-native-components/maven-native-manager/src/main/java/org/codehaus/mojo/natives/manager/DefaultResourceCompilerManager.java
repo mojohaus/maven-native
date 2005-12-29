@@ -32,6 +32,11 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
+
 public class DefaultResourceCompilerManager 
     extends AbstractLogEnabled
     implements ResourceCompilerManager, Initializable

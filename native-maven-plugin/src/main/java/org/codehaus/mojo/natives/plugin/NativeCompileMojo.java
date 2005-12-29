@@ -44,7 +44,7 @@ import java.util.List;
  * @goal compile
  * @phase compile
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id:$
+ * @version $Id$
  */
 
 public class NativeCompileMojo

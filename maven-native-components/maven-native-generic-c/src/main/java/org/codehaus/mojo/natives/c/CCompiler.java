@@ -29,7 +29,8 @@ import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
 /**
  * Generic C/CPP compiler with -o as its ouput option
  * 
- * @author Dan T. Tran 
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
 
 public class CCompiler 

@@ -31,9 +31,10 @@ import org.codehaus.plexus.util.StringUtils;
 */
 
 /**
- * 
+ * Compilable list of source file in a directory
  * @author dantran@gmail.com
- * @description Compilable list of source file in a directory
+ * @description 
+ * @version $Id$
  */
 public class NativeSources
 {

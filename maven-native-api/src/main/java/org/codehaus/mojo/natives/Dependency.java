@@ -42,7 +42,7 @@ import java.io.Reader;
  * Dependency analizer of a native source file
  *
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id: $
+ * @version $Id$
  */
 
 public class Dependency

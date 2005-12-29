@@ -34,8 +34,8 @@ import org.codehaus.plexus.util.cli.Commandline;
 
 /**
  * Settup ENV according msvc  VCVARS32.BAT
- * @author dtran
- *
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
 public class MSVCEnv 
 {

@@ -26,8 +26,9 @@ package org.codehaus.mojo.natives.compiler;
 
 import java.io.File;
 
-/*
- * MessageCompilerConfiguration
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
 public class MessageCompilerConfiguration
 {

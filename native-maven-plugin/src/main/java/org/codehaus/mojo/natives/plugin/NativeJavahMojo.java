@@ -58,7 +58,7 @@ import java.util.zip.ZipFile;
  * @description generate jni include files
  * @phase generate-sources
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id:$
+ * @version $Id$
  * @requiresDependencyResolution compile
  */
 

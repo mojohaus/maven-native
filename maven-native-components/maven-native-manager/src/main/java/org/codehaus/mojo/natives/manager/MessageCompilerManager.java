@@ -26,6 +26,11 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
+
 public interface MessageCompilerManager 
 {
 	String ROLE = MessageCompilerManager.class.getName();

@@ -28,10 +28,11 @@ import java.io.File;
 
 import org.codehaus.plexus.util.FileUtils;
 
-
-/*
- * ResourceCompilerConfiguration
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
+
 public class ResourceCompilerConfiguration
 {
     private static final File[] EMPTY_FILE_ARRAY = new File[0];

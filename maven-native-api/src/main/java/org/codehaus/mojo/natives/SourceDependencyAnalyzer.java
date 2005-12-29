@@ -3,8 +3,6 @@ package org.codehaus.mojo.natives;
 import java.io.File;
 import java.io.IOException;
 
-import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-
 import org.codehaus.mojo.natives.parser.Parser;
 
 /*
@@ -30,6 +28,11 @@ import org.codehaus.mojo.natives.parser.Parser;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
 */
+
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
 
 public class SourceDependencyAnalyzer 
 {

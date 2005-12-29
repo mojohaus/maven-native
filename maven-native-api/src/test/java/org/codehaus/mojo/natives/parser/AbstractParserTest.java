@@ -16,8 +16,11 @@
  */
 package org.codehaus.mojo.natives.parser;
 import junit.framework.TestCase;
+
 /**
  * Tests for the CParser class
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
 public class AbstractParserTest extends TestCase {
     public AbstractParserTest(String name) {

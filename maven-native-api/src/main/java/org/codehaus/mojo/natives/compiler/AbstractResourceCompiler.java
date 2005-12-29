@@ -35,9 +35,13 @@ import org.codehaus.mojo.natives.parser.CParser;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 
-import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
+
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
 
 
 public abstract class AbstractResourceCompiler 

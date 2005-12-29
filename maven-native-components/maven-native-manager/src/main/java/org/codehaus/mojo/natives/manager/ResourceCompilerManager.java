@@ -26,6 +26,11 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.compiler.ResourceCompiler;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
+
 public interface ResourceCompilerManager 
 {
 	String ROLE = ResourceCompilerManager.class.getName();

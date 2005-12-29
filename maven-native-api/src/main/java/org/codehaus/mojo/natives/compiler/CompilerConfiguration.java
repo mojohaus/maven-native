@@ -30,6 +30,10 @@ import java.io.File;
 /*
  * CompilerConfiguration contains inputs by the user + 
  * DependencyMangement for dependecies analysis
+ * 
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ * 
  */
 public class CompilerConfiguration
 {

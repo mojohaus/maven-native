@@ -3,7 +3,6 @@ package org.codehaus.mojo.natives.compiler;
 import java.io.File;
 
 import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.util.StringUtils;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.parser.Parser;
@@ -34,10 +33,10 @@ import org.codehaus.mojo.natives.parser.CParser;
 */
 
 /**
- * C/C++ compiler runner
- * 
- * @author Dan T. Tran 
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
+
 public abstract class AbstractCCompiler 
     extends AbstractCompiler
 {

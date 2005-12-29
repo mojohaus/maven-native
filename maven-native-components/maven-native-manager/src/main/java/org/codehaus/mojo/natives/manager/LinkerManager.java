@@ -26,6 +26,11 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.linker.Linker;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
+
 public interface LinkerManager 
 {
 	String ROLE = LinkerManager.class.getName();

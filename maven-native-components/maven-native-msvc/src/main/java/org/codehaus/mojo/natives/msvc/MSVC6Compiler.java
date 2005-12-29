@@ -30,10 +30,10 @@ import org.codehaus.plexus.util.cli.Commandline;
 import java.io.File;
 
 /**
- * C/C++ compiler runner
- * 
- * @author Dan T. Tran 
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
+
 public class MSVC6Compiler 
     extends MSVCCompiler
 {	

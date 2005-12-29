@@ -35,8 +35,9 @@ import java.util.List;
 
 /**
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id:$
+ * @version $Id$
  */
+
 public abstract class AbstractNativeMojo
     extends AbstractMojo
 {

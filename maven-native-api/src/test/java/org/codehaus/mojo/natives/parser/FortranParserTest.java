@@ -22,8 +22,10 @@ import java.io.IOException;
 import org.codehaus.mojo.natives.parser.FortranParser;
 
 /**
- * Tests for the CParser class.
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
+
 public final class FortranParserTest
     extends AbstractParserTest {
   /**

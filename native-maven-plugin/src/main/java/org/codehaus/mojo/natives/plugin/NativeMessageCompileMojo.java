@@ -40,7 +40,7 @@ import java.io.File;
  * @goal compile-message
  * @phase generate-sources
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id:$
+ * @version $Id$
  */
 
 public class NativeMessageCompileMojo

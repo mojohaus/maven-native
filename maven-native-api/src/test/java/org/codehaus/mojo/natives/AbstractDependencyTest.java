@@ -33,6 +33,11 @@ import java.io.IOException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.FileUtils;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
+
 public class AbstractDependencyTest 
     extends TestCase 
 {

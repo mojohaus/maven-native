@@ -54,7 +54,7 @@ import java.util.Set;
  * @requiresDependencyResolution 
  *
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id:$
+ * @version $Id$
  */
 public class NativeLinkMojo
     extends AbstractNativeMojo

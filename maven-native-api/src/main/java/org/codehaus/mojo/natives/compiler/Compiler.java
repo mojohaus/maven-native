@@ -29,6 +29,11 @@ import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
+
 public interface Compiler
 {
 	String ROLE = Compiler.class.getName();

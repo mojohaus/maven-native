@@ -31,6 +31,10 @@ import org.codehaus.mojo.natives.Dependency;
 import org.codehaus.mojo.natives.parser.CParser;
 import org.codehaus.mojo.natives.parser.Parser;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
 
 public class DependencyTest 
     extends AbstractDependencyTest 

@@ -38,6 +38,10 @@ import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 
+/**
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
+ */
 
 public abstract class AbstractCompiler 
     extends AbstractLogEnabled

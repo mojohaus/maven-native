@@ -36,7 +36,7 @@ import org.codehaus.mojo.natives.linker.Ranlib;
  * @goal ranlib
  * @phase package
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id:$
+ * @version $Id$
  */
 public class NativeRanlibMojo
     extends AbstractNativeMojo

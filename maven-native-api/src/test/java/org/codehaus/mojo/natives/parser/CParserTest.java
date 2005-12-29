@@ -23,6 +23,8 @@ import org.codehaus.mojo.natives.parser.CParser;
 
 /**
  * Tests for the CParser class.
+ * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
+ * @version $Id$
  */
 public final class CParserTest
     extends AbstractParserTest {
