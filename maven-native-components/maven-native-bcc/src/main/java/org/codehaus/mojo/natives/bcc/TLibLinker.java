@@ -63,7 +63,7 @@ public class TLibLinker
 	    
 	    cl.createArgument().setValue( executable );
 	    
-	    cl.createArgument().setValue( config.getOutputFilePath() );
+	    cl.createArgument().setValue( "\"" + config.getOutputFilePath() + "\"" );
 
 	    for ( int i = 0; i < config.getStartOptions().length; ++i )
 	    {
@@ -74,7 +74,7 @@ public class TLibLinker
 	    {
 	    	File objFile = (File) objectFiles.get(i);
 
-		    cl.createArgument().setValue( "+" + objFile.getPath() );
+		    cl.createArgument().setValue( "+\"" + objFile.getPath() + "\"" );
 	    }
 
 	    return cl;

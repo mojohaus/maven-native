@@ -37,7 +37,7 @@ import java.io.File;
  * @version $Id$
  */
 public class BCCEnvCompiler 
-    extends CCompiler
+    extends BCCCompiler
 {
 	
 	public BCCEnvCompiler ()

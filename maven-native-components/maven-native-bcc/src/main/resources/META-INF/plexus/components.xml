@@ -2,9 +2,51 @@
   <components>
 
     <component>
+      <role>org.codehaus.mojo.natives.compiler.Compiler</role>
+      <role-hint>bcc</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.BCCCompiler</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.compiler.Compiler</role>
+      <role-hint>bccEnv</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.BCCEnvCompiler</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+    
+    <component>
       <role>org.codehaus.mojo.natives.linker.Linker</role>
-      <role-hint>generic-c-linker</role-hint>
+      <role-hint>tlib</role-hint>
       <implementation>org.codehaus.mojo.natives.bcc.TLibLinker</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Linker</role>
+      <role-hint>tlibEnv</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.TLibEnvLinker</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Linker</role>
+      <role-hint>bcc</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.BCCLinker</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Linker</role>
+      <role-hint>bccEnv</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.BCCEnvLinker</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.compiler.Linker</role>
+      <role-hint>bccEnv</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.BCCEnvLinker</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 

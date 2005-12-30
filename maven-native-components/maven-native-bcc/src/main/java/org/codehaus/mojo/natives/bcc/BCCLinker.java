@@ -76,18 +76,8 @@ public class BCCLinker
         {
             File objFile = (File) objectFiles.get(i);
 
-            cl.createArgument().setValue( " " + objFile.getPath() );
+            cl.createArgument().setValue( objFile.getPath() );
         }
-
-        //ouput file
-        cl.createArgument().setValue( "," + config.getOutputFilePath() );
-
-        //map files
-        cl.createArgument().setValue( "," );
-        cl.addArguments( config.getMiddleOptions() );
-
-        //setup external libraries in dependencies
-        cl.createArgument().setValue( "," );
 
         File [] externalLibs = config.getExternalLibraries();
         
@@ -98,12 +88,17 @@ public class BCCLinker
                 cl.createArgument().setValue( externalLibs[i].getPath() );
             }
         }
+        
+        //ouput file
+        cl.createArgument().setValue( "," + config.getOutputFilePath() );
 
-        //the rest is linker end options
+        //map files + system lib, and def file to be given by user in middle options
+        //  a comma is required between map, lib, and def 
         cl.createArgument().setValue( "," );
-        cl.addArguments( config.getEndOptions() );
+        cl.addArguments( config.getMiddleOptions() );
         
         //res file
+        cl.createArgument().setValue( "," );
         for ( int i = 0; i < externalLibs.length; ++i )
         {
             if ( FileUtils.getExtension( externalLibs[i].getPath() ).toLowerCase().equals( "res" ) )
