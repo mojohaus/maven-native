@@ -33,6 +33,7 @@ Examples
           
            <!-- 
             | Add jdk include directories to system include path
+            | Override ${jkdIncludePath} If your jdk does not conform to Sun JDK layout
             -->
            <javahOS>win32</javahOS>
           
@@ -92,9 +93,6 @@ Examples
                 |   Note: 
                 |    1. Without classNames, javah mojo will search for all JNI classes 
                 |       in your dependency list.
-                |    2. Without this execution, javaOS is ignored and no JNI system include
-                |       paths are added to include path.  You can explicitly add JNI system
-                |       paths to include path using source configuration.
                -->
              </configuration>
              <goals>

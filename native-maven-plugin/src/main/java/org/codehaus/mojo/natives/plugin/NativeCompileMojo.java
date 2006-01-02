@@ -103,7 +103,7 @@ public class NativeCompileMojo
      * @optional
      */
 
-    private File javahIncludePath;
+    private File jdkIncludePath;
     
     /**
      * Array of NativeSources containing include directories and source files. 
@@ -177,13 +177,13 @@ public class NativeCompileMojo
 
         NativeSources jdkIncludeSource = new NativeSources();
             
-        jdkIncludeSource.setDirectory( this.javahIncludePath );
+        jdkIncludeSource.setDirectory( this.jdkIncludePath );
             
         jdkIncludeSource.setDependencyAnalysisParticipation( false );
             
         sourceArray.add( jdkIncludeSource );
             
-        File jdkOsIncludeDir = new File ( this.javahIncludePath, this.javahOS );
+        File jdkOsIncludeDir = new File ( this.jdkIncludePath, this.javahOS );
             
         NativeSources jdkIncludeOsSource = new NativeSources();
             
