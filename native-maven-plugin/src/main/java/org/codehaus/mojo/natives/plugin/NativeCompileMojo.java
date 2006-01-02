@@ -74,14 +74,14 @@ public class NativeCompileMojo
     
     
     /**
-     * Compiler options ( Not in use )
+     * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter 
      */
     private String[] compilerMiddleOptions;
     
     /**
-     * Compiler options ( Not in use )
+     * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter
      */
@@ -89,7 +89,7 @@ public class NativeCompileMojo
     
     /**
      * Javah OS name.
-     * ${javahIncludePath} and ${javahIncludePath}/${javaOS} are added to system include path 
+     * ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path 
      * when this field is set
      * @parameter 
      * @optional
@@ -98,7 +98,7 @@ public class NativeCompileMojo
     private String javahOS;
 
     /**
-     * Javah include directory
+     * JDK native include directory
      * @parameter  default-value="${java.home}/../include"
      * @optional
      */
