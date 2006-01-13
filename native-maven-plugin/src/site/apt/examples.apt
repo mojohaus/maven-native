@@ -16,6 +16,13 @@ Examples
    ...
    <packaging>dll</packaging>
    
+   <dependencies>
+     
+     add your jar which has jni interface
+     add other native libs to be linked in
+   
+   </dependencies>
+   
    ...
 
    <build>   
@@ -25,7 +32,7 @@ Examples
          <artifactId>native-maven-plugin</artifactId>
          <extensions>true</extensions>
          <configuration>
-           <compilerType>msvc</compilerType>
+           <compilerProvider>msvc</compilerProvider>
            <compilerStartOptions>
              <compilerStartOption>/nologo /MD /W4 -O</compilerStartOption>
              <compilerStartOption>-D_WIN32_WINNT=0x0500 </compilerStartOption>
