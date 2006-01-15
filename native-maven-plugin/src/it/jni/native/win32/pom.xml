@@ -1,0 +1,80 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+    <artifactId>native</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo.natives.it.jni.win32</groupId>
+  <artifactId>Hello</artifactId>
+  
+  <packaging>dll</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+      <artifactId>hello</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  
+  
+  <build>
+    <finalName>${artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <extensions>true</extensions>       
+        <configuration>
+          <compilerProvider>msvc6</compilerProvider>
+          <compilerStartOptions>
+            <compilerStartOption>/nologo /MD /W4 -O</compilerStartOption>
+          </compilerStartOptions>
+          
+          <javahOS>win32</javahOS>
+          
+          <sources>
+            <source>
+	      <directory>../src/main/native</directory>
+	      <fileNames>
+                <fileName>HelloWorld.c</fileName>
+	      </fileNames>
+            </source>
+
+          </sources>
+            
+          <linkerStartOptions>
+            <linkerStartOption>/nologo /INCREMENTAL:NO /DLL user32.lib advapi32.lib oldnames.lib kernel32.lib </linkerStartOption>
+          </linkerStartOptions>
+          
+          
+        </configuration>
+        
+        <executions>
+          <execution>
+            <id>javah</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <classNames>
+                <className>HelloWorld</className>
+              </classNames>
+            </configuration>
+            <goals>
+              <goal>javah</goal> 
+            </goals>
+          </execution>
+                    
+        </executions>
+           
+      </plugin>
+
+    </plugins>    
+      
+  </build>
+  
+
+</project>
