@@ -6,7 +6,7 @@ public class HelloWorld
 
     static
     {
-        System.loadLibrary("NativeSideImpl");
+        System.loadLibrary("hello");
     }
 
     public static void main( String[] args )
