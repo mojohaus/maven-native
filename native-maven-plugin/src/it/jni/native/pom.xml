@@ -44,11 +44,11 @@
       <activation>
         <property>
           <name>platform</name>
-          <value>linux-x86</value>
+          <value>linux</value>
         </property>
       </activation>
       <modules>
-        <module>linux-x86</module>
+        <module>linux</module>
       </modules>
     </profile>
     
