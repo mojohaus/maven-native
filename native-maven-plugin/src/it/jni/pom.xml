@@ -4,6 +4,7 @@
   <groupId>org.codehaus.mojo.natives.it.jni</groupId>
   <artifactId>jni</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <name>JNI Example</name>
   
   <packaging>pom</packaging>
   

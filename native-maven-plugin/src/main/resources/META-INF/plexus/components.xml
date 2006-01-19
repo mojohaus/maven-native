@@ -1,28 +1,6 @@
 <component-set>
 <components>
 
-    <!--
-     |			native-lib
-     -->
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-lib</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
-
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>lib</role-hint>
@@ -31,27 +9,20 @@
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
     </component>  
     
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-lib</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-lib</type>
-        <extension>lib</extension>
-        <includesDependencies>true</includesDependencies>
-      </configuration>
-    </component>  
 
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
@@ -69,53 +40,26 @@
      -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-dll</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
-
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>dll</role-hint>
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
     </component>  
-    
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-dll</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-dll</type>
-        <extension>dll</extension>
-        <includesDependencies>true</includesDependencies>
-      </configuration>
-    </component>  
-    
+        
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>dll</role-hint>
@@ -132,51 +76,23 @@
      -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-exe</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
-
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>exe</role-hint>
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
-      </configuration>
-    </component>  
-    
-    
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-exe</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-exe</type>
-        <extension>exe</extension>
-        <includesDependencies>true</includesDependencies>
       </configuration>
     </component>  
 
@@ -194,24 +110,6 @@
     <!--
      |			native-a
      -->
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-a</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
 
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -221,28 +119,20 @@
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
     </component>  
     
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-a</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-a</type>
-        <extension>a</extension>
-        <includesDependencies>true</includesDependencies>
-      </configuration>
-    </component>   
-
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>a</role-hint>
@@ -259,53 +149,26 @@
      -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-so</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
-    
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>so</role-hint>
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
     </component>  
     
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-so</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-so</type>
-        <extension>so</extension>
-        <includesDependencies>true</includesDependencies>
-      </configuration>
-    </component>       
-
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>so</role-hint>
@@ -320,26 +183,7 @@
     <!--
      |			native-si
      -->
-     
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-si</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
-     
+          
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>si</role-hint>
@@ -348,28 +192,20 @@
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
     </component>  
     
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-si</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-si</type>
-        <extension>si</extension>
-        <includesDependencies>true</includesDependencies>
-      </configuration>
-    </component>                
-
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>si</role-hint>
@@ -384,24 +220,6 @@
     <!--
      |			native-uexe  unix executable requires an extension
      -->
-    <component>
-      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>native-uexe</role-hint>
-      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
-      <configuration>
-        <phases>
-          <initialize></initialize>
-          <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
-          <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
-          <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-          <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
-          <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
-        </phases>
-      </configuration>
-    </component>  
 
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -411,28 +229,20 @@
         <phases>
           <initialize></initialize>
           <generate-sources></generate-sources>
-          <compile>org.codehaus.mojo:native-maven-plugin:compile</compile>
-          <package>org.codehaus.mojo:native-maven-plugin:link</package>
+          <compile>
+            org.codehaus.mojo:native-maven-plugin:compile,
+            org.codehaus.mojo:native-maven-plugin:link
+          </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
           <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+          <package></package>
           <install>org.apache.maven.plugins:maven-install-plugin:install</install>
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
     </component>  
     
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>native-uexe</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <type>native-uexe</type>
-        <extension>uexe</extension>
-        <includesDependencies>true</includesDependencies>
-      </configuration>
-    </component>                
-
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>uexe</role-hint>

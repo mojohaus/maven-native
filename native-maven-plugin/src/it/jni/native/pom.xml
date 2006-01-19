@@ -10,6 +10,8 @@
 
   <artifactId>native</artifactId>
   
+  <name>JNI - Natives </name>
+  
   <packaging>pom</packaging>
 
 
