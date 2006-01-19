@@ -6,5 +6,12 @@
       <implementation>org.codehaus.mojo.natives.javah.JavahExecutable</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
+    <component>
+      <role>org.codehaus.mojo.natives.javah.Javah</role>
+      <role-hint>macos</role-hint>
+      <implementation>org.codehaus.mojo.natives.javah.JavahMacOSExecutable</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+    
   </components>
 </component-set>

@@ -59,14 +59,7 @@ public class JavahExecutable
 	private Commandline createJavahCommand( JavahConfiguration config) 
 	    throws NativeBuildException
 	{
-		String javahExt = "";
-		
-		if ( Os.isFamily( "windows") )
-		{
-			javahExt = ".exe";
-		}
-
-		File javahExecutable = new File( System.getProperty( "java.home" ), "../bin/javah" + javahExt );
+		File javahExecutable = this.getJavaHExecutable();
 		
 		if ( ! javahExecutable.exists() )
 		{
@@ -114,6 +107,18 @@ public class JavahExecutable
         cl.addArguments( config.getClassNames() );
 	    
         return cl;
+	}
+	
+	protected File getJavaHExecutable()
+	{
+		String javahExt = "";
+		
+		if ( Os.isFamily( "windows") )
+		{
+			javahExt = ".exe";
+		}
+
+		return new File( System.getProperty( "java.home" ), "../bin/javah" + javahExt );
 	}
 
 }
