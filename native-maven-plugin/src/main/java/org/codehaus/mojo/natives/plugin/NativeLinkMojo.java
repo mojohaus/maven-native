@@ -252,7 +252,7 @@ public class NativeLinkMojo
                   "si".equals  ( artifact.getArtifactHandler().getExtension() )  ||
                   "lib".equals( artifact.getArtifactHandler().getExtension() )  ||
                   "o".equals( artifact.getArtifactHandler().getExtension()   )  ||
-                  "obj".equals( artifact.getArtifactHandler().getExtension() )  
+                  "obj".equals( artifact.getArtifactHandler().getExtension() )  ||
                   "dylib".equals( artifact.getArtifactHandler().getExtension() )  
                ) 
             {
