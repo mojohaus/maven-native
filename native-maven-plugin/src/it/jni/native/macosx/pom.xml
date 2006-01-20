@@ -13,7 +13,7 @@
   
   <name>JNI - MacOSX  </name>
   
-  <packaging>dylib</packaging>
+  <packaging>jnilib</packaging>
   
   <dependencies>
     <dependency>
