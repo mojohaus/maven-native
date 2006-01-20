@@ -63,7 +63,8 @@ public class CLinker
 
         cl.addArguments( config.getStartOptions() );
         
-	    cl.createArgument().setValue( this.getLinkerOutputOption() + config.getOutputFilePath() );
+	    cl.createArgument().setValue( this.getLinkerOutputOption() );
+	    cl.createArgument().setValue( config.getOutputFilePath() );
 
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {
