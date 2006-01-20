@@ -63,8 +63,7 @@ public class CLinker
 
         cl.addArguments( config.getStartOptions() );
         
-	    cl.createArgument().setValue( this.getLinkerOutputOption() );
-	    cl.createArgument().setValue( config.getOutputFilePath() );
+	    cl.createArgument().setValue( this.getLinkerOutputOption() + config.getOutputFilePath() );
 
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {
@@ -90,6 +89,6 @@ public class CLinker
 	
 	protected String getLinkerOutputOption()
 	{
-		return "-o";
+		return "-o ";
 	}
 }
