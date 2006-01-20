@@ -53,6 +53,19 @@
     </profile>
     
     <profile>
+      <id>add-macosx-module</id>
+      <activation>
+        <property>
+          <name>platform</name>
+          <value>macosx</value>
+        </property>
+      </activation>
+      <modules>
+        <module>macosx</module>
+      </modules>
+    </profile>
+    
+    <profile>
       <id>add-aix-ppc-module</id>
       <activation>
         <property>

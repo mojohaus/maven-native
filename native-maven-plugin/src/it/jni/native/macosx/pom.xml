@@ -1,0 +1,101 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+    <artifactId>native</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo.natives.it.jni.macosx</groupId>
+  <artifactId>libhello</artifactId>
+  
+  <name>JNI - MacOSX  </name>
+  
+  <packaging>dylib</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+      <artifactId>hello</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    
+    
+  </dependencies>
+  
+  
+  <build>
+    <finalName>${artifactId}</finalName>
+    
+    <testSourceDirectory>../src/test/java</testSourceDirectory>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <extensions>true</extensions>       
+        <configuration>
+          <compilerProvider>generic</compilerProvider>
+          <compilerStartOptions>
+            <compilerStartOption>-fPIC -O</compilerStartOption>
+          </compilerStartOptions>
+          
+          <jdkIncludePath>${java.home}/include</jdkIncludePath>
+          <javahOS>macosx</javahOS>
+          
+          <sources>
+            <source>
+	      <directory>../src/main/native</directory>
+	      <fileNames>
+                <fileName>HelloWorld.c</fileName>
+	      </fileNames>
+            </source>
+
+          </sources>
+            
+          <linkerStartOptions>
+            <linkerStartOption>-prebind -dynamiclib -lc -ldl</linkerStartOption>
+          </linkerStartOptions>
+          
+          
+        </configuration>
+        
+        <executions>
+          <execution>
+            <id>javah</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <implementation>macos</implementation>
+              <classNames>
+                <className>HelloWorld</className>
+              </classNames>
+            </configuration>
+            <goals>
+              <goal>javah</goal> 
+            </goals>
+          </execution>
+          
+                    
+        </executions>
+           
+      </plugin>
+
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>once</forkMode>
+          <environments>
+            <LD_LIBRARY_PATH>${project.build.directory}</LD_LIBRARY_PATH>
+          </environments>
+        </configuration>
+      </plugin>
+
+    </plugins>    
+
+  </build>
+  
+
+</project>
