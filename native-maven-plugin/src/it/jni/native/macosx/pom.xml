@@ -87,9 +87,9 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>once</forkMode>
-          <environments>
+          <environmentVariables>
             <DYLD_LIBRARY_PATH>${project.build.directory}</DYLD_LIBRARY_PATH>
-          </environments>
+          </environmentVariables>
         </configuration>
       </plugin>
 

@@ -9,7 +9,7 @@
   </parent>
 
   <groupId>org.codehaus.mojo.natives.it.jni.linux</groupId>
-  <artifactId>Hello</artifactId>
+  <artifactId>libhello</artifactId>
   
   <name>JNI - Linux  </name>
   
@@ -85,9 +85,9 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>once</forkMode>
-          <environments>
+          <environmentVariables>
             <LD_LIBRARY_PATH>${project.build.directory}</LD_LIBRARY_PATH>
-          </environments>
+          </environmentVariables>
         </configuration>
       </plugin>
 

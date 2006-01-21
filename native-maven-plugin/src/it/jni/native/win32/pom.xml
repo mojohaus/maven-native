@@ -9,7 +9,7 @@
   </parent>
 
   <groupId>org.codehaus.mojo.natives.it.jni.win32</groupId>
-  <artifactId>Hello</artifactId>
+  <artifactId>hello</artifactId>
   
   <name>JNI - DLL </name>
   
@@ -79,39 +79,6 @@
         </executions>
            
       </plugin>
-
-<!--
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>pretest</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <copy file="${project.build.directory}/${project.build.finalName}.${packaging}" todir="." overwrite="true" />
-              </tasks>
-            </configuration>
-          </execution>
-          <execution>
-            <id>posttest</id>
-            <phase>test</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <delete file="${basedir}/${project.build.finalName}.${packaging}"/>
-              </tasks>
-            </configuration>
-          </execution>
-
-        </executions>
-      </plugin>
--->
 
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
