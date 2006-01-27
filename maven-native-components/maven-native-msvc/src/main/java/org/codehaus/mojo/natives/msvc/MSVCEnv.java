@@ -39,14 +39,16 @@ import org.codehaus.plexus.util.cli.Commandline;
  */
 public class MSVCEnv
 {
-    private static File DEFAULT_MSVC6_HOME = new File( "C:/Program Files/Microsoft Visual Studio" );
+    private static final String DEFAULT_MSVC6_HOME = "C:/Program Files/Microsoft Visual Studio" ;
 
-    private static File DEFAULT_MSVC2003_HOME = new File( "C:/Program Files/Microsoft Visual Studio .NET 2003" );
+    private static final String DEFAULT_MSVC2003_HOME = "C:/Program Files/Microsoft Visual Studio .NET 2003" ;
+
+    private static final String DEFAULT_MSVC2005_HOME = "C:/Program Files/Microsoft Visual Studio 8" ;
 
     public static void setupMSVC6CommandLineEnv( File vsDir, Commandline cl )
         throws NativeBuildException
     {
-        File msvc6Home = checkMSVCHome( vsDir, DEFAULT_MSVC6_HOME );
+        File msvc6Home = checkMSVCHome( "MSVC6INSTALLDIR", "MSVC6INSTALLDIR", DEFAULT_MSVC6_HOME );
 
         Map envs = createAdditionalMSVC6Envs( msvc6Home );
 
@@ -57,31 +59,39 @@ public class MSVCEnv
     public static void setupMSVC2003CommandLineEnv( File vsDir, Commandline cl )
         throws NativeBuildException
     {
-        File msvc6Home = checkMSVCHome( vsDir, DEFAULT_MSVC2003_HOME );
+        File installDir = checkMSVCHome( "MSVC2003INSTALLDIR", "MSVC003INSTALLDIR", DEFAULT_MSVC2003_HOME );
 
-        Map envs = createAdditionalMSVC2003Envs( msvc6Home );
+        Map envs = createAdditionalMSVC2003Envs( installDir );
+
+        setupCommandlineEnv( envs, cl );
+    }
+    
+    public static void setupMSVC2005CommandLineEnv( File vsDir, Commandline cl )
+        throws NativeBuildException
+    {
+        File installDir = checkMSVCHome( "MSVC2005INSTALLDIR", "MSVC2005INSTALLDIR", DEFAULT_MSVC2005_HOME );
+
+        String platform = getEnv( "MSVC2005PLATFORM", "MSVC2005PLATFORM", "x86" );
+        
+        Map envs = createAdditionalMSVC2005Envs( installDir, platform );
 
         setupCommandlineEnv( envs, cl );
     }
 
-    private static File checkMSVCHome( File userGivenHomeDir, File defaultHomeDir )
+    
+    private static File checkMSVCHome( String env, String alternateSystemProperty, String defaultHomeDir )
+        throws NativeBuildException
     {
-        File homeDir = userGivenHomeDir;
-
-        if ( homeDir == null || !homeDir.isDirectory() )
+        File  vsInstallDir = new File ( getEnv( env, alternateSystemProperty, defaultHomeDir ) );
+        
+        if ( ! vsInstallDir.isDirectory() )
         {
-            homeDir = defaultHomeDir;
+           String message = vsInstallDir.getPath() + "not found.";
 
-            if ( !homeDir.isDirectory() )
-            {
-                String message = "User given: " + userGivenHomeDir + " or the fall back " + defaultHomeDir
-                    + " directory is not available.";
-
-                new NativeBuildException( message );
-            }
+           throw new NativeBuildException( message );
         }
 
-        return homeDir;
+        return vsInstallDir;
 
     }
 
@@ -205,7 +215,6 @@ public class MSVCEnv
 
     }
 
-    static final String DEFAULT_VS2005_INSTALL_DIR = "c:/Program Files/Microsoft Visual Studio 8";
 
     private static Map createAdditionalMSVC2003Envs( File vcInstallDir )
     {
@@ -271,7 +280,33 @@ public class MSVCEnv
 
     }
 
-private static Map createAdditionalMSVC2005x86Envs( File vsInstallDir )
+    private static Map createAdditionalMSVC2005Envs( File vsInstallDir, String platform )
+        throws NativeBuildException
+    {
+        if ( "x86".equalsIgnoreCase( platform ))
+        {
+            return createAdditionalMSVC2005x86Envs( vsInstallDir );
+        }
+        
+        if ( "x86_amd64".equalsIgnoreCase( platform ))
+        {
+            return createAdditionalMSVC2005x86AMD64Envs( vsInstallDir );
+        }
+        
+        if ( "x64".equalsIgnoreCase( platform ))
+        {
+            return createAdditionalMSVC2005AMD64Envs( vsInstallDir );
+        }
+
+        if ( "amd64".equalsIgnoreCase( platform ))
+        {
+            return createAdditionalMSVC2005AMD64Envs( vsInstallDir );
+        }
+        
+        throw new NativeBuildException ( "Unsupported platform: " + platform + " for VS2005 compiler/linker." );
+        
+    }    
+    private static Map createAdditionalMSVC2005x86Envs( File vsInstallDir )
 	{
 		Map envs = new HashMap();
 				
