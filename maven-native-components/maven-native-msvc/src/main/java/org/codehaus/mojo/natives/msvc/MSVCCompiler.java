@@ -67,7 +67,7 @@ public class MSVCCompiler
 	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
 	    throws NativeBuildException
 	{
-		// user must setup their env accourding compiler provided setup script
+		// user must setup their env according  provided compiler setup script
 	}
 
 }
