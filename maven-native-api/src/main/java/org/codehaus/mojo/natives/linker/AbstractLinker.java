@@ -22,34 +22,34 @@ package org.codehaus.mojo.natives.linker;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
-import org.codehaus.plexus.logging.AbstractLogEnabled;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
-
 public abstract class AbstractLinker
-    extends AbstractLogEnabled
-    implements Linker 
+    extends AbstractLogEnvEnabled
+    implements Linker
 {
-	
-	protected abstract Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+
+    protected abstract Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException;
-	
-	public File link ( LinkerConfiguration config, List compilerOutputFiles )
+
+    public File link( LinkerConfiguration config, List compilerOutputFiles )
         throws NativeBuildException, IOException
     {
-       Commandline cl = this.createLinkerCommandLine( compilerOutputFiles, config );
-           
-       CommandLineUtil.execute( cl, this.getLogger() );
-	
-	   return new File( config.getOutputFilePath() );
+        Commandline cl = this.createLinkerCommandLine( compilerOutputFiles, config );
+
+        CommandLineUtil.execute( cl, this.getLogger() );
+
+        return new File( config.getOutputFilePath() );
     }
 
 }

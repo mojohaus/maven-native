@@ -68,15 +68,9 @@ public class MSVCMessageCompiler
         cl.createArgument().setValue( source.getPath() );
 
 	    
-		this.setupCommandLineEnv( config.getProviderHome(), cl );
+		this.setupCommandlineEnv( cl, config );
 		
 		return cl;
-	}
-	
-	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
-	    throws NativeBuildException
-	{
-		// user must setup their env accourding compiler provided setup script
 	}
 
 }

@@ -22,12 +22,13 @@ package org.codehaus.mojo.natives.compiler;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
@@ -36,74 +37,70 @@ import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 
 import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.logging.AbstractLogEnabled;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
 
-
-public abstract class AbstractResourceCompiler 
-    extends AbstractLogEnabled
-    implements ResourceCompiler 
+public abstract class AbstractResourceCompiler
+    extends AbstractLogEnvEnabled
+    implements ResourceCompiler
 {
 
-	protected abstract Commandline getCommandLine(ResourceCompilerConfiguration config, File source )
-	    throws NativeBuildException;
-	
-    public List compile( ResourceCompilerConfiguration config, NativeSources [] sources )
-    	throws NativeBuildException
+    protected abstract Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
+        throws NativeBuildException;
+
+    public List compile( ResourceCompilerConfiguration config, NativeSources[] sources )
+        throws NativeBuildException
     {
-        File [] sourceFiles = NativeSources.getAllSourceFiles( sources );
-        
+        File[] sourceFiles = NativeSources.getAllSourceFiles( sources );
+
         config.setIncludePaths( NativeSources.getIncludePaths( sources ) );
-        
+
         config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( sources ) );
-        
+
         List compilerOutputFiles = new ArrayList( sourceFiles.length );
-        
-        for (int i = 0 ;i < sourceFiles.length; ++i )
+
+        for ( int i = 0; i < sourceFiles.length; ++i )
         {
             File src = sourceFiles[i];
-            
+
             File outputFile = config.getOutputFile( src );
-            
+
             compilerOutputFiles.add( outputFile );
 
             if ( isResourceFileStaled( src, outputFile, config.getIncludePaths() ) )
             {
                 Commandline cl = getCommandLine( config, src );
-                
+
                 CommandLineUtil.execute( cl, this.getLogger() );
             }
         }
-        
+
         return compilerOutputFiles;
-        
-    }	
-    
-    private boolean isResourceFileStaled( File src, File dest, File [] includePaths )
+
+    }
+
+    private boolean isResourceFileStaled( File src, File dest, File[] includePaths )
         throws NativeBuildException
     {
         Parser parser = new CParser();
-    
-        try 
+
+        try
         {
-            if ( ! SourceDependencyAnalyzer.isStaled( src, dest, parser, includePaths ) )
+            if ( !SourceDependencyAnalyzer.isStaled( src, dest, parser, includePaths ) )
             {
-                this.getLogger().info( src.getPath() + " is up to date.");
+                this.getLogger().info( src.getPath() + " is up to date." );
                 return false;
             }
         }
         catch ( NativeBuildException ioe )
         {
-            throw new NativeBuildException( "Error analyzing " + src.getPath() + " dependencies.", ioe ); 
+            throw new NativeBuildException( "Error analyzing " + src.getPath() + " dependencies.", ioe );
         }
-        
-        return true;
-}
-    
 
-	    
+        return true;
+    }
+
 }

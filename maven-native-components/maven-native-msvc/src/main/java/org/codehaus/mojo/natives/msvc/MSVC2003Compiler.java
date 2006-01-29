@@ -22,20 +22,19 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
-
+ */
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
 
-public class MSVC2003Compiler 
+public class MSVC2003Compiler
     extends MSVCCompiler
-{	
-    public  MSVC2003Compiler()
+{
+    public void intitialize()
     {
-        this.setEnvironmentVariables( MSVCEnv.getMSVC2003EnvironmentVariables() );        
+        this.setEnvironmentVariables( MSVCEnv.getMSVC2003EnvironmentVariables() );
     }
-    
+
 }

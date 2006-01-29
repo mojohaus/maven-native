@@ -22,10 +22,11 @@ package org.codehaus.mojo.natives.compiler;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 
+import org.codehaus.mojo.natives.ConfigurationBase;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
@@ -34,69 +35,70 @@ import org.codehaus.plexus.util.FileUtils;
  */
 
 public class ResourceCompilerConfiguration
+    extends ConfigurationBase
 {
     private static final File[] EMPTY_FILE_ARRAY = new File[0];
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-	private File providerHome;
-	
-	private File baseDir;
-	
-	private File outputDirectory;
+    private File providerHome;
+
+    private File baseDir;
+
+    private File outputDirectory;
 
     private File debugOutputDirectory;
 
-    private String [] options = EMPTY_STRING_ARRAY;
-    
-    private File [] includePaths = EMPTY_FILE_ARRAY;
-    
-    private File [] systemIncludePaths = EMPTY_FILE_ARRAY;
-    
-	public ResourceCompilerConfiguration ()
-	{
-	}
-		
-	public File getBaseDir()
-	{
-		return this.baseDir;
-	}
-	
-	public void setBaseDir( File basedir )
-	{
-		this.baseDir = basedir;
-	}
-	
-	public String [] getOptions()
-	{
-		return this.options;
-	}
+    private String[] options = EMPTY_STRING_ARRAY;
 
-	public void setOptions( String [] options )
-	{
+    private File[] includePaths = EMPTY_FILE_ARRAY;
+
+    private File[] systemIncludePaths = EMPTY_FILE_ARRAY;
+
+    public ResourceCompilerConfiguration()
+    {
+    }
+
+    public File getBaseDir()
+    {
+        return this.baseDir;
+    }
+
+    public void setBaseDir( File basedir )
+    {
+        this.baseDir = basedir;
+    }
+
+    public String[] getOptions()
+    {
+        return this.options;
+    }
+
+    public void setOptions( String[] options )
+    {
         this.options = options;
 
-        if ( this.options == null ) 
+        if ( this.options == null )
         {
             this.options = EMPTY_STRING_ARRAY;
         }
-	}
+    }
 
-	public File getProviderHome()
-	{
-		return this.providerHome;
-	}
-	
-	public void setProviderHome( File dir )
-	{
-		this.providerHome = dir;
-	}
-    
+    public File getProviderHome()
+    {
+        return this.providerHome;
+    }
+
+    public void setProviderHome( File dir )
+    {
+        this.providerHome = dir;
+    }
+
     public File getOutputDirectory()
     {
         return this.outputDirectory;
     }
-    
+
     public void setOutputDirectory( File dir )
     {
         this.outputDirectory = dir;
@@ -106,53 +108,52 @@ public class ResourceCompilerConfiguration
     {
         return this.debugOutputDirectory;
     }
-    
+
     public void setDebugOutputDirectory( File dir )
     {
         this.debugOutputDirectory = dir;
     }
-    
-    public File [] getIncludePaths()
+
+    public File[] getIncludePaths()
     {
         return this.includePaths;
     }
-    
-    public void setIncludePaths( File [] paths )
+
+    public void setIncludePaths( File[] paths )
     {
         this.includePaths = paths;
-        
+
         if ( this.includePaths == null )
         {
             this.includePaths = EMPTY_FILE_ARRAY;
         }
     }
 
-    public File [] getSystemIncludePaths()
+    public File[] getSystemIncludePaths()
     {
         return this.systemIncludePaths;
     }
-    
-    public void setSystemIncludePaths( File [] paths )
+
+    public void setSystemIncludePaths( File[] paths )
     {
         this.systemIncludePaths = paths;
-        
+
         if ( this.systemIncludePaths == null )
         {
             this.systemIncludePaths = EMPTY_FILE_ARRAY;
         }
     }
-    
+
     ////////////////////////////////////////////////////////////
     //                           HELPER
     ///////////////////////////////////////////////////////////
-    public File getOutputFile ( File src ) 
+    public File getOutputFile( File src )
     {
         String srcPath = src.getPath();
-        
-        String destPath = this.getOutputDirectory().getPath() + "/" + 
-                            FileUtils.basename( srcPath ) + "res";
 
-        return new File ( destPath );
+        String destPath = this.getOutputDirectory().getPath() + "/" + FileUtils.basename( srcPath ) + "res";
+
+        return new File( destPath );
     }
-    
+
 }

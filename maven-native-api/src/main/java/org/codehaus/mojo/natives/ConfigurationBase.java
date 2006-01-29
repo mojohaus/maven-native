@@ -1,4 +1,4 @@
-package org.codehaus.mojo.natives.bcc;
+package org.codehaus.mojo.natives;
 
 /*
  * The MIT License
@@ -24,21 +24,19 @@ package org.codehaus.mojo.natives.bcc;
  * SOFTWARE.
 */
 
+import java.util.Map;
 
-/**
- * Setup Borland linker command with environment configured at runtime
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
-
-public class BCCEnvLinker
-    extends BCCLinker
+public class ConfigurationBase
 {
+    private Map environmentVariables;
 
-    public void initialize()
+    public void setEnvironmentVariables( Map env )
     {
-        this.setEnvironmentVariables( BCCEnv.getBCCEnvironmentVariables() );
+        this.environmentVariables = env;
     }
     
-
+    public Map getEnvironmentVariables()
+    {
+        return this.environmentVariables;
+    }    
 }

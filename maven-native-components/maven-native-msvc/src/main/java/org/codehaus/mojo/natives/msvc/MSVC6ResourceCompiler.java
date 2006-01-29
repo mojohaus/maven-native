@@ -24,11 +24,6 @@ package org.codehaus.mojo.natives.msvc;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.util.cli.Commandline;
-
-import java.io.File;
-
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
@@ -37,10 +32,8 @@ import java.io.File;
 public class MSVC6ResourceCompiler 
     extends MSVCResourceCompiler
 {	
-	
-	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
-	    throws NativeBuildException
-	{		
-		MSVCEnv.setupMSVC6CommandLineEnv(msvcHome, cl);
-	}	
+    public void initialize()
+    {
+        this.setEnvironmentVariables( MSVCEnv.getMSVC6EnvironmentVariables() );        
+    }
 }

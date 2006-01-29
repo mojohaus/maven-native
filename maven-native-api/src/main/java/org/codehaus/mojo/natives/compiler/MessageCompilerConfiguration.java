@@ -22,73 +22,76 @@ package org.codehaus.mojo.natives.compiler;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
+
+import org.codehaus.mojo.natives.ConfigurationBase;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
 public class MessageCompilerConfiguration
+    extends ConfigurationBase
 {
-	
-	private File providerHome;
-	
-	private File baseDir;
-	
-	private File outputDirectory;
+
+    private File providerHome;
+
+    private File baseDir;
+
+    private File outputDirectory;
 
     private File debugOutputDirectory;
 
-    private String [] options = new String [0];
+    private String[] options = new String[0];
 
-	public MessageCompilerConfiguration ()
-	{
-	}
-		
-	public File getBaseDir()
-	{
-		return this.baseDir;
-	}
-	
-	public void setBaseDir( File basedir )
-	{
-		this.baseDir = basedir;
-	}
-	
-	public String [] getOptions()
-	{
-		return this.options;
-	}
+    public MessageCompilerConfiguration()
+    {
+    }
 
-	public void setOptions( String [] options )
-	{
+    public File getBaseDir()
+    {
+        return this.baseDir;
+    }
+
+    public void setBaseDir( File basedir )
+    {
+        this.baseDir = basedir;
+    }
+
+    public String[] getOptions()
+    {
+        return this.options;
+    }
+
+    public void setOptions( String[] options )
+    {
         this.options = options;
 
-        if ( this.options == null ) 
+        if ( this.options == null )
         {
-            this.options = new String [0];
-            
-        }
-        
-	}
+            this.options = new String[0];
 
-	public File getProviderHome()
-	{
-		return this.providerHome;
-	}
-	
-	public void setProviderHome( File dir )
-	{
-		this.providerHome = dir;
-	}
-    
+        }
+
+    }
+
+    public File getProviderHome()
+    {
+        return this.providerHome;
+    }
+
+    public void setProviderHome( File dir )
+    {
+        this.providerHome = dir;
+    }
+
     public File getOutputDirectory()
     {
         return this.outputDirectory;
     }
-    
+
     public void setOutputDirectory( File dir )
     {
         this.outputDirectory = dir;
@@ -98,7 +101,7 @@ public class MessageCompilerConfiguration
     {
         return this.debugOutputDirectory;
     }
-    
+
     public void setDebugOutputDirectory( File dir )
     {
         this.debugOutputDirectory = dir;

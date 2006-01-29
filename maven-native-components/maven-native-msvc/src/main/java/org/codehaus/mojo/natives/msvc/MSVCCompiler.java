@@ -78,6 +78,4 @@ public class MSVCCompiler
 		return cl;
 	}
 	
-
-
 }

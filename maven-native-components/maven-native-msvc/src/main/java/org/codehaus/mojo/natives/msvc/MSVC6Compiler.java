@@ -37,18 +37,12 @@ import java.io.File;
 public class MSVC6Compiler 
     extends MSVCCompiler
 {	    
-    public MSVC6Compiler()
-    {
-        this.setEnvironmentVariables( MSVCEnv.getMSVC6EnvironmentVariables() );        
-    }
     // ----------------------------------------------------------------------
     // Component Lifecycle
     // ----------------------------------------------------------------------
 
     public void initialize()
     {
-        System.out.println("MSVC6Compiler:initiailized called");
-        
         this.setEnvironmentVariables( MSVCEnv.getMSVC6EnvironmentVariables() );
     }
         

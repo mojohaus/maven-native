@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.HashMap;
 
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -503,7 +502,7 @@ public class MSVCEnv
 
     private static String getSystemRoot()
     {
-        return EnvUtil.getEnv( "SYSTEMROOT", "SYSTEMROOT", "c:/WINDOWS" );
+        return EnvUtil.getEnv( "SystemRoot", "SystemRoot", "c:/WINDOWS" );
     }
 
 }

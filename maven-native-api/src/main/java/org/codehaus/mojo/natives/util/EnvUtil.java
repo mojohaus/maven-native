@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.codehaus.plexus.util.cli.Commandline;
 
-public class EnvUtil 
+public class EnvUtil
 {
     public static String getEnv( String envKey )
     {
@@ -14,26 +14,9 @@ public class EnvUtil
 
     public static String getEnv( String envKey, String defaultValue )
     {
-        String envValue = null;
-
-        try
-        {
-            //TODO move this to an env object similar to Ant Environment
-            envValue = System.getenv( envKey );
-        }
-        catch ( Error e )
-        {
-            //JDK 1.4?
-        }
-
-        if ( envValue == null )
-        {
-            envValue = defaultValue ;
-        }
-        
-        return envValue;
+        return getEnv( envKey, null, defaultValue );
     }
-    
+
     public static String getEnv( String envKey, String alternateSystemProperty, String defaultValue )
     {
         String envValue = "";
@@ -42,13 +25,18 @@ public class EnvUtil
         {
             //TODO move this to an env object similar to Ant Environment
             envValue = System.getenv( envKey );
+
+            if ( envValue == null &&  alternateSystemProperty != null )
+            {
+                envValue = System.getProperty( alternateSystemProperty );
+            }
         }
         catch ( Error e )
         {
             //JDK 1.4?
             if ( alternateSystemProperty != null )
             {
-                envValue = System.getProperty( alternateSystemProperty );
+                envValue = getProperty( alternateSystemProperty );
             }
         }
 
@@ -59,7 +47,17 @@ public class EnvUtil
 
         return envValue;
     }
-    
+
+    private static String getProperty( String key )
+    {
+        if ( key != null )
+        {
+            return System.getProperty( key );
+        }
+
+        return null;
+    }
+
     public static void setupCommandlineEnv( Map envs, Commandline cl )
     {
         Iterator iter = envs.keySet().iterator();
@@ -71,5 +69,5 @@ public class EnvUtil
             cl.addEnvironment( key, (String) envs.get( key ) );
         }
     }
-    
+
 }

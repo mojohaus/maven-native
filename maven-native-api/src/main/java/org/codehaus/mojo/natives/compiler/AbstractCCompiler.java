@@ -1,12 +1,12 @@
 package org.codehaus.mojo.natives.compiler;
 
 import java.io.File;
-
 import org.codehaus.plexus.util.cli.Commandline;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.parser.CParser;
+import org.codehaus.mojo.natives.util.EnvUtil;
 
 /*
  * The MIT License
@@ -46,6 +46,7 @@ public abstract class AbstractCCompiler
 	
 	protected abstract String getOutputFileOption();
 	
+
 	protected Parser getParser() 
 	{
 		return this.parser;
@@ -100,8 +101,19 @@ public abstract class AbstractCCompiler
 	    cl.createArgument().setValue("-c");
 	    cl.createArgument().setValue( src.getPath() );
 
-	    
+        this.setupCommandlineEnv( cl, config );
+        
+	    if ( config.getEnvironmentVariables() != null )
+        {
+            EnvUtil.setupCommandlineEnv( config.getEnvironmentVariables(), cl );
+        }
+        
+        if ( this.getEnvironmentVariables() != null )
+        {
+            EnvUtil.setupCommandlineEnv( this.getEnvironmentVariables(), cl );
+        }
 	    return cl;
 	}
+    
 
 }

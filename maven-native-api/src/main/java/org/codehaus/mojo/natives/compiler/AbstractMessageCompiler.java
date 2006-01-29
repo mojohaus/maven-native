@@ -22,41 +22,40 @@ package org.codehaus.mojo.natives.compiler;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 
+import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 
 import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.logging.AbstractLogEnabled;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
 
-public abstract class AbstractMessageCompiler 
-    extends AbstractLogEnabled
-    implements MessageCompiler 
+public abstract class AbstractMessageCompiler
+    extends AbstractLogEnvEnabled
+    implements MessageCompiler
 {
 
-	protected abstract Commandline getCommandLine(MessageCompilerConfiguration config, File source )
-	    throws NativeBuildException;
-	
-    public void compile( MessageCompilerConfiguration config, File [] sourceFiles )
-    	throws NativeBuildException
+    protected abstract Commandline getCommandLine( MessageCompilerConfiguration config, File source )
+        throws NativeBuildException;
+
+    public void compile( MessageCompilerConfiguration config, File[] sourceFiles )
+        throws NativeBuildException
     {
-        
-        for (int i = 0 ;i < sourceFiles.length; ++i )
+
+        for ( int i = 0; i < sourceFiles.length; ++i )
         {
             Commandline cl = getCommandLine( config, sourceFiles[i] );
-            
+
             CommandLineUtil.execute( cl, this.getLogger() );
         }
-        
-    }	
 
-	    
+    }
+
 }

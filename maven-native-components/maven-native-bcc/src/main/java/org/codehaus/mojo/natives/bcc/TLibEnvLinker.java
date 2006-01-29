@@ -24,11 +24,7 @@ package org.codehaus.mojo.natives.bcc;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.util.cli.Commandline;
 
-import java.util.List;
 
 /**
  * Setup Borland tlib command to create static library with env configure at runtime
@@ -40,7 +36,7 @@ public class TLibEnvLinker
     extends TLibLinker
 {
     
-    public TLibEnvLinker()
+    public void initialize()
     {
         this.setEnvironmentVariables( BCCEnv.getBCCEnvironmentVariables() );                
     }

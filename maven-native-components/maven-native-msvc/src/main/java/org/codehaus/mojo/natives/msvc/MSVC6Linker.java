@@ -22,24 +22,17 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
-
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.util.cli.Commandline;
-
-import java.io.File;
+ */
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public class MSVC6Linker 
+public class MSVC6Linker
     extends MSVCLinker
 {
-	
-	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
-	    throws NativeBuildException
-	{
-		MSVCEnv.setupMSVC6CommandLineEnv( msvcHome, cl);
-	}	
+    public void initialize()
+    {
+        this.setEnvironmentVariables( MSVCEnv.getMSVC6EnvironmentVariables() );
+    }
 }

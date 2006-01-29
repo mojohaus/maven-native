@@ -31,8 +31,9 @@ package org.codehaus.mojo.natives.msvc;
 public class MSVC2003Linker 
     extends MSVCLinker
 {
-	public MSVC2003Linker()
+    public void initialize()
     {
         this.setEnvironmentVariables( MSVCEnv.getMSVC2003EnvironmentVariables() );        
     }
+
 }
