@@ -39,14 +39,9 @@ import java.util.List;
 public class TLibEnvLinker
     extends TLibLinker
 {
-	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
-       throws NativeBuildException
-	{
-        Commandline cl = super.createLinkerCommandLine( objectFiles, config );
-        
-        BCCEnv.setupBCCCommandLineEnv( config.getProviderHome(), cl );
-        
-        return cl ;
-	}
-
+    
+    public TLibEnvLinker()
+    {
+        this.setEnvironmentVariables( BCCEnv.getBCCEnvironmentVariables() );                
+    }
 }
