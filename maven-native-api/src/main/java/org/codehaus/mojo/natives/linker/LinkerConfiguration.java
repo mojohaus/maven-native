@@ -25,7 +25,6 @@ package org.codehaus.mojo.natives.linker;
 */
 
 import java.io.File;
-import java.util.Map;
 
 import org.codehaus.mojo.natives.ConfigurationBase;
 
