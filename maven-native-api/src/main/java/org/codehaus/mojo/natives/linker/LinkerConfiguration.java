@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.linker;
 */
 
 import java.io.File;
+import java.util.Map;
 
 
 /*
@@ -58,6 +59,8 @@ public class LinkerConfiguration
 	private String outputFileName; /* should not have extension */
 	
 	private File [] externalLibraries;
+    
+    private Map environmentVariables;
 	
 	public LinkerConfiguration() 
 	{
@@ -176,7 +179,15 @@ public class LinkerConfiguration
 		this.externalLibraries = files;
 	}
 	
-	
+    public void setEnvironmentVariables( Map env )
+    {
+        this.environmentVariables = env;
+    }
+    
+    public Map setEnvironmentVariables()
+    {
+        return this.environmentVariables;
+    }	
 	
 	
 }

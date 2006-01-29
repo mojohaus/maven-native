@@ -64,7 +64,7 @@ public class CompilerConfiguration
 		
 	private File   outputDirectory;
     
-    private Map environmentVarialbes;
+    private Map environmentVariables;
 
 	public CompilerConfiguration ()
 	{
@@ -180,13 +180,13 @@ public class CompilerConfiguration
 		this.providerHome = dir;
 	}
 	    
-    public void setEnvironmentVarialbes( Map env )
+    public void setEnvironmentVariables( Map env )
     {
-        this.environmentVarialbes = env;
+        this.environmentVariables = env;
     }
     
     public Map getEnvironmentVariables()
     {
-        return this.environmentVarialbes;
+        return this.environmentVariables;
     }
 }
