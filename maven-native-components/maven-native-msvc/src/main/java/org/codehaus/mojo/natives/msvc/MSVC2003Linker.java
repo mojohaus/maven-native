@@ -37,10 +37,6 @@ public class MSVC2003Linker
     extends MSVCLinker
 {
 	
-	public MSVC2003Linker ()
-	{
-	}
-	
 	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
 	    throws NativeBuildException
 	{

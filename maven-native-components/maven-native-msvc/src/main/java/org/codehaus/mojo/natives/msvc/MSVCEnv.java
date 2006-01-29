@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.HashMap;
 
 import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
@@ -71,7 +72,7 @@ public class MSVCEnv
     {
         File installDir = checkMSVCHome( "MSVC2005INSTALLDIR", "MSVC2005INSTALLDIR", DEFAULT_MSVC2005_HOME );
 
-        String platform = getEnv( "MSVC2005PLATFORM", "MSVC2005PLATFORM", "x86" );
+        String platform = EnvUtil.getEnv( "MSVC2005PLATFORM", "MSVC2005PLATFORM", "x86" );
         
         Map envs = createAdditionalMSVC2005Envs( installDir, platform );
 
@@ -82,7 +83,7 @@ public class MSVCEnv
     private static File checkMSVCHome( String env, String alternateSystemProperty, String defaultHomeDir )
         throws NativeBuildException
     {
-        File  vsInstallDir = new File ( getEnv( env, alternateSystemProperty, defaultHomeDir ) );
+        File  vsInstallDir = new File ( EnvUtil.getEnv( env, alternateSystemProperty, defaultHomeDir ) );
         
         if ( ! vsInstallDir.isDirectory() )
         {
@@ -107,51 +108,7 @@ public class MSVCEnv
         }
     }
 
-    private static String getEnv( String envKey )
-    {
-        String envValue = "";
 
-        try
-        {
-            //TODO move this to an env object similar to Ant Environment
-            envValue = System.getenv( envKey );
-        }
-        catch ( Error e )
-        {
-            //JDK 1.4?
-            //according to my tests, msvc should work even this fails
-
-            //ignore
-        }
-
-        return envValue;
-    }
-
-    private static String getEnv( String envKey, String alternateSystemProperty, String defaultValue )
-    {
-        String envValue = "";
-
-        try
-        {
-            //TODO move this to an env object similar to Ant Environment
-            envValue = System.getenv( envKey );
-        }
-        catch ( Error e )
-        {
-            //JDK 1.4?
-            if ( alternateSystemProperty != null )
-            {
-                envValue = System.getProperty( alternateSystemProperty );
-            }
-        }
-
-        if ( envValue == null )
-        {
-            envValue = defaultValue;
-        }
-
-        return envValue;
-    }
 
     private static Map createAdditionalMSVC6Envs( File vsDir )
     {
@@ -164,7 +121,7 @@ public class MSVCEnv
 
         String vcOsDir = "WINNT";
 
-        String winDir = getEnv( "windir" );
+        String winDir = EnvUtil.getEnv( "windir" );
 
         File vsCommonDir = new File( vsDir + "/Common" );
 
@@ -177,7 +134,7 @@ public class MSVCEnv
         envs.put( "MSVCDir", msvcDir.getPath() );
 
         //setup new PATH
-        String currentPath = getEnv( "PATH" );
+        String currentPath = EnvUtil.getEnv( "PATH" );
 
         String newPath = msDevDir.getPath() + "\\BIN;" + 
                          msvcDir.getPath() + "\\BIN;" + 
@@ -189,7 +146,7 @@ public class MSVCEnv
         envs.put( "PATH", newPath );
 
         //setup new INCLUDE PATH
-        String currentIncludePath = getEnv( "INCLUDE" );
+        String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
         String newIncludePath = msvcDir.getPath() + "\\ATL\\INCLUDE;" + 
                                 msvcDir.getPath() + "\\INCLUDE;"      + 
@@ -203,7 +160,7 @@ public class MSVCEnv
         //
         //setup new LIB PATH
         //
-        String currentLibPath = getEnv( "LIB" );
+        String currentLibPath = EnvUtil.getEnv( "LIB" );
 
         String newLibPath = msvcDir.getPath() + "\\LIB;" + 
                             msvcDir.getPath() + "\\MFC\\LIB;" + 
@@ -238,7 +195,7 @@ public class MSVCEnv
         File msvcDir = new File( vcInstallDir.getPath() + "/VC7" );
 
         //setup new PATH
-        String currentPath = getEnv( "PATH" );
+        String currentPath = EnvUtil.getEnv( "PATH" );
 
         String newPath = devEnvDir.getPath() + ";" + 
                          msvcDir.getPath() + "\\BIN;" + 
@@ -252,7 +209,7 @@ public class MSVCEnv
         envs.put( "PATH", newPath );
 
         //setup new INCLUDE PATH
-        String currentIncludePath = getEnv( "INCLUDE" );
+        String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
         String newIncludePath = msvcDir.getPath() + "\\ATLMFC\\INCLUDE;" + 
                                 msvcDir.getPath() + "\\INCLUDE;" +
@@ -266,7 +223,7 @@ public class MSVCEnv
         //
         //setup new LIB PATH
         //
-        String currentLibPath = getEnv( "LIB" );
+        String currentLibPath = EnvUtil.getEnv( "LIB" );
 
         String newLibPath = msvcDir.getPath() + "\\ATLMFC\\LIB;" + 
                             msvcDir.getPath() + "\\LIB;" + 
@@ -330,7 +287,7 @@ public class MSVCEnv
 		File platformSDKDir= new File( vcInstallDir.getPath() + "/PlatformSDK" );
 		
 		//setup new PATH
-		String currentPath = getEnv ( "PATH" );
+		String currentPath = EnvUtil.getEnv ( "PATH" );
 				
 		String newPath = devEnvDir.getPath()+";" + 
 		                 vcInstallDir.getPath() + "\\BIN;" + 
@@ -345,7 +302,7 @@ public class MSVCEnv
 		envs.put( "PATH", newPath );
 		
 		//setup new INCLUDE PATH
-		String currentIncludePath = getEnv( "INCLUDE" );
+		String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 		
 		String newIncludePath = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + 
 		                        vcInstallDir.getPath() + "\\INCLUDE;" + 
@@ -359,7 +316,7 @@ public class MSVCEnv
 		//
 		//setup new LIB PATH
 		//
-		String currentLibPath = getEnv( "LIB" );
+		String currentLibPath = EnvUtil.getEnv( "LIB" );
 		
 		String newLibPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB;" + 
 		                    vcInstallDir.getPath() + "\\LIB;" + 
@@ -407,7 +364,7 @@ public class MSVCEnv
         File platformSDKDir = new File( vcInstallDir.getPath() + "/PlatformSDK" );
 
         //setup new PATH
-        String currentPath = getEnv( "PATH" );
+        String currentPath = EnvUtil.getEnv( "PATH" );
 
         String newPath = devEnvDir.getPath() + ";" + 
                          vcInstallDir.getPath() + "\\BIN\\x86_amd64;" +
@@ -424,7 +381,7 @@ public class MSVCEnv
         envs.put( "PATH", newPath );
 
         //setup new INCLUDE PATH
-        String currentIncludePath = getEnv( "INCLUDE" );
+        String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
         String newIncludePath = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + 
                                 vcInstallDir.getPath() + "\\INCLUDE;" +
@@ -437,7 +394,7 @@ public class MSVCEnv
         //
         //setup new LIB PATH
         //
-        String currentLibPath = getEnv( "LIB" );
+        String currentLibPath = EnvUtil.getEnv( "LIB" );
 
         String newLibPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64;" + 
                             vcInstallDir.getPath() + "\\LIB\\AMD64;" +
@@ -451,7 +408,7 @@ public class MSVCEnv
         //setup new LIBPATH
         //
 
-        String currentLibPathPath = getEnv( "LIBPATH" );
+        String currentLibPathPath = EnvUtil.getEnv( "LIBPATH" );
 
         String newLibPathPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64" + currentLibPathPath;
 
@@ -486,7 +443,7 @@ public class MSVCEnv
         File platformSDKDir = new File( vcInstallDir.getPath() + "/PlatformSDK" );
 
         //setup new PATH
-        String currentPath = getEnv( "PATH" );
+        String currentPath = EnvUtil.getEnv( "PATH" );
 
         String newPath = vcInstallDir.getPath() + "\\BIN\\amd64;" + 
                          platformSDKDir.getPath() + "\\BIN\\WIN64\\AMD;" +
@@ -500,7 +457,7 @@ public class MSVCEnv
         envs.put( "PATH", newPath );
 
         //setup new INCLUDE PATH
-        String currentIncludePath = getEnv( "INCLUDE" );
+        String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
         String newIncludePath = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + 
                                 vcInstallDir.getPath() + "\\INCLUDE;" +
@@ -513,7 +470,7 @@ public class MSVCEnv
         //
         //setup new LIB PATH
         //
-        String currentLibPath = getEnv( "LIB" );
+        String currentLibPath = EnvUtil.getEnv( "LIB" );
 
         String newLibPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64;" + 
                             vcInstallDir.getPath() + "\\LIB\\AMD64;" +
@@ -527,7 +484,7 @@ public class MSVCEnv
         //setup new LIBPATH
         //
 
-        String currentLibPathPath = getEnv( "LIBPATH" );
+        String currentLibPathPath = EnvUtil.getEnv( "LIBPATH" );
 
         String newLibPathPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64" + currentLibPathPath;
 
@@ -539,7 +496,7 @@ public class MSVCEnv
 
     private static String getSystemRoot()
     {
-        return getEnv( "SYSTEMROOT", "SYSTEMROOT", "c:/WINDOWS" );
+        return EnvUtil.getEnv( "SYSTEMROOT", "SYSTEMROOT", "c:/WINDOWS" );
     }
 
 }

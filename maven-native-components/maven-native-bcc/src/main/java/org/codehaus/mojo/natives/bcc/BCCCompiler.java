@@ -40,11 +40,6 @@ public class BCCCompiler
     extends CCompiler
 {
 	
-	public BCCCompiler ()
-	{
-		super();
-	}
-	
 	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
 	   throws NativeBuildException
 	{

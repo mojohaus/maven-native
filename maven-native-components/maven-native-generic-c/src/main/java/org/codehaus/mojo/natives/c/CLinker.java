@@ -41,9 +41,6 @@ public class CLinker
     extends AbstractLinker
 {
 	
-	public CLinker ()
-	{
-	}
 		
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException	

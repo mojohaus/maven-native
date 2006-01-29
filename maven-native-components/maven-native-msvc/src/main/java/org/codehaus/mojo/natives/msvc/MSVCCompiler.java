@@ -38,12 +38,7 @@ import java.io.File;
 public class MSVCCompiler 
     extends AbstractCCompiler
 {
-	
-	public MSVCCompiler ()
-	{
-		super();
-	}
-	
+		
 	protected String getOutputFileOption()
 	{
 		return "/Fo";

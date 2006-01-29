@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.HashMap;
 
 import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
@@ -89,25 +90,6 @@ public class BCCEnv
 		}
 	}
 	
-    private static String getEnv( String envKey ) 
-	{
-		String envValue = "";
-		
-		try 
-		{
-			//TODO move this to an env object to will work for JVM 1.4.x
-			//  similar to Ant Environment
-			envValue = System.getenv( envKey );
-		}
-		catch ( Error e )
-		{
-			//according to my tests, it should work even this fails
-			
-			//ignore
-		}
-		
-		return envValue;
-	}
     
 	private static Map createAdditionalBCCEnvs( File bccDir )
 	{
@@ -119,7 +101,7 @@ public class BCCEnv
 		}
 		
 		//setup new PATH
-		String currentPath = getEnv ( "PATH" );
+		String currentPath = EnvUtil.getEnv ( "PATH" );
 		
 		String newPath = bccDir.getPath()+"\\BIN;" + 
 					     currentPath; 

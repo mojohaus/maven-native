@@ -39,11 +39,6 @@ public class MSVCMessageCompiler
     extends AbstractMessageCompiler
 {
 	
-	public MSVCMessageCompiler ()
-	{
-		super();
-	}
-	
 	protected Commandline getCommandLine( MessageCompilerConfiguration config, File source )
 	   throws NativeBuildException
 	{

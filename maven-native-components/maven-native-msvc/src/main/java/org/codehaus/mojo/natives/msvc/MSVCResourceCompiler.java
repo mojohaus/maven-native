@@ -39,10 +39,6 @@ public class MSVCResourceCompiler
     extends AbstractResourceCompiler
 {
 	
-	public MSVCResourceCompiler ()
-	{
-		super();
-	}
 	
 	protected Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
 	   throws NativeBuildException

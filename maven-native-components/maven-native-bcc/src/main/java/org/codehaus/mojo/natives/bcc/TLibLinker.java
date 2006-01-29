@@ -43,10 +43,6 @@ public class TLibLinker
 
 	public static final String EXECUTABLE = "tlib";
 
-	public TLibLinker ()
-	{
-	}
-
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException
 	{

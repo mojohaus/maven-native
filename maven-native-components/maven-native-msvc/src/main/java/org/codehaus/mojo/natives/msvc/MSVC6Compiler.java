@@ -37,10 +37,6 @@ import java.io.File;
 public class MSVC6Compiler 
     extends MSVCCompiler
 {	
-	public MSVC6Compiler ()
-	{
-		super();
-	}
 	
 	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
 	    throws NativeBuildException

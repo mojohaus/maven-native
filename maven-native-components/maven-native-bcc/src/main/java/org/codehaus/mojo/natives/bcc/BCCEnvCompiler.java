@@ -38,13 +38,7 @@ import java.io.File;
  */
 public class BCCEnvCompiler 
     extends BCCCompiler
-{
-	
-	public BCCEnvCompiler ()
-	{
-		super();
-	}
-	
+{	
 	protected void setupCommandLineEnv( File bccHome, Commandline cl )
 	    throws NativeBuildException
 	{

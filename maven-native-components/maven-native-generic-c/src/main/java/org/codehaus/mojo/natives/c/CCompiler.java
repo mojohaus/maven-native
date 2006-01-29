@@ -36,12 +36,7 @@ import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
 public class CCompiler 
     extends AbstractCCompiler
 {
-	
-	public CCompiler ()
-	{
-		super();
-	}
-	
+		
 	protected String getOutputFileOption()
 	{
 		return "-o";

@@ -39,12 +39,6 @@ import java.util.List;
 public class TLibEnvLinker
     extends TLibLinker
 {
-
-	public TLibEnvLinker ()
-	{
-        super();
-	}
-
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
        throws NativeBuildException
 	{
