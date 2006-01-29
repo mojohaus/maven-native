@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.compiler;
 */
 
 import java.io.File;
+import java.util.Map;
 
 
 /*
@@ -62,6 +63,8 @@ public class CompilerConfiguration
 	private File [] systemIncludePaths;
 		
 	private File   outputDirectory;
+    
+    private Map environmentVarialbes;
 
 	public CompilerConfiguration ()
 	{
@@ -176,9 +179,14 @@ public class CompilerConfiguration
 	{
 		this.providerHome = dir;
 	}
-	
-	public void setCompilerHome( File dir )
-	{
-		this.providerHome = dir;
-	}
+	    
+    public void setEnvironmentVarialbes( Map env )
+    {
+        this.environmentVarialbes = env;
+    }
+    
+    public Map getEnvironmentVariables()
+    {
+        return this.environmentVarialbes;
+    }
 }

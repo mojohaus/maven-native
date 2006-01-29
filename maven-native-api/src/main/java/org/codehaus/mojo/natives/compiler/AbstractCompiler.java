@@ -112,14 +112,12 @@ public abstract class AbstractCompiler
 	 */
 	private File getObjectFile ( File sourceFile, CompilerConfiguration config )
 	{
-        
         String srcPath = sourceFile.getPath();
             
         String destPath = config.getOutputDirectory().getPath() + "/" + 
                           FileUtils.basename( srcPath ) + this.getObjectFileExtension();
 
         return new File ( destPath );
-        
 	}	
 	
 
