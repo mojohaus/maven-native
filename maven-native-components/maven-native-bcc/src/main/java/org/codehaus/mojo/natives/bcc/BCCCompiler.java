@@ -27,10 +27,12 @@ package org.codehaus.mojo.natives.bcc;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CCompiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.mojo.natives.bcc.BCCEnv;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -39,6 +41,23 @@ import java.io.File;
 public class BCCCompiler 
     extends CCompiler
 {
+    
+    private Map environmentVariables;
+    
+    protected void setEnvironmentVariables ( Map envs )
+    {
+        this.environmentVariables = envs;
+    }
+    
+    protected Map getEnvironmentVariables()
+    {
+        if ( this.environmentVariables == null )
+        {
+            return new Properties ();
+        }
+        
+        return this.environmentVariables;
+    }        
 	
 	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
 	   throws NativeBuildException
@@ -50,15 +69,11 @@ public class BCCCompiler
 				
 		Commandline cl = super.getCommandLine( src, dest, config );
 	    
-		this.setupCommandLineEnv( config.getProviderHome(), cl );
+        EnvUtil.setupCommandlineEnv( this.getEnvironmentVariables(), cl );
 		
 		return cl;
 	}
 	
-	protected void setupCommandLineEnv( File bccHome, Commandline cl )
-	    throws NativeBuildException
-	{
-        BCCEnv.setupBCCCommandLineEnv(bccHome, cl);
-	}
+
 
 }

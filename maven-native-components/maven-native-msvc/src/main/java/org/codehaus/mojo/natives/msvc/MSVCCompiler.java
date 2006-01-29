@@ -27,9 +27,12 @@ package org.codehaus.mojo.natives.msvc;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -38,7 +41,23 @@ import java.io.File;
 public class MSVCCompiler 
     extends AbstractCCompiler
 {
-		
+	private Map environmentVariables;
+    
+    protected void setEnvironmentVariables ( Map envs )
+    {
+        this.environmentVariables = envs;
+    }
+    
+    protected Map getEnvironmentVariables()
+    {
+        if ( this.environmentVariables == null )
+        {
+            return new Properties ();
+        }
+        
+        return this.environmentVariables;
+    }
+    
 	protected String getOutputFileOption()
 	{
 		return "/Fo";
@@ -53,16 +72,12 @@ public class MSVCCompiler
 		}
 				
 		Commandline cl = super.getCommandLine( src, dest, config );
-	    
-		this.setupCommandLineEnv( config.getProviderHome(), cl );
-		
+        
+        EnvUtil.setupCommandlineEnv( this.getEnvironmentVariables(), cl );
+	    		
 		return cl;
 	}
 	
-	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
-	    throws NativeBuildException
-	{
-		// user must setup their env according  provided compiler setup script
-	}
+
 
 }

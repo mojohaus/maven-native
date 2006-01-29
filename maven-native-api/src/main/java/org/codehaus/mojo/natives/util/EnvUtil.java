@@ -1,5 +1,10 @@
 package org.codehaus.mojo.natives.util;
 
+import java.util.Iterator;
+import java.util.Map;
+
+import org.codehaus.plexus.util.cli.Commandline;
+
 public class EnvUtil 
 {
     public static String getEnv( String envKey )
@@ -54,4 +59,17 @@ public class EnvUtil
 
         return envValue;
     }
+    
+    public static void setupCommandlineEnv( Map envs, Commandline cl )
+    {
+        Iterator iter = envs.keySet().iterator();
+
+        while ( iter.hasNext() )
+        {
+            String key = (String) iter.next();
+
+            cl.addEnvironment( key, (String) envs.get( key ) );
+        }
+    }
+    
 }

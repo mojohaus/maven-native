@@ -24,10 +24,6 @@ package org.codehaus.mojo.natives.msvc;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.util.cli.Commandline;
-
-import java.io.File;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -37,9 +33,9 @@ import java.io.File;
 public class MSVC2003Compiler 
     extends MSVCCompiler
 {	
-	protected void setupCommandLineEnv( File msvcHome, Commandline cl )
-	    throws NativeBuildException
-	{		
-		MSVCEnv.setupMSVC2003CommandLineEnv(msvcHome, cl);
-	}	
+    public  MSVC2003Compiler()
+    {
+        this.setEnvironmentVariables( MSVCEnv.getMSVC2003EnvironmentVariables() );        
+    }
+    
 }

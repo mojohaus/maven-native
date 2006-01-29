@@ -27,12 +27,15 @@ package org.codehaus.mojo.natives.bcc;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.mojo.natives.util.EnvUtil;
 
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -44,10 +47,24 @@ public class BCCLinker
 	
     public static final String DEFAULT_EXECUTABLE = "ilink32";
     
-    public BCCLinker ()
+    private Map environmentVariables;
+    
+    protected void setEnvironmentVariables ( Map envs )
     {
+        this.environmentVariables = envs;
     }
-	
+    
+    protected Map getEnvironmentVariables()
+    {
+        if ( this.environmentVariables == null )
+        {
+            return new Properties ();
+        }
+        
+        return this.environmentVariables;
+    }    
+    
+    
     protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException
     {
@@ -107,13 +124,8 @@ public class BCCLinker
             }
         }
         
+        EnvUtil.setupCommandlineEnv( this.getEnvironmentVariables(), cl );
+        
         return cl;
     }
-
-	
-    protected void setupCommandLineEnv( File msvcHome, Commandline cl )
-        throws NativeBuildException
-    {
-        // user must setup their env accourding compiler provided setup script
-    }	
 }

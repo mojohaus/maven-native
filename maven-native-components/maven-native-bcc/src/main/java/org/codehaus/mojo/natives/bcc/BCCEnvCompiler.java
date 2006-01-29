@@ -24,13 +24,6 @@ package org.codehaus.mojo.natives.bcc;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.c.CCompiler;
-import org.codehaus.mojo.natives.bcc.BCCEnv;
-import org.codehaus.plexus.util.cli.Commandline;
-
-import java.io.File;
-
 /**
  * Setup Borland bcc compiler command with env configured at runtime
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -38,11 +31,11 @@ import java.io.File;
  */
 public class BCCEnvCompiler 
     extends BCCCompiler
-{	
-	protected void setupCommandLineEnv( File bccHome, Commandline cl )
-	    throws NativeBuildException
-	{
-        BCCEnv.setupBCCCommandLineEnv(bccHome, cl);
-	}
+{
+    
+    public BCCEnvCompiler()
+    {
+        this.setEnvironmentVariables( BCCEnv.getBCCEnvironmentVariables() );                
+    }
 
 }

@@ -40,11 +40,6 @@ public class BCCEnvLinker
     extends BCCLinker
 {
 
-	public BCCEnvLinker ()
-	{
-	    super();
-	}
-
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
 	    throws NativeBuildException
 	{

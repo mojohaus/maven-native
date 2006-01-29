@@ -45,6 +45,15 @@ public class BCCEnv
 	private static File DEFAULT_BCC_HOME = new File( "C:/Borland/bcc" );
 
 
+    public static Map getBCCEnvironmentVariables()
+    {
+        File bccHome = new File ( EnvUtil.getEnv( "BCCINSTALLDIR", "BCCINSTALLDIR", DEFAULT_BCC_HOME.getPath() ) );
+
+        Map envs = createAdditionalBCCEnvs( bccHome );
+        
+        return envs;
+    }
+    
 	public static void setupBCCCommandLineEnv( File providerHome, Commandline cl )
 	    throws NativeBuildException
 	{

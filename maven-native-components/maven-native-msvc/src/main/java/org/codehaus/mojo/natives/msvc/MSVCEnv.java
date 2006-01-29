@@ -46,17 +46,35 @@ public class MSVCEnv
 
     private static final String DEFAULT_MSVC2005_HOME = "C:/Program Files/Microsoft Visual Studio 8" ;
 
+    public static Map getMSVC6EnvironmentVariables()
+    {
+        File msvc6Home = new File ( EnvUtil.getEnv( "MSVC6INSTALLDIR", "MSVC6INSTALLDIR", DEFAULT_MSVC6_HOME ) );
+
+        Map envs = createAdditionalMSVC6Envs( msvc6Home );
+        
+        return envs;
+    }
+    
     public static void setupMSVC6CommandLineEnv( File vsDir, Commandline cl )
         throws NativeBuildException
     {
-        File msvc6Home = checkMSVCHome( "MSVC6INSTALLDIR", "MSVC6INSTALLDIR", DEFAULT_MSVC6_HOME );
+        File msvcHome = checkMSVCHome( "MSVC6INSTALLDIR", "MSVC6INSTALLDIR", DEFAULT_MSVC6_HOME );
 
-        Map envs = createAdditionalMSVC6Envs( msvc6Home );
+        Map envs = createAdditionalMSVC6Envs( msvcHome );
 
-        setupCommandlineEnv( envs, cl );
+        EnvUtil.setupCommandlineEnv( envs, cl );
 
     }
 
+    public static Map getMSVC2003EnvironmentVariables()
+    {
+        File msvcHome = new File ( EnvUtil.getEnv( "MSVC2003INSTALLDIR", "MSVC2003INSTALLDIR", DEFAULT_MSVC2003_HOME ) );
+
+        Map envs = createAdditionalMSVC2003Envs( msvcHome );
+        
+        return envs;
+    }
+        
     public static void setupMSVC2003CommandLineEnv( File vsDir, Commandline cl )
         throws NativeBuildException
     {
@@ -64,7 +82,7 @@ public class MSVCEnv
 
         Map envs = createAdditionalMSVC2003Envs( installDir );
 
-        setupCommandlineEnv( envs, cl );
+        EnvUtil.setupCommandlineEnv( envs, cl );
     }
     
     public static void setupMSVC2005CommandLineEnv( File vsDir, Commandline cl )
@@ -76,7 +94,7 @@ public class MSVCEnv
         
         Map envs = createAdditionalMSVC2005Envs( installDir, platform );
 
-        setupCommandlineEnv( envs, cl );
+        EnvUtil.setupCommandlineEnv( envs, cl );
     }
 
     
@@ -96,17 +114,6 @@ public class MSVCEnv
 
     }
 
-    private static void setupCommandlineEnv( Map envs, Commandline cl )
-    {
-        Iterator iter = envs.keySet().iterator();
-
-        while ( iter.hasNext() )
-        {
-            String key = (String) iter.next();
-
-            cl.addEnvironment( key, (String) envs.get( key ) );
-        }
-    }
 
 
 

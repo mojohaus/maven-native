@@ -8,28 +8,24 @@
       <role>org.codehaus.mojo.natives.compiler.Compiler</role>
       <role-hint>msvc</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVCCompiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.linker.Linker</role>
       <role-hint>msvc</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVCLinker</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.compiler.MessageCompiler</role>
       <role-hint>msvc</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVCMessageCompiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.compiler.ResourceCompiler</role>
       <role-hint>msvc</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVCResourceCompiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
     
     <!--
@@ -40,28 +36,24 @@
       <role>org.codehaus.mojo.natives.compiler.Compiler</role>
       <role-hint>msvc6</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVC6Compiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.linker.Linker</role>
       <role-hint>msvc6</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVC6Linker</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.compiler.MessageCompiler</role>
       <role-hint>msvc6</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVC6MessageCompiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.compiler.ResourceCompiler</role>
       <role-hint>msvc6</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVC6ResourceCompiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <!--
@@ -72,14 +64,12 @@
       <role>org.codehaus.mojo.natives.compiler.Compiler</role>
       <role-hint>msvc2003</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVC2003Compiler</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
     <component>
       <role>org.codehaus.mojo.natives.linker.Linker</role>
       <role-hint>msvc2003</role-hint>
       <implementation>org.codehaus.mojo.natives.msvc.MSVC2003Linker</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
   </components>
