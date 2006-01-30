@@ -32,7 +32,7 @@ package org.codehaus.mojo.natives.msvc;
 public class MSVC2003Compiler
     extends MSVCCompiler
 {
-    public void intitialize()
+    public void initialize()
     {
         this.setEnvironmentVariables( MSVCEnv.getMSVC2003EnvironmentVariables() );
     }
