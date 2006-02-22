@@ -189,6 +189,7 @@ public class NativeLinkMojo
     	config.setOutputFileName( this.project.getBuild().getFinalName() );
     	config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
     	config.setExternalLibraries( this.getLibDependencies() );
+    	config.setEnvFactoryName( this.envFactoryName );
     	
     	return config;
     }

@@ -93,7 +93,15 @@ public class NativeMessageCompileMojo
      */
     private MessageCompilerManager manager;
 
-    
+        
+    /**
+     * Specifies a fully qualified class name implementing the 
+     * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
+     * a set environment variables to be used with the command line.
+     * @parameter
+     */
+    protected String envFactoryName;   
+        
     public void execute()
         throws MojoExecutionException
     {
@@ -120,6 +128,7 @@ public class NativeMessageCompileMojo
     	config.setBaseDir( this.project.getBasedir() );
     	config.setOutputDirectory ( this.outputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.options ) );
+        config.setEnvFactoryName( this.envFactoryName );
         
     	try 
     	{

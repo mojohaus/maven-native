@@ -31,6 +31,7 @@ import java.util.List;
 import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public abstract class AbstractLinker
@@ -45,6 +46,8 @@ public abstract class AbstractLinker
         throws NativeBuildException, IOException
     {
         Commandline cl = this.createLinkerCommandLine( compilerOutputFiles, config );
+        
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
 
         CommandLineUtil.execute( cl, this.getLogger() );
 

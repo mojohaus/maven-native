@@ -71,6 +71,15 @@ public abstract class AbstractNativeMojo
     protected File outputDirectory;
 
 
+    /**
+     * Specifies a fully qualified class name implementing the 
+     * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
+     * a set environment variables to be used with the command line.
+     * @parameter
+     */
+    protected String envFactoryName;   
+    
+    
     protected static String [] removeEmptyOptions( String [] args )
     {
     	return NativeMojoUtils.trimParams ( args );

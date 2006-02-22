@@ -54,6 +54,8 @@ public class ResourceCompilerConfiguration
     private File[] includePaths = EMPTY_FILE_ARRAY;
 
     private File[] systemIncludePaths = EMPTY_FILE_ARRAY;
+    
+    private String envFactoryName;
 
     public ResourceCompilerConfiguration()
     {
@@ -143,6 +145,17 @@ public class ResourceCompilerConfiguration
             this.systemIncludePaths = EMPTY_FILE_ARRAY;
         }
     }
+    
+    public String getEnvFactoryName()
+    {
+    	return this.envFactoryName;
+    }
+    
+    public void setEnvFactoryName( String factoryName )
+    {
+    	this.envFactoryName = factoryName;
+    }
+    
 
     ////////////////////////////////////////////////////////////
     //                           HELPER

@@ -155,6 +155,7 @@ public class NativeCompileMojo
     	config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
     	config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
     	config.setOutputDirectory ( this.outputDirectory );
+    	config.setEnvFactoryName( this.envFactoryName );
         
         List objectFiles;
     	try 

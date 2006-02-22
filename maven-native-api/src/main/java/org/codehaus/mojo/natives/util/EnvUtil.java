@@ -3,6 +3,8 @@ package org.codehaus.mojo.natives.util;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.codehaus.mojo.natives.EnvFactory;
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public class EnvUtil
@@ -26,7 +28,7 @@ public class EnvUtil
             //TODO move this to an env object similar to Ant Environment
             envValue = System.getenv( envKey );
 
-            if ( envValue == null &&  alternateSystemProperty != null )
+            if ( envValue == null && alternateSystemProperty != null )
             {
                 envValue = System.getProperty( alternateSystemProperty );
             }
@@ -70,4 +72,29 @@ public class EnvUtil
         }
     }
 
+    public static void setupCommandlineEnv( Commandline cl, String envFactoryName )
+        throws NativeBuildException
+    {
+        try
+        {
+            EnvFactory fact = (EnvFactory) Class.forName( envFactoryName ).newInstance();
+            
+            Map envs = fact.getEnvironmentVariables();
+            
+            Iterator iter = envs.keySet().iterator();
+
+            while ( iter.hasNext() )
+            {
+                String key = (String) iter.next();
+
+                cl.addEnvironment( key, (String) envs.get( key ) );
+            }                       
+        }
+        catch ( Exception e )
+        {
+            throw new NativeBuildException( " Unable to instantiate " + envFactoryName, e );
+        }
+    }
+
+ 
 }

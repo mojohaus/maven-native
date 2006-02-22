@@ -33,6 +33,7 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
+import org.codehaus.mojo.natives.util.EnvUtil;
 
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.Os;
@@ -71,6 +72,8 @@ public abstract class AbstractCompiler
 	    	if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) ) 
 	    	{
 	    		Commandline cl = getCommandLine(source, objectFile, config );
+	    		
+	    		EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
 	    		
 	    	    CommandLineUtil.execute( cl, this.getLogger() );
 

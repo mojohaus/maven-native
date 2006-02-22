@@ -45,6 +45,8 @@ public class MessageCompilerConfiguration
     private File debugOutputDirectory;
 
     private String[] options = new String[0];
+    
+    private String envFactoryName;
 
     public MessageCompilerConfiguration()
     {
@@ -106,5 +108,16 @@ public class MessageCompilerConfiguration
     {
         this.debugOutputDirectory = dir;
     }
+    
+    public String getEnvFactoryName()
+    {
+    	return this.envFactoryName;
+    }
+    
+    public void setEnvFactoryName( String factoryName )
+    {
+    	this.envFactoryName = factoryName;
+    }
+    
 
 }

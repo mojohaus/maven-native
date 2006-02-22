@@ -113,9 +113,6 @@ public class MSVCEnv
 
     }
 
-
-
-
     private static Map createAdditionalMSVC6Envs( File vsDir )
     {
         Map envs = new HashMap();

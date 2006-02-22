@@ -61,6 +61,9 @@ public class LinkerConfiguration
 	private String outputFileName; /* should not have extension */
 	
 	private File [] externalLibraries;
+	
+	private String envFactoryName;
+	
     	
 	public LinkerConfiguration() 
 	{
@@ -178,5 +181,15 @@ public class LinkerConfiguration
 	{
 		this.externalLibraries = files;
     }	
+	
+    public String getEnvFactoryName()
+    {
+    	return this.envFactoryName;
+    }
+    
+    public void setEnvFactoryName( String factoryName )
+    {
+    	this.envFactoryName = factoryName;
+    }
 	
 }

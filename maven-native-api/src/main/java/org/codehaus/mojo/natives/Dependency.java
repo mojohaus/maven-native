@@ -1,5 +1,3 @@
-
-
 package org.codehaus.mojo.natives;
 
 /*
