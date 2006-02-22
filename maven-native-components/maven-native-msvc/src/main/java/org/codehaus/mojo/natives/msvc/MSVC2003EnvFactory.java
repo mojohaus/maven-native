@@ -28,7 +28,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
@@ -39,26 +38,27 @@ import org.codehaus.mojo.natives.util.EnvUtil;
  */
 
 public class MSVC2003EnvFactory
-    implements EnvFactory
+    extends  AbstractMSVCEnvFactory
 {
     private static final String MSVS2003_INSTALL_ENV_KEY = "MSVS2003_INSTALL_DIR";
 
     private static final String DEFAULT_MSVS2003_INSTALL_DIR = "C:/Program Files/Microsoft Visual Studio .NET 2003";
 
+    
     private static Map envs;
-
-    public synchronized Map getEnvironmentVariables()
+    
+    public synchronized Map getEnvironmentVariables() 
         throws NativeBuildException
     {
         if ( envs == null )
         {
-            envs = getEnvs();
+            envs = createEnvs();
         }
-
+        
         return envs;
     }
-
-    private static Map getEnvs()
+    
+    private  Map createEnvs()
         throws NativeBuildException
     {
         File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
@@ -119,9 +119,4 @@ public class MSVC2003EnvFactory
 
     }
 
-    private static String getSystemRoot()
-    {
-        return EnvUtil.getEnv( "SystemRoot", "SystemRoot", "c:/WINDOWS" );
-    }
-    
 }

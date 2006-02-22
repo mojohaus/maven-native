@@ -28,7 +28,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
@@ -39,25 +38,27 @@ import org.codehaus.mojo.natives.util.EnvUtil;
  */
 
 public class MSVC6EnvFactory 
-    implements EnvFactory 
+    extends AbstractMSVCEnvFactory 
 {
 	private static final String MSVS6_INSTALL_ENV_KEY = "MSVS6_INSTALL_DIR";
 	private static final String DEFAULT_MSVS6_INSTALL_DIR= "C:/Program Files/Microsoft Visual Studio" ;
 	
-	private static Map envs;
-	
-	public synchronized Map getEnvironmentVariables() 
-	    throws NativeBuildException
-	{
-		if ( envs == null )
-		{
-			envs = getEnvs();
-		}
-		
-		return envs;
-	}
-	
-	private static Map getEnvs()
+    
+    private static Map envs;
+    
+    public synchronized Map getEnvironmentVariables() 
+        throws NativeBuildException
+    {
+        if ( envs == null )
+        {
+            envs = createEnvs();
+        }
+        
+        return envs;
+    }
+    
+     
+    private Map createEnvs()
       throws NativeBuildException
 	{
 		File vsDir = new File ( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
