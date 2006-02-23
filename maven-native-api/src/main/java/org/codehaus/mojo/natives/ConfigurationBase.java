@@ -24,19 +24,19 @@ package org.codehaus.mojo.natives;
  * SOFTWARE.
 */
 
-import java.util.Map;
+
 
 public class ConfigurationBase
 {
-    private Map environmentVariables;
+    private String envFactoryName;
 
-    public void setEnvironmentVariables( Map env )
+    public String getEnvFactoryName()
     {
-        this.environmentVariables = env;
+        return this.envFactoryName;
     }
     
-    public Map getEnvironmentVariables()
+    public void setEnvFactoryName( String factoryName )
     {
-        return this.environmentVariables;
-    }    
+        this.envFactoryName = factoryName;
+    }
 }

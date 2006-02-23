@@ -102,9 +102,7 @@ public class BCCLinker
                 cl.createArgument().setValue( externalLibs[i].getPath() );
             }
         }
-        
-        this.setupCommandlineEnv( cl, config );
-        
+                
         return cl;
     }
 }

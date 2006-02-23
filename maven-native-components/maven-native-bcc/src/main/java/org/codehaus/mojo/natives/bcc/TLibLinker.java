@@ -73,8 +73,6 @@ public class TLibLinker
 
 		    cl.createArgument().setValue( "+\"" + objFile.getPath() + "\"" );
 	    }
-
-        this.setupCommandlineEnv( cl, config );
         
 	    return cl;
 		

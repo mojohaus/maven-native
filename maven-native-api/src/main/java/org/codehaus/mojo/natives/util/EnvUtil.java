@@ -60,17 +60,6 @@ public class EnvUtil
         return null;
     }
 
-    public static void setupCommandlineEnv( Map envs, Commandline cl )
-    {
-        Iterator iter = envs.keySet().iterator();
-
-        while ( iter.hasNext() )
-        {
-            String key = (String) iter.next();
-
-            cl.addEnvironment( key, (String) envs.get( key ) );
-        }
-    }
 
     public static void setupCommandlineEnv( Commandline cl, String envFactoryName )
         throws NativeBuildException

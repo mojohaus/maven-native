@@ -28,13 +28,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
+import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -45,7 +45,7 @@ import org.codehaus.plexus.util.cli.Commandline;
  */
 
 public abstract class AbstractCompiler 
-    extends AbstractLogEnvEnabled
+    extends AbstractLogEnabled
     implements Compiler 
 {
 

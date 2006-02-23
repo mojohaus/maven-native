@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.c;
 */
 
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
@@ -89,9 +87,7 @@ public class CLinker
 	    }
 
         cl.addArguments( config.getEndOptions() );
-        
-        this.setupCommandlineEnv( cl, config );
-        
+                
 	    return cl;
 		
 	}

@@ -63,8 +63,6 @@ public class CompilerConfiguration
     private File[] systemIncludePaths;
 
     private File outputDirectory;
-
-    private String envFactoryName;
     
     public CompilerConfiguration()
     {
@@ -179,14 +177,6 @@ public class CompilerConfiguration
         this.providerHome = dir;
     }
     
-    public String getEnvFactoryName()
-    {
-    	return this.envFactoryName;
-    }
-    
-    public void setEnvFactoryName( String factoryName )
-    {
-    	this.envFactoryName = factoryName;
-    }
+
 
 }

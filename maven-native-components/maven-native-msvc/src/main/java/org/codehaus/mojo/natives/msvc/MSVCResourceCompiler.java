@@ -73,8 +73,6 @@ public class MSVCResourceCompiler
         cl.createArgument().setValue( config.getOutputFile( source ).getPath() );
 
         cl.createArgument().setValue( source.getPath() );
-
-        this.setupCommandlineEnv( cl, config );
 		
 		return cl;
 	}

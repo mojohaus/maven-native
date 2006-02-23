@@ -27,7 +27,6 @@ package org.codehaus.mojo.natives.msvc;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
-import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
@@ -73,8 +72,6 @@ public class MSVCCompiler
 				
 		Commandline cl = super.getCommandLine( src, dest, config );
         
-        EnvUtil.setupCommandlineEnv( this.getEnvironmentVariables(), cl );
-	    		
 		return cl;
 	}
 	

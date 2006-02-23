@@ -28,49 +28,5 @@
       <implementation>org.codehaus.mojo.natives.msvc.MSVCResourceCompiler</implementation>
     </component>
     
-    <!--
-     |  MSVC6 compiler, additional envs are added accourding MSVC6 env script
-     -->
-    
-    <component>
-      <role>org.codehaus.mojo.natives.compiler.Compiler</role>
-      <role-hint>msvc6</role-hint>
-      <implementation>org.codehaus.mojo.natives.msvc.MSVC6Compiler</implementation>
-    </component>
-
-    <component>
-      <role>org.codehaus.mojo.natives.linker.Linker</role>
-      <role-hint>msvc6</role-hint>
-      <implementation>org.codehaus.mojo.natives.msvc.MSVC6Linker</implementation>
-    </component>
-
-    <component>
-      <role>org.codehaus.mojo.natives.compiler.MessageCompiler</role>
-      <role-hint>msvc6</role-hint>
-      <implementation>org.codehaus.mojo.natives.msvc.MSVC6MessageCompiler</implementation>
-    </component>
-
-    <component>
-      <role>org.codehaus.mojo.natives.compiler.ResourceCompiler</role>
-      <role-hint>msvc6</role-hint>
-      <implementation>org.codehaus.mojo.natives.msvc.MSVC6ResourceCompiler</implementation>
-    </component>
-
-    <!--
-     |  MSVC .NET 2003 compiler, additional envs are added accourding MSVC2003 env script
-     -->
-    
-    <component>
-      <role>org.codehaus.mojo.natives.compiler.Compiler</role>
-      <role-hint>msvc2003</role-hint>
-      <implementation>org.codehaus.mojo.natives.msvc.MSVC2003Compiler</implementation>
-    </component>
-
-    <component>
-      <role>org.codehaus.mojo.natives.linker.Linker</role>
-      <role-hint>msvc2003</role-hint>
-      <implementation>org.codehaus.mojo.natives.msvc.MSVC2003Linker</implementation>
-    </component>
-
   </components>
 </component-set>

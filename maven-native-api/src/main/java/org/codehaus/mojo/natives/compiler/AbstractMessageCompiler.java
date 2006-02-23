@@ -26,10 +26,10 @@ package org.codehaus.mojo.natives.compiler;
 
 import java.io.File;
 
-import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 
+import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
@@ -38,7 +38,7 @@ import org.codehaus.plexus.util.cli.Commandline;
  */
 
 public abstract class AbstractMessageCompiler
-    extends AbstractLogEnvEnabled
+    extends AbstractLogEnabled
     implements MessageCompiler
 {
 

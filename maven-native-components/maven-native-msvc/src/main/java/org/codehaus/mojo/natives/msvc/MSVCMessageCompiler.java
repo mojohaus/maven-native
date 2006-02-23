@@ -66,10 +66,7 @@ public class MSVCMessageCompiler
         }
         
         cl.createArgument().setValue( source.getPath() );
-
-	    
-		this.setupCommandlineEnv( cl, config );
-		
+        
 		return cl;
 	}
 

@@ -28,14 +28,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.codehaus.mojo.natives.AbstractLogEnvEnabled;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
+import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public abstract class AbstractLinker
-    extends AbstractLogEnvEnabled
+    extends AbstractLogEnabled
     implements Linker
 {
 
