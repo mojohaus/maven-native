@@ -146,7 +146,6 @@ public class NativeCompileMojo
     	this.addAdditionalIncludePath();
     	
     	CompilerConfiguration config = new CompilerConfiguration();
-    	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.project.getBasedir() );
     	config.setExecutable( this.compilerExecutable );
     	config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );

@@ -45,13 +45,6 @@ public abstract class AbstractNativeMojo
 		
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 	
-    /**
-     * Some compiler can take advantage of this setting to add 
-     * additional environments ( ex msvc, bcc, etc)
-     * @parameter 
-     * @optional
-     */
-    protected File providerHome;
 	
     /**
      * POM

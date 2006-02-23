@@ -99,7 +99,6 @@ public class NativeResourceCompileMojo
 
     	
     	ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
-    	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.project.getBasedir() );
     	config.setOptions( NativeMojoUtils.trimParams( this.options )  );
     	config.setOutputDirectory ( this.outputDirectory );

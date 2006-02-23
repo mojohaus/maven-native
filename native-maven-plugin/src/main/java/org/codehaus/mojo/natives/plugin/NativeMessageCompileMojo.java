@@ -54,11 +54,6 @@ public class NativeMessageCompileMojo
      */
     private String provider;
 
-    /**
-     * @parameter default-value=""
-     * @description Provider Installation Directory
-     */
-    private File providerHome;
     
     /**
      * @description Compiler options
@@ -124,7 +119,6 @@ public class NativeMessageCompileMojo
     	
     	MessageCompilerConfiguration config = new MessageCompilerConfiguration();
         
-    	config.setProviderHome( this.providerHome );
     	config.setBaseDir( this.project.getBasedir() );
     	config.setOutputDirectory ( this.outputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.options ) );

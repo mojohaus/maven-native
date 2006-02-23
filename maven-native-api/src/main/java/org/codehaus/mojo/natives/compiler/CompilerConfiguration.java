@@ -40,8 +40,6 @@ public class CompilerConfiguration
     extends ConfigurationBase
 {
 
-    private File providerHome;
-
     private File baseDir;
 
     /**
@@ -166,17 +164,6 @@ public class CompilerConfiguration
     {
         this.endOptions = options;
     }
-
-    public File getProviderHome()
-    {
-        return this.providerHome;
-    }
-
-    public void setProviderHome( File dir )
-    {
-        this.providerHome = dir;
-    }
-    
 
 
 }

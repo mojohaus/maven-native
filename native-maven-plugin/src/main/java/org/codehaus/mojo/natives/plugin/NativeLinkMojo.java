@@ -179,8 +179,7 @@ public class NativeLinkMojo
         throws MojoExecutionException
     {
     	LinkerConfiguration config = new LinkerConfiguration();
-    	config.setProviderHome( this.providerHome );
-    	config.setWorkingDirectory( this.project.getBasedir() );
+        config.setWorkingDirectory( this.project.getBasedir() );
     	config.setExecutable( this.linkerExecutable );
     	config.setStartOptions( removeEmptyOptions( this.linkerStartOptions ) );
     	config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );

@@ -41,8 +41,6 @@ public class ResourceCompilerConfiguration
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    private File providerHome;
-
     private File baseDir;
 
     private File outputDirectory;
@@ -82,16 +80,6 @@ public class ResourceCompilerConfiguration
         {
             this.options = EMPTY_STRING_ARRAY;
         }
-    }
-
-    public File getProviderHome()
-    {
-        return this.providerHome;
-    }
-
-    public void setProviderHome( File dir )
-    {
-        this.providerHome = dir;
     }
 
     public File getOutputDirectory()

@@ -36,8 +36,6 @@ public class MessageCompilerConfiguration
     extends ConfigurationBase
 {
 
-    private File providerHome;
-
     private File baseDir;
 
     private File outputDirectory;
@@ -75,16 +73,6 @@ public class MessageCompilerConfiguration
 
         }
 
-    }
-
-    public File getProviderHome()
-    {
-        return this.providerHome;
-    }
-
-    public void setProviderHome( File dir )
-    {
-        this.providerHome = dir;
     }
 
     public File getOutputDirectory()

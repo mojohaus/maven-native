@@ -36,7 +36,6 @@ import org.codehaus.mojo.natives.ConfigurationBase;
 public class LinkerConfiguration
     extends ConfigurationBase
 {
-	private File providerHome;
 	
 	private File workingDirectory;
 	
@@ -70,16 +69,6 @@ public class LinkerConfiguration
 		
 	}
 		
-    public void setProviderHome( File providerHome )
-    {
-    	this.providerHome = providerHome;
-    }
-
-    public File getProviderHome()
-    {
-    	return this.providerHome;
-    }
-
 	public File getOutputDirectory()
 	{
 		return this.outputDirectory;
