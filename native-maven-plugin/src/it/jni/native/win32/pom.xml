@@ -37,9 +37,10 @@
         <artifactId>native-maven-plugin</artifactId>
         <extensions>true</extensions>       
         <configuration>
-          <compilerProvider>msvc6</compilerProvider>
+          <compilerProvider>msvc</compilerProvider>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC6EnvFactory</envFactoryName>
           <compilerStartOptions>
-            <compilerStartOption>/nologo /MD /W4 -O</compilerStartOption>
+            <compilerStartOption> /MD /W4 -O</compilerStartOption>
           </compilerStartOptions>
           
           <javahOS>win32</javahOS>
@@ -55,7 +56,7 @@
           </sources>
             
           <linkerStartOptions>
-            <linkerStartOption>/nologo /INCREMENTAL:NO /DLL user32.lib advapi32.lib oldnames.lib kernel32.lib </linkerStartOption>
+            <linkerStartOption> /INCREMENTAL:NO /DLL user32.lib advapi32.lib oldnames.lib kernel32.lib </linkerStartOption>
           </linkerStartOptions>
           
           
