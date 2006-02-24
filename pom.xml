@@ -97,7 +97,24 @@
     <module>native-maven-plugin</module>
   </modules>
 
-  
+  <--
 
+  <distributionManagement>
+    <repository>
+      <id>anthome-repo</id>
+      <name>Cupertino Central Repository</name>
+      <url>scp://anthome.borland.com/usr/scm/repositories/coresdp/plugins/release</url>
+    </repository>
+    <snapshotRepository>
+      <id>anthome-repo</id>
+      <name>Cupertino Central Development Repository</name>
+      <url>scp://anthome.borland.com/usr/scm/repositories/coresdp/plugins/snapshot</url>
+    </snapshotRepository>
+    <site>
+      <id>coresdp-website</id>
+      <url>scm://anthome.borland.com/usr/scm/site/opti/</url>
+    </site>
+  </distributionManagement>
   
+  -->
 </project>
