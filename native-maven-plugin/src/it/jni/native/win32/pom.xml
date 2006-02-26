@@ -85,7 +85,11 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>once</forkMode>
-          <workingDirectory>${project.build.directory}</workingDirectory>
+          <!--argLine>-Djava.library.path="${project.build.directory};${java.library.path}"</argLine-->
+          <!--workingDirectory>${project.build.directory}</workingDirectory-->
+          <systemProperties>
+            <java.library.path>${project.build.directory};${java.library.path}</java.library.path>
+          </systemProperties>
         </configuration>
       </plugin>
 
