@@ -21,7 +21,7 @@ public class EnvUtil
 
     public static String getEnv( String envKey, String alternateSystemProperty, String defaultValue )
     {
-        String envValue = "";
+        String envValue = null;
 
         try
         {
