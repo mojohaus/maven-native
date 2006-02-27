@@ -87,9 +87,14 @@
           <forkMode>once</forkMode>
           
           
-          <!-- need latest sure-fire plugin 2.1.3-SNAPSHOT + sure-fire component -->
+          <!--need latest sure-fire plugin 2.1.3-SNAPSHOT + sure-fire component -->
           <workingDirectory>${project.build.directory}</workingDirectory>
-         
+
+          <!-- known to work
+          <environmentVariables>
+            <path>${project.build.directory};${java.library.path}</path>
+          </environmentVariables>
+          -->
           
           <!--  known to work
           <argLine>-Djava.library.path="${project.build.directory};${java.library.path}"</argLine>
