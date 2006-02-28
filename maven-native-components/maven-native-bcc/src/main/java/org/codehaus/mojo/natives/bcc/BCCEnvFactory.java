@@ -62,7 +62,7 @@ public class BCCEnvFactory
     private Map createEnvs()
       throws NativeBuildException
 	{
-		File bccDir = new File ( EnvUtil.getEnv( BCC_INSTALL_ENV_KEY, DEFAULT_BCC_INSTALL_DIR ) );
+		File bccDir = new File ( EnvUtil.getEnv( BCC_INSTALL_ENV_KEY, BCC_INSTALL_ENV_KEY, DEFAULT_BCC_INSTALL_DIR ) );
 		
 		if ( ! bccDir.isDirectory() )
 		{

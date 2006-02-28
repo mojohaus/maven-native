@@ -56,7 +56,7 @@ public class MSVC2005x86EnvFactory
     private  Map createEnvs()
         throws NativeBuildException
     {
-        File vsInstallDir = new File( EnvUtil.getEnv( MSVS2005_INSTALL_ENV_KEY, DEFAULT_MSVS2005_INSTALL_DIR ) );
+        File vsInstallDir = new File( EnvUtil.getEnv( MSVS2005_INSTALL_ENV_KEY, MSVS2005_INSTALL_ENV_KEY, DEFAULT_MSVS2005_INSTALL_DIR ) );
 
         if ( !vsInstallDir.isDirectory() )
         {

@@ -60,7 +60,7 @@ public class MSVC2003ToolkitEnvFactory
     private  Map createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir = new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY, DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
+        File vcInstallDir = new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY, MSVC2003_TOOLKIT_INSTALL_ENV_KEY, DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {

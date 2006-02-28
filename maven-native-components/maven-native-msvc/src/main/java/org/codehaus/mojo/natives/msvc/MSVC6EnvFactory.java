@@ -61,7 +61,7 @@ public class MSVC6EnvFactory
     private Map createEnvs()
       throws NativeBuildException
 	{
-		File vsDir = new File ( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
+		File vsDir = new File ( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
 		
 		if ( ! vsDir.isDirectory() )
 		{

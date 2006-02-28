@@ -32,7 +32,7 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
- * Equivalent of MSVC2003's vcvars32.bat
+ * Equivalent of Microsoft Visual Studio .NET 2003's vcvars32.bat
  * @author dtran
  *
  */
@@ -61,7 +61,7 @@ public class MSVC2003EnvFactory
     private  Map createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
+        File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {
