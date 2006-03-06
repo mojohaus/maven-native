@@ -83,20 +83,18 @@ public abstract class AbstractCCompiler
 	    	cl.createArgument().setValue( "-I" + systemIncludePaths[i].getPath() );
 	    }	    
 	    
-	    
 	    String outputFileOption = this.getOutputFileOption();
-	    
-	    if ( outputFileOption != null && outputFileOption.trim().length() != 0 )
-	    {
-	    	//if you want to put a space between option and out file
-	    	// implement getOutputFileOption to have a extra space at the end
-	    	cl.createArgument().setLine( outputFileOption + dest.getPath() );
-	    }
-	    else
-	    {
-    	    cl.createArgument().setValue( dest.getPath() );
-	    }
 
+        if ( outputFileOption.endsWith( " " ) )
+        {
+            cl.createArgument().setValue( outputFileOption.trim() );
+            cl.createArgument().setValue( dest.getPath() );
+        }
+        else
+        {
+            cl.createArgument().setValue( outputFileOption + dest.getPath() );
+        }      
+        
 	    cl.createArgument().setValue("-c");
 	    cl.createArgument().setValue( src.getPath() );
 

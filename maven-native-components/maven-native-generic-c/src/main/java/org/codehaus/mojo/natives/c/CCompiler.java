@@ -39,7 +39,7 @@ public class CCompiler
 		
 	protected String getOutputFileOption()
 	{
-		return "-o";
+		return "-o ";
 	}
 	
 

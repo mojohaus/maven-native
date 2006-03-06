@@ -52,6 +52,10 @@ public class BCCCompiler
 		return cl;
 	}
 	
+    protected String getOutputFileOption()
+    {
+        return "-o";
+    }    
 
 
 }

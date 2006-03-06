@@ -102,10 +102,13 @@
           
           <!-- currently not working
           <systemProperties>
-            <java.library.path>"${project.build.directory};${java.library.path}"</java.library.path>
+            <property>
+              <name>java.library.path</name>
+              <value>${project.build.directory};${java.library.path}</value>
+            </property>
           </systemProperties>
           -->
-          
+        
         </configuration>
       </plugin>
 
