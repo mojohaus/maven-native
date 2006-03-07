@@ -46,7 +46,7 @@ How to use
   
   * si
   
-  * uxe
+  * uexe
   
   []
   
@@ -57,8 +57,8 @@ How to use
   to build each specific extension.  You must configure appropriate compiler/link 
   options at build phase. See Compiler Option.
   
-  "uxe" is a place holder for executable without extension name usually found
-  on UNIX environment.  The final artifact will have extension of "uxe".  You will need 
+  "uexe" is a place holder for executable without extension name usually found
+  on UNIX environment.  The final artifact will have extension of "uexe".  You will need 
   to remove the extension yourself at assembly time (see maven-assembly-plugin).
   
   
