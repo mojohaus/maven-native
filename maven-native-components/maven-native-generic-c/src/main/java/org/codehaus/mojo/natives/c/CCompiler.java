@@ -27,7 +27,7 @@ package org.codehaus.mojo.natives.c;
 import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
 
 /**
- * Generic C/CPP compiler with -o as its ouput option
+ * Generic C/CPP compiler with "-o " as its output option
  * 
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$

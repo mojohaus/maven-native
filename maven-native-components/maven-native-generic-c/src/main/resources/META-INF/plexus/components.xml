@@ -15,5 +15,18 @@
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
+    <component>
+      <role>org.codehaus.mojo.natives.compiler.Compiler</role>
+      <role-hint>generic-classic</role-hint>
+      <implementation>org.codehaus.mojo.natives.c.CCompilerClassic</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Linker</role>
+      <role-hint>generic-classic</role-hint>
+      <implementation>org.codehaus.mojo.natives.c.CLinkerClassic</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
   </components>
 </component-set>

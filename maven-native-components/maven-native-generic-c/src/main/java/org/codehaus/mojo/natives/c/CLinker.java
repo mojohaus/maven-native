@@ -33,6 +33,7 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * Generic C/CPP linker with "-o " as its output option 
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
