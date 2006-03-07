@@ -1,8 +1,12 @@
 
-
+/**
+ * 
+ * @author dtran
+ *
+ */
 public class HelloWorld
 {
-    public native void sayHello();
+    public native String sayHello();
 
     static
     {
@@ -12,6 +16,6 @@ public class HelloWorld
     public static void main( String[] args )
     {
         HelloWorld app = new HelloWorld();
-        app.sayHello();
+        System.out.println( app.sayHello() );
     }
 }
