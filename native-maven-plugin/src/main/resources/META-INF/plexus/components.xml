@@ -181,12 +181,12 @@
     </component>       
           
     <!--
-     |			native-si
+     |			hpux si lib
      -->
           
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-      <role-hint>si</role-hint>
+      <role-hint>sl</role-hint>
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
@@ -208,11 +208,11 @@
     
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>si</role-hint>
+      <role-hint>sl</role-hint>
       <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
       <configuration>
-        <type>si</type>
-        <extension>si</extension>
+        <type>sl</type>
+        <extension>sl</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
     </component>                
