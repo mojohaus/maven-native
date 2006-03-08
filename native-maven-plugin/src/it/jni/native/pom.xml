@@ -66,15 +66,28 @@
     </profile>
     
     <profile>
-      <id>add-aix-ppc-module</id>
+      <id>add-aix-module</id>
       <activation>
         <property>
           <name>platform</name>
-          <value>aix-ppc</value>
+          <value>aix</value>
         </property>
       </activation>
       <modules>
-        <module>aix-ppc</module>
+        <module>aix</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>add-solaris-module</id>
+      <activation>
+        <property>
+          <name>platform</name>
+          <value>solaris</value>
+        </property>
+      </activation>
+      <modules>
+        <module>solaris</module>
       </modules>
     </profile>
     
