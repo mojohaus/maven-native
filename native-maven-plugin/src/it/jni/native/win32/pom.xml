@@ -40,7 +40,8 @@
           <compilerProvider>msvc</compilerProvider>
           <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC6EnvFactory</envFactoryName>
           <compilerStartOptions>
-            <compilerStartOption> /MD /W4 -O</compilerStartOption>
+            <compilerStartOption>${compiler.debug.options}</compilerStartOption>
+            <compilerStartOption>/W4 -O</compilerStartOption>
           </compilerStartOptions>
           
           <javahOS>win32</javahOS>
@@ -55,6 +56,7 @@
           </sources>
             
           <linkerStartOptions>
+            <linkerStartOption>${linker.debug.options}</linkerStartOption>
             <linkerStartOption> /INCREMENTAL:NO /DLL user32.lib advapi32.lib oldnames.lib kernel32.lib </linkerStartOption>
           </linkerStartOptions>
           
@@ -115,5 +117,33 @@
 
   </build>
   
+  <profiles>
+  
+    <!-- to build debug artifact, run maven install -Ddebug -->
+    <profile>
+      <id>debug</id>
+      <activation>
+        <property>
+          <name>debug</name>
+        </property>
+      </activation>
+      <properties>
+        <compiler.debug.options>-MDd</compiler.debug.options>
+        <linker.debug.options>/DEBUG</linker.debug.options>
+      </properties>
+    </profile>
+    
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault >true</activeByDefault >
+      </activation>
+      <properties>
+        <compiler.debug.options>-MD</compiler.debug.options>
+        <linker.debug.options></linker.debug.options>
+      </properties>
+    </profile>
+      
+  </profiles>  
 
 </project>
