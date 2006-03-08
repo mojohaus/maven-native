@@ -47,12 +47,11 @@
           
           <sources>
             <source>
-	      <directory>../src/main/native</directory>
-	      <fileNames>
+              <directory>../src/main/native</directory>
+              <fileNames>
                 <fileName>HelloWorld.c</fileName>
-	      </fileNames>
+              </fileNames>
             </source>
-
           </sources>
             
           <linkerStartOptions>
@@ -66,17 +65,15 @@
           <execution>
             <id>javah</id>
             <phase>generate-sources</phase>
+            <goals>
+              <goal>javah</goal> 
+            </goals>
             <configuration>
               <classNames>
                 <className>HelloWorld</className>
               </classNames>
             </configuration>
-            <goals>
-              <goal>javah</goal> 
-            </goals>
           </execution>
-          
-                    
         </executions>
            
       </plugin>

@@ -110,7 +110,7 @@ public class NativeCompileMojo
      * @parameter 
      * @optional
      */
-    protected NativeSources [] sources;
+    protected NativeSources [] sources = new NativeSources[0];
     
     
     /**
