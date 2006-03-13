@@ -18,17 +18,16 @@ How to use
   * Determine your packaging type 
   
   * Dertemine your linker dependencies
-  
-  * Determine your compiler provider
-  
-  * Determine your compiler options and flags
-  
+    
   * Determine your source directories and its source files
   
-  * Determine your linker provider
+  * Determine your compiler and linker providers
   
-  * Determine your linker options and flags
+  * Determine your compiler and linker options and flags  
   
+  * Dertermine your system environment factory
+  
+  []
   
 * Packaging Type
 
@@ -44,7 +43,11 @@ How to use
   
   * so
   
-  * si
+  * sl
+  
+  * dylib
+  
+  * jnilib
   
   * uexe
   
@@ -64,24 +67,48 @@ How to use
   
 * Dependencies
 
-    * Dependencies with type "lib", "so" and "a", "si", "o", and "obj" 
+    * Dependencies with type "lib", "so" and "a", "sl", "jnilib", "dylib" "o", and "obj" 
       will be linked to final artifact at link phase.
       
     * You can explicitly add linker dependencies through normal linker option.
-  
-
-* Compiler/Linker Provider
-
-  If you are on a UNIX system, use the default "generic", but overwrite 
-  compilerExecutable and linkerExecutable configuration values specific to 
-  you build. Default value for both generic and compiler and linker are "gcc".
-  Makesure the executable are on your path.
-  
-  On Windows, You will need to use specialized provider.
+    
+    []
   
 * Source Directories and Files  
 
   Include paths and source files must configured using Sources configuration.  
   See example for details.
 
+* Compiler/Linker Provider
+
+  If you are on a UNIX system, use the default "generic", or "generic-classic" but overwrite 
+  compilerExecutable and linkerExecutable configuration specific to 
+  your build. Default values for both generic compiler and linker are "gcc".
+  Makesure the executables are on your path.
+  
+  On Windows, use Windows supported compiler and linker such as "msvc" and "bcc"
+  
+  Each provided compiler/linker provider assumes minimal knowledge of available options.
+  The following contains a list of options that will be automatically added your
+  options:
+  
+    * /c for all compilers
+    
+    * Output options such as "-o" for generic compiler/linker,  "-Fo" for msvc compiler, 
+      and "/out:" msvc linker, etc. 
+      
+    []
+  
+* Compiler/Linker options and flags 
+
+  You are responsible to provide compiler/linker options except those already included by
+  your compiler/linker providers ( see previous bullet )
+
+* System Environments
+
+  Optionally, you can configure <EnvFactoryName> to apply a set of known environment
+  variables to each command line produced by compiler/linker provider. 
+ 
+  
+  
 

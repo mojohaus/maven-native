@@ -52,7 +52,7 @@
               <fileNames>
                 <fileName>HelloWorld.c</fileName>
               </fileNames>
-            </source>
+            </source>            
           </sources>
             
           <linkerStartOptions>
