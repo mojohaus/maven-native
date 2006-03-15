@@ -80,7 +80,7 @@ public class MSVC2005x86EnvFactory
         envs.put( "FrameworkVersion", frameworkVersion );
                 
         File devEnvDir= new File( vsInstallDir.getPath() + "/Common7/IDE" );
-        envs.put( "DevEnvDir", devEnvDir );
+        envs.put( "DevEnvDir", devEnvDir.getPath() );
 
         File platformSDKDir= new File( vcInstallDir.getPath() + "/PlatformSDK" );
         
