@@ -58,7 +58,10 @@ public class CLinker
             cl.createArgument().setValue( config.getExecutable() );
         }
 
-        cl.addArguments( config.getStartOptions() );
+        if ( config.getStartOptions() != null )
+        {
+            cl.addArguments( config.getStartOptions() );
+        }
         
 	    String linkerOutputOption = this.getLinkerOutputOption();
 	    if ( linkerOutputOption.endsWith(" ") )
@@ -70,7 +73,6 @@ public class CLinker
 	    		cl.createArgument().setValue( linkerOutputOption + config.getOutputFilePath() );
 	    }
 	    		
-
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {
 	    	File objFile = (File) objectFiles.get(i);
@@ -78,8 +80,11 @@ public class CLinker
 		    cl.createArgument().setValue( objFile.getPath() );
 	    }
 
-        cl.addArguments( config.getMiddleOptions() );
-        
+        if ( config.getMiddleOptions() != null )
+        {
+            cl.addArguments( config.getMiddleOptions() );
+        }
+
 	    File [] externalLibs = config.getExternalLibraries();
 	    
 	    for ( int i = 0; i < externalLibs.length; ++i )
@@ -87,8 +92,11 @@ public class CLinker
 		    cl.createArgument().setValue( externalLibs[i].getPath() );
 	    }
 
-        cl.addArguments( config.getEndOptions() );
-                
+        if ( config.getEndOptions() != null )
+        {
+            cl.addArguments( config.getEndOptions() );
+        }
+
 	    return cl;
 		
 	}
