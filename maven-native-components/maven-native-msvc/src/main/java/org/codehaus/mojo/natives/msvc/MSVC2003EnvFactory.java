@@ -87,7 +87,7 @@ public class MSVC2003EnvFactory
         File msvcDir = new File( vcInstallDir.getPath() + "/VC7" );
 
         //setup new PATH
-        String currentPath = EnvUtil.getEnv( "PATH" );
+        String currentPath = System.getProperty( "java.library.path" );
 
         String newPath = devEnvDir.getPath() + ";" + msvcDir.getPath() + "\\BIN;" + vcInstallDir.getPath()
             + "\\Common7\\Tools;" + vcInstallDir.getPath() + "\\Common7\\Tools\\bin\\prerelease;"

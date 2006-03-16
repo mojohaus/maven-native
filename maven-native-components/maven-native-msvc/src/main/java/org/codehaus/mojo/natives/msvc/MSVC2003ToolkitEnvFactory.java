@@ -70,7 +70,7 @@ public class MSVC2003ToolkitEnvFactory
         Map envs = new HashMap();
 
         //setup new PATH
-        String currentPath = EnvUtil.getEnv( "PATH" );
+        String currentPath = System.getProperty( "java.library.path" );
 
         String newPath = vcInstallDir.getPath() + "\\BIN;" + currentPath;
 

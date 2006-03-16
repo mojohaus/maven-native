@@ -85,7 +85,7 @@ public class MSVC6EnvFactory
         envs.put( "MSVCDir", msvcDir.getPath() );
 
         //setup new PATH
-        String currentPath = EnvUtil.getEnv( "PATH" );
+        String currentPath = System.getProperty( "java.library.path" );
 
         String newPath = msDevDir.getPath() + "\\BIN;" + 
                          msvcDir.getPath() + "\\BIN;" + 

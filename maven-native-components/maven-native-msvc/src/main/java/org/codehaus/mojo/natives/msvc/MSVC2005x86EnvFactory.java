@@ -85,7 +85,7 @@ public class MSVC2005x86EnvFactory
         File platformSDKDir= new File( vcInstallDir.getPath() + "/PlatformSDK" );
         
         //setup new PATH
-        String currentPath = EnvUtil.getEnv ( "PATH" );
+        String currentPath = System.getProperty( "java.library.path" );
                 
         String newPath = devEnvDir.getPath()+";" + 
                          vcInstallDir.getPath() + "\\BIN;" + 

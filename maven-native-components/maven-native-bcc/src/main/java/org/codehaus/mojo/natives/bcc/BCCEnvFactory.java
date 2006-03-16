@@ -77,7 +77,7 @@ public class BCCEnvFactory
         }
         
         //setup new PATH
-        String currentPath = EnvUtil.getEnv ( "PATH" );
+        String currentPath = System.getProperty( "java.library.path" );
         
         String newPath = bccDir.getPath()+"\\BIN;" + 
                          currentPath; 
