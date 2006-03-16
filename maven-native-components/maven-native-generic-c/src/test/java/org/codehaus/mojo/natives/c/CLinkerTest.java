@@ -42,7 +42,7 @@ public class CLinkerTest
         String cli = properties.get( "cli" ).toString();
         assertTrue( cli.startsWith( "gcc") );
         assertEquals( basedir, properties.get( "workingDirectory" ).toString() );
-        assertTrue( cli.contains( "-o " + config.getOutputFilePath() ) );
+        assertTrue( cli.indexOf( "-o " + config.getOutputFilePath() ) != -1  );
         
     }
 
@@ -63,8 +63,28 @@ public class CLinkerTest
         
         String cli = properties.get( "cli" ).toString();
         
-        assertTrue( cli.contains( "file1.o file2.o" ) );
+        assertTrue( cli.indexOf( "file1.o file2.o" ) != -1  );
         
     }
 
+    public void testOptions()
+        throws Exception
+    {
+        String [] options = {"-o1", "-o2", "-o3" };
+        config.setStartOptions(  options );
+
+        Linker linker = new CLinkerSimulator();
+
+        linker.link( config, new ArrayList(0) );
+
+        Properties properties = new Properties();
+
+        properties.load( new FileInputStream( config.getOutputFilePath() ) );
+
+        String cli = properties.get( "cli" ).toString();
+
+        assertTrue( cli.indexOf( "-o1 -o2 -o3" ) != -1 );
+
+    }
+    
 }
