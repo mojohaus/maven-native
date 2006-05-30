@@ -1,0 +1,38 @@
+ ------
+ Maven 2 Native Plugin - EnvFactory
+ ------
+ Dan T. Tran
+ <dantran@gmail.com>
+ ------
+ September 29, 2005
+
+Environment Factories
+
+  Instead of setting up your compiler/linker command line environment prior to running 
+  maven to build your artfact, this plugin contains a set of built-in EnvFactories
+  that can be mapped to any command line produced by your compiler/linker.
+  
+  Available build-in factories
+  
+
+*----------------------------------------------------------+------------+
+| Name                                                     | 
+*----------------------------------------------------------+------------+
+| org.codehaus.mojo.natives.msvc.MSVC6EnvFactory           |                 
+*-----------------+----------------------------------------+------------+
+| org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory        |                 
+*-----------------+----------------------------------------+------------+
+| org.codehaus.mojo.natives.msvc.MSVC2003ToolkitEnvFactory |                 
+*-----------------+----------------------------------------+------------+
+| org.codehaus.mojo.natives.msvc.MSVC2005AMDEnvFactory     |                 
+*-----------------+----------------------------------------+------------+
+| org.codehaus.mojo.natives.msvc.MSVC2005x86AMD64EnvFactory|                 
+*-----------------+----------------------------------------+------------+
+| org.codehaus.mojo.natives.msvc.MSVC2005x86EnvFactory     |                 
+*-----------------+----------------------------------------+------------+
+| org.codehaus.mojo.natives.bcc.BCCEnvFactory              |                 
+*-----------------+----------------------------------------+------------+
+
+  You can build your own jar with your specific EnvFactory implementation and make it 
+  part of this plugin build's dependency.
+  
