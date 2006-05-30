@@ -13,9 +13,9 @@ import junit.framework.TestCase;
 public class CLinkerTest
     extends TestCase
 {
-    LinkerConfiguration config ;
+    private LinkerConfiguration config ;
     
-    String basedir;
+    private String basedir;
     
     public void setUp()
     {
