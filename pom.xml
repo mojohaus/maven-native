@@ -54,37 +54,37 @@
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-api</artifactId>
-        <version>1.0-alpha-1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>    
 
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-javah</artifactId>
-        <version>1.0-alpha-1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>    
   
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-generic-c</artifactId>
-        <version>1.0-alpha-1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>    
 
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-msvc</artifactId>
-        <version>1.0-alpha-1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>    
 
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-bcc</artifactId>
-        <version>1.0-alpha-1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>    
 
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-manager</artifactId>
-        <version>1.0-alpha-1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>    
 
     </dependencies>
@@ -96,7 +96,6 @@
     <module>maven-native-components</module>
     <module>native-maven-plugin</module>
   </modules>
-
 
 
 
