@@ -40,12 +40,32 @@ public class CLinkerTest
         properties.load( new FileInputStream( config.getOutputFilePath() ) );
         
         String cli = properties.get( "cli" ).toString();
-        assertTrue( cli.startsWith( "gcc") );
+        
+        assertTrue( "Default linker is not gcc.",  cli.startsWith( "gcc") );
         assertEquals( basedir, properties.get( "workingDirectory" ).toString() );
         assertTrue( cli.indexOf( "-o " + config.getOutputFilePath() ) != -1  );
         
     }
 
+    public void testOverrideLinkerExecutable()
+        throws Exception
+    {
+        Linker linker = new CLinkerSimulator();
+        
+        config.setExecutable( "ld" );
+
+        linker.link( config, new ArrayList( 0 ) );
+
+        Properties properties = new Properties();
+
+        properties.load( new FileInputStream( config.getOutputFilePath() ) );
+
+        String cli = properties.get( "cli" ).toString();
+
+        assertTrue( "Unable to change default linker.", cli.startsWith( "ld" ) );
+
+    }
+    
     public void testObjectFileList()
         throws Exception
     {           

@@ -18,7 +18,7 @@
 
     <component>
       <role>org.codehaus.mojo.natives.linker.Ranlib</role>
-      <role-hint>ar</role-hint>
+      <role-hint>ranlib</role-hint>
       <implementation>org.codehaus.mojo.natives.linker.DefaultRanlib</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>

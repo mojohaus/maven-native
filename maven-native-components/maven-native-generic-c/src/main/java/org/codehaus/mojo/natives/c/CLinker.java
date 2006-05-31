@@ -51,13 +51,11 @@ public class CLinker
 
         if ( config.getExecutable() == null || config.getExecutable().length() == 0 )
         {
-            cl.setExecutable( "gcc" );
-        }
-        else
-        {
-            cl.createArgument().setValue( config.getExecutable() );
+            config.setExecutable( "gcc" );
         }
 
+        cl.setExecutable( config.getExecutable() );
+        
         if ( config.getStartOptions() != null )
         {
             cl.addArguments( config.getStartOptions() );
