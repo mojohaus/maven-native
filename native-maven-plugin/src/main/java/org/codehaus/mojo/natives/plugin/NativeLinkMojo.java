@@ -103,21 +103,30 @@ public class NativeLinkMojo
     
     
     /**
-     * There are cases where linker does not take Maven artifact file name convension, 
-     * use this property to rename the required ones.
+     * Option to strip off a list of  project dependencies's version at link time.
+     * Each item has the format of ${groupId}:${artifactId}
      * @parameter 
      * @optional
      */
     
-    private Map renameDependencyLibs = new HashMap();
+    private List removedVersionLibs;
     
     /**
+     * Option to reorder dependency list, each item has the format of ${groupId}:${artifactId}
      * @parameter 
      * @optional
-     * @description The order of dependencies to link
      */
     
-    //private String [] dependencyLinkingOrders = new String[0];    
+    private List linkingOrderLibs;    
+    
+    /**
+     * Map of of project artifacts.
+     *
+     * @parameter expression="${project.artifactMap}"
+     * @required
+     * @readonly
+     */
+    private Map projectArtifactMap;
     
     /**
      * @parameter default-value="" 
@@ -235,7 +244,7 @@ public class NativeLinkMojo
     }
     
     private File [] getLibDependencies()
-      throws MojoExecutionException
+        throws MojoExecutionException
     {
         
         List libList = new ArrayList();
@@ -256,7 +265,7 @@ public class NativeLinkMojo
                   "dylib".equals( artifact.getArtifactHandler().getExtension() )  
                ) 
             {
-                File libLocation = this.renameDependencyIfRequired( artifact );
+                File libLocation = this.getDependencyFile( artifact );
 
                 this.getLog().info("Found dependency lib: " + libLocation );
                 
@@ -264,21 +273,87 @@ public class NativeLinkMojo
             }
         }
         
+        libList = this.reorderLibDependencies( libList );
+        
         return ( File [] ) libList.toArray( new File [0] );
     }    
     
-    private File renameDependencyIfRequired( Artifact artifact )
-      throws MojoExecutionException
+    /**
+     * convert dependencyLinkingOrders to a file list
+     * @return
+     */
+    private List getDependenciesFileOrderList()
+        throws MojoExecutionException
+    {
+        List list = new ArrayList();
+        
+        if ( this.linkingOrderLibs != null )
+        {
+            for ( Iterator i = linkingOrderLibs.iterator(); i.hasNext(); )
+            {
+                String element = i.next().toString();
+            
+                Artifact artifact = (Artifact) projectArtifactMap.get( element );
+
+                if ( artifact != null )
+                {
+                    File renameLocation = this.getDependencyFile( artifact );
+                    
+                    if ( renameLocation != null )
+                    {
+                        list.add( renameLocation );
+                    }
+                    else 
+                    {
+                        list.add( artifact.getFile() );
+                    }
+                }
+                else
+                {
+                    throw new MojoExecutionException( element + " not found on project dependencies." );
+                }
+            }
+        }
+        
+        return list;
+    }
+    
+    private List reorderLibDependencies( List libs )
+        throws MojoExecutionException
+    {
+        List requestedOrderList = getDependenciesFileOrderList();
+        
+        if ( requestedOrderList.size() != 0 )
+        {
+            // remove from original list first 
+            for ( Iterator i = requestedOrderList.iterator(); i.hasNext(); )
+            {
+                libs.remove( i.next() );
+            }
+
+            for ( Iterator i = libs.iterator(); i.hasNext(); )
+            {
+                requestedOrderList.add( i.next() );
+            }
+            
+            return requestedOrderList;
+        }
+        else
+        {
+            return libs;
+        }
+    }
+    
+    private File getDependencyFile( Artifact artifact )
+        throws MojoExecutionException
     {
         File newLocation = artifact.getFile();
 
-        //TODO need to handle groupId too 
-        String renameArtifact = (String) this.renameDependencyLibs.get( artifact.getArtifactId() );
+        // @todo handling file type ?
+        if ( this.removedVersionLibs != null && this.removedVersionLibs.contains( artifact.getGroupId() + ":" + artifact.getArtifactId() ) )
+        {
+            newLocation = new File ( this.outputDirectory, artifact.getArtifactId() + "." + artifact.getArtifactHandler().getExtension() );
             
-        if ( renameArtifact != null )
-        {   
-            newLocation = new File ( this.outputDirectory.getPath() + "/" + renameArtifact + "." + artifact.getArtifactHandler().getExtension() );
-  
             try 
             {
                 if ( ! newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() )
