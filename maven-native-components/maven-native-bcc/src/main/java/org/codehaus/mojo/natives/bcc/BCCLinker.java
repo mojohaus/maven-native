@@ -32,6 +32,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -75,13 +76,13 @@ public class BCCLinker
             cl.createArgument().setValue( objFile.getPath() );
         }
 
-        File [] externalLibs = config.getExternalLibraries();
-        
-        for ( int i = 0; i < externalLibs.length; ++i )
+        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
-            if ( ! FileUtils.getExtension( externalLibs[i].getPath() ).toLowerCase().equals( "res" ) )
+            String fileName = (String) iter.next();
+
+            if ( ! FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
             {
-                cl.createArgument().setValue( externalLibs[i].getPath() );
+                cl.createArgument().setFile( new File( config.getExternalLibDirectory(),  fileName ) );
             }
         }
         
@@ -95,11 +96,13 @@ public class BCCLinker
         
         //res file
         cl.createArgument().setValue( "," );
-        for ( int i = 0; i < externalLibs.length; ++i )
+        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
-            if ( FileUtils.getExtension( externalLibs[i].getPath() ).toLowerCase().equals( "res" ) )
+            String fileName = (String) iter.next();
+        
+            if ( FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
             {
-                cl.createArgument().setValue( externalLibs[i].getPath() );
+                cl.createArgument().setFile( new File( config.getExternalLibDirectory(),  fileName ) );
             }
         }
                 
