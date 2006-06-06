@@ -12,4 +12,10 @@
   
   <name>Maven Native Provider - Generic C/C++ compiler and linker</name>
   
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+  </dependencies>
 </project>

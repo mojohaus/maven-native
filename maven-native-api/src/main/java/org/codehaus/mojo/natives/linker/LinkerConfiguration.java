@@ -25,6 +25,8 @@ package org.codehaus.mojo.natives.linker;
 */
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.mojo.natives.ConfigurationBase;
 
@@ -59,11 +61,18 @@ public class LinkerConfiguration
 
 	private String outputFileName; /* should not have extension */
 	
-	private File [] externalLibraries;
-	
 	private String envFactoryName;
 	
-    	
+    /**
+     * Single location that the client must place library files to be linked with
+     */
+    private File externalLibDirectory;
+
+    /**
+     * Library file names in externalLibDirectory
+     */
+    private List externalLibFileNames;
+
 	public LinkerConfiguration() 
 	{
 		
@@ -156,21 +165,21 @@ public class LinkerConfiguration
 		return out.getPath();
 	}
 	
-	public File [] getExternalLibraries() 
-	{
-		if ( this.externalLibraries == null )
-		{
-			return new File[0];
-		}
-		
-		return this.externalLibraries;
-	}
-	
-	public void setExternalLibraries( File [] files ) 
-	{
-		this.externalLibraries = files;
-    }	
-	
+    public List getExternalLibFileNames() 
+    {
+        if ( this.externalLibFileNames == null )
+        {
+            return new ArrayList(0);
+        }
+        
+        return this.externalLibFileNames;
+    }
+    
+    public void setExternalLibFileNames ( List list )
+    {
+        this.externalLibFileNames = list;
+    }
+    
     public String getEnvFactoryName()
     {
     	return this.envFactoryName;
@@ -180,5 +189,14 @@ public class LinkerConfiguration
     {
     	this.envFactoryName = factoryName;
     }
+    
+    public void setExternalLibDirectory ( File dir )
+    {
+        this.externalLibDirectory = dir;
+    }
 	
+    public File getExternalLibDirectory()
+    {
+        return this.externalLibDirectory;
+    }
 }

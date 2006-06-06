@@ -27,9 +27,11 @@ package org.codehaus.mojo.natives.c;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -83,12 +85,7 @@ public class CLinker
             cl.addArguments( config.getMiddleOptions() );
         }
 
-	    File [] externalLibs = config.getExternalLibraries();
-	    
-	    for ( int i = 0; i < externalLibs.length; ++i )
-	    {
-		    cl.createArgument().setValue( externalLibs[i].getPath() );
-	    }
+        setCommandLineForExternalLibraries( cl, config );
 
         if ( config.getEndOptions() != null )
         {
@@ -104,5 +101,56 @@ public class CLinker
 		return "-o ";
 	}
     
+    protected void setCommandLineForExternalLibraries( Commandline cl, LinkerConfiguration config )
+        throws NativeBuildException
+    {
+        if ( config.getExternalLibFileNames().size() == 0 )
+        {
+            return;
+        }
 
+        boolean hasUnixLinkage = false;
+        
+        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        {
+            String libFileName = (String) iter.next();
+            
+            String ext = FileUtils.getExtension( libFileName );
+            
+            if ( "o".equals( ext ) || "obj".equals( ext ) || 
+                 "lib".equals( ext ) || "dylib".equals( ext ) )
+            {
+                cl.createArgument().setValue( new File ( config.getExternalLibDirectory(), libFileName ).getPath() );
+            }     
+            else
+            {
+                hasUnixLinkage = true;
+            }
+        }
+        
+        if ( hasUnixLinkage )
+        {
+            cl.createArgument().setValue( "-L" + config.getExternalLibDirectory() );
+        }
+        
+        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        {
+            String libFileName = (String) iter.next();
+
+            String ext = FileUtils.getExtension( libFileName );
+            
+            if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
+            {
+                String libName = FileUtils.removeExtension( libFileName );
+                
+                if ( libFileName.startsWith( "lib" ) )
+                {
+                    libName = libName.substring( 3 );
+                }
+
+                cl.createArgument().setValue( "-l" + libName );
+            }
+        }
+    }
+    
 }

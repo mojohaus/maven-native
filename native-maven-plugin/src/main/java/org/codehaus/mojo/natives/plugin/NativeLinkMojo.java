@@ -41,7 +41,6 @@ import org.codehaus.plexus.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -103,15 +102,6 @@ public class NativeLinkMojo
     
     
     /**
-     * Option to strip off a list of  project dependencies's version at link time.
-     * Each item has the format of ${groupId}:${artifactId}
-     * @parameter 
-     * @optional
-     */
-    
-    private List removedVersionLibs;
-    
-    /**
      * Option to reorder dependency list, each item has the format of ${groupId}:${artifactId}
      * @parameter 
      * @optional
@@ -151,6 +141,15 @@ public class NativeLinkMojo
      * @readonly
      */
     private ArtifactFactory artifactFactory;
+    
+    /**
+     * @parameter expression="${project.build.directory}/lib"
+     * @required
+     * @readonly
+     */
+    
+    private File externalLibDirectory;
+    
     
     public void execute()
         throws MojoExecutionException
@@ -196,7 +195,8 @@ public class NativeLinkMojo
     	config.setOutputDirectory( this.outputDirectory );
     	config.setOutputFileName( this.project.getBuild().getFinalName() );
     	config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
-    	config.setExternalLibraries( this.getLibDependencies() );
+        config.setExternalLibDirectory( this.externalLibDirectory );
+    	config.setExternalLibFileNames( this.getLibFileNames() );
     	config.setEnvFactoryName( this.envFactoryName );
     	
     	return config;
@@ -243,39 +243,25 @@ public class NativeLinkMojo
     	
     }
     
-    private File [] getLibDependencies()
+    private List getLibFileNames()
         throws MojoExecutionException
     {
-        
         List libList = new ArrayList();
         
         Set artifacts = this.project.getArtifacts();
 
         for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
         {
-        	/* TODO should be handled by compiler specific type */
         	Artifact artifact = (Artifact) iter.next();
-            if ( 
-                  "a".equals  ( artifact.getArtifactHandler().getExtension() )  ||
-                  "so".equals  ( artifact.getArtifactHandler().getExtension() )  ||
-                  "sl".equals  ( artifact.getArtifactHandler().getExtension() )  ||
-                  "lib".equals( artifact.getArtifactHandler().getExtension() )  ||
-                  "o".equals( artifact.getArtifactHandler().getExtension()   )  ||
-                  "obj".equals( artifact.getArtifactHandler().getExtension() )  ||
-                  "dylib".equals( artifact.getArtifactHandler().getExtension() )  
-               ) 
-            {
-                File libLocation = this.getDependencyFile( artifact );
+            
+            String libFileName = FileUtils.filename( this.getDependencyFile( artifact, true ).getPath() );
 
-                this.getLog().info("Found dependency lib: " + libLocation );
-                
-            	libList.add( libLocation );
-            }
+          	libList.add( libFileName );
         }
         
         libList = this.reorderLibDependencies( libList );
         
-        return ( File [] ) libList.toArray( new File [0] );
+        return libList;
     }    
     
     /**
@@ -297,16 +283,9 @@ public class NativeLinkMojo
 
                 if ( artifact != null )
                 {
-                    File renameLocation = this.getDependencyFile( artifact );
+                    String libFileName = FileUtils.filename( this.getDependencyFile( artifact, false ).getPath() );
                     
-                    if ( renameLocation != null )
-                    {
-                        list.add( renameLocation );
-                    }
-                    else 
-                    {
-                        list.add( artifact.getFile() );
-                    }
+                    list.add( libFileName );
                 }
                 else
                 {
@@ -344,30 +323,26 @@ public class NativeLinkMojo
         }
     }
     
-    private File getDependencyFile( Artifact artifact )
+    private File getDependencyFile( Artifact artifact, boolean doCopy )
         throws MojoExecutionException
     {
         File newLocation = artifact.getFile();
 
-        // @todo handling file type ?
-        if ( this.removedVersionLibs != null && this.removedVersionLibs.contains( artifact.getGroupId() + ":" + artifact.getArtifactId() ) )
+        newLocation = new File( this.externalLibDirectory, artifact.getArtifactId() + "."
+            + artifact.getArtifactHandler().getExtension() );
+
+        try
         {
-            newLocation = new File ( this.outputDirectory, artifact.getArtifactId() + "." + artifact.getArtifactHandler().getExtension() );
-            
-            try 
+            if ( doCopy && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
             {
-                if ( ! newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() )
-                {
-                    this.getLog().info( "Rename dependencies: " + artifact.getFile() + " to " + newLocation );
-                    FileUtils.copyFile( artifact.getFile(), newLocation );
-                }
-            }
-            catch ( IOException ioe )
-            {
-                throw new MojoExecutionException( "Unable to rename artifact ");
+                FileUtils.copyFile( artifact.getFile(), newLocation );
             }
         }
-        
+        catch ( IOException ioe )
+        {
+            throw new MojoExecutionException( "Unable to copy dependency to staging area" );
+        }
+
         return newLocation;
     }
     

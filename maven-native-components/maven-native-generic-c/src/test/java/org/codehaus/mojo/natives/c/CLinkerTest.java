@@ -3,6 +3,7 @@ package org.codehaus.mojo.natives.c;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.codehaus.mojo.natives.linker.Linker;
@@ -105,6 +106,41 @@ public class CLinkerTest
 
         assertTrue( cli.indexOf( "-o1 -o2 -o3" ) != -1 );
 
+    }
+
+    public void testExternalUnixLibraries()
+        throws Exception
+    {
+        config.setExternalLibDirectory( new File ( "theLib" ) );
+        
+        List externalLibFileNames = new ArrayList();
+     
+        externalLibFileNames.add( "file0.lib" );
+
+        externalLibFileNames.add( "file0.o" );
+
+        externalLibFileNames.add( "file1.obj" );
+        
+        externalLibFileNames.add( "file1.so" );
+        
+        externalLibFileNames.add( "libfile2.so" );
+
+        externalLibFileNames.add( "libfile3.a" );
+        
+        config.setExternalLibFileNames( externalLibFileNames );
+        
+        Linker linker = new CLinkerSimulator();
+
+        linker.link( config, new ArrayList( 0 ) );
+
+        Properties properties = new Properties();
+
+        properties.load( new FileInputStream( config.getOutputFilePath() ) );
+
+        String cli = properties.get( "cli" ).toString();
+
+        assertTrue( "Invalid external libraries settings: " + cli, cli.indexOf( "-LtheLib -lfile1 -lfile2 -lfile3" ) != -1 );
+        
     }
     
 }
