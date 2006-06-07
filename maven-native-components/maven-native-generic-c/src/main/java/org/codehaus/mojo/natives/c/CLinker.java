@@ -122,7 +122,7 @@ public class CLinker
             {
                 cl.createArgument().setValue( new File ( config.getExternalLibDirectory(), libFileName ).getPath() );
             }     
-            else
+            else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
             {
                 hasUnixLinkage = true;
             }

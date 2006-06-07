@@ -124,7 +124,7 @@ public class NativeLinkMojo
      * @description some linkers create more than one artifacts
      * TODO use String []
      */
-    private String linkerSecondaryOuputExtensions = "";
+    private String linkerSecondaryOutputExtensions = "";
 
     
     /**
@@ -226,7 +226,7 @@ public class NativeLinkMojo
     
     private void attachSecondaryArtifacts()
     {
-    	String [] tokens = StringUtils.split( this.linkerSecondaryOuputExtensions, "," );
+    	String [] tokens = StringUtils.split( this.linkerSecondaryOutputExtensions, "," );
     	
     	for ( int i = 0; i < tokens.length; ++i )
     	{
