@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo</artifactId>
-    <version>7</version>
+    <version>9</version>
   </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
@@ -96,7 +96,6 @@
     <module>maven-native-components</module>
     <module>native-maven-plugin</module>
   </modules>
-
 
 
 
