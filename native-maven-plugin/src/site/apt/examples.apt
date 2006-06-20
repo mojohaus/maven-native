@@ -83,7 +83,7 @@ Examples
            </sources>
 
            <!-- deploy the accompany .lib file as well -->          
-           <linkerSecondaryOuputExtensions>lib</linkerSecondaryOuputExtensions >
+           <linkerSecondaryOutputExtensions>lib</linkerSecondaryOutputExtensions >
           
            <linkerStartOptions>
              <linkerStartOption> /INCREMENTAL:NO /DLL user32.lib advapi32.lib oldnames.lib kernel32.lib </linkerStartOption>
@@ -133,7 +133,7 @@ Examples
     global environment to accomodate all compilers.
     
   * Checkout real examples in 
-    {{{http://svn.codehaus.org/trunk/mojo/maven-native/native-maven-plugin/src/it/?root=mojo}svn}}
+    {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/}svn}}
   
   
   
