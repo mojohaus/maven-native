@@ -1,0 +1,66 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.natives.it.linkages</groupId>
+  <artifactId>linkages</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Linkages Example</name>
+  
+  <packaging>pom</packaging>
+
+  <description>Examples to build executables with both static and dynamic linkages on multi platform</description>  
+
+  <!-- so that platform specific pom can reused it -->
+  <properties>
+    <native.source.dir>../../src/main/native</native.source.dir>
+  </properties>
+  
+  <profiles>
+  
+    <profile>
+      <id>add-windows-x86-module</id>
+      <activation>
+        <os>
+          <family>windows</family>
+          <arch>x86</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>win32</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>add-linux-x86-module</id>
+      <activation>
+        <os>
+          <family>Linux</family>
+          <arch>i386</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>linux-x86</module>
+      </modules>
+    </profile>
+  
+    
+    <!-- use this during release:prepare -->
+    <profile>
+      <id>all</id>
+      <activation>
+        <property>
+          <name>platform</name>
+          <value>all</value>
+        </property>
+      </activation>
+      <modules>
+        <module>win32</module>
+        <module>linux</module>
+      </modules>
+    </profile>
+    
+  </profiles>
+
+  
+  
+</project>
