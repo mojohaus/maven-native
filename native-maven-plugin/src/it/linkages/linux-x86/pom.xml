@@ -19,7 +19,6 @@
   <build>
     <finalName>${artifactId}</finalName>
     <plugins>
-      <!-- share configuration to all linux-x86 artifact -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native-maven-plugin</artifactId>
@@ -29,18 +28,16 @@
   </build>
 
   <properties>
-    <commonCompilerOptions>-O</commonCompilerOptions>
+    <commonCompilerOptions>-fPIC -O</commonCompilerOptions>
   </properties>
     
   <modules>
     <!-- unorder modules to demonstrate maven can handle build sequence correctly -->
-    <!--
     <module>ExeStatic</module>
     <module>ExeDynamic</module>
     <module>libFuncStatic</module>
     <module>libSubFuncStatic</module>
     <module>libSubFuncDynamic</module>
     <module>libFuncDynamic</module>
-    -->
   </modules>
 </project>
