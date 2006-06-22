@@ -43,6 +43,19 @@
       </modules>
     </profile>
   
+    <profile>
+      <id>add-solaris-x86</id>
+      <activation>
+        <os>
+          <family>Solaris</family>
+          <arch>sparc</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>solaris</module>
+      </modules>
+    </profile>
+  
     
     <!-- use this during release:prepare -->
     <profile>
@@ -55,7 +68,8 @@
       </activation>
       <modules>
         <module>win32</module>
-        <module>linux</module>
+        <module>linux-x86</module>
+        <module>solaris</module>
       </modules>
     </profile>
     

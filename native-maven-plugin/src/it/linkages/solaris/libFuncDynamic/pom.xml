@@ -1,0 +1,65 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo.natives.it.linkages.solaris</groupId>
+    <artifactId>solaris</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>libFuncDynamic</artifactId>
+  
+  <name>libFuncDynamic.so</name>
+  
+  <packaging>so</packaging>
+  
+  
+  <dependencies>
+    <dependency>
+       <groupId>org.codehaus.mojo.natives.it.linkages.solaris</groupId>
+       <artifactId>libSubFuncDynamic</artifactId>
+       <type>so</type>
+       <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+          <compilerStartOptions>
+            <compilerStartOption>${commonCompilerOptions}</compilerStartOption>
+          </compilerStartOptions>
+          
+          <sources>
+            <source>
+              <directory>${native.source.dir}</directory>
+              <fileNames>
+                <fileName>helloFunc.c</fileName>
+              </fileNames>
+            </source>  
+            <source>
+              <directory>${native.source.dir}/include</directory>
+            </source>            
+          </sources>
+            
+          <linkerExecutable>CC</linkerExecutable>
+
+          <linkerStartOptions>
+            <linkerStartOption>-G</linkerStartOption>
+          </linkerStartOptions>
+                    
+        </configuration>
+        
+      </plugin>
+
+    </plugins>    
+
+  </build>
+  
+
+</project>
