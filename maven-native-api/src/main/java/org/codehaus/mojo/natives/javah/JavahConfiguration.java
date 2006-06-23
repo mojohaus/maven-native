@@ -37,6 +37,11 @@ public class JavahConfiguration
 	 *  Sets the directory where javah saves the header files or the stub files
 	 */
 	private File destDir;
+    
+    /**
+     * Support javah -o option
+     */
+    private String fileName;
 	
 	/**
 	 * ClassPaths to locate classNames, separated by a ','
@@ -85,7 +90,14 @@ public class JavahConfiguration
     	return this.classNames;
     }
     
- 
+    public void setFileName( String name )
+    {
+        this.fileName = name;
+    }
 
+    public String getFileName()
+    {
+        return this.fileName;
+    }
 	
 }

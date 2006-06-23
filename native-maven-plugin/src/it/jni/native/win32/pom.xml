@@ -71,6 +71,9 @@
               <goal>javah</goal> 
             </goals>
             <configuration>
+              <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
+              <outputDirectory>${project.build.directory}/custom-javah</outputDirectory>
+              <outputFileName>HelloWorld.h</outputFileName>
               <classNames>
                 <className>HelloWorld</className>
               </classNames>
@@ -91,8 +94,8 @@
           </environmentVariables>
           
           <!-- 
-            If you have single dll with other other dependency, then set 
-            working directory to where the dll is place will work
+            If you have single dll, then set 
+            working directory to where the dll is placed will work
           -->
           <!--workingDirectory>${project.build.directory}</workingDirectory-->
 

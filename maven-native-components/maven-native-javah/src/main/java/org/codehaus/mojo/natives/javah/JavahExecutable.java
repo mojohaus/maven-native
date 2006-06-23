@@ -74,11 +74,21 @@ public class JavahExecutable
 	    
 	    cl.createArgument().setValue( javahExecutable.getPath() );
 
-	    if ( config.getDestdir() != null && config.getDestdir().length() > 0 )
-	    {
-	    	cl.createArgument().setValue( "-d" );
-	    	cl.createArgument().setValue( config.getDestdir() );
-	    }
+        if ( config.getFileName() != null && config.getFileName().length() > 0 )
+        {
+            File outputFile = new File( config.getDestdir() + "/" + config.getFileName() );
+            cl.createArgument().setValue( "-o" );
+            cl.createArgument().setFile( outputFile );
+            
+        }
+        else
+        {
+	        if ( config.getDestdir() != null && config.getDestdir().length() > 0 )
+	        {
+	    	    cl.createArgument().setValue( "-d" );
+	    	    cl.createArgument().setValue( config.getDestdir() );
+	        }
+        }
 
         char classPathSeparator = System.getProperty( "path.separator" ).charAt( 0 );
         
