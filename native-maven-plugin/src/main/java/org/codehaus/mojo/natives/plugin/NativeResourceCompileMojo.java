@@ -113,7 +113,7 @@ public class NativeResourceCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-    	this.saveCompilerOuputFilePaths( resourceOutputFiles );
+    	this.saveCompilerOutputFilePaths( resourceOutputFiles );
         
     }
 

@@ -1,0 +1,69 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+    <artifactId>win32</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>ExeDynamic</artifactId>
+  
+  <name>ExeDynamic.exe</name>
+  
+  <packaging>exe</packaging>
+  
+  <dependencies>
+    <dependency>
+       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+       <artifactId>SubFuncDynamic</artifactId>
+       <type>lib</type>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+       <artifactId>FuncDynamic</artifactId>
+       <type>lib</type>
+       <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+          <compilerStartOptions>
+            <compilerStartOption>${commonCompilerOptions}</compilerStartOption>
+          </compilerStartOptions>
+          
+          <sources>
+            <source>
+              <directory>${native.source.dir}</directory>
+              <fileNames>
+                <fileName>hello.c</fileName>
+              </fileNames>
+            </source>  
+            <source>
+              <directory>${native.source.dir}/include</directory>
+            </source>            
+          </sources>
+            
+          <linkerStartOptions>
+            <linkerStartOption></linkerStartOption>
+          </linkerStartOptions>
+          
+          
+        </configuration>
+        
+      </plugin>
+
+    </plugins>    
+
+  </build>
+  
+
+</project>

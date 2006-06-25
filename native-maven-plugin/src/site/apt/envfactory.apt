@@ -33,6 +33,6 @@ Environment Factories
 | org.codehaus.mojo.natives.bcc.BCCEnvFactory              |                 
 *-----------------+----------------------------------------+------------+
 
-  You can build your own jar with your specific EnvFactory implementation and make it 
-  part of this plugin build's dependency.
+  To create your own EnvFactory implementation, create a jar package and
+  have it as this plugin's dependency.
   

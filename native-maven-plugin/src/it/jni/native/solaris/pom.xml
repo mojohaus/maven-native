@@ -43,7 +43,7 @@
             <compilerStartOption>-xtarget=generic -Kpic -O</compilerStartOption>
           </compilerStartOptions>
           
-          <javahOS>linux</javahOS>
+          <javahOS>solaris</javahOS>
           
           <sources>
             <source>

@@ -78,7 +78,7 @@ public abstract class AbstractNativeMojo
     	return NativeMojoUtils.trimParams ( args );
     }
     
-    protected List getAllCompilersOuputFileList( )
+    protected List getAllCompilersOutputFileList( )
     {
         List list = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
         
@@ -93,10 +93,10 @@ public abstract class AbstractNativeMojo
 
     }
     
-    protected void saveCompilerOuputFilePaths( List filePaths )
+    protected void saveCompilerOutputFilePaths( List filePaths )
        throws MojoExecutionException
     {
-    	List allCompilerOutputFileList = getAllCompilersOuputFileList();
+    	List allCompilerOutputFileList = getAllCompilersOutputFileList();
     	
         for ( int i = 0; i < filePaths.size(); ++i )
         {

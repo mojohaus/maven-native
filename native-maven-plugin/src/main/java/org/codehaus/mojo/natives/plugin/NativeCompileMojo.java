@@ -166,7 +166,7 @@ public class NativeCompileMojo
     		throw new MojoExecutionException ( e.getMessage(), e );
     	}
         
-    	this.saveCompilerOuputFilePaths( objectFiles );
+    	this.saveCompilerOutputFilePaths( objectFiles );
 
     }
 

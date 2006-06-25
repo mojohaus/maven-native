@@ -94,11 +94,18 @@ public class NativeJavahMojo
 
     /**
      * Generated native source files go here
-     * @parameter expression="${project.build.directory}/native/javah" 
+     * @parameter default-value="${project.build.directory}/native/javah" 
      * @required
      */
     private File outputDirectory;
 
+    /**
+     * if configured will be combined with outputDirectory to pass into javah's -o option
+     * @parameter 
+     * @optional
+     */
+    private String outputFileName;
+    
     /**
      * Enable javah verbose mode
      * @parameter default-value="false"
@@ -126,6 +133,7 @@ public class NativeJavahMojo
     	JavahConfiguration config = new JavahConfiguration();
     	config.setVerbose( this.verbose );
     	config.setDestDir( this.outputDirectory );
+        config.setFileName( this.outputFileName );
     	config.setClassPaths( this.getJavahClassPath() );
     	config.setClassNames( this.getNativeClassNames() );
     	
