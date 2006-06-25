@@ -7,7 +7,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -45,7 +45,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -82,7 +82,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -120,7 +120,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -147,7 +147,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -184,7 +184,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -222,7 +222,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -259,7 +259,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -297,7 +297,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
@@ -337,7 +337,7 @@
       <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
       <configuration>
         <phases>
-          <initialize></initialize>
+          <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
           <generate-sources></generate-sources>
           <process-sources></process-sources>
           <compile>
