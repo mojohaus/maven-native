@@ -26,6 +26,7 @@ package org.codehaus.mojo.natives.plugin;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 
 /**
  * Initialize build lifecycle
@@ -39,6 +40,14 @@ public class NativeInitializeMojo
     extends AbstractMojo
 {
 
+    /**
+     * Work around for MSITE-152
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    private MavenProject project;
+        
     public void execute()
         throws MojoExecutionException
     {
