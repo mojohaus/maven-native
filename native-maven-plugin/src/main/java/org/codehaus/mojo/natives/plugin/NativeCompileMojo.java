@@ -70,7 +70,7 @@ public class NativeCompileMojo
      * Compiler options
      * @parameter 
      */
-    private String[] compilerStartOptions;
+    private List compilerStartOptions;
     
     
     /**
@@ -78,14 +78,14 @@ public class NativeCompileMojo
      * @description Compiler options to produce native object file
      * @parameter 
      */
-    private String[] compilerMiddleOptions;
+    private List compilerMiddleOptions;
     
     /**
      * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter
      */
-    private String[] compilerEndOptions;
+    private List compilerEndOptions;
     
     /**
      * Javah OS name.

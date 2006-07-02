@@ -58,7 +58,7 @@ public class NativeResourceCompileMojo
      * Resource compiler options
      * @parameter 
      */
-    private String [] options;
+    private List options;
 
     /**
      * Array of NativeSources containing include directories and source files

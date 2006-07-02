@@ -34,6 +34,7 @@ import org.codehaus.mojo.natives.manager.MessageCompilerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Compile Windows message files
@@ -59,7 +60,7 @@ public class NativeMessageCompileMojo
      * @description Compiler options
      * @parameter 
      */
-    private String [] options;
+    private List options;
 
     /**
      * @parameter expression="${project}"

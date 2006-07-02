@@ -73,7 +73,7 @@ public abstract class AbstractNativeMojo
     protected String envFactoryName;   
     
     
-    protected static String [] removeEmptyOptions( String [] args )
+    protected static String [] removeEmptyOptions( List args )
     {
     	return NativeMojoUtils.trimParams ( args );
     }

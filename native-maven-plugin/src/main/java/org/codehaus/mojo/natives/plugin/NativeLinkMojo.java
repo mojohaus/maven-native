@@ -86,19 +86,19 @@ public class NativeLinkMojo
      * @parameter 
      * @optional
      */
-    private String [] linkerStartOptions = new String[0];
+    private List linkerStartOptions;
     
     /**
      * @parameter 
      * @optional
      */
-    private String [] linkerMiddleOptions = new String[0];
+    private List linkerMiddleOptions;
     
     /**
      * @parameter 
      * @optional
      */
-    private String [] linkerEndOptions = new String[0];
+    private List linkerEndOptions;
     
     
     /**
@@ -119,10 +119,10 @@ public class NativeLinkMojo
     private Map projectArtifactMap;
     
     /**
+     * Comma separated extension type to be deploy.
+     * Use this option to deploy library file produced by dll build on windows
      * @parameter default-value="" 
      * @optional
-     * @description some linkers create more than one artifacts
-     * TODO use String []
      */
     private String linkerSecondaryOutputExtensions = "";
 

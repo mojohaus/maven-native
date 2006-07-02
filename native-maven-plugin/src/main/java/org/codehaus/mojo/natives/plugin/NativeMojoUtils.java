@@ -17,7 +17,7 @@ public class NativeMojoUtils
      * @param args
      * @return
      */
-    public static String [] trimParams( String [] args )
+    public static String [] trimParams( List args )
     {
         if ( args == null )
         {
@@ -26,14 +26,16 @@ public class NativeMojoUtils
 
         List tokenArray = new ArrayList();
 
-        for ( int i = 0; i < args.length; ++i )
+        for ( int i = 0; i < args.size(); ++i )
         {           
-            if ( args[i] == null || args[i].length() == 0 )
+            String arg = (String) args.get( i );
+            
+            if ( arg == null || arg.length() == 0 )
             {
                 continue;
             }
             
-            String [] tokens = StringUtils.split( args[i] );
+            String [] tokens = StringUtils.split( arg );
 
             for ( int k = 0 ; k < tokens.length; ++k )
             {           
