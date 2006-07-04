@@ -193,7 +193,7 @@ public class NativeCompileMojo
             
         sourceArray.add( jdkIncludeOsSource );
             
-        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[0] );
+        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[ sourceArray.size() ] );
         
     }
     
@@ -233,7 +233,7 @@ public class NativeCompileMojo
             }
 		}
 
-        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[0] );
+        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[ sourceArray.size()] );
         
 	}
 }

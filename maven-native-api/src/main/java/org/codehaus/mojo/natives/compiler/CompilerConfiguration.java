@@ -126,11 +126,6 @@ public class CompilerConfiguration
         this.outputDirectory = dir;
     }
 
-    public File[] getEnvIncludePaths()
-    {
-        return this.getEnvIncludePaths();
-    }
-
     public String[] getStartOptions()
     {
         if ( this.startOptions == null )

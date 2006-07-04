@@ -119,7 +119,7 @@ public class NativeLinkMojo
     private Map projectArtifactMap;
     
     /**
-     * Comma separated extension type to be deploy.
+     * Comma separated extension type to be installed/deployed.
      * Use this option to deploy library file produced by dll build on windows
      * @parameter default-value="" 
      * @optional
@@ -143,13 +143,15 @@ public class NativeLinkMojo
     private ArtifactFactory artifactFactory;
     
     /**
+     * Dependent libraries with version + classifier removed are copied to this directory
+     * to be linked to the build artifact
      * @parameter expression="${project.build.directory}/lib"
      * @required
      * @readonly
      */
     
     private File externalLibDirectory;
-    
+     
     
     public void execute()
         throws MojoExecutionException

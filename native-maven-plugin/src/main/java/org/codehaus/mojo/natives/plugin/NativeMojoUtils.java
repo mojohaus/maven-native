@@ -48,7 +48,7 @@ public class NativeMojoUtils
             }
         }
         
-        return (String []) tokenArray.toArray( new String[0] );
+        return (String []) tokenArray.toArray( new String[ tokenArray.size() ] );
     }
     
 }

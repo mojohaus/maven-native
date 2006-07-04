@@ -260,7 +260,7 @@ public class NativeJavahMojo
             }
         }
     	
-    	return ( String [] ) scannedClassNames.toArray( new String[0] );
+    	return ( String [] ) scannedClassNames.toArray( new String[ scannedClassNames.size() ] );
     }
     
 }
