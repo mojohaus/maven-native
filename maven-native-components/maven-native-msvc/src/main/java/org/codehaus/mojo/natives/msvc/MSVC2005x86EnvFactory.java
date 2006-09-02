@@ -133,6 +133,9 @@ public class MSVC2005x86EnvFactory
 
         envs.put( "LIBPATH", currentLibPathPath );
 
+        //http://forums.microsoft.com/MSDN/ShowPost.aspx?PostID=473294&SiteID=1
+        envs.put( "SystemRoot", this.getSystemRoot() );
+
         return envs;
         
     }
