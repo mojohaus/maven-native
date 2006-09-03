@@ -57,13 +57,14 @@
             
           <linkerStartOptions>
             <linkerStartOption>${linker.debug.options}</linkerStartOption>
-            <linkerStartOption> /INCREMENTAL:NO /DLL user32.lib advapi32.lib oldnames.lib kernel32.lib </linkerStartOption>
+            <linkerStartOption> /INCREMENTAL:NO   /DLL oldnames.lib kernel32.lib </linkerStartOption>
           </linkerStartOptions>
           
           
         </configuration>
         
         <executions>
+        
           <execution>
             <id>javah</id>
             <phase>generate-sources</phase>
@@ -79,6 +80,26 @@
               </classNames>
             </configuration>
           </execution>
+          
+          <!-- resource compile, the output hello.res is automatically link to final output hello.dll at link time -->
+          <execution>
+            <id>resource-compile</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>resource-compile</goal> 
+            </goals>
+            <configuration>
+              <sources>
+                <source>
+                  <directory>../src/main/native</directory>
+                  <fileNames>
+                    <fileName>hello.rc</fileName>
+                  </fileNames>
+                </source>            
+              </sources>
+            </configuration>
+          </execution>
+          
         </executions>
            
       </plugin>
