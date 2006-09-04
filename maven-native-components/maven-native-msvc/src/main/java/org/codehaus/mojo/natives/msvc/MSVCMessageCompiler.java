@@ -27,6 +27,7 @@ package org.codehaus.mojo.natives.msvc;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractMessageCompiler;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
@@ -44,6 +45,8 @@ public class MSVCMessageCompiler
 	{
 				
 		Commandline cl = new Commandline();
+
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );        
         
         cl.setExecutable( "mc" );
         
@@ -66,7 +69,7 @@ public class MSVCMessageCompiler
         }
         
         cl.createArgument().setValue( source.getPath() );
-        
+               
 		return cl;
 	}
 

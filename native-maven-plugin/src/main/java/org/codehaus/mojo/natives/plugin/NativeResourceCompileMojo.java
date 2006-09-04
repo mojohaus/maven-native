@@ -102,7 +102,8 @@ public class NativeResourceCompileMojo
     	config.setBaseDir( this.project.getBasedir() );
     	config.setOptions( NativeMojoUtils.trimParams( this.options )  );
     	config.setOutputDirectory ( this.outputDirectory );
-        
+    	config.setEnvFactoryName( this.envFactoryName );
+    	
         List resourceOutputFiles;
     	try 
     	{

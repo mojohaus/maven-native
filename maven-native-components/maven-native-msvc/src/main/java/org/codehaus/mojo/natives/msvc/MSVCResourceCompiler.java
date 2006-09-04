@@ -27,6 +27,7 @@ package org.codehaus.mojo.natives.msvc;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractResourceCompiler;
+import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
@@ -46,6 +47,8 @@ public class MSVCResourceCompiler
 				
 		Commandline cl = new Commandline();
         
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );        
+        		
         cl.setExecutable( "rc" );
         
         cl.addArguments( config.getOptions() );
@@ -73,7 +76,7 @@ public class MSVCResourceCompiler
         cl.createArgument().setValue( config.getOutputFile( source ).getPath() );
 
         cl.createArgument().setValue( source.getPath() );
-		
+		       
 		return cl;
 	}
 
