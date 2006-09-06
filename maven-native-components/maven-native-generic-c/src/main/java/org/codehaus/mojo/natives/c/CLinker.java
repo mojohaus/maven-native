@@ -76,8 +76,8 @@ public class CLinker
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {
 	    	File objFile = (File) objectFiles.get(i);
-
-		    cl.createArgument().setValue( objFile.getPath() );
+            String objFilePath = truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() ); 
+            cl.createArgument().setValue( objFilePath ) ;            
 	    }
 
         if ( config.getMiddleOptions() != null )
@@ -153,4 +153,22 @@ public class CLinker
         }
     }
     
+    /**
+     * Get relative path to working directory if possible
+     * @param path
+     * @param workingDirectory
+     * @return
+     */
+    private String truncatePath( String path, String workingDirectory )
+    {
+        if ( path.indexOf( workingDirectory ) >= 0 )
+        {
+            path = path.substring( path.indexOf( workingDirectory ) + workingDirectory.length() );
+            if ( path.startsWith( File.separator ) )
+            {
+                path = path.substring( File.separator.length() );
+            }
+        }
+        return path;
+    }    
 }
