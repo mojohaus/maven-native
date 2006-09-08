@@ -120,7 +120,9 @@ public class CLinker
             if ( "o".equals( ext ) || "obj".equals( ext ) || 
                  "lib".equals( ext ) || "dylib".equals( ext ) )
             {
-                cl.createArgument().setValue( new File ( config.getExternalLibDirectory(), libFileName ).getPath() );
+            	File libFile = new File ( config.getExternalLibDirectory(), libFileName );
+                String relativeLibFile = truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() ); 
+                cl.createArgument().setValue( relativeLibFile ) ;            
             }     
             else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
             {
