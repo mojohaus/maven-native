@@ -183,11 +183,13 @@ public class NativeJavahMojo
     {
         List artifacts = this.getJavahArtifacts();
 
-        String [] classPaths = new String[ artifacts.size() ];
+        String [] classPaths = new String[ artifacts.size()  + 1 ];
+        
+        classPaths[0] = this.project.getBuild().getOutputDirectory();
         
         Iterator iter = artifacts.iterator();
         
-        for ( int i = 0 ; i < classPaths.length; ++i ) 
+        for ( int i = 1 ; i < classPaths.length; ++i ) 
         {
             Artifact artifact = (Artifact) iter.next();
             
