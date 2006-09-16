@@ -104,5 +104,14 @@ public abstract class AbstractNativeMojo
     	    allCompilerOutputFileList.add( file );
         }
     }
+    
+    /**
+     * Internal for unit test only
+     */
+    
+    protected MavenProject getProject()
+    {
+        return this.project;
+    }
 }
     

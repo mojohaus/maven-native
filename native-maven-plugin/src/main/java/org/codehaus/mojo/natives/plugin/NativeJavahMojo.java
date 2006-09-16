@@ -129,19 +129,12 @@ public class NativeJavahMojo
     	{
     		this.outputDirectory.mkdirs();
     	}
-
-    	JavahConfiguration config = new JavahConfiguration();
-    	config.setVerbose( this.verbose );
-    	config.setDestDir( this.outputDirectory );
-        config.setFileName( this.outputFileName );
-    	config.setClassPaths( this.getJavahClassPath() );
-    	config.setClassNames( this.getNativeClassNames() );
-    	
+   	
     	try
     	{
        	    Javah javah = this.manager.getJavah( this.implementation );
        	     		
-            javah.compile( config );
+            javah.compile( this.buildConfiguration() );
     	}
     	catch ( NoSuchNativeProviderException pe )
     	{
@@ -265,4 +258,26 @@ public class NativeJavahMojo
     	return ( String [] ) scannedClassNames.toArray( new String[ scannedClassNames.size() ] );
     }
     
+    
+    protected JavahConfiguration buildConfiguration()
+        throws MojoExecutionException
+    {
+        JavahConfiguration config = new JavahConfiguration();
+        config.setVerbose( this.verbose );
+        config.setDestDir( this.outputDirectory );
+        config.setFileName( this.outputFileName );
+        config.setClassPaths( this.getJavahClassPath() );
+        config.setClassNames( this.getNativeClassNames() );
+        
+        return config;
+    }
+    
+    /**
+     * Internal for unit test only
+     */
+    
+    protected MavenProject getProject()
+    {
+        return this.project;
+    }    
 }

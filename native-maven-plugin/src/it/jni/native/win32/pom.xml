@@ -38,7 +38,7 @@
         <extensions>true</extensions>       
         <configuration>
           <compilerProvider>msvc</compilerProvider>
-          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC6EnvFactory</envFactoryName>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory</envFactoryName>
           <compilerStartOptions>
             <compilerStartOption>${compiler.debug.options}</compilerStartOption>
             <compilerStartOption>/W4 -O</compilerStartOption>
