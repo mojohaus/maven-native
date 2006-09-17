@@ -31,70 +31,69 @@ import org.codehaus.mojo.natives.parser.CParser;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
 
-public abstract class AbstractCCompiler 
+public abstract class AbstractCCompiler
     extends AbstractCompiler
 {
-	//resuable parser in one Compilation session
-	
-	private Parser parser = new CParser();
-	
-	protected abstract String getOutputFileOption();
-	
+    //resuable parser in one Compilation session
 
-	protected Parser getParser() 
-	{
-		return this.parser;
-	}
-    
+    private Parser parser = new CParser();
+
+    protected abstract String getOutputFileOption();
+
+    protected Parser getParser()
+    {
+        return this.parser;
+    }
+
     /**
      * 
      */
-	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
-	    throws NativeBuildException
-	{
+    protected Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
+        throws NativeBuildException
+    {
         if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
         {
-            config.setExecutable ( "gcc" );
+            config.setExecutable( "gcc" );
         }
-        
-	    Commandline cl = new Commandline();
+
+        Commandline cl = new Commandline();
 
         cl.setExecutable( config.getExecutable() );
-        
+
         if ( config.getBaseDir() != null )
         {
             cl.setWorkingDirectory( config.getBaseDir().getPath() );
         }
 
-	    String [] startOptions = config.getStartOptions();
-        
-	    for ( int i =0 ; startOptions !=  null && i < startOptions.length; ++i ) 
-	    {
-	    	cl.createArgument().setValue( config.getStartOptions()[i]);
-	    }
-	    
-	    File [] includePaths = config.getIncludePaths();
-	    
-	    for ( int i = 0 ; includePaths != null && i < includePaths.length; ++i )
-	    {
-	    	cl.createArgument().setValue( "-I" + includePaths[i].getPath() );
-	    }
+        String[] startOptions = config.getStartOptions();
 
-	    File [] systemIncludePaths = config.getSystemIncludePaths();
-	    
-	    for ( int i = 0 ; systemIncludePaths != null && i < systemIncludePaths.length; ++i )
-	    {
-	    	cl.createArgument().setValue( "-I" + systemIncludePaths[i].getPath() );
-	    }	    
-	    
-	    String outputFileOption = this.getOutputFileOption();
+        for ( int i = 0; startOptions != null && i < startOptions.length; ++i )
+        {
+            cl.createArgument().setValue( config.getStartOptions()[i] );
+        }
+
+        File[] includePaths = config.getIncludePaths();
+
+        for ( int i = 0; includePaths != null && i < includePaths.length; ++i )
+        {
+            cl.createArgument().setValue( "-I" + includePaths[i].getPath() );
+        }
+
+        File[] systemIncludePaths = config.getSystemIncludePaths();
+
+        for ( int i = 0; systemIncludePaths != null && i < systemIncludePaths.length; ++i )
+        {
+            cl.createArgument().setValue( "-I" + systemIncludePaths[i].getPath() );
+        }
+
+        String outputFileOption = this.getOutputFileOption();
 
         if ( outputFileOption.endsWith( " " ) )
         {
@@ -104,13 +103,12 @@ public abstract class AbstractCCompiler
         else
         {
             cl.createArgument().setValue( outputFileOption + dest.getPath() );
-        }      
-        
-	    cl.createArgument().setValue("-c");
-	    cl.createArgument().setValue( src.getPath() );
+        }
 
-	    return cl;
-	}
-    
+        cl.createArgument().setValue( "-c" );
+        cl.createArgument().setValue( src.getPath() );
+
+        return cl;
+    }
 
 }
