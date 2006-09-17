@@ -1,20 +1,27 @@
 package org.codehaus.mojo.natives.c;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import org.codehaus.mojo.natives.linker.Linker;
+import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.Os;
+import org.codehaus.plexus.util.cli.Commandline;
 
 public class CLinkerTest
     extends PlexusTestCase
 {
+    private CLinker linker;
+
     private LinkerConfiguration config;
+
+    private static final File objectFile0 = new File( "source1.o" );
+
+    private static final File objectFile1 = new File( "source2.o" );
+
+    private List defautlObjectFiles;
 
     private String basedir;
 
@@ -22,7 +29,12 @@ public class CLinkerTest
         throws Exception
     {
         super.setUp();
-        
+
+        this.defautlObjectFiles = new ArrayList();
+        this.defautlObjectFiles.add( objectFile0 );
+        this.defautlObjectFiles.add( objectFile1 );
+
+        this.linker = new CLinker();
         this.config = new LinkerConfiguration();
         this.basedir = getBasedir();
         config.setWorkingDirectory( new File( basedir ) );
@@ -34,13 +46,11 @@ public class CLinkerTest
     public void testDefaultLinkerExecutable()
         throws Exception
     {
-        Properties properties = this.link( config, new ArrayList( 0 ) );
+        Commandline cl = this.getCommandline();
 
-        String cli = properties.get( "cli" ).toString();
+        assertEquals( "gcc", cl.getExecutable() );
 
-        assertTrue( "Default linker is not gcc.", cli.startsWith( "gcc" ) );
-        assertEquals( basedir, properties.get( "workingDirectory" ).toString() );
-        assertTrue( cli.indexOf( "-o " + config.getOutputFilePath() ) != -1 );
+        assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
     }
 
@@ -49,26 +59,17 @@ public class CLinkerTest
     {
         config.setExecutable( "ld" );
 
-        Properties properties = this.link( config, new ArrayList( 0 ) );
+        Commandline cl = this.getCommandline();
 
-        String cli = properties.get( "cli" ).toString();
-
-        assertTrue( "Unable to change default linker.", cli.startsWith( "ld" ) );
-
+        assertEquals( "ld", cl.getExecutable() );
     }
 
     public void testObjectFileList()
         throws Exception
     {
-        ArrayList objectFiles = new ArrayList( 2 );
-        objectFiles.add( new File( "file1.o" ) );
-        objectFiles.add( new File( "file2.o" ) );
+        Commandline cl = this.getCommandline();
 
-        Properties properties = this.link( config, objectFiles );
-
-        String cli = properties.get( "cli" ).toString();
-
-        assertTrue( cli.indexOf( "file1.o file2.o" ) != -1 );
+        assertTrue( cl.toString().indexOf( "source1.o source2.o" ) != -1 );
 
     }
 
@@ -79,12 +80,10 @@ public class CLinkerTest
         objectFiles.add( new File( config.getOutputDirectory(), "file1.o" ) );
         objectFiles.add( new File( config.getOutputDirectory(), "file2.o" ) );
 
-        Properties properties = this.link( config, objectFiles );
+        Commandline cl = this.getCommandline( objectFiles );
         
-        String cli = properties.get( "cli" ).toString();
+        String cli = cl.toString();
 
-        System.out.println( cli.toString() );
-        
         if ( Os.isFamily( "windows" ) )
         {
             assertTrue( cli.indexOf( "target\\file1.o target\\file2.o" ) != -1 );
@@ -102,10 +101,8 @@ public class CLinkerTest
         String[] options = { "-o1", "-o2", "-o3" };
         config.setStartOptions( options );
 
-        Properties properties = this.link( config, new ArrayList( 0 ) );
-
-        String cli = properties.get( "cli" ).toString();
-
+        String cli = this.getCommandline().toString();
+        
         assertTrue( cli.indexOf( "-o1 -o2 -o3" ) != -1 );
 
     }
@@ -130,28 +127,25 @@ public class CLinkerTest
         externalLibFileNames.add( "libfile3.a" );
 
         config.setExternalLibFileNames( externalLibFileNames );
-
-        Properties properties = this.link( config, new ArrayList( 0 ) );
-
-        String cli = properties.get( "cli" ).toString();
+        
+        String cli = this.getCommandline( new ArrayList( 0 ) ).toString();
 
         assertTrue( "Invalid external libraries settings: " + cli,
                     cli.indexOf( "-LtheLib -lfile1 -lfile2 -lfile3" ) != -1 );
 
     }
 
-    private Properties link( LinkerConfiguration config, ArrayList objectFiles )
-        throws Exception
+    /////////////////////////// HELPERS //////////////////////////////////////
+    private Commandline getCommandline()
+        throws NativeBuildException
     {
-        Linker linker = new CLinkerSimulator();
-
-        linker.link( config, objectFiles );
-
-        Properties properties = new Properties();
-
-        properties.load( new FileInputStream( config.getOutputFilePath() ) );
-        
-        return properties;
+        return this.linker.createLinkerCommandLine( defautlObjectFiles, config );
     }
-    
+
+    private Commandline getCommandline( List objectFiles )
+        throws NativeBuildException
+    {
+        return this.linker.createLinkerCommandLine( objectFiles, config );
+    }
+
 }
