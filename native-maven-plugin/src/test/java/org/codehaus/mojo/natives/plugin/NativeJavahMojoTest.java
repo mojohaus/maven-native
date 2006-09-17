@@ -23,8 +23,6 @@ public class NativeJavahMojoTest
         NativeJavahMojo mojo = (NativeJavahMojo) lookupMojo( "javah", pluginXml );
 
         JavahConfiguration conf = mojo.createProviderConfiguration();
-        System.out.println( conf.getClassPaths().length );
-        
         String outputDirectory = conf.getClassPaths()[0];
         assertEquals( mojo.getProject().getBuild().getOutputDirectory(), outputDirectory );
     }
