@@ -45,7 +45,7 @@ public class MSVCLinker
 	{
 		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
 		{
-			config.setExecutable ( "link" );
+			config.setExecutable ( "link.exe" );
 		}
 				
 		Commandline cl = super.createLinkerCommandLine( objectFiles, config );

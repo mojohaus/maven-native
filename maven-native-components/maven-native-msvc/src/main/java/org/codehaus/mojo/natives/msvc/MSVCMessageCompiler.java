@@ -48,7 +48,7 @@ public class MSVCMessageCompiler
 
         EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );        
         
-        cl.setExecutable( "mc" );
+        cl.setExecutable( "mc.exe" );
         
         cl.addArguments( config.getOptions() );
         

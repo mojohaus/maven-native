@@ -67,7 +67,7 @@ public class MSVCCompiler
 	{
 		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
 		{
-			config.setExecutable ( "cl" );
+			config.setExecutable ( "cl.exe" );
 		}
 				
 		Commandline cl = super.getCommandLine( src, dest, config );

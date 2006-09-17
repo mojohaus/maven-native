@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.Os;
+import org.codehaus.plexus.util.cli.Commandline;
 
 import junit.framework.TestCase;
 
@@ -151,4 +152,5 @@ public class CLinkerTest
         
         return properties;
     }
+    
 }
