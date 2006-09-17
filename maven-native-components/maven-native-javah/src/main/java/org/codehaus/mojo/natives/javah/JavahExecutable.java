@@ -56,9 +56,11 @@ public class JavahExecutable
 		return null;
 	}
 	
-	private Commandline createJavahCommand( JavahConfiguration config) 
+	protected Commandline createJavahCommand( JavahConfiguration config) 
 	    throws NativeBuildException
 	{
+        this.validateConfiguration( config );
+        
 	    Commandline cl = new Commandline();
         	    
         cl.setExecutable( this.getJavaHExecutable() );
@@ -105,6 +107,27 @@ public class JavahExecutable
         return cl;
 	}
 	
+    private void validateConfiguration( JavahConfiguration config )
+        throws NativeBuildException
+    {
+        if ( config.getClassPaths() == null || config.getClassPaths().length == 0 )
+        {
+            throw new NativeBuildException( "javah classpaths can not be empty.");
+        }
+        
+        if ( config.getDestdir() == null )
+        {
+            throw new NativeBuildException( "javah destDir can not be empty.");
+        }
+
+        if ( config.getClassNames() == null || config.getClassNames().length == 0 )
+        {
+            throw new NativeBuildException( "javah: java classes can not be empty.");
+        }
+        
+        
+    }
+    
     /**
      * assume javah executable is on system path
      * @return
