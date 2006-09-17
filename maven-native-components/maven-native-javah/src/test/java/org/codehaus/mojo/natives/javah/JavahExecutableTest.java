@@ -45,9 +45,6 @@ public class JavahExecutableTest
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand( config );
 
-        System.out.println( cl.toString() );
-        System.out.println( cl.getExecutable() );
-
         assertEquals( "javah -o " + getBasedir() + File.separator + "fileName " + "-classpath path1"
             + File.pathSeparator + "path2 className1 className2", cl.toString() );
     }
