@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.javah;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
-import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
 
@@ -35,6 +34,7 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * Sun's javah compatible implementation
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
@@ -59,27 +59,15 @@ public class JavahExecutable
 	private Commandline createJavahCommand( JavahConfiguration config) 
 	    throws NativeBuildException
 	{
-		File javahExecutable = this.getJavaHExecutable();
-		
-		if ( ! javahExecutable.exists() )
-		{
-            String message = "Unable to locate the javah executable. " +
-            	             "Please ensure you are using JDK 1.4 or above and\n" +
-                             "not a JRE.\n";
-        
-            throw new NativeBuildException(message);
-		}
-		
 	    Commandline cl = new Commandline();
-	    
-	    cl.createArgument().setValue( javahExecutable.getPath() );
+        	    
+        cl.setExecutable( this.getJavaHExecutable() );
 
         if ( config.getFileName() != null && config.getFileName().length() > 0 )
         {
             File outputFile = new File( config.getDestdir() + "/" + config.getFileName() );
             cl.createArgument().setValue( "-o" );
             cl.createArgument().setFile( outputFile );
-            
         }
         else
         {
@@ -90,8 +78,6 @@ public class JavahExecutable
 	        }
         }
 
-        char classPathSeparator = System.getProperty( "path.separator" ).charAt( 0 );
-        
         String [] classPaths = config.getClassPaths();
         
         StringBuffer classPathBuffer = new StringBuffer();
@@ -101,7 +87,7 @@ public class JavahExecutable
             classPathBuffer.append( classPaths[i] );
             if ( i != classPaths.length - 1 )
             {
-                classPathBuffer.append( classPathSeparator );
+                classPathBuffer.append( File.pathSeparatorChar );
             }
         }
 
@@ -119,16 +105,13 @@ public class JavahExecutable
         return cl;
 	}
 	
-	protected File getJavaHExecutable()
+    /**
+     * assume javah executable is on system path
+     * @return
+     */
+	protected String getJavaHExecutable()
 	{
-		String javahExt = "";
-		
-		if ( Os.isFamily( "windows") )
-		{
-			javahExt = ".exe";
-		}
-
-		return new File( System.getProperty( "java.home" ), "../bin/javah" + javahExt );
+        return "javah";
 	}
 
 }
