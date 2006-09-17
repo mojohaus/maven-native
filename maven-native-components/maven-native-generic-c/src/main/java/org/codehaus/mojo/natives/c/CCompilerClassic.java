@@ -24,7 +24,6 @@ package org.codehaus.mojo.natives.c;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.compiler.AbstractCCompiler;
 
 /**
  * Generic C/CPP compiler with "-o" as its output option
@@ -42,5 +41,4 @@ public class CCompilerClassic
 		return "-o";
 	}
 	
-
 }

@@ -1,9 +1,11 @@
-package org.codehaus.mojo.natives.compiler;
+package org.codehaus.mojo.natives.c;
 
 import java.io.File;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.compiler.AbstractCompiler;
+import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.parser.CParser;
 
