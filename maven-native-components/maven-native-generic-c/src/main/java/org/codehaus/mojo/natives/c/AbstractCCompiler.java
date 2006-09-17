@@ -52,6 +52,10 @@ public abstract class AbstractCCompiler
 	{
 		return this.parser;
 	}
+    
+    /**
+     * 
+     */
 	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
 	    throws NativeBuildException
 	{
@@ -61,26 +65,31 @@ public abstract class AbstractCCompiler
         }
         
 	    Commandline cl = new Commandline();
-	    
-	    cl.setWorkingDirectory( config.getBaseDir().getPath() );
 
-	    cl.createArgument().setValue( config.getExecutable() );
-	    
-	    for ( int i =0 ;i < config.getStartOptions().length; ++i ) 
+        cl.setExecutable( config.getExecutable() );
+        
+        if ( config.getBaseDir() != null )
+        {
+            cl.setWorkingDirectory( config.getBaseDir().getPath() );
+        }
+
+	    String [] startOptions = config.getStartOptions();
+        
+	    for ( int i =0 ; startOptions !=  null && i < startOptions.length; ++i ) 
 	    {
 	    	cl.createArgument().setValue( config.getStartOptions()[i]);
 	    }
 	    
 	    File [] includePaths = config.getIncludePaths();
 	    
-	    for ( int i = 0 ; i < includePaths.length; ++i )
+	    for ( int i = 0 ; includePaths != null && i < includePaths.length; ++i )
 	    {
 	    	cl.createArgument().setValue( "-I" + includePaths[i].getPath() );
 	    }
 
 	    File [] systemIncludePaths = config.getSystemIncludePaths();
 	    
-	    for ( int i = 0 ; i < systemIncludePaths.length; ++i )
+	    for ( int i = 0 ; systemIncludePaths != null && i < systemIncludePaths.length; ++i )
 	    {
 	    	cl.createArgument().setValue( "-I" + systemIncludePaths[i].getPath() );
 	    }	    
