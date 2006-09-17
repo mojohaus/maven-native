@@ -55,14 +55,15 @@ public abstract class AbstractCCompiler
     /**
      * 
      */
-    protected Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
+    protected Commandline getCommandLine( File srcFile, File destFile, CompilerConfiguration config )
         throws NativeBuildException
     {
-        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+
+        if ( config.getExecutable() == null )
         {
             config.setExecutable( "gcc" );
         }
-
+        
         Commandline cl = new Commandline();
 
         cl.setExecutable( config.getExecutable() );
@@ -72,43 +73,78 @@ public abstract class AbstractCCompiler
             cl.setWorkingDirectory( config.getBaseDir().getPath() );
         }
 
-        String[] startOptions = config.getStartOptions();
+        this.setStartOptions( cl, config );
 
-        for ( int i = 0; startOptions != null && i < startOptions.length; ++i )
+        this.setIncludePaths( cl, config, config.getIncludePaths() );
+
+        this.setIncludePaths( cl, config, config.getSystemIncludePaths() );
+
+        this.setMiddleOptions( cl, config );
+
+        this.setOutputArgs( cl, config, destFile );
+        
+        this.setSourceArgs( cl, config, srcFile ) ;
+
+        this.setEndOptions( cl, config );
+
+        return cl;
+    }
+
+    private void setOptions( Commandline cl, CompilerConfiguration config, String[] options )
+    {
+        if ( options != null )
         {
-            cl.createArgument().setValue( config.getStartOptions()[i] );
+            for ( int i = 0; options != null && i < options.length; ++i )
+            {
+                cl.createArgument().setValue( options[i] );
+            }
         }
+    }
 
-        File[] includePaths = config.getIncludePaths();
+    private void setStartOptions( Commandline cl, CompilerConfiguration config )
+    {
+        this.setOptions( cl, config, config.getStartOptions() );
+    }
 
-        for ( int i = 0; includePaths != null && i < includePaths.length; ++i )
+    private void setMiddleOptions( Commandline cl, CompilerConfiguration config )
+    {
+        this.setOptions( cl, config, config.getMiddleOptions() );
+    }
+
+    private void setEndOptions( Commandline cl, CompilerConfiguration config )
+    {
+        this.setOptions( cl, config, config.getEndOptions() );
+    }
+
+    private void setIncludePaths( Commandline cl, CompilerConfiguration config, File [] includePaths )
+    {
+        if ( includePaths != null )
         {
-            cl.createArgument().setValue( "-I" + includePaths[i].getPath() );
+            for ( int i = 0; i < includePaths.length; ++i )
+            {
+                cl.createArgument().setValue( "-I" + includePaths[i].getPath() );
+            }
         }
-
-        File[] systemIncludePaths = config.getSystemIncludePaths();
-
-        for ( int i = 0; systemIncludePaths != null && i < systemIncludePaths.length; ++i )
-        {
-            cl.createArgument().setValue( "-I" + systemIncludePaths[i].getPath() );
-        }
-
+    }
+    
+    private void setOutputArgs( Commandline cl, CompilerConfiguration config, File outputFile )
+    {
         String outputFileOption = this.getOutputFileOption();
 
         if ( outputFileOption.endsWith( " " ) )
         {
             cl.createArgument().setValue( outputFileOption.trim() );
-            cl.createArgument().setValue( dest.getPath() );
+            cl.createArgument().setValue( outputFile.getPath() );
         }
         else
         {
-            cl.createArgument().setValue( outputFileOption + dest.getPath() );
-        }
-
-        cl.createArgument().setValue( "-c" );
-        cl.createArgument().setValue( src.getPath() );
-
-        return cl;
+            cl.createArgument().setValue( outputFileOption + outputFile.getPath() );
+        }    
     }
-
+    
+    private void setSourceArgs( Commandline cl, CompilerConfiguration config, File srcFile )
+    {
+        cl.createArgument().setValue( "-c" );
+        cl.createArgument().setValue( srcFile.getPath() );
+    }    
 }

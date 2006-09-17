@@ -14,12 +14,111 @@ import org.codehaus.plexus.util.cli.Commandline;
 public class CCompilerTest
     extends PlexusTestCase
 {
-     public void testDefaultExecutable()
-         throws Exception
-     {
-         CompilerConfiguration config = new CompilerConfiguration();
-         CCompiler compiler = new CCompiler();
-         Commandline cl = compiler.getCommandLine( new File( "source.c") , new File( "object.o" ) , config );
-         assertEquals( "gcc -o object.o -c source.c", cl.toString() );
-     }
+    private CCompiler compiler;
+
+    private CompilerConfiguration config;
+
+    private static File sourceFile = new File( "source.c" );
+
+    private static File objectFile = new File( "object.o" );
+
+    private static String simpleArgv = "-o object.o -c source.c";
+
+    public void setUp()
+        throws Exception
+    {
+        super.setUp();
+
+        this.compiler = new CCompiler();
+        this.config = new CompilerConfiguration();
+    }
+
+    public void testSimpleCompilation()
+        throws Exception
+    {
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+        assertEquals( "gcc " + simpleArgv, cl.toString() );
+    }
+
+    public void testNonDefaultExecutable()
+        throws Exception
+    {
+        this.config.setExecutable( "cc" );
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+        assertEquals( "cc " + simpleArgv, cl.toString() );
+    }
+
+    public void testStartOptions()
+        throws Exception
+    {
+        String[] startOptions = { "-s1", "-s2" };
+        config.setStartOptions( startOptions );
+
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+
+        assertEquals( "gcc -s1 -s2 " + simpleArgv, cl.toString() );
+    }
+
+    public void testIncludePaths()
+        throws Exception
+    {
+        File[] includePaths = { new File( "p1" ), new File( "p2" ) };
+
+        config.setIncludePaths( includePaths );
+
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+
+        assertEquals( "gcc -Ip1 -Ip2 " + simpleArgv, cl.toString() );
+    }
+
+    public void testSystemIncludePaths()
+        throws Exception
+    {
+        File[] includePaths = { new File( "p1" ), new File( "p2" ) };
+
+        File[] systemIncludePaths = { new File( "sp1" ), new File( "sp2" ) };
+
+        config.setIncludePaths( includePaths );
+
+        config.setSystemIncludePaths( systemIncludePaths );
+
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+
+        assertEquals( "gcc -Ip1 -Ip2 -Isp1 -Isp2 " + simpleArgv, cl.toString() );
+    }
+
+    public void testMiddleOptions()
+        throws Exception
+    {
+        File[] includePaths = { new File( "p1" ), new File( "p2" ) };
+        config.setIncludePaths( includePaths );
+
+        String[] startOptions = { "-s1", "-s2" };
+        String[] middleOptions = { "-m1", "-m2" };
+        config.setStartOptions( startOptions );
+        config.setMiddleOptions( middleOptions );
+
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+
+        assertEquals( "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv, cl.toString() );
+    }
+
+    public void testEndOptions()
+        throws Exception
+    {
+        File[] includePaths = { new File( "p1" ), new File( "p2" ) };
+        config.setIncludePaths( includePaths );
+
+        String[] startOptions = { "-s1", "-s2" };
+        String[] middleOptions = { "-m1", "-m2" };
+        String[] endOptions = { "-e1", "-e2" };        
+        config.setStartOptions( startOptions );
+        config.setMiddleOptions( middleOptions );
+        config.setEndOptions( endOptions );
+
+        
+        Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
+
+        assertEquals( "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv + " -e1 -e2", cl.toString() );
+    }
 }

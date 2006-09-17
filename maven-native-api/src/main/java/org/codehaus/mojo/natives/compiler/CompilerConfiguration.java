@@ -45,7 +45,7 @@ public class CompilerConfiguration
     /**
      * Must be in your path
      */
-    private String executable = "";
+    private String executable;
 
     /**
      * Will be passed to compiler executable 

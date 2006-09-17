@@ -47,14 +47,14 @@ public class CLinker
 	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException	
 	{
-	    Commandline cl = new Commandline();
-
-	    cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
-
-        if ( config.getExecutable() == null || config.getExecutable().length() == 0 )
+        if ( config.getExecutable() == null )
         {
             config.setExecutable( "gcc" );
         }
+        
+	    Commandline cl = new Commandline();
+
+	    cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
 
         cl.setExecutable( config.getExecutable() );
         

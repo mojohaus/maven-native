@@ -8,21 +8,23 @@ import java.util.Properties;
 
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.Os;
 
-import junit.framework.TestCase;
-
 public class CLinkerTest
-    extends TestCase
+    extends PlexusTestCase
 {
     private LinkerConfiguration config;
 
     private String basedir;
 
     public void setUp()
+        throws Exception
     {
+        super.setUp();
+        
         this.config = new LinkerConfiguration();
-        this.basedir = System.getProperty( "basedir" );
+        this.basedir = getBasedir();
         config.setWorkingDirectory( new File( basedir ) );
         config.setOutputDirectory( new File( basedir, "target" ) );
         config.setOutputFileExtension( "exe" );
