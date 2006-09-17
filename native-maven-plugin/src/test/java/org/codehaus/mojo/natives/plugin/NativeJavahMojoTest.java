@@ -3,6 +3,7 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.codehaus.mojo.natives.javah.JavahConfiguration;
 
 public class NativeJavahMojoTest
     extends AbstractMojoTestCase
@@ -21,7 +22,10 @@ public class NativeJavahMojoTest
         File pluginXml = new File( getBasedir(), "src/test/resources/javah/plugin-config.xml" );
         NativeJavahMojo mojo = (NativeJavahMojo) lookupMojo( "javah", pluginXml );
 
-        String outputDirectory = mojo.buildConfiguration().getClassPaths()[0];
+        JavahConfiguration conf = mojo.createProviderConfiguration();
+        System.out.println( conf.getClassPaths().length );
+        
+        String outputDirectory = conf.getClassPaths()[0];
         assertEquals( mojo.getProject().getBuild().getOutputDirectory(), outputDirectory );
     }
 }

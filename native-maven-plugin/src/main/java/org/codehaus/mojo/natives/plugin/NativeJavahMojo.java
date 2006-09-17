@@ -55,7 +55,6 @@ import java.util.zip.ZipFile;
 /**
  * Generate jni include files based on a set of class names
  * @goal javah
- * @description generate jni include files
  * @phase generate-sources
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id$
@@ -67,9 +66,7 @@ public class NativeJavahMojo
 {
     
     /**
-     * The compiler implementation to use. 
-     * If this attribute is not set, the default compiler for the current VM will be used.
-     * Currently the only available implemention is 'default'.
+     * Javah Provider. 
      * @parameter default-value="default"
      * @required
      */
@@ -78,7 +75,7 @@ public class NativeJavahMojo
     /**
      * List of class names to generate native files. Default is all
      * JNI classes available in the classpath excluding the 
-     * transitive dependencies.     
+     * transitive dependencies, jars with test scope and provided scope     
      * @parameter 
      */
     private String [] classNames;
@@ -88,7 +85,6 @@ public class NativeJavahMojo
      * @parameter expression="${project}"
      * @required
      * @readonly
-     * @description 
      */
     private MavenProject project;
 
@@ -132,14 +128,8 @@ public class NativeJavahMojo
    	
     	try
     	{
-       	    Javah javah = this.manager.getJavah( this.implementation );
-       	     		
-            javah.compile( this.buildConfiguration() );
+            this.getJavah().compile( this.createProviderConfiguration() );
     	}
-    	catch ( NoSuchNativeProviderException pe )
-    	{
-    		throw new MojoExecutionException( pe.getMessage() );
-    	}    	
     	catch ( NativeBuildException e )
     	{
     		throw new MojoExecutionException( "Error running javah command", e );
@@ -149,6 +139,29 @@ public class NativeJavahMojo
         
     }
     
+    private Javah getJavah()
+        throws MojoExecutionException
+    {
+        Javah javah;
+        
+        try
+        {
+            javah = this.manager.getJavah( this.implementation );
+                    
+        }
+        catch ( NoSuchNativeProviderException pe )
+        {
+            throw new MojoExecutionException( pe.getMessage() );
+        } 
+
+        return javah;
+    }
+    
+    /**
+     * Get all jars in the pom excluding transitive dependencies, and jar in
+     * test and provided scope.  
+     * @return
+     */
     private List getJavahArtifacts()
     {
         List list = new ArrayList();
@@ -159,9 +172,7 @@ public class NativeJavahMojo
         {
             Artifact artifact = (Artifact) iter.next();
         	
-            // TODO: utilise appropriate methods from project builder
-            // TODO: scope handler
-            // Include runtime and compile time libraries
+            //exclude some other scopes
             if ( !Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) &&
                 !Artifact.SCOPE_TEST.equals( artifact.getScope() ) )
             {
@@ -172,6 +183,11 @@ public class NativeJavahMojo
         return list;
     }
 
+    /**
+     * Build classpaths from dependent jars including project output directory
+     * (i.e. classes directory )
+     * @return
+     */
     private String [] getJavahClassPath()
     {
         List artifacts = this.getJavahArtifacts();
@@ -195,7 +211,7 @@ public class NativeJavahMojo
     
 	/**
 	 * 
-	 * Get appliable class names to be "javahed" 
+	 * Get applicable class names to be "javahed" 
 	 * 
      */
  
@@ -259,7 +275,10 @@ public class NativeJavahMojo
     }
     
     
-    protected JavahConfiguration buildConfiguration()
+    /*
+     * use protected scope for unit test purpose
+     */
+    protected JavahConfiguration createProviderConfiguration()
         throws MojoExecutionException
     {
         JavahConfiguration config = new JavahConfiguration();

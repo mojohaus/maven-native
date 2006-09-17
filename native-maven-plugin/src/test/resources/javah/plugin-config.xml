@@ -1,10 +1,4 @@
 <project>
-        <dependencies>
-          <dependency>
-              <groupId>a</groupId>
-              <artifactId>b</artifactId>
-          </dependency>
-        </dependencies>
   <build>
     <plugins>
       <plugin>
