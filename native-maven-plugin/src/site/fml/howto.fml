@@ -4,11 +4,11 @@
 <part id="" >
   <title>Linker</title>
   
-  <faq id="Strip dependency artifact at link phase">
-    <question>How to link to dependencies without version in the file name.</question>
+  <faq id="native:linker">
+    <question>Unable to invoke standalone native:linker.</question>
     <answer>
       <br/>
-      
+      Standalone native:linker is not supported.  Invoke "mvn compile" instead
      </answer>
    </faq>
    
