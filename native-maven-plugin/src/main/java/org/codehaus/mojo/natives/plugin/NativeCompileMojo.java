@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.plugin;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -57,36 +57,34 @@ public class NativeCompileMojo
      * @required
      */
     private String compilerProvider;
-        
+
     /**
      * Use this field to override provider specific compiler executable
      * @parameter 
      * @optional
      */
     private String compilerExecutable;
-	
-    
+
     /**
      * Compiler options
      * @parameter 
      */
     private List compilerStartOptions;
-    
-    
+
     /**
      * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter 
      */
     private List compilerMiddleOptions;
-    
+
     /**
      * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter
      */
     private List compilerEndOptions;
-    
+
     /**
      * Javah OS name.
      * ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path 
@@ -104,15 +102,14 @@ public class NativeCompileMojo
      */
 
     private File jdkIncludePath;
-    
+
     /**
      * Array of NativeSources containing include directories and source files. 
      * @parameter 
      * @optional
      */
-    protected NativeSources [] sources = new NativeSources[0];
-    
-    
+    protected NativeSources[] sources = new NativeSources[0];
+
     /**
      * Internal 
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.CompilerManager}"
@@ -122,118 +119,137 @@ public class NativeCompileMojo
 
     private CompilerManager manager;
 
+    
+    private CompilerConfiguration config;
+    
     public void execute()
         throws MojoExecutionException
     {
-    	Compiler compiler;
-        
-    	try 
-    	{
-    	    compiler = this.manager.getCompiler( this.compilerProvider );
-    	}
-    	catch ( NoSuchNativeProviderException pe )
-    	{
-    		throw new MojoExecutionException( pe.getMessage() );
-    	}
-    	
-    	FileUtils.mkdir( project.getBuild().getDirectory() );
+        Compiler compiler;
+
+        try
+        {
+            compiler = this.manager.getCompiler( this.compilerProvider );
+        }
+        catch ( NoSuchNativeProviderException pe )
+        {
+            throw new MojoExecutionException( pe.getMessage() );
+        }
 
         if ( this.javahOS != null )
         {
             this.addJavaHIncludePaths();
         }
-        
-    	this.addAdditionalIncludePath();
-    	
-    	CompilerConfiguration config = new CompilerConfiguration();
-    	config.setBaseDir( this.project.getBasedir() );
-    	config.setExecutable( this.compilerExecutable );
-    	config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );
-    	config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );
-    	config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
-    	config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
-    	config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
-    	config.setOutputDirectory ( this.outputDirectory );
-    	config.setEnvFactoryName( this.envFactoryName );
+
+        this.addAdditionalIncludePath();
+
+        CompilerConfiguration config = this.createProviderConfiguration();
         
         List objectFiles;
-    	try 
-    	{
-    		objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
-    	}
-    	catch ( NativeBuildException e ) 
-    	{
-    		throw new MojoExecutionException ( e.getMessage(), e );
-    	}
-        
-    	this.saveCompilerOutputFilePaths( objectFiles );
+        try
+        {
+            objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
+        }
+        catch ( NativeBuildException e )
+        {
+            throw new MojoExecutionException( e.getMessage(), e );
+        }
+
+        this.saveCompilerOutputFilePaths( objectFiles );
 
     }
 
-    
-    private void addJavaHIncludePaths( )
+    private void addJavaHIncludePaths()
     {
         List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
 
         NativeSources jdkIncludeSource = new NativeSources();
-            
+
         jdkIncludeSource.setDirectory( this.jdkIncludePath );
-            
+
         jdkIncludeSource.setDependencyAnalysisParticipation( false );
-            
+
         sourceArray.add( jdkIncludeSource );
-            
-        File jdkOsIncludeDir = new File ( this.jdkIncludePath, this.javahOS );
-            
+
+        File jdkOsIncludeDir = new File( this.jdkIncludePath, this.javahOS );
+
         NativeSources jdkIncludeOsSource = new NativeSources();
-            
+
         jdkIncludeOsSource.setDirectory( jdkOsIncludeDir );
-            
+
         jdkIncludeOsSource.setDependencyAnalysisParticipation( false );
-            
+
         sourceArray.add( jdkIncludeOsSource );
-            
-        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[ sourceArray.size() ] );
-        
+
+        this.sources = (NativeSources[]) sourceArray.toArray( new NativeSources[sourceArray.size()] );
+
     }
-    
-    
+
     /**
      * Pickup additional source paths that previous phases added to source root 
      * Note: we intentionally ignore the first item of source root since this
      * plugin never use it.
      */
-	private void addAdditionalIncludePath()
-	{
+    private void addAdditionalIncludePath()
+    {
         List additionalIncludePaths = project.getCompileSourceRoots();
-        
-        if ( additionalIncludePaths.size() < 2 )
+
+        if ( additionalIncludePaths == null || additionalIncludePaths.size() < 2 )
         {
             return;
         }
-        
-        if (  this.sources == null )
+
+        if ( this.sources == null )
         {
             return;
         }
-        
+
         List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
-        
+
         if ( additionalIncludePaths.size() > 1 )
         {
             for ( int i = 1; i < additionalIncludePaths.size(); ++i )
             {
-                File genIncludeDir = new File ( additionalIncludePaths.get( i ).toString() );
-                
+                File genIncludeDir = new File( additionalIncludePaths.get( i ).toString() );
+
                 NativeSources genIncludeSource = new NativeSources();
-                
+
                 genIncludeSource.setDirectory( genIncludeDir );
-                
+
                 sourceArray.add( genIncludeSource );
             }
-		}
+        }
 
-        this.sources = ( NativeSources [] ) sourceArray.toArray( new NativeSources[ sourceArray.size()] );
-        
-	}
+        this.sources = (NativeSources[]) sourceArray.toArray( new NativeSources[sourceArray.size()] );
+
+    }
+
+    /*
+     * use protected scope for unit test purpose
+     */
+    protected CompilerConfiguration createProviderConfiguration()
+        throws MojoExecutionException
+    {
+        this.config = new CompilerConfiguration();
+        config.setBaseDir( this.project.getBasedir() );
+        config.setExecutable( this.compilerExecutable );
+        config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );
+        config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );
+        config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
+        config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
+        config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
+        config.setOutputDirectory( this.outputDirectory );
+        config.setEnvFactoryName( this.envFactoryName );
+
+        return config;
+    }
+    
+    /**
+     * Internal only for test harness purpose
+     * @return
+     */
+    protected CompilerConfiguration getCompilerConfiguration()
+    {
+        return this.config;
+    }
 }
