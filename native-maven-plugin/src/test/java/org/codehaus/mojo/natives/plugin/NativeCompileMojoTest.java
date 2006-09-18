@@ -12,7 +12,7 @@ public class NativeCompileMojoTest
     public void testMojoLookup()
         throws Exception
     {
-        File pluginXml = new File( getBasedir(), "src/test/resources/compile/plugin-config.xml" );
+        File pluginXml = new File( getBasedir(), "src/test/resources/compiler/plugin-config.xml" );
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo( "compile", pluginXml );
         assertNotNull( mojo );
     }
@@ -20,7 +20,7 @@ public class NativeCompileMojoTest
     public void testJavahOS()
         throws Exception
     {
-        File pluginXml = new File( getBasedir(), "src/test/resources/compile/plugin-config-with-javahOS.xml" );
+        File pluginXml = new File( getBasedir(), "src/test/resources/compiler/plugin-config.xml" );
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo( "compile", pluginXml );
         assertNotNull( mojo );
         

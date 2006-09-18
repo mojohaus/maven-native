@@ -39,7 +39,7 @@
     <module>maven-native-generic-c</module>
     <module>maven-native-bcc</module>
     <module>maven-native-msvc</module>
-    <module>maven-native-noop</module>
+    <!--module>maven-native-noop</module-->
   </modules>
   
 </project>
