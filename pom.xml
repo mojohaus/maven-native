@@ -86,12 +86,6 @@
 
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-noop</artifactId>
-        <version>${project.version}</version>
-      </dependency>    
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-manager</artifactId>
         <version>${project.version}</version>
       </dependency>    
