@@ -36,6 +36,8 @@ public class NativeCompileMojoTest
         
         // validate data from pom which is fed into mojo.execute()
         
+        assertEquals( new File( getBasedir() ), config.getWorkingDirectory() );
+        
         assertEquals( "someExe", config.getExecutable() );
 
         assertEquals( new File( "target" ), config.getOutputDirectory() );

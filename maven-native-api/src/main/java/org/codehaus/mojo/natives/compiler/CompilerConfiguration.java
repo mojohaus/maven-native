@@ -40,7 +40,7 @@ public class CompilerConfiguration
     extends ConfigurationBase
 {
 
-    private File baseDir;
+    private File workingDirectory;
 
     /**
      * Must be in your path
@@ -66,14 +66,14 @@ public class CompilerConfiguration
     {
     }
 
-    public File getBaseDir()
+    public File getWorkingDirectory()
     {
-        return this.baseDir;
+        return this.workingDirectory;
     }
 
-    public void setBaseDir( File basedir )
+    public void setWorkingDirectory( File dir )
     {
-        this.baseDir = basedir;
+        this.workingDirectory = dir;
     }
 
     public String getExecutable()

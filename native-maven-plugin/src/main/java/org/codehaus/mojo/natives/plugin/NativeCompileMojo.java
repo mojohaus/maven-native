@@ -230,7 +230,7 @@ public class NativeCompileMojo
         throws MojoExecutionException
     {
         this.config = new CompilerConfiguration();
-        config.setBaseDir( this.project.getBasedir() );
+        config.setWorkingDirectory( this.project.getBasedir() );
         config.setExecutable( this.compilerExecutable );
         config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );
         config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );

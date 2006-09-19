@@ -9,6 +9,7 @@
           <compilerProvider>noop</compilerProvider>
           
           <outputDirectory>target</outputDirectory>
+          
           <compilerExecutable>someExe</compilerExecutable>
           <compilerStartOptions>
             <compilerStartOption>-s0 -s1</compilerStartOption>

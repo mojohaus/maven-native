@@ -68,9 +68,9 @@ public abstract class AbstractCCompiler
 
         cl.setExecutable( config.getExecutable() );
 
-        if ( config.getBaseDir() != null )
+        if ( config.getWorkingDirectory() != null )
         {
-            cl.setWorkingDirectory( config.getBaseDir().getPath() );
+            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
         }
 
         this.setStartOptions( cl, config );
