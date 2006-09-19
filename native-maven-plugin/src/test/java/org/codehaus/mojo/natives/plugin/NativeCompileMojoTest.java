@@ -20,7 +20,7 @@ public class NativeCompileMojoTest
     public void testJavahOS()
         throws Exception
     {
-        File pluginXml = new File( getBasedir(), "src/test/resources/compiler/plugin-config.xml" );
+        File pluginXml = new File( getBasedir(), "src/test/resources/compiler/plugin-config-javahOS.xml" );
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo( "compile", pluginXml );
         assertNotNull( mojo );
         
@@ -32,6 +32,11 @@ public class NativeCompileMojoTest
         
         assertNotNull( config );
         
+        //javah induces 2 system include paths into configuration
+        assertEquals( 2, config.getSystemIncludePaths().length );
+        //note "somJDKPath comes from the simulated pom above
+        assertEquals( new File( "someJDKPath" ), config.getSystemIncludePaths()[0] );
+        assertEquals( new File( "someJDKPath/someOS" ), config.getSystemIncludePaths()[1] );
         
         
     }

@@ -5,23 +5,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.Compiler;
-
+import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.Os;
 /**
  * Helper class to test native-maven-plugin
  * @author dtran
  *
  */
 public class NoopCompiler
-    implements Compiler
+    implements Compiler 
 {
 
     public List compile( CompilerConfiguration config, File[] sourceFiles )
         throws NativeBuildException
     {
-        // TODO Auto-generated method stub
-        return new ArrayList( 0 );
+        List compilerOutputFiles = new ArrayList( sourceFiles.length );
+
+        for ( int i = 0; i < sourceFiles.length; ++i )
+        {
+            File source = new File( sourceFiles[i].toString() );
+
+            File objectFile = this.getObjectFile( source, config );
+
+            compilerOutputFiles.add( objectFile );
+
+        }
+
+        return compilerOutputFiles;
     }
+
+    /**
+     * 
+     * @return
+     */
+    protected String getObjectFileExtension()
+    {
+        //no need to test system specific extension
+        return "o";
+    }
+
+    /**
+     * Figure out the object file path from a given source file
+     * @param sourceFile
+     * @return
+     */
+    private File getObjectFile ( File sourceFile, CompilerConfiguration config )
+    {
+        String srcPath = sourceFile.getPath();
+            
+        String destPath = config.getOutputDirectory().getPath() + "/" + 
+                          FileUtils.basename( srcPath ) + this.getObjectFileExtension();
+
+        return new File ( destPath );
+    }   
 
 }
