@@ -7,7 +7,49 @@
         <configuration>
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
           <compilerProvider>noop</compilerProvider>
-          <javahOS>win32</javahOS>
+          
+          <outputDirectory>target</outputDirectory>
+          <compilerExecutable>someExe</compilerExecutable>
+          <compilerStartOptions>
+            <compilerStartOption>-s0 -s1</compilerStartOption>
+            <compilerStartOption>-s2 -s3</compilerStartOption>
+          </compilerStartOptions>
+          <compilerMiddleOptions>
+            <compilerMiddleOption>-m0 -m1</compilerMiddleOption>
+            <compilerMiddleOption>-m2 -m3</compilerMiddleOption>
+          </compilerMiddleOptions>
+          <compilerEndOptions>
+            <compilerEndOption>-e0 -e1</compilerEndOption>
+            <compilerEndOption>-e2 -e3</compilerEndOption>
+          </compilerEndOptions>
+          
+          <sources>
+            <source>
+              <directory>src/main/native/dir1</directory>
+              <fileNames>
+                <fileName>file11.c</fileName>
+                <fileName>file12.c</fileName>
+              </fileNames>
+            </source>            
+            <source>
+              <directory>src/main/native/dir2</directory>
+              <fileNames>
+                <fileName>file21.c</fileName>
+                <fileName>file22.c</fileName>
+              </fileNames>
+            </source>            
+            <source>
+              <directory>src/main/native/dir3</directory>
+            </source>            
+            <source>
+              <directory>src/main/native/dir4</directory>
+              <dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>
+            </source>            
+            <source>
+              <directory>src/main/native/dir5</directory>
+              <dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>
+            </source>            
+          </sources>
         </configuration>
       </plugin>
     </plugins>

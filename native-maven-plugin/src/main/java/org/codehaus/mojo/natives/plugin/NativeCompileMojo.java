@@ -31,7 +31,6 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.manager.CompilerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
-import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 
