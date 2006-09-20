@@ -21,9 +21,23 @@ public class NativeJavahMojoTest
     {
         File pluginXml = new File( getBasedir(), "src/test/resources/javah/plugin-config.xml" );
         NativeJavahMojo mojo = (NativeJavahMojo) lookupMojo( "javah", pluginXml );
-
-        JavahConfiguration conf = mojo.createProviderConfiguration();
-        String outputDirectory = conf.getClassPaths()[0];
-        assertEquals( mojo.getProject().getBuild().getOutputDirectory(), outputDirectory );
+        
+        mojo.execute();
+        
+        JavahConfiguration config = mojo.getJavahConfiguration();
+        
+        assertEquals( 1, config.getClassPaths().length );
+        
+        String classesDir = config.getClassPaths()[0];
+        
+        assertEquals( mojo.getProject().getBuild().getOutputDirectory(), classesDir );
+        
+        assertEquals( new File( "target/javah"), config.getOutputDirectory() );
+        
+        assertEquals( new File( getBasedir() ), config.getWorkingDirectory() );
+        
+        //in test mode, the project starts out of 0 source root instead of 1
+        assertEquals( 1, mojo.getProject().getCompileSourceRoots().size() );
+                
     }
 }

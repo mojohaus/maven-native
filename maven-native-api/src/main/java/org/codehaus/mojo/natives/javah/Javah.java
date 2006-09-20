@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.javah;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
-import java.util.List;
 
 /**
  * Generates JNI header files using javah
@@ -37,6 +36,6 @@ public interface Javah
 {
     static String ROLE = Javah.class.getName();
 
-    List compile( JavahConfiguration configuration )
+    void compile( JavahConfiguration configuration )
       throws NativeBuildException;
 }

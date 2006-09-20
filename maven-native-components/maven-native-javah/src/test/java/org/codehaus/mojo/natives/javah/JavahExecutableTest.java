@@ -23,7 +23,7 @@ public class JavahExecutableTest
         String[] classNames = { "className1", "className2" };
         config.setClassNames( classNames );
 
-        config.setDestDir( new File( getBasedir() ) );
+        config.setOutputDirectory( new File( getBasedir() ) );
 
     }
 

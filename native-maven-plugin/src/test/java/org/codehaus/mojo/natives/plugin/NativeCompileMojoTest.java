@@ -27,6 +27,12 @@ public class NativeCompileMojoTest
         
         //must init this
         mojo.setPluginContext( new HashMap() );
+        
+        //simulate extra path to be added into includePath
+        mojo.getProject().addCompileSourceRoot( "dummy" );
+        //until the maven project stub is fixed
+        //mojo.getProject().addCompileSourceRoot( "target/javah" );
+        
 
         mojo.execute();
 
@@ -65,11 +71,13 @@ public class NativeCompileMojoTest
         assertEquals( new File( "src/main/native/dir4" ), config.getSystemIncludePaths()[0] );
         assertEquals( new File( "src/main/native/dir5" ), config.getSystemIncludePaths()[1] );
         
-        // there are 3 normal source element
+        // there are 3 normal source elements + 2 javah include
         assertEquals( 3, config.getIncludePaths().length );
         assertEquals( new File( "src/main/native/dir1" ), config.getIncludePaths()[0] );
         assertEquals( new File( "src/main/native/dir2" ), config.getIncludePaths()[1] );
         assertEquals( new File( "src/main/native/dir3" ), config.getIncludePaths()[2] );
+        //until maven project stub is fixes were we can simulate more than 1 source root in the list
+        //assertEquals( new File( "target/javah" ), config.getIncludePaths()[3] );
         
         //we have 4 source files, so in output directory, there must be 4 object files
         List objectFileList =  mojo.getAllCompilersOutputFileList();

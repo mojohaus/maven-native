@@ -31,7 +31,6 @@ import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
 
-import java.util.List;
 
 /**
  * Sun's javah compatible implementation
@@ -46,14 +45,12 @@ public class JavahExecutable
 	{
 	}
 	
-	public List compile( JavahConfiguration config ) 
+	public void compile( JavahConfiguration config ) 
 	    throws NativeBuildException
 	{
 		Commandline cl = this.createJavahCommand( config );
 		
 		CommandLineUtil.execute( cl, this.getLogger() );
-        
-		return null;
 	}
 	
 	protected Commandline createJavahCommand( JavahConfiguration config) 
@@ -62,21 +59,26 @@ public class JavahExecutable
         this.validateConfiguration( config );
         
 	    Commandline cl = new Commandline();
+        
+        if ( config.getWorkingDirectory() != null )
+        {
+            cl.setWorkingDirectory( config.getOutputDirectory().getPath() );
+        }
         	    
         cl.setExecutable( this.getJavaHExecutable() );
 
         if ( config.getFileName() != null && config.getFileName().length() > 0 )
         {
-            File outputFile = new File( config.getDestdir() + "/" + config.getFileName() );
+            File outputFile = new File( config.getOutputDirectory(), config.getFileName() );
             cl.createArgument().setValue( "-o" );
             cl.createArgument().setFile( outputFile );
         }
         else
         {
-	        if ( config.getDestdir() != null && config.getDestdir().length() > 0 )
+	        if ( config.getOutputDirectory() != null )
 	        {
 	    	    cl.createArgument().setValue( "-d" );
-	    	    cl.createArgument().setValue( config.getDestdir() );
+	    	    cl.createArgument().setFile( config.getOutputDirectory() );
 	        }
         }
 
@@ -115,9 +117,14 @@ public class JavahExecutable
             throw new NativeBuildException( "javah classpaths can not be empty.");
         }
         
-        if ( config.getDestdir() == null )
+        if ( config.getOutputDirectory() == null )
         {
             throw new NativeBuildException( "javah destDir can not be empty.");
+        }
+        
+        if ( ! config.getOutputDirectory().exists() )
+        {
+            config.getOutputDirectory().mkdirs();
         }
 
         if ( config.getClassNames() == null || config.getClassNames().length == 0 )

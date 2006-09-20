@@ -28,36 +28,46 @@ import java.io.File;
 
 public class JavahConfiguration 
 {
-	/*
-	 *  the fully-qualified name of a class/or classes separated by a ','
-	 */
-	private String [] classNames;
-	
-	/**
-	 *  Sets the directory where javah saves the header files or the stub files
-	 */
-	private File destDir;
+    /**
+     * Working directory where javah command will run
+     */
+    private File workingDirectory;
     
     /**
+     *  Directory to save generate files, must either be fullpath 
+     *  or relative to relative workingDirectory
+     */
+    private File outputDirectory;
+    
+
+    /**
+     * Option to combine all generated include files into one file ${outputDirectory}/${fileName}
      * Support javah -o option
      */
     private String fileName;
+
+    
+	/*
+	 *  the fully-qualified class name
+	 */
+	private String [] classNames;
+	
 	
 	/**
-	 * ClassPaths to locate classNames, separated by a ','
+	 * ClassPaths to locate classNames
 	 */
 	private String [] classPaths;
 	
 	private boolean verbose = false;
 	
-	public void setDestDir( File destDir )
+	public void setOutputDirectory( File dir )
 	{
-		this.destDir = destDir;
+		this.outputDirectory = dir;
 	}
 	
-    public String getDestdir()
+    public File getOutputDirectory()
     {
-    	return this.destDir.getPath();
+    	return this.outputDirectory;
     }
     
     public String [] getClassPaths()
@@ -100,4 +110,13 @@ public class JavahConfiguration
         return this.fileName;
     }
 	
+    public File getWorkingDirectory()
+    {
+        return this.workingDirectory;
+    }
+   
+    public void setWorkingDirectory( File dir )
+    {
+        this.workingDirectory = dir;
+    }    
 }

@@ -8,7 +8,6 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.Os;
 /**
  * Helper class to test native-maven-plugin
  * @author dtran

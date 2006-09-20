@@ -1,4 +1,5 @@
 <project>
+
   <build>
     <plugins>
       <plugin>
@@ -6,6 +7,9 @@
         <artifactId>native-maven-plugin</artifactId>
         <configuration>
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
+          <implementation>noop</implementation>
+          <outputDirectory>target/javah</outputDirectory>
+          
         </configuration>
       </plugin>
     </plugins>

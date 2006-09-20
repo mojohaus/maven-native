@@ -118,7 +118,9 @@ public class NativeCompileMojo
 
     private CompilerManager manager;
 
-    
+    /**
+     * For unittest only
+     */
     private CompilerConfiguration config;
     
     public void execute()

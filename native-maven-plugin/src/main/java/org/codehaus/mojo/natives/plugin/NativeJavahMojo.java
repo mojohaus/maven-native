@@ -118,17 +118,19 @@ public class NativeJavahMojo
 
     private JavahManager manager;
     
+    /**
+     * For unittest only
+     */
+    private JavahConfiguration config;
+    
     public void execute()
         throws MojoExecutionException
     {
-    	if ( ! this.outputDirectory.exists() )
-    	{
-    		this.outputDirectory.mkdirs();
-    	}
    	
     	try
     	{
-            this.getJavah().compile( this.createProviderConfiguration() );
+            this.config = this.createProviderConfiguration();
+            this.getJavah().compile( config );
     	}
     	catch ( NativeBuildException e )
     	{
@@ -275,21 +277,28 @@ public class NativeJavahMojo
     }
     
     
-    /*
-     * use protected scope for unit test purpose
-     */
-    protected JavahConfiguration createProviderConfiguration()
+    private JavahConfiguration createProviderConfiguration()
         throws MojoExecutionException
     {
         JavahConfiguration config = new JavahConfiguration();
+        config.setWorkingDirectory( this.project.getBasedir() );
         config.setVerbose( this.verbose );
-        config.setDestDir( this.outputDirectory );
+        config.setOutputDirectory( this.outputDirectory );
         config.setFileName( this.outputFileName );
         config.setClassPaths( this.getJavahClassPath() );
         config.setClassNames( this.getNativeClassNames() );
         
         return config;
     }
+        
+    /**
+     * Internal only for test harness purpose
+     * @return
+     */
+    protected JavahConfiguration getJavahConfiguration()
+    {
+        return this.config;
+    }   
     
     /**
      * Internal for unit test only
