@@ -17,7 +17,7 @@ import org.apache.maven.project.MavenProject;
 public class ProjectStub
    extends MavenProjectStub
 {    
-    private Build build = new Build();
+    private Build build = new BuildStub();
 
  
     private Set dependencyArtifacts = new HashSet();
@@ -51,5 +51,22 @@ public class ProjectStub
     {
         return this.dependencyArtifacts;
     }
+    
+    private Set artifacts;
+    
+    public void setArtifacts( Set artifacts )
+    {
+    	this.artifacts = artifacts;
+    }
+
+    public Set getArtifacts()
+    {
+    	if ( this.artifacts == null )
+    	{
+    		this.artifacts = new HashSet();
+    	}
+    	return this.artifacts;
+    }
+    
     
 }

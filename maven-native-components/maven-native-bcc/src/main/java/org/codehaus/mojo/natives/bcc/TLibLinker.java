@@ -60,7 +60,7 @@ public class TLibLinker
 	    
 	    cl.createArgument().setValue( executable );
 	    
-	    cl.createArgument().setValue( "\"" + config.getOutputFilePath() + "\"" );
+	    cl.createArgument().setValue( "\"" + config.getOutputFile() + "\"" );
 
 	    for ( int i = 0; i < config.getStartOptions().length; ++i )
 	    {

@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.c;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
@@ -40,45 +40,46 @@ import java.util.List;
  * @version $Id$
  */
 
-public class CLinker 
+public class CLinker
     extends AbstractLinker
 {
-	
-	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
-        throws NativeBuildException	
-	{
+
+    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+        throws NativeBuildException
+    {
         if ( config.getExecutable() == null )
         {
             config.setExecutable( "gcc" );
         }
-        
-	    Commandline cl = new Commandline();
 
-	    cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        Commandline cl = new Commandline();
+
+        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
 
         cl.setExecutable( config.getExecutable() );
-        
+
         if ( config.getStartOptions() != null )
         {
             cl.addArguments( config.getStartOptions() );
         }
-        
-	    String linkerOutputOption = this.getLinkerOutputOption();
-	    if ( linkerOutputOption.endsWith(" ") )
-	    {
-	    		cl.createArgument().setValue( linkerOutputOption.substring( 0, linkerOutputOption.length()-1 ) );
-	    		cl.createArgument().setValue( config.getOutputFilePath() );
-	    } else
-	    {
-	    		cl.createArgument().setValue( linkerOutputOption + config.getOutputFilePath() );
-	    }
-	    		
-	    for ( int i = 0; i < objectFiles.size(); ++i )
-	    {
-	    	File objFile = (File) objectFiles.get(i);
-            String objFilePath = truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() ); 
-            cl.createArgument().setValue( objFilePath ) ;            
-	    }
+
+        String linkerOutputOption = this.getLinkerOutputOption();
+        if ( linkerOutputOption.endsWith( " " ) )
+        {
+            cl.createArgument().setValue( linkerOutputOption.substring( 0, linkerOutputOption.length() - 1 ) );
+            cl.createArgument().setFile( config.getOutputFile() );
+        }
+        else
+        {
+            cl.createArgument().setValue( linkerOutputOption + config.getOutputFile() );
+        }
+
+        for ( int i = 0; i < objectFiles.size(); ++i )
+        {
+            File objFile = (File) objectFiles.get( i );
+            String objFilePath = truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
+            cl.createArgument().setValue( objFilePath );
+        }
 
         if ( config.getMiddleOptions() != null )
         {
@@ -92,15 +93,15 @@ public class CLinker
             cl.addArguments( config.getEndOptions() );
         }
 
-	    return cl;
-		
-	}
-	
-	protected String getLinkerOutputOption()
-	{
-		return "-o ";
-	}
-    
+        return cl;
+
+    }
+
+    protected String getLinkerOutputOption()
+    {
+        return "-o ";
+    }
+
     protected void setCommandLineForExternalLibraries( Commandline cl, LinkerConfiguration config )
         throws NativeBuildException
     {
@@ -110,41 +111,40 @@ public class CLinker
         }
 
         boolean hasUnixLinkage = false;
-        
-        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
-        {
-            String libFileName = (String) iter.next();
-            
-            String ext = FileUtils.getExtension( libFileName );
-            
-            if ( "o".equals( ext ) || "obj".equals( ext ) || 
-                 "lib".equals( ext ) || "dylib".equals( ext ) )
-            {
-            	File libFile = new File ( config.getExternalLibDirectory(), libFileName );
-                String relativeLibFile = truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() ); 
-                cl.createArgument().setValue( relativeLibFile ) ;            
-            }     
-            else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
-            {
-                hasUnixLinkage = true;
-            }
-        }
-        
-        if ( hasUnixLinkage )
-        {
-            cl.createArgument().setValue( "-L" + config.getExternalLibDirectory() );
-        }
-        
+
         for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
             String libFileName = (String) iter.next();
 
             String ext = FileUtils.getExtension( libFileName );
-            
+
+            if ( "o".equals( ext ) || "obj".equals( ext ) || "lib".equals( ext ) || "dylib".equals( ext ) )
+            {
+                File libFile = new File( config.getExternalLibDirectory(), libFileName );
+                String relativeLibFile = truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
+                cl.createArgument().setValue( relativeLibFile );
+            }
+            else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
+            {
+                hasUnixLinkage = true;
+            }
+        }
+
+        if ( hasUnixLinkage )
+        {
+            cl.createArgument().setValue( "-L" + config.getExternalLibDirectory() );
+        }
+
+        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        {
+            String libFileName = (String) iter.next();
+
+            String ext = FileUtils.getExtension( libFileName );
+
             if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
             {
                 String libName = FileUtils.removeExtension( libFileName );
-                
+
                 if ( libFileName.startsWith( "lib" ) )
                 {
                     libName = libName.substring( 3 );
@@ -154,7 +154,7 @@ public class CLinker
             }
         }
     }
-    
+
     /**
      * Get relative path to working directory if possible
      * @param path
@@ -172,5 +172,5 @@ public class CLinker
             }
         }
         return path;
-    }    
+    }
 }

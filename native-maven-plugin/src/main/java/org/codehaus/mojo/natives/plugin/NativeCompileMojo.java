@@ -118,10 +118,6 @@ public class NativeCompileMojo
 
     private CompilerManager manager;
 
-    /**
-     * For unittest only
-     */
-    private CompilerConfiguration config;
     
     public void execute()
         throws MojoExecutionException
@@ -244,6 +240,13 @@ public class NativeCompileMojo
 
         return config;
     }
+
+    ////////////////////////////////////// UNIT TEST HELPERS ////////////////////////////////
+    
+    /**
+     * For unittest only
+     */
+    private CompilerConfiguration config;
     
     /**
      * Internal only for test harness purpose

@@ -45,13 +45,15 @@ public abstract class AbstractLinker
     public File link( LinkerConfiguration config, List compilerOutputFiles )
         throws NativeBuildException, IOException
     {
+        //TODO validate config to make required fields are available
+        
         Commandline cl = this.createLinkerCommandLine( compilerOutputFiles, config );
         
         EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
 
         CommandLineUtil.execute( cl, this.getLogger() );
 
-        return new File( config.getOutputFilePath() );
+        return config.getOutputFile() ;
     }
 
 }

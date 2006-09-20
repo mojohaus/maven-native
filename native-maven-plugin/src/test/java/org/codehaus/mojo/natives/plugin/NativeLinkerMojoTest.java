@@ -12,6 +12,7 @@ import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 
 public class NativeLinkerMojoTest
     extends AbstractMojoTestCase
@@ -24,7 +25,7 @@ public class NativeLinkerMojoTest
         assertNotNull( mojo );
     }
 
-    public void NotestExecute()
+    public void testExecute()
         throws Exception
     {
         File pluginXml = new File( getBasedir(), "src/test/resources/linker/plugin-config.xml" );
@@ -42,6 +43,7 @@ public class NativeLinkerMojoTest
         
         //simulate artifact 
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
+       
         Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler );
         mojo.getProject().setArtifact( artifact );
 
@@ -49,6 +51,15 @@ public class NativeLinkerMojoTest
         mojo.getProject().setArtifacts( new HashSet() ); //no extern libs for now
         
         mojo.execute();
+        
+        LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
+        
+        //"target is set in the stub
+        assertEquals( new File( "target" ), conf.getOutputDirectory() );
+        assertEquals( "some-final-name", conf.getOutputFileName() );
+        //current artifactHandler mocking return null extension name
+        assertEquals( new File( "target/some-final-name.null" ), conf.getOutputFile() ); 
          
+        
     }
 }

@@ -60,7 +60,7 @@ public class ArchiveLinker
           cl.createArgument().setValue( config.getStartOptions()[i] );
         }
         
-        cl.createArgument().setValue( config.getOutputFilePath() );
+        cl.createArgument().setFile( config.getOutputFile() );
 
         
         for ( int i = 0; i < objectFiles.size(); ++i )

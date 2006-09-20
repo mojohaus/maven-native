@@ -14,4 +14,9 @@ public class BuildStub
     {
         return "fake-output-directory";
     }
+    
+    public String getFinalName()
+    {
+    	return "some-final-name";
+    }
 }

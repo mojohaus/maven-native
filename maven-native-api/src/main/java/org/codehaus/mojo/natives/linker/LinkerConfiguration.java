@@ -47,7 +47,7 @@ public class LinkerConfiguration
 	private String executable;
 	
 	/**
-	 * Will be passed to compiler executable 
+	 * Will be passed to linker executable 
 	 */
 	private String [] startOptions;
 
@@ -55,7 +55,7 @@ public class LinkerConfiguration
 
 	private String [] endOptions;
 
-	private File   outputDirectory = new File ("");
+	private File   outputDirectory;
 	
 	private String outputFileExtension;
 
@@ -158,11 +158,15 @@ public class LinkerConfiguration
 		this.outputFileName = name; 
 	}
 	
-	public String getOutputFilePath() 
+    /**
+     * convenient method to get linker output file
+     * @return
+     */
+	public File getOutputFile() 
 	{
-		File out = new File( this.outputDirectory + "/" + this.outputFileName  + "." + this.outputFileExtension );
+		File out = new File( this.outputDirectory , this.outputFileName  + "." + this.outputFileExtension );
 		
-		return out.getPath();
+		return out;
 	}
 	
     public List getExternalLibFileNames() 

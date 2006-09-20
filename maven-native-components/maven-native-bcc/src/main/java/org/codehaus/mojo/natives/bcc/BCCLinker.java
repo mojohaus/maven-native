@@ -87,7 +87,7 @@ public class BCCLinker
         }
         
         //ouput file
-        cl.createArgument().setValue( "," + config.getOutputFilePath() );
+        cl.createArgument().setValue( "," + config.getOutputFile() );
 
         //map files + system lib, and def file to be given by user in middle options
         //  a comma is required between map, lib, and def 
