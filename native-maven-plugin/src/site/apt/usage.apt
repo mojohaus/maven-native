@@ -1,17 +1,12 @@
  ------
- Maven 2 Native Plugin
+ Native Maven Plugin: Usage
  ------
  Dan T. Tran
  <dantran@gmail.com>
  ------
  September 29, 2005
 
-Overview
-
-  Use this plugin to compile c and c++ code under Maven 2 with  
-  compilers such as gcc, msvc, bcc, ... 
-
-How to use
+Usage
 
   Here is step by step instructions:
   

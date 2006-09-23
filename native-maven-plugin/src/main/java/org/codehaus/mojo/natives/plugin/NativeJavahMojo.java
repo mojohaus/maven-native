@@ -160,7 +160,7 @@ public class NativeJavahMojo
     }
     
     /**
-     * Get all jars in the pom excluding transitive dependencies, and jar in
+     * Get all jars in the pom excluding transitive dependencies, and jars in
      * test and provided scope.  
      * @return
      */

@@ -17,10 +17,14 @@ Examples
    <packaging>dll</packaging>
    
    <dependencies>
-     
-     add your jar which has jni interface
-     add other native libs to be linked in
-   
+     <dependency>
+       your jar which has jni interface.
+     </dependency>
+     <dependency>
+       other native library ( .lib, .so, .a, .o, etc)
+       to be linked in.
+     </dependency>
+     ...
    </dependencies>
    
    ...
@@ -35,9 +39,9 @@ Examples
          
            <compilerProvider>msvc</compilerProvider>
            
-           <!-- setup compiler/link environment according to msvc 6 vcvars32.bat -->
-           <!-- without this setting, you will need to setup the environment out -->
-           <!-- side of Maven                                                    -->
+           <!-- setup compiler and linker environment according to msvc 6 vcvars32.bat -->
+           <!-- without this setting, you will need to setup the environment outside   -->
+           <!-- of Maven                                                               -->
            
            <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC6EnvFactory</envFactoryName>
            
@@ -54,7 +58,8 @@ Examples
           
            <sources>
              <source>
-               <directory> a relative directory to ${basedir} </directory>
+               <-- relative to your project directory -->
+               <directory>../src/main/native</directory>
                <fileNames>
                  <fileName>file1.c</fileName>
                  <fileName>file2.c</fileName>
@@ -62,7 +67,7 @@ Examples
                </fileNames>
              </source>
              <source>
-               <directory> a relative directory to ${basedir} </directory>
+               <directory>src/main/native</directory> 
                <fileNames>
                  <fileName>file3.c</fileName>
                  <fileName>file4.c</fileName>
@@ -72,12 +77,12 @@ Examples
             
              <!-- additional include path -->
              <source>
-               <directory>a relative directory to ${basedir} </directory>
+               <directory>...</directory>
              </source>          
 
              <!-- additional system include path -->
              <source>
-               <directory> a relative directory to ${basedir} </directory>
+               <directory>...</directory>
                <dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>
              </source>          
            </sources>
@@ -125,9 +130,9 @@ Examples
 
   Note:
   
-  * User is responsible to provide all neccessary compiler and  linker options
+  * User is responsible to provide all neccessary compiler and linker options
   
-  * envFactoryName is used to set up compiler and link specific environment.  
+  * envFactoryName is used to set up compiler and linker specific environments.  
     This feature is extremely useful when you need to use various compilers 
     in your build system and it is impossible to set up single
     global environment to accomodate all compilers.
