@@ -49,6 +49,11 @@ public class MSVCResourceCompiler
         
         EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );        
         		
+        if ( config.getWorkingDirectory() != null )
+        {
+            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        }        
+        
         cl.setExecutable( "rc.exe" );
         
         cl.addArguments( config.getOptions() );
