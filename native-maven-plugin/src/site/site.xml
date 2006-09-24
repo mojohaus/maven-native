@@ -36,13 +36,15 @@
       </links>
       <menu name="Native Plugin">
          <item name="Introduction" href="index.html"/>
-         <item name="Usage" href="index.html"/>
+         <item name="Usage" href="usage.html"/>
          <item name="Build Lifecycle" href="lifecycle.html"/>
          <item name="Providers" href="providers.html"/>
          <item name="Environments" href="envfactory.html"/>
-         <item name="Examples" href="examples.html"/>
          <item name="Goals" href="plugin-info.html"/>
          <item name="Howto" href="howto.html"/>
+      </menu>
+      <menu name="Examples">
+         <item name="DLL-JNI" href="examples/jni-dll.html"/>
       </menu>
       ${reports}
    </body>

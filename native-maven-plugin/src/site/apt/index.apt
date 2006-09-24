@@ -35,7 +35,9 @@ Native Maven Plugin
   
 * Examples
 
-  High level example can be found {{{examples.html}here}}.
+
+  {{{examples/jni-dll.html}Build DLL with JNI}}.
+
   
   Buildable examples can be found in 
      {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/}SCM}}
