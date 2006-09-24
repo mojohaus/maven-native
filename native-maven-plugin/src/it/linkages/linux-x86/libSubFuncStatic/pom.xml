@@ -42,18 +42,19 @@
             <linkerStartOption>-r</linkerStartOption>
           </linkerStartOptions>
           
-          <executions>
-            <execution>
-              <id>ranlib</id>
-              <phase>package</phase>
-              <goals>
-                <goal>ranlib</goal>
-              </goals>
-            </execution>
-          </executions>
-          
         </configuration>
-        
+
+        <!-- ranlib the output of the linker, ie the static lib -->
+        <executions>
+          <execution>
+            <id>ranlib</id>
+            <phase>package</package>
+            <goals>
+              <goal>ranlib</goal>
+            </goals>
+          </execution>
+        </executions>
+      
       </plugin>
 
     </plugins>    
