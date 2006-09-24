@@ -42,6 +42,16 @@
             <linkerStartOption>-r</linkerStartOption>
           </linkerStartOptions>
           
+          <executions>
+            <execution>
+              <id>ranlib</id>
+              <phase>package</phase>
+              <goals>
+                <goal>ranlib</goal>
+              </goals>
+            </execution>
+          </executions>
+          
         </configuration>
         
       </plugin>
