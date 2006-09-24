@@ -88,7 +88,7 @@ public class NativeResourceCompileMojo
         FileUtils.mkdir( project.getBuild().getDirectory() );
 
         ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
-        config.setBaseDir( this.project.getBasedir() );
+        config.setWorkingDirectory( this.project.getBasedir() );
         config.setOptions( NativeMojoUtils.trimParams( this.options ) );
         config.setOutputDirectory( this.outputDirectory );
         config.setEnvFactoryName( this.envFactoryName );

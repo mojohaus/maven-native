@@ -41,7 +41,7 @@ public class ResourceCompilerConfiguration
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    private File baseDir;
+    private File workingDirectory;
 
     private File outputDirectory;
 
@@ -57,14 +57,14 @@ public class ResourceCompilerConfiguration
     {
     }
 
-    public File getBaseDir()
+    public File getWorkingDirectory()
     {
-        return this.baseDir;
+        return this.workingDirectory;
     }
 
-    public void setBaseDir( File basedir )
+    public void setWorkingDirectory( File dir )
     {
-        this.baseDir = basedir;
+        this.workingDirectory = dir;
     }
 
     public String[] getOptions()
