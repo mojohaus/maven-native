@@ -35,10 +35,12 @@ Native Maven Plugin
   
 * Examples
 
+  * Buildable examples can be found in 
+  {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/}SCM}}
 
-  {{{examples/jni-dll.html}Build DLL with JNI}}.
+  * {{{examples/jni-dll.html}Build DLL with JNI}}.
 
+  * {{{examples/static-lib-ranlib.html}Build static library including ranlib}}.
   
-  Buildable examples can be found in 
-     {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/}SCM}}
+  * {{{examples/share-lib.html}Build share library on Unix}}.
   

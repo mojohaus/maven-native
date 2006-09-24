@@ -41,10 +41,12 @@
          <item name="Providers" href="providers.html"/>
          <item name="Environments" href="envfactory.html"/>
          <item name="Goals" href="plugin-info.html"/>
-         <item name="Howto" href="howto.html"/>
+         <item name="FAQ" href="howto.html"/>
       </menu>
       <menu name="Examples">
-         <item name="DLL-JNI" href="examples/jni-dll.html"/>
+         <item name="jni-dll" href="examples/jni-dll.html"/>
+         <item name="ar-ranlib" href="examples/static-lib-ranlib.html"/>
+         <item name="share-lib" href="examples/share-lib.html"/>
       </menu>
       ${reports}
    </body>
