@@ -20,7 +20,7 @@ public class NativeJavahMojoTest
         throws Exception
     {
         File pluginXml = new File( getBasedir(), "src/test/resources/javah/plugin-config.xml" );
-        NativeJavahMojo mojo = (NativeJavahMojo) lookupMojo( "javah", pluginXml );
+        NativeJavahMojo mojo = (NativeJavahMojo) this.lookupMojo( "javah", pluginXml );
         
         mojo.execute();
         

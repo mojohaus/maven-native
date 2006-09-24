@@ -63,13 +63,13 @@ public class DefaultLinkerManager
     public Linker getLinker( String providerType )
         throws NoSuchNativeProviderException
     {
-    	Linker scmProvider = (Linker) providers.get( providerType );
+    	Linker provider = (Linker) providers.get( providerType );
 
-        if ( scmProvider == null )
+        if ( provider == null )
         {
             throw new NoSuchNativeProviderException( providerType );
         }
 
-        return scmProvider;
+        return provider;
     }
 }

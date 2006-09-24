@@ -61,5 +61,17 @@
       </requirements>
     </component>    
     
+    <component>
+      <role>org.codehaus.mojo.natives.manager.RanlibManager</role>
+      <role-hint>native-ranlib-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultRanlibManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.linker.Ranlib</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+    </component>    
+    
   </components>
 </component-set>

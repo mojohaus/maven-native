@@ -22,14 +22,15 @@ package org.codehaus.mojo.natives.plugin;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Ranlib;
+import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
+import org.codehaus.mojo.natives.manager.RanlibManager;
 
 /**
  * ranlib a Unix linker output file
@@ -41,35 +42,58 @@ import org.codehaus.mojo.natives.linker.Ranlib;
 public class NativeRanlibMojo
     extends AbstractNativeMojo
 {
-       
     /**
-     * Ranlib engine
-     * @parameter expression="${component.org.codehaus.mojo.natives.linker.Ranlib}"
+     * Ranlib Provider. 
+     * @parameter default-value="default"
      * @required
-     * @readonly
      */
-  
-    private Ranlib ranlib; 
-    
+    private String provider;
+
+    /**
+     * To look up javah implementation
+     * @parameter expression="${component.org.codehaus.mojo.natives.manager.RanlibManager}"
+     * @required
+     */
+
+    private RanlibManager manager;
+
     public void execute()
         throws MojoExecutionException
     {
-        try 
+        try
         {
             String finalName = this.project.getBuild().getFinalName();
-            
-            Artifact artifact = this.project.getArtifact();
-            
-            File outputFile = new File ( this.outputDirectory.getAbsolutePath() + "/" + 
-                                         finalName + "." + 
-                                         artifact.getArtifactHandler().getExtension() );
+
+            String fileExt = this.project.getArtifact().getArtifactHandler().getExtension();
+
+            File outputFile = new File( this.outputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
+
+            Ranlib ranlib = this.getRanlib();
             
             ranlib.run( outputFile );
         }
         catch ( NativeBuildException e )
         {
-    		throw new MojoExecutionException( "Error executing ranlib.", e );
-		}
+            throw new MojoExecutionException( "Error executing ranlib.", e );
+        }
     }
-    
+
+    private Ranlib getRanlib()
+        throws MojoExecutionException
+    {
+        Ranlib ranlib;
+
+        try
+        {
+            ranlib = this.manager.getRanlib( this.provider );
+
+        }
+        catch ( NoSuchNativeProviderException pe )
+        {
+            throw new MojoExecutionException( pe.getMessage() );
+        }
+
+        return ranlib;
+    }
+
 }

@@ -3,13 +3,6 @@
   <components>
 
     <component>
-      <role>org.codehaus.mojo.natives.exec.Exec</role>
-      <role-hint>default</role-hint>
-      <implementation>org.codehaus.mojo.natives.exec.DefaultExec</implementation>
-      <instantiation-strategy>per-lookup</instantiation-strategy>
-    </component>
-
-    <component>
       <role>org.codehaus.mojo.natives.linker.Linker</role>
       <role-hint>ar</role-hint>
       <implementation>org.codehaus.mojo.natives.linker.ArchiveLinker</implementation>
@@ -18,7 +11,7 @@
 
     <component>
       <role>org.codehaus.mojo.natives.linker.Ranlib</role>
-      <role-hint>ranlib</role-hint>
+      <role-hint>default</role-hint>
       <implementation>org.codehaus.mojo.natives.linker.DefaultRanlib</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>

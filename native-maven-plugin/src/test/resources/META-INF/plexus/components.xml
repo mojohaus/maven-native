@@ -21,6 +21,13 @@
       <implementation>org.codehaus.mojo.natives.noop.NoopJavah</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
+
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Ranlib</role>
+      <role-hint>noop</role-hint>
+      <implementation>org.codehaus.mojo.natives.noop.NoopRanlib</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
     
   </components>
 </component-set>

@@ -24,52 +24,16 @@ package org.codehaus.mojo.natives.manager;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.javah.Javah;
-
-import org.codehaus.plexus.logging.AbstractLogEnabled;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.codehaus.mojo.natives.linker.Ranlib;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
+ * @version $Id: $
  */
 
-public class DefaultJavahManager 
-    extends AbstractLogEnabled
-    implements JavahManager, Initializable
+public interface RanlibManager 
 {
-	private Map providers;
+	String ROLE = RanlibManager.class.getName();
 
-    // ----------------------------------------------------------------------
-    // Component Lifecycle
-    // ----------------------------------------------------------------------
-
-    public void initialize()
-    {
-        if ( providers == null )
-        {
-        	providers = new HashMap();
-        }
-
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No linker providers configured." );
-        }
-    }
-    
-    public Javah getJavah( String providerType )
-        throws NoSuchNativeProviderException
-    {
-    	Javah provider = (Javah) providers.get( providerType );
-
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
-        }
-
-        return provider;
-    }
+	Ranlib getRanlib( String roleHint ) throws NoSuchNativeProviderException;
 }
