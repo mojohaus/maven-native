@@ -23,7 +23,7 @@ public class JavahExecutableTest
         String[] classNames = { "className1", "className2" };
         config.setClassNames( classNames );
 
-        config.setOutputDirectory( new File( getBasedir() ) );
+        config.setOutputDirectory( new File( getBasedir(), "target/native" ) );
 
     }
 
@@ -33,8 +33,10 @@ public class JavahExecutableTest
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand( config );
 
+        File outputDir = new File( getBasedir(), "target/native" );
+        
         assertEquals( "javah", cl.getExecutable() );
-        assertEquals( "javah -d " + getBasedir() + " -classpath path1" + File.pathSeparator
+        assertEquals( "javah -d " + outputDir.getPath() + " -classpath path1" + File.pathSeparator
             + "path2 className1 className2", cl.toString() );
     }
 
@@ -45,7 +47,21 @@ public class JavahExecutableTest
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand( config );
 
-        assertEquals( "javah -o " + getBasedir() + File.separator + "fileName " + "-classpath path1"
+        File outputFile = new File( getBasedir(), "target/native/" + "fileName" );
+        assertEquals( "javah -o " + outputFile.getPath() + " -classpath path1"
             + File.pathSeparator + "path2 className1 className2", cl.toString() );
+    }
+
+    public void testWorkingDirectory()
+        throws Exception
+    {
+        JavahExecutable javah = new JavahExecutable();
+        
+        File workingDirectory = new File( getBasedir() );
+        config.setWorkingDirectory( workingDirectory );
+        
+        Commandline cl = javah.createJavahCommand( config );
+        
+        assertEquals( workingDirectory, cl.getWorkingDirectory() );
     }
 }

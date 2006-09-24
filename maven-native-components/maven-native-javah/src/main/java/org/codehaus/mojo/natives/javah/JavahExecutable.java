@@ -62,7 +62,7 @@ public class JavahExecutable
         
         if ( config.getWorkingDirectory() != null )
         {
-            cl.setWorkingDirectory( config.getOutputDirectory().getPath() );
+            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
         }
         	    
         cl.setExecutable( this.getJavaHExecutable() );
