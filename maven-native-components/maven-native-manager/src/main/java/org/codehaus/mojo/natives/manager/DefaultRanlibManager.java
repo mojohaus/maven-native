@@ -24,7 +24,6 @@ package org.codehaus.mojo.natives.manager;
  * SOFTWARE.
 */
 
-import org.codehaus.mojo.natives.javah.Javah;
 import org.codehaus.mojo.natives.linker.Ranlib;
 
 import org.codehaus.plexus.logging.AbstractLogEnabled;

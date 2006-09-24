@@ -32,7 +32,6 @@ import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.manager.LinkerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
-import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 

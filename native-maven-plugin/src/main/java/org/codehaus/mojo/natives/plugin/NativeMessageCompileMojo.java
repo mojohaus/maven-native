@@ -22,11 +22,9 @@ package org.codehaus.mojo.natives.plugin;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
@@ -45,7 +43,7 @@ import java.util.List;
  */
 
 public class NativeMessageCompileMojo
-    extends AbstractMojo
+    extends AbstractNativeMojo
 {
 
     /**
@@ -55,7 +53,6 @@ public class NativeMessageCompileMojo
      */
     private String provider;
 
-    
     /**
      * @description Compiler options
      * @parameter 
@@ -63,25 +60,10 @@ public class NativeMessageCompileMojo
     private List options;
 
     /**
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    protected MavenProject project;
-    
-    /**
-     * @description where to place the genered include files
-     * @parameter expression="${project.build.directory}/native"
-     * @required
-     */
-    protected File outputDirectory;
-    
-    /**
      * @parameter 
      * @required
      */
-    protected File [] messageFiles;
-    
+    protected File[] messageFiles;
 
     /**
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.MessageCompilerManager}"
@@ -89,53 +71,60 @@ public class NativeMessageCompileMojo
      */
     private MessageCompilerManager manager;
 
-        
     /**
      * Specifies a fully qualified class name implementing the 
      * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
      * a set environment variables to be used with the command line.
      * @parameter
      */
-    protected String envFactoryName;   
-        
+    protected String envFactoryName;
+
     public void execute()
         throws MojoExecutionException
     {
-        
-        if ( ! this.outputDirectory.exists() )
+
+        if ( !this.outputDirectory.exists() )
         {
             this.outputDirectory.mkdirs();
         }
-        
-    	MessageCompiler compiler;
-        
-    	try 
-    	{
-    	    compiler = this.manager.getMessageCompiler( this.provider );
-    	}
-    	catch ( NoSuchNativeProviderException pe )
-    	{
-    		throw new MojoExecutionException( pe.getMessage() );
-    	}
-    	
-    	MessageCompilerConfiguration config = new MessageCompilerConfiguration();
-        
-    	config.setBaseDir( this.project.getBasedir() );
-    	config.setOutputDirectory ( this.outputDirectory );
+
+        MessageCompiler compiler = this.getMessageCompiler();
+
+        MessageCompilerConfiguration config = new MessageCompilerConfiguration();
+
+        config.setWorkingDirectory( this.project.getBasedir() );
+        config.setOutputDirectory( this.outputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.options ) );
         config.setEnvFactoryName( this.envFactoryName );
-        
-    	try 
-    	{
-    		compiler.compile( config, this.messageFiles );
-    	}
-    	catch ( NativeBuildException e ) 
-    	{
-    		throw new MojoExecutionException ( e.getMessage(), e );
-    	}
-        
+
+        try
+        {
+            compiler.compile( config, this.messageFiles );
+        }
+        catch ( NativeBuildException e )
+        {
+            throw new MojoExecutionException( e.getMessage(), e );
+        }
+
         this.project.addCompileSourceRoot( this.outputDirectory.getAbsolutePath() );
 
     }
 
+    private MessageCompiler getMessageCompiler()
+        throws MojoExecutionException
+    {
+        MessageCompiler mc;
+
+        try
+        {
+            mc = this.manager.getMessageCompiler( this.provider );
+
+        }
+        catch ( NoSuchNativeProviderException pe )
+        {
+            throw new MojoExecutionException( pe.getMessage() );
+        }
+
+        return mc;
+    }
 }

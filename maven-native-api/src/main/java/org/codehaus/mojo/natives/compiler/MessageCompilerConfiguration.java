@@ -36,7 +36,7 @@ public class MessageCompilerConfiguration
     extends ConfigurationBase
 {
 
-    private File baseDir;
+    private File workingDirectory;
 
     private File outputDirectory;
 
@@ -48,14 +48,14 @@ public class MessageCompilerConfiguration
     {
     }
 
-    public File getBaseDir()
+    public File getWorkingDirectory()
     {
-        return this.baseDir;
+        return this.workingDirectory;
     }
 
-    public void setBaseDir( File basedir )
+    public void setWorkingDirectory( File dir )
     {
-        this.baseDir = basedir;
+        this.workingDirectory = dir;
     }
 
     public String[] getOptions()
@@ -72,7 +72,6 @@ public class MessageCompilerConfiguration
             this.options = new String[0];
 
         }
-
     }
 
     public File getOutputDirectory()

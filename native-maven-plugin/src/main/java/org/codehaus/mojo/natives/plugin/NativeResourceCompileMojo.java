@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.plugin;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -53,7 +53,7 @@ public class NativeResourceCompileMojo
      * @required
      */
     private String provider;
- 
+
     /**
      * Resource compiler options
      * @parameter 
@@ -64,9 +64,8 @@ public class NativeResourceCompileMojo
      * Array of NativeSources containing include directories and source files
      * @parameter
      */
-    
-    private NativeSources [] sources;
-    
+
+    private NativeSources[] sources;
 
     /**
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.ResourceCompilerManager}"
@@ -78,44 +77,51 @@ public class NativeResourceCompileMojo
     public void execute()
         throws MojoExecutionException
     {
-        
-        if ( ! this.outputDirectory.exists() )
+
+        if ( !this.outputDirectory.exists() )
         {
             this.outputDirectory.mkdirs();
         }
-        
-    	ResourceCompiler compiler;
-        
-    	try 
-    	{
-            compiler = this.manager.getResourceCompiler( this.provider );
-    	}
-    	catch ( NoSuchNativeProviderException pe )
-    	{
-    		throw new MojoExecutionException( pe.getMessage() );
-    	}
-    	
-    	FileUtils.mkdir( project.getBuild().getDirectory() );
 
-    	
-    	ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
-    	config.setBaseDir( this.project.getBasedir() );
-    	config.setOptions( NativeMojoUtils.trimParams( this.options )  );
-    	config.setOutputDirectory ( this.outputDirectory );
-    	config.setEnvFactoryName( this.envFactoryName );
-    	
+        ResourceCompiler compiler = this.getResourceCompiler();
+
+        FileUtils.mkdir( project.getBuild().getDirectory() );
+
+        ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
+        config.setBaseDir( this.project.getBasedir() );
+        config.setOptions( NativeMojoUtils.trimParams( this.options ) );
+        config.setOutputDirectory( this.outputDirectory );
+        config.setEnvFactoryName( this.envFactoryName );
+
         List resourceOutputFiles;
-    	try 
-    	{
-            resourceOutputFiles = compiler.compile( config, this.sources  );
-    	}
-    	catch ( NativeBuildException e ) 
-    	{
-    		throw new MojoExecutionException ( e.getMessage(), e );
-    	}
-        
-    	this.saveCompilerOutputFilePaths( resourceOutputFiles );
-        
+        try
+        {
+            resourceOutputFiles = compiler.compile( config, this.sources );
+        }
+        catch ( NativeBuildException e )
+        {
+            throw new MojoExecutionException( e.getMessage(), e );
+        }
+
+        this.saveCompilerOutputFilePaths( resourceOutputFiles );
+
     }
 
+    private ResourceCompiler getResourceCompiler()
+        throws MojoExecutionException
+    {
+        ResourceCompiler rc;
+
+        try
+        {
+            rc = this.manager.getResourceCompiler( this.provider );
+
+        }
+        catch ( NoSuchNativeProviderException pe )
+        {
+            throw new MojoExecutionException( pe.getMessage() );
+        }
+
+        return rc;
+    }
 }

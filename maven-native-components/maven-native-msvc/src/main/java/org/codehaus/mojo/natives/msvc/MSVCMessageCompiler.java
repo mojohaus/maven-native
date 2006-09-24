@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
@@ -36,22 +36,22 @@ import java.io.File;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public class MSVCMessageCompiler 
+public class MSVCMessageCompiler
     extends AbstractMessageCompiler
 {
-	
-	protected Commandline getCommandLine( MessageCompilerConfiguration config, File source )
-	   throws NativeBuildException
-	{
-				
-		Commandline cl = new Commandline();
 
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );        
-        
+    protected Commandline getCommandLine( MessageCompilerConfiguration config, File source )
+        throws NativeBuildException
+    {
+
+        Commandline cl = new Commandline();
+
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+
         cl.setExecutable( "mc.exe" );
-        
+
         cl.addArguments( config.getOptions() );
-        
+
         if ( config.getOutputDirectory() != null && config.getOutputDirectory().getPath().trim().length() != 0 )
         {
             cl.createArgument().setValue( "-r" );
@@ -59,18 +59,19 @@ public class MSVCMessageCompiler
 
             cl.createArgument().setValue( "-h" );
             cl.createArgument().setValue( config.getOutputDirectory().getPath() );
-            
+
         }
 
-        if ( config.getDebugOutputDirectory() != null && config.getDebugOutputDirectory().getPath().trim().length() != 0 )
+        if ( config.getDebugOutputDirectory() != null
+            && config.getDebugOutputDirectory().getPath().trim().length() != 0 )
         {
             cl.createArgument().setValue( "-x" );
             cl.createArgument().setValue( config.getDebugOutputDirectory().getPath() );
         }
-        
+
         cl.createArgument().setValue( source.getPath() );
-               
-		return cl;
-	}
+
+        return cl;
+    }
 
 }
