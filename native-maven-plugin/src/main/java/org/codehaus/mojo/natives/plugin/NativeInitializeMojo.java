@@ -26,6 +26,7 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -48,7 +49,7 @@ public class NativeInitializeMojo
      * @required
      * @readonly
      */
-    private MavenProject project;
+    protected MavenProject project;
         
     public void execute()
         throws MojoExecutionException
@@ -62,6 +63,11 @@ public class NativeInitializeMojo
             buildDirectory.mkdirs();
         }
         
+        //strip version from finalName;
+        String finalName = project.getArtifactId();
+        
+        project.getBuild().setFinalName( finalName );
+                
     }
 
 }

@@ -9,7 +9,7 @@
 
 Build static library including ranlib on Unix
 
-  The example uses the default compiler(gcc) to build the source, then
+  This example uses the default compiler(gcc) to build the source, then
   override the linkerProvider to have Unix 'ar' to build the static 
   library, after that apply Unix 'ranlib' on the output of 'ar' command.
   Complete example is

@@ -10,7 +10,7 @@
 
   <packaging>maven-plugin</packaging>
 
-  <name>Maven Native Plugin</name>
+  <name>Maven Plugin</name>
   
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>native-maven-plugin</artifactId>

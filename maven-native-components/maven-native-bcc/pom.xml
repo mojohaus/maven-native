@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-bcc</artifactId>
   
-  <name>Maven Native Provider - Borland Compiler</name>
+  <name>BCC</name>
   
   <dependencies>
   

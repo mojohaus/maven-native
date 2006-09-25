@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-generic-c</artifactId>
   
-  <name>Maven Native Provider - Generic C/C++ compiler and linker</name>
+  <name>Generic C/C++</name>
   
   <dependencies>
     <dependency>

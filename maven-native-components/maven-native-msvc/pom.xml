@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-msvc</artifactId>
   
-  <name>Maven Native Provider - MSVC compiler and linker</name>
+  <name>MSVC</name>
   
   <dependencies>
   

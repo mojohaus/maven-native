@@ -25,7 +25,6 @@
   
   
   <build>
-    <finalName>${artifactId}</finalName>
     
     <testSourceDirectory>../src/test/java</testSourceDirectory>
     

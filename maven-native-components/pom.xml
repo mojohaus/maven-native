@@ -12,7 +12,7 @@
   
   <artifactId>maven-native-components</artifactId>
   
-  <name>Maven Native Components</name>
+  <name>Components</name>
   
   <dependencies>
   
@@ -34,8 +34,8 @@
   </dependencies>
 
   <modules>
-    <module>maven-native-javah</module>
     <module>maven-native-manager</module>
+    <module>maven-native-javah</module>
     <module>maven-native-generic-c</module>
     <module>maven-native-bcc</module>
     <module>maven-native-msvc</module>

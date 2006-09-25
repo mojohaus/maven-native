@@ -22,15 +22,13 @@ package org.codehaus.mojo.natives.javah;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
-
 import java.io.File;
-
 
 /**
  * Sun's javah compatible implementation
@@ -38,33 +36,33 @@ import java.io.File;
  * @version $Id$
  */
 
-public class JavahExecutable 
-    extends AbstractJavah 
+public class JavahExecutable
+    extends AbstractJavah
 {
-	public JavahExecutable()
-	{
-	}
-	
-	public void compile( JavahConfiguration config ) 
-	    throws NativeBuildException
-	{
-		Commandline cl = this.createJavahCommand( config );
-		
-		CommandLineUtil.execute( cl, this.getLogger() );
-	}
-	
-	protected Commandline createJavahCommand( JavahConfiguration config) 
-	    throws NativeBuildException
-	{
+    public JavahExecutable()
+    {
+    }
+
+    public void compile( JavahConfiguration config )
+        throws NativeBuildException
+    {
+        Commandline cl = this.createJavahCommand( config );
+
+        CommandLineUtil.execute( cl, this.getLogger() );
+    }
+
+    protected Commandline createJavahCommand( JavahConfiguration config )
+        throws NativeBuildException
+    {
         this.validateConfiguration( config );
-        
-	    Commandline cl = new Commandline();
-        
+
+        Commandline cl = new Commandline();
+
         if ( config.getWorkingDirectory() != null )
         {
             cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
         }
-        	    
+
         cl.setExecutable( this.getJavaHExecutable() );
 
         if ( config.getFileName() != null && config.getFileName().length() > 0 )
@@ -75,18 +73,18 @@ public class JavahExecutable
         }
         else
         {
-	        if ( config.getOutputDirectory() != null )
-	        {
-	    	    cl.createArgument().setValue( "-d" );
-	    	    cl.createArgument().setFile( config.getOutputDirectory() );
-	        }
+            if ( config.getOutputDirectory() != null )
+            {
+                cl.createArgument().setValue( "-d" );
+                cl.createArgument().setFile( config.getOutputDirectory() );
+            }
         }
 
-        String [] classPaths = config.getClassPaths();
-        
+        String[] classPaths = config.getClassPaths();
+
         StringBuffer classPathBuffer = new StringBuffer();
-        
-        for ( int i = 0 ; i < classPaths.length ; ++ i )
+
+        for ( int i = 0; i < classPaths.length; ++i )
         {
             classPathBuffer.append( classPaths[i] );
             if ( i != classPaths.length - 1 )
@@ -95,53 +93,52 @@ public class JavahExecutable
             }
         }
 
-     	cl.createArgument().setValue( "-classpath" );
-	    	
-	   	cl.createArgument().setValue( classPathBuffer.toString() );
+        cl.createArgument().setValue( "-classpath" );
 
-	    if ( config.getVerbose() )
-	    {
-	    	cl.createArgument().setValue( "-verbose" );
-	    }
+        cl.createArgument().setValue( classPathBuffer.toString() );
+
+        if ( config.getVerbose() )
+        {
+            cl.createArgument().setValue( "-verbose" );
+        }
 
         cl.addArguments( config.getClassNames() );
-	    
+
         return cl;
-	}
-	
+    }
+
     private void validateConfiguration( JavahConfiguration config )
         throws NativeBuildException
     {
         if ( config.getClassPaths() == null || config.getClassPaths().length == 0 )
         {
-            throw new NativeBuildException( "javah classpaths can not be empty.");
+            throw new NativeBuildException( "javah classpaths can not be empty." );
         }
-        
+
         if ( config.getOutputDirectory() == null )
         {
-            throw new NativeBuildException( "javah destDir can not be empty.");
+            throw new NativeBuildException( "javah destDir can not be empty." );
         }
-        
-        if ( ! config.getOutputDirectory().exists() )
+
+        if ( !config.getOutputDirectory().exists() )
         {
             config.getOutputDirectory().mkdirs();
         }
 
         if ( config.getClassNames() == null || config.getClassNames().length == 0 )
         {
-            throw new NativeBuildException( "javah: java classes can not be empty.");
+            throw new NativeBuildException( "javah: java classes can not be empty." );
         }
-        
-        
+
     }
-    
+
     /**
      * assume javah executable is on system path
      * @return
      */
-	protected String getJavaHExecutable()
-	{
+    protected String getJavaHExecutable()
+    {
         return "javah";
-	}
+    }
 
 }

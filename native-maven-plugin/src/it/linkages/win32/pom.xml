@@ -17,7 +17,7 @@
   
   
   <build>
-    <finalName>${artifactId}</finalName>
+    
     <plugins>
       <!-- share configuration to all win32 artifact -->
       <plugin>
