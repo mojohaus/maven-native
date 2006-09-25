@@ -13,9 +13,7 @@ Usage
   * Determine your packaging type 
   
   * Determine your linker dependencies
-  
-  * Configure your build and plugin header.
-    
+      
   * Determine your source directories and its source files
   
   * Determine your compiler and linker providers
@@ -85,14 +83,7 @@ Usage
      </plugins>
    </build>
 ----------------------
-  
-* Setup your build and plugin header
-
-  Since this plugin uses its own lifecycle, you need to enable plugin's <extensions> to true
-  
-  Here is example of declaring your packaging type and plugin header
-  
-    
+      
 * Dependencies
 
     * Dependencies with type "lib", "so" and "a", "sl", "jnilib", "dylib" "o", and "obj" 
@@ -105,8 +96,8 @@ Usage
     Internally, this plugin copies all dependencies to ${project.build.directory}/lib
     without the version tag.  
     
-    The following examples show 2 .so dependency files to be linked to the final output
-    file.
+    The following examples show 2 .so dependency files, and other files in
+    linker option to be linked to the final output file.
   
 ----------------------
   
@@ -127,6 +118,24 @@ Usage
      </dependency>
    </dependencies>
    
+   <build>
+     <plugins>
+       <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>native-maven-plugin</artifactId>
+         <extensions>true</extensions>
+         <configuration>
+           ....
+           
+          <linkerStartOptions>
+            <linkerStartOption>-shared -lxml2 -lz -lpthread -ldl</linkerStartOption> 
+          </linkerStartOptions>
+         
+         </configuration>
+       </plugin>
+     </plugins>
+   </build>
+    
 ----------------------   
    
      
@@ -200,6 +209,27 @@ Usage
       and "/out:" msvc linker, etc. 
       
     []
+    
+    The following example use <generic-classic> with executable as <CC>.
+    Note since we dont change the linker provider, it is will use the 
+    the same provider compiler provider name.
+    
+------------------------
+
+   <build>   
+     <plugins>
+       <plugin>
+          ...
+         <configuration>
+           <compilerProvider>generic-classic</compilerProvider>
+           <compilerExecutable>CC</compilerExecutable>
+           ....         
+         </configuration>
+       </plugin>
+     </plugins>
+   </build>
+   
+-----------------------        
   
 * Compiler/Linker options and flags 
 
