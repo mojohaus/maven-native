@@ -20,9 +20,6 @@
     <plugins>
       <plugin>
         <artifactId>maven-scm-plugin</artifactId>
-        <configuration>
-          <!--branch>PRE_STARTEAM_branch</branch-->
-        </configuration>
         <executions>
           <execution>
             <id>fetch</id>
@@ -31,7 +28,7 @@
               <goal>checkout</goal>
             </goals>
             <configuration>
-              <connectionUrl>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/cpptest:cpptest</connectionUrl>
+              <connectionUrl>scm:cvs:pserver:anonymous:@cpptest.cvs.sourceforge.net:/cvsroot/cpptest:cpptest</connectionUrl>
               <checkoutDirectory>${project.build.directory}</checkoutDirectory>
             </configuration>
           </execution>          
