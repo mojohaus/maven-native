@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.FileUtils;
+
 
 /*
  * The MIT License
@@ -43,9 +44,7 @@ public class NativeSources
     private String [] fileNames = new String [0];
     
     private boolean dependencyAnalysisParticipation = true;
-    
-    private boolean includePathActive = true;
-    
+        
     public NativeSources()
     {
         
@@ -86,16 +85,6 @@ public class NativeSources
         this.dependencyAnalysisParticipation = flag;
     }
     
-    public boolean getIncludePathActive()
-    {
-        return this.includePathActive;
-    }
-    
-    public void setIncludePathActive( boolean flag )
-    {
-        this.includePathActive = flag;
-    }
-    
     /////////////////////////////////////////////////////////////////////////
     //                              HELPERS
     /////////////////////////////////////////////////////////////////////////
@@ -111,30 +100,6 @@ public class NativeSources
         return appendList;
     }
 
-    private List appendSourceListWithExtensionTranlation( List appendList, String extension )
-    {
-        for ( int i = 0 ; i < this.fileNames.length; ++i )
-        {
-            String [] tokens = StringUtils.split( this.getFileNames()[i], "." );
-            
-            String fileNameWithoutExtension = "";
-            
-            for ( int t = 0 ; t < tokens.length - 1; ++t  )
-            {
-                fileNameWithoutExtension += tokens[t];
-                if ( t != tokens.length - 2 )
-                {
-                    fileNameWithoutExtension += ".";
-                }
-            }
-            
-            File source = new File ( directory.getAbsolutePath() + "/" + fileNameWithoutExtension + "." + extension );
-            
-            appendList.add( source );
-        }
-        
-        return appendList;
-    }
 
     /**
      * Helper to get all source files in a Array of NativeSources
@@ -154,46 +119,12 @@ public class NativeSources
         {
             sources[i].appendSourceList( sourceFiles );
         }
-        
-        
+                
         return (File []) sourceFiles.toArray( new File[0] );
         
     }
 
-    /**
-     * Helper to get all source files in a Array of NativeSources
-     * @param sources
-     * @return
-     */
-    public static File [] getAllSourceFilesWithExtensionTranslation( NativeSources [] sources, String extension )
-    {
-        if ( sources == null ) 
-        {
-            return new File [0];
-        }
-        
-        List sourceFiles = new ArrayList();
-        
-        for ( int i = 0 ; i < sources.length; ++i )
-        {
-            sources[i].appendSourceListWithExtensionTranlation( sourceFiles, extension );
-        }
-        
-        return (File []) sourceFiles.toArray( new File[0] );
-        
-    }
     
-    public static File [] getAllDirectories( NativeSources [] sources )
-    {
-        File [] directories = new File[sources.length];
-        
-        for ( int i = 0 ; i < sources.length; ++i )
-        {
-            directories[i] = sources[i].getDirectory();
-        }
-        
-        return directories;
-    }
     
     public static File [] getIncludePaths( NativeSources [] sources )
     {
@@ -206,7 +137,7 @@ public class NativeSources
 
         for ( int i = 0 ; i < sources.length; ++i )
         {
-            if ( sources[i].getIncludePathActive() && sources[i].getDependencyAnalysisParticipation() )
+            if ( sources[i].getDependencyAnalysisParticipation() )
             {
                 list.add( sources[i].getDirectory() );
             }
@@ -226,7 +157,7 @@ public class NativeSources
 
         for ( int i = 0 ; i < sources.length; ++i )
         {
-            if ( sources[i].getIncludePathActive() && !sources[i].getDependencyAnalysisParticipation() )
+            if ( !sources[i].getDependencyAnalysisParticipation() )
             {
                 list.add( sources[i].getDirectory() );
             }
