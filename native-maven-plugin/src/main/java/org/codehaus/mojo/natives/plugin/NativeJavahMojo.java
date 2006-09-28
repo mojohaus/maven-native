@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.plugin;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
@@ -51,7 +51,6 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-
 /**
  * Generate jni include files based on a set of class names
  * @goal javah
@@ -64,13 +63,13 @@ import java.util.zip.ZipFile;
 public class NativeJavahMojo
     extends AbstractMojo
 {
-    
+
     /**
      * Javah Provider. 
      * @parameter default-value="default"
      * @required
      */
-    private String implementation;	
+    private String implementation;
 
     /**
      * List of class names to generate native files. Default is all
@@ -78,7 +77,7 @@ public class NativeJavahMojo
      * transitive dependencies, jars with test scope and provided scope     
      * @parameter 
      */
-    private String [] classNames;
+    private String[] classNames;
 
     /**
      * Internal readonly property.
@@ -101,7 +100,7 @@ public class NativeJavahMojo
      * @optional
      */
     private String outputFileName;
-    
+
     /**
      * Enable javah verbose mode
      * @parameter default-value="false"
@@ -109,7 +108,7 @@ public class NativeJavahMojo
      */
 
     private boolean verbose;
-    
+
     /**
      * To look up javah implementation
      * @parameter expression="${component.org.codehaus.mojo.natives.manager.JavahManager}"
@@ -117,48 +116,48 @@ public class NativeJavahMojo
      */
 
     private JavahManager manager;
-    
+
     /**
      * For unittest only
      */
     private JavahConfiguration config;
-    
+
     public void execute()
         throws MojoExecutionException
     {
-   	
-    	try
-    	{
+
+        try
+        {
             this.config = this.createProviderConfiguration();
             this.getJavah().compile( config );
-    	}
-    	catch ( NativeBuildException e )
-    	{
-    		throw new MojoExecutionException( "Error running javah command", e );
-    	}
-    	
-    	this.project.addCompileSourceRoot( this.outputDirectory.getAbsolutePath() );
-        
+        }
+        catch ( NativeBuildException e )
+        {
+            throw new MojoExecutionException( "Error running javah command", e );
+        }
+
+        this.project.addCompileSourceRoot( this.outputDirectory.getAbsolutePath() );
+
     }
-    
+
     private Javah getJavah()
         throws MojoExecutionException
     {
         Javah javah;
-        
+
         try
         {
             javah = this.manager.getJavah( this.implementation );
-                    
+
         }
         catch ( NoSuchNativeProviderException pe )
         {
             throw new MojoExecutionException( pe.getMessage() );
-        } 
+        }
 
         return javah;
     }
-    
+
     /**
      * Get all jars in the pom excluding transitive dependencies, and jars in
      * test and provided scope.  
@@ -167,21 +166,21 @@ public class NativeJavahMojo
     private List getJavahArtifacts()
     {
         List list = new ArrayList();
-        
+
         Set artifacts = this.project.getDependencyArtifacts();
 
         for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
         {
             Artifact artifact = (Artifact) iter.next();
-        	
+
             //exclude some other scopes
-            if ( !Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) &&
-                !Artifact.SCOPE_TEST.equals( artifact.getScope() ) )
+            if ( !Artifact.SCOPE_PROVIDED.equals( artifact.getScope() )
+                && !Artifact.SCOPE_TEST.equals( artifact.getScope() ) )
             {
-            	list.add( artifact );
+                list.add( artifact );
             }
         }
-        
+
         return list;
     }
 
@@ -190,34 +189,33 @@ public class NativeJavahMojo
      * (i.e. classes directory )
      * @return
      */
-    private String [] getJavahClassPath()
+    private String[] getJavahClassPath()
     {
         List artifacts = this.getJavahArtifacts();
 
-        String [] classPaths = new String[ artifacts.size()  + 1 ];
-        
+        String[] classPaths = new String[artifacts.size() + 1];
+
         classPaths[0] = this.project.getBuild().getOutputDirectory();
-        
+
         Iterator iter = artifacts.iterator();
-        
-        for ( int i = 1 ; i < classPaths.length; ++i ) 
+
+        for ( int i = 1; i < classPaths.length; ++i )
         {
             Artifact artifact = (Artifact) iter.next();
-            
+
             classPaths[i] = artifact.getFile().getPath();
         }
-        
+
         return classPaths;
     }
-    
-    
-	/**
-	 * 
-	 * Get applicable class names to be "javahed" 
-	 * 
+
+    /**
+     * 
+     * Get applicable class names to be "javahed" 
+     * 
      */
- 
-    private String [] getNativeClassNames() 
+
+    private String[] getNativeClassNames()
         throws MojoExecutionException
     {
         if ( this.classNames != null )
@@ -226,57 +224,56 @@ public class NativeJavahMojo
         }
 
         //scan the immediate dependency list for jni classes
-        
+
         List artifacts = this.getJavahArtifacts();
-        
+
         List scannedClassNames = new ArrayList();
 
         for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
         {
             Artifact artifact = (Artifact) iter.next();
 
-        	this.getLog().info("Parsing " + artifact.getFile() + " for native classes." );
-            
-           	try 
-           	{
-           		Enumeration zipEntries  = new ZipFile( artifact.getFile() ).entries();
-           		
-           		while ( zipEntries.hasMoreElements() )
-           		{
-           			ZipEntry zipEntry = (ZipEntry) zipEntries.nextElement();
-            			
-           			if ( "class".equals( FileUtils.extension( zipEntry.getName() ) ) )
-           			{
-           	            ClassParser parser = new ClassParser( artifact.getFile().getPath(), zipEntry.getName() );
-            	            
-           	    		JavaClass clazz  = parser.parse();
+            this.getLog().info( "Parsing " + artifact.getFile() + " for native classes." );
 
-           	    		Method [] methods = clazz.getMethods();
-            	    		
-           	    		for ( int j = 0; j < methods.length; ++j )
-           	    		{
-           	    			if ( methods[j].isNative() )
-           	    			{
+            try
+            {
+                Enumeration zipEntries = new ZipFile( artifact.getFile() ).entries();
+
+                while ( zipEntries.hasMoreElements() )
+                {
+                    ZipEntry zipEntry = (ZipEntry) zipEntries.nextElement();
+
+                    if ( "class".equals( FileUtils.extension( zipEntry.getName() ) ) )
+                    {
+                        ClassParser parser = new ClassParser( artifact.getFile().getPath(), zipEntry.getName() );
+
+                        JavaClass clazz = parser.parse();
+
+                        Method[] methods = clazz.getMethods();
+
+                        for ( int j = 0; j < methods.length; ++j )
+                        {
+                            if ( methods[j].isNative() )
+                            {
                                 scannedClassNames.add( clazz.getClassName() );
 
-           	    	        	this.getLog().info("Found native class: " + clazz.getClassName() );
-           	        			
-           	        			break;
-           	    			}
-           	    		}
-           			}
-           		}//endwhile
+                                this.getLog().info( "Found native class: " + clazz.getClassName() );
+
+                                break;
+                            }
+                        }
+                    }
+                }//endwhile
             }
             catch ( IOException ioe )
             {
-            	throw new MojoExecutionException( "Error searching for native class in dependencies", ioe );
+                throw new MojoExecutionException( "Error searching for native class in dependencies", ioe );
             }
         }
-    	
-    	return ( String [] ) scannedClassNames.toArray( new String[ scannedClassNames.size() ] );
+
+        return (String[]) scannedClassNames.toArray( new String[scannedClassNames.size()] );
     }
-    
-    
+
     private JavahConfiguration createProviderConfiguration()
         throws MojoExecutionException
     {
@@ -287,10 +284,10 @@ public class NativeJavahMojo
         config.setFileName( this.outputFileName );
         config.setClassPaths( this.getJavahClassPath() );
         config.setClassNames( this.getNativeClassNames() );
-        
+
         return config;
     }
-        
+
     /**
      * Internal only for test harness purpose
      * @return
@@ -298,14 +295,14 @@ public class NativeJavahMojo
     protected JavahConfiguration getJavahConfiguration()
     {
         return this.config;
-    }   
-    
+    }
+
     /**
      * Internal for unit test only
      */
-    
+
     protected MavenProject getProject()
     {
         return this.project;
-    }    
+    }
 }

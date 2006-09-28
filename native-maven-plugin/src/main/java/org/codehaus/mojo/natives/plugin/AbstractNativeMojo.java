@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.plugin;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -32,7 +32,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id$
@@ -41,11 +40,10 @@ import java.util.List;
 public abstract class AbstractNativeMojo
     extends AbstractMojo
 {
-	public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
-		
+    public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
+
     protected static final List EMPTY_FILE_LIST = new ArrayList();
-	
-	
+
     /**
      * POM
      * @parameter expression="${project}"
@@ -53,8 +51,7 @@ public abstract class AbstractNativeMojo
      * @readonly
      */
     protected MavenProject project;
-	
-	
+
     /**
      * Where to place the final packaging and compiler object files
      * @parameter expression="${project.build.directory}"
@@ -63,55 +60,52 @@ public abstract class AbstractNativeMojo
      */
     protected File outputDirectory;
 
-
     /**
      * Specifies a fully qualified class name implementing the 
      * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
      * a set environment variables to be used with the command line.
      * @parameter
      */
-    protected String envFactoryName;   
-    
-    
-    protected static String [] removeEmptyOptions( List args )
+    protected String envFactoryName;
+
+    protected static String[] removeEmptyOptions( List args )
     {
-    	return NativeMojoUtils.trimParams ( args );
+        return NativeMojoUtils.trimParams( args );
     }
-    
-    protected List getAllCompilersOutputFileList( )
+
+    protected List getAllCompilersOutputFileList()
     {
         List list = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
-        
-        if ( list == null ) 
+
+        if ( list == null )
         {
-        	list = new ArrayList();
-        	
-        	this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list );
+            list = new ArrayList();
+
+            this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list );
         }
-        
+
         return list;
 
     }
-    
+
     protected void saveCompilerOutputFilePaths( List filePaths )
-       throws MojoExecutionException
+        throws MojoExecutionException
     {
-    	List allCompilerOutputFileList = getAllCompilersOutputFileList();
-    	
+        List allCompilerOutputFileList = getAllCompilersOutputFileList();
+
         for ( int i = 0; i < filePaths.size(); ++i )
         {
-    	    File file = (File) filePaths.get(i);
-    	    allCompilerOutputFileList.add( file );
+            File file = (File) filePaths.get( i );
+            allCompilerOutputFileList.add( file );
         }
     }
-    
+
     /**
      * Internal for unit test only
      */
-    
+
     protected MavenProject getProject()
     {
         return this.project;
     }
 }
-    

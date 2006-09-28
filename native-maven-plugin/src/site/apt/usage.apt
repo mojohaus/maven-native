@@ -8,13 +8,13 @@
 
 Usage
 
-  Here is step by step instructions:
+  Here are general instructions to configure native-maven-plugin:
   
   * Determine your packaging type 
   
   * Determine your linker dependencies
       
-  * Determine your source files
+  * Determine your include paths and source files
   
   * Determine your compiler and linker providers
   
@@ -142,9 +142,17 @@ Usage
 * Include paths and source files  
 
   Include paths and source files are configured using <Source> configuration.
-  The following example shows the compilable source files consist of all
-  .cpp files ${basedir}/../src/main/native directory excluding <somefile.cpp> 
+  The following example shows the compilable source files consist of:
+  
+    * All <.cpp> files, <file1.c>, and <file2.c> under 
+      <${basedir}/../src/main/native> directory excluding <somefile.cpp>
+      
+    * <file3.c> and <file4.c> under <${basedir}/src/main/native>
    
+   []
+   
+  Include paths consist of all <${directory}> under <${sources}>
+  
 ------------------------
 
    <build>   
