@@ -82,9 +82,4 @@ public class AbstractDependencyTest
 		new File ( filePath ).delete();
 	}
     
-    protected static File getBasedir()
-    {
-        return new File( System.getProperty( "basedir" ) );
-    }
-
 }
