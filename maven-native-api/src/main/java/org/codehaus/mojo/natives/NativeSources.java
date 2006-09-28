@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.DirectoryScanner;
 
 
 /*
@@ -45,6 +45,10 @@ public class NativeSources
     
     private boolean dependencyAnalysisParticipation = true;
         
+    private String [] includes;
+
+    private String [] excludes;
+
     public NativeSources()
     {
         
@@ -75,6 +79,26 @@ public class NativeSources
         this.fileNames = fileNames;
     }
     
+    public String [] getIncludes()
+    {
+        return this.includes;
+    }
+    
+    public void setIncludes( String [] includes )
+    {
+        this.includes = includes;
+    }
+    
+    public String [] getExcludes()
+    {
+        return this.excludes;
+    }
+    
+    public void setExcludes( String [] excludes )
+    {
+        this.excludes = excludes;
+    }    
+    
     public boolean getDependencyAnalysisParticipation()
     {
         return this.dependencyAnalysisParticipation;
@@ -85,21 +109,58 @@ public class NativeSources
         this.dependencyAnalysisParticipation = flag;
     }
     
+    public List getFiles()
+    {
+        String [] filePaths = new String[0];
+        
+        if ( includes != null || excludes != null )
+        {
+            DirectoryScanner scanner = new DirectoryScanner();
+            scanner.setBasedir( this.directory );
+            scanner.setIncludes( includes );
+            scanner.setExcludes( excludes );
+            
+            scanner.scan();
+
+            filePaths = scanner.getIncludedFiles();
+        }
+        
+        List files = new ArrayList( filePaths.length + this.fileNames.length );
+        for ( int i = 0 ; i < filePaths.length; ++i )
+        {
+            files.add( new File( this.directory, filePaths[i] ) );
+        }
+        
+        //remove duplicate files 
+        for ( int i = 0; i < this.fileNames.length; ++i )
+        {
+            File file = new File( this.directory, this.fileNames[i] );
+            
+            boolean found = false;
+            
+            for ( int k = 0; k < filePaths.length; ++k )
+            {
+                if ( files.get( k ).equals( file ) )
+                {
+                    found = true;
+                    break;
+                }
+            }
+            
+            if ( ! found )
+            {
+                files.add( file );
+            }
+        }
+        
+        return files;
+        
+    }
+    
+    
     /////////////////////////////////////////////////////////////////////////
     //                              HELPERS
     /////////////////////////////////////////////////////////////////////////
-    private List appendSourceList( List appendList )
-    {
-        for ( int i = 0 ; i < this.fileNames.length; ++i )
-        {
-            File source = new File( this.directory.getAbsolutePath() + "/" + this.fileNames[i] );
-            
-            appendList.add( source );
-        }
-        
-        return appendList;
-    }
-
 
     /**
      * Helper to get all source files in a Array of NativeSources
@@ -112,16 +173,15 @@ public class NativeSources
         {
             return new File [0];
         }
-        
+                
         List sourceFiles = new ArrayList();
         
         for ( int i = 0 ; i < sources.length; ++i )
         {
-            sources[i].appendSourceList( sourceFiles );
+            sourceFiles.addAll( sources[i].getFiles() );
         }
                 
-        return (File []) sourceFiles.toArray( new File[0] );
-        
+        return (File []) sourceFiles.toArray( new File[sourceFiles.size()] );
     }
 
     
