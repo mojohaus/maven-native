@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-generic-c</artifactId>
   
-  <name>Generic C/C++</name>
+  <name>Maven Native C/C++</name>
   
   <dependencies>
     <dependency>

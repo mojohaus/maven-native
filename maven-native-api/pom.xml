@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-api</artifactId>
   
-  <name>API</name>
+  <name>Maven Native API</name>
   
   <dependencies>
   

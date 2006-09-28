@@ -12,7 +12,7 @@
   
   <artifactId>maven-native-components</artifactId>
   
-  <name>Components</name>
+  <name>Maven Native Components</name>
   
   <dependencies>
   

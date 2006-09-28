@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-bcc</artifactId>
   
-  <name>BCC</name>
+  <name>Maven Native BCC</name>
   
   <dependencies>
   

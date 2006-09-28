@@ -10,7 +10,7 @@
   
   <artifactId>maven-native-msvc</artifactId>
   
-  <name>MSVC</name>
+  <name>Maven Native MSVC</name>
   
   <dependencies>
   
