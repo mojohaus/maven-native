@@ -14,7 +14,7 @@ Usage
   
   * Determine your linker dependencies
       
-  * Determine your source directories and its source files
+  * Determine your source files
   
   * Determine your compiler and linker providers
   
@@ -139,10 +139,12 @@ Usage
 ----------------------   
    
      
-* Source Directories and Files  
+* Include paths and source files  
 
-  Include paths and source files must be configured using Sources configuration.  
-
+  Include paths and source files are configured using <Source> configuration.
+  The following example shows the compilable source files consist of all
+  .cpp files ${basedir}/../src/main/native directory excluding <somefile.cpp> 
+   
 ------------------------
 
    <build>   
@@ -157,10 +159,16 @@ Usage
              <source>
                <-- relative to your project directory -->
                <directory>../src/main/native</directory>
+               <!-- ant base wild card files>
+               <includes>
+                 <include>*.cpp</include>
+               </includes>
+               <excludes>
+                 <exclude>somefile.cpp</exclude>
+               </excludes>
                <fileNames>
                  <fileName>file1.c</fileName>
                  <fileName>file2.c</fileName>
-                 <fileName>...</fileName>
                </fileNames>
              </source>
              <source>
@@ -234,7 +242,7 @@ Usage
 * Compiler/Linker options and flags 
 
   You are responsible to provide compiler/linker options except those already included by
-  your compiler/linker providers ( see previous bullet )
+  your compiler/linker providers.
 
 * System Environments
 

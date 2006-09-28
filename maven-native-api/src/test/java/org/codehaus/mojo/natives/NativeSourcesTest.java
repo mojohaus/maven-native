@@ -109,4 +109,48 @@ public class NativeSourcesTest
 
         assertEquals( 0, files.size() );
     }
+
+    public void testGetAllSourceFiles()
+        throws Exception
+    {
+        NativeSources source = new NativeSources();
+
+        source.setDirectory( this.workDirectory );
+
+        String[] includes = { "*.c", "*.cpp" };
+        source.setIncludes( includes );
+
+        String[] fileNames = { "file1.c", "file2.c" };
+        source.setFileNames( fileNames );
+
+        //this file is unique comparing to above list 
+        File nodupFile = new File( this.workDirectory, "file3.c" );
+        nodupFile.createNewFile();
+
+        NativeSources[] sources = { source, source };
+
+        File[] files = NativeSources.getAllSourceFiles( sources );
+
+        assertEquals( 6, files.length );
+    }
+
+    public void testEmptyFileNames()
+        throws Exception
+    {
+        NativeSources source = new NativeSources();
+
+        source.setDirectory( this.workDirectory );
+
+        String[] includes = { "*.c", "*.cpp" };
+        source.setIncludes( includes );
+
+        File someFile = new File( this.workDirectory, "someFile.c" );
+        someFile.createNewFile();
+        
+        List files = source.getFiles();
+
+        assertEquals( 1, files.size() );
+
+    }
+
 }
