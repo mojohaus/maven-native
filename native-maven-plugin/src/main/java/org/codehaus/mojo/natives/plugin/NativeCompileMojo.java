@@ -58,6 +58,14 @@ public class NativeCompileMojo
     private String compilerProvider;
 
     /**
+     * Use this field to override object file extension.
+     * The default extenstions are .obj and .o on Windows and Unix respectively
+     * @parameter 
+     * @optional
+     */
+    private String objectFileExtension;
+
+    /**
      * Use this field to override provider specific compiler executable
      * @parameter 
      * @optional
@@ -118,7 +126,6 @@ public class NativeCompileMojo
 
     private CompilerManager manager;
 
-    
     public void execute()
         throws MojoExecutionException
     {
@@ -141,7 +148,7 @@ public class NativeCompileMojo
         this.addAdditionalIncludePath();
 
         CompilerConfiguration config = this.createProviderConfiguration();
-        
+
         List objectFiles;
         try
         {
@@ -237,17 +244,18 @@ public class NativeCompileMojo
         config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
         config.setOutputDirectory( this.outputDirectory );
         config.setEnvFactoryName( this.envFactoryName );
+        config.setObjectFileExtension( this.objectFileExtension );
 
         return config;
     }
 
     ////////////////////////////////////// UNIT TEST HELPERS ////////////////////////////////
-    
+
     /**
      * For unittest only
      */
     private CompilerConfiguration config;
-    
+
     /**
      * Internal only for test harness purpose
      * @return

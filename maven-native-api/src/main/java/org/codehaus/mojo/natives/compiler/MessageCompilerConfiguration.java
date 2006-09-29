@@ -35,6 +35,10 @@ import org.codehaus.mojo.natives.ConfigurationBase;
 public class MessageCompilerConfiguration
     extends ConfigurationBase
 {
+    /**
+     * Must be in your path
+     */
+    private String executable = "";
 
     private File workingDirectory;
 
@@ -46,6 +50,16 @@ public class MessageCompilerConfiguration
     
     public MessageCompilerConfiguration()
     {
+    }
+
+    public String getExecutable()
+    {
+        return this.executable;
+    }
+
+    public void setExecutable( String executable )
+    {
+        this.executable = executable;
     }
 
     public File getWorkingDirectory()

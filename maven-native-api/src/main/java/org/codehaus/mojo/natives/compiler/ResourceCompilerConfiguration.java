@@ -41,6 +41,11 @@ public class ResourceCompilerConfiguration
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
+    /**
+     * Must be in your path
+     */
+    private String executable = "";
+
     private File workingDirectory;
 
     private File outputDirectory;
@@ -55,6 +60,16 @@ public class ResourceCompilerConfiguration
     
     public ResourceCompilerConfiguration()
     {
+    }
+
+    public String getExecutable()
+    {
+        return this.executable;
+    }
+
+    public void setExecutable( String executable )
+    {
+        this.executable = executable;
     }
 
     public File getWorkingDirectory()

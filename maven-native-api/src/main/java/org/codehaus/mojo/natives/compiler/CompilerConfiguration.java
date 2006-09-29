@@ -47,6 +47,8 @@ public class CompilerConfiguration
      */
     private String executable;
 
+    private String objectFileExtension;
+
     /**
      * Will be passed to compiler executable 
      */
@@ -84,6 +86,16 @@ public class CompilerConfiguration
     public void setExecutable( String executable )
     {
         this.executable = executable;
+    }
+
+    public String getObjectFileExtension()
+    {
+        return this.objectFileExtension;
+    }
+
+    public void setObjectFileExtension( String ofe )
+    {
+        this.objectFileExtension = ofe;
     }
 
     public void setSystemIncludePaths( File[] paths )

@@ -29,6 +29,7 @@ import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractResourceCompiler;
 import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.Os;
 
 import java.io.File;
 
@@ -53,7 +54,11 @@ public class MSVCResourceCompiler
             cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
         }
 
-        cl.setExecutable( "rc.exe" );
+	if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+	{
+  	   config.setExecutable ( "rc.exe" );
+	}
+	cl.setExecutable(config.getExecutable().trim());
 
         cl.addArguments( config.getOptions() );
 

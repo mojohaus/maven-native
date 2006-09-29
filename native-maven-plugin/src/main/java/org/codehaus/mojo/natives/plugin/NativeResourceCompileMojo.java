@@ -55,10 +55,17 @@ public class NativeResourceCompileMojo
     private String provider;
 
     /**
+     * Use this field to override provider specific resource compiler executable
+     * @parameter 
+     * @optional
+     */
+    private String resourceCompilerExecutable;
+
+    /**
      * Resource compiler options
      * @parameter 
      */
-    private List options;
+    private List resourceCompilerOptions;
 
     /**
      * Array of NativeSources containing include directories and source files
@@ -88,8 +95,9 @@ public class NativeResourceCompileMojo
         FileUtils.mkdir( project.getBuild().getDirectory() );
 
         ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
+        config.setExecutable( this.resourceCompilerExecutable );
         config.setWorkingDirectory( this.project.getBasedir() );
-        config.setOptions( NativeMojoUtils.trimParams( this.options ) );
+        config.setOptions( NativeMojoUtils.trimParams( this.resourceCompilerOptions ) );
         config.setOutputDirectory( this.outputDirectory );
         config.setEnvFactoryName( this.envFactoryName );
 

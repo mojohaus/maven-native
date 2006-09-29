@@ -64,7 +64,7 @@ public abstract class AbstractCompiler
         {
             File source = sourceFiles[i];
 
-            File objectFile = getObjectFile( source, config.getOutputDirectory() );
+            File objectFile = getObjectFile( source, config.getOutputDirectory(), config.getObjectFileExtension() );
 
             compilerOutputFiles.add( objectFile );
 
@@ -94,34 +94,45 @@ public abstract class AbstractCompiler
     }
 
     /**
-     * return "obj" or "o" file extension name based on current platform
+     * return "obj" or "o" when file extension is not given based on current platform
      * @return
      */
-    protected static String getObjectFileExtension()
+    protected static String getObjectFileExtension( String fileExtension )
     {
-        // TODO is it a good assumption?
-        if ( Os.isFamily( "windows" ) )
+        if ( fileExtension != null )
         {
-            return "obj";
+            return fileExtension;
         }
         else
         {
-            return "o";
+            if ( Os.isFamily( "windows" ) )
+            {
+                return "obj";
+            }
+            else
+            {
+                return "o";
+            }
         }
     }
 
     /**
      * Figure out the object file path from a given source file
      * @param sourceFile
+     * @param outputDirectory
+     * @param config
      * @return
      */
-    protected static File getObjectFile( File sourceFile, File outputDirectory )
+    protected static File getObjectFile( File sourceFile, File outputDirectory, String objectFileExtension )
         throws NativeBuildException
     {
         String objectFileName;
 
         try
         {
+
+            objectFileExtension = AbstractCompiler.getObjectFileExtension( objectFileExtension );
+
             //plexus-util requires that we remove all ".." in the the file source, so getCanonicalPath is required
             // other filename with .. and no extension will throw StringIndexOutOfBoundsException
 
@@ -129,11 +140,11 @@ public abstract class AbstractCompiler
 
             if ( objectFileName.charAt( objectFileName.length() - 1 ) != '.' )
             {
-                objectFileName += "." + getObjectFileExtension();
+                objectFileName += "." + objectFileExtension;
             }
             else
             {
-                objectFileName += getObjectFileExtension();
+                objectFileName += objectFileExtension;
             }
         }
         catch ( IOException e )

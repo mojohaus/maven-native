@@ -54,10 +54,17 @@ public class NativeMessageCompileMojo
     private String provider;
 
     /**
+     * Use this field to override provider specific message compiler executable
+     * @parameter 
+     * @optional
+     */
+    private String messageCompilerExecutable;
+
+    /**
      * @description Compiler options
      * @parameter 
      */
-    private List options;
+    private List messageCompilerOptions;
 
     /**
      * @parameter 
@@ -92,9 +99,10 @@ public class NativeMessageCompileMojo
 
         MessageCompilerConfiguration config = new MessageCompilerConfiguration();
 
+        config.setExecutable( this.messageCompilerExecutable );
         config.setWorkingDirectory( this.project.getBasedir() );
         config.setOutputDirectory( this.outputDirectory );
-        config.setOptions( NativeMojoUtils.trimParams( this.options ) );
+        config.setOptions( NativeMojoUtils.trimParams( this.messageCompilerOptions ) );
         config.setEnvFactoryName( this.envFactoryName );
 
         try
