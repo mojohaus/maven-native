@@ -38,30 +38,30 @@ import org.codehaus.mojo.natives.util.EnvUtil;
  */
 
 public class MSVC2003EnvFactory
-    extends  AbstractMSVCEnvFactory
+    extends AbstractMSVCEnvFactory
 {
     private static final String MSVS2003_INSTALL_ENV_KEY = "MSVS2003_INSTALL_DIR";
 
     private static final String DEFAULT_MSVS2003_INSTALL_DIR = "C:/Program Files/Microsoft Visual Studio .NET 2003";
 
-    
     private static Map envs;
-    
-    public synchronized Map getEnvironmentVariables() 
+
+    public synchronized Map getEnvironmentVariables()
         throws NativeBuildException
     {
         if ( envs == null )
         {
             envs = createEnvs();
         }
-        
+
         return envs;
     }
-    
-    private  Map createEnvs()
+
+    private Map createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
+        File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY,
+                                                      DEFAULT_MSVS2003_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {

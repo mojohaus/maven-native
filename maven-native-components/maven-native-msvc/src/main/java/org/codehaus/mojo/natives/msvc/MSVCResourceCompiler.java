@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
@@ -36,43 +36,42 @@ import java.io.File;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public class MSVCResourceCompiler 
+public class MSVCResourceCompiler
     extends AbstractResourceCompiler
 {
-	
-	
-	protected Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
-	   throws NativeBuildException
-	{
-				
-		Commandline cl = new Commandline();
-        
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );        
-        		
+
+    protected Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
+        throws NativeBuildException
+    {
+
+        Commandline cl = new Commandline();
+
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+
         if ( config.getWorkingDirectory() != null )
         {
             cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
-        }        
-        
+        }
+
         cl.setExecutable( "rc.exe" );
-        
+
         cl.addArguments( config.getOptions() );
-        
-        for ( int i = 0; i < config.getIncludePaths().length; ++ i )
+
+        for ( int i = 0; i < config.getIncludePaths().length; ++i )
         {
             String includePath = config.getIncludePaths()[i].getPath();
-            
+
             cl.createArgument().setValue( "/i" );
-            
+
             cl.createArgument().setValue( includePath );
         }
 
-        for ( int i = 0; i < config.getSystemIncludePaths().length; ++ i )
+        for ( int i = 0; i < config.getSystemIncludePaths().length; ++i )
         {
             String includePath = config.getIncludePaths()[i].getPath();
-            
+
             cl.createArgument().setValue( "/i" );
-            
+
             cl.createArgument().setValue( includePath );
         }
 
@@ -81,8 +80,8 @@ public class MSVCResourceCompiler
         cl.createArgument().setValue( config.getOutputFile( source ).getPath() );
 
         cl.createArgument().setValue( source.getPath() );
-		       
-		return cl;
-	}
+
+        return cl;
+    }
 
 }

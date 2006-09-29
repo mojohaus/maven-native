@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
@@ -36,26 +36,26 @@ import java.util.List;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public class MSVCLinker 
+public class MSVCLinker
     extends CLinker
 {
-    
-	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+
+    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException
-	{
-		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-		{
-			config.setExecutable ( "link.exe" );
-		}
-				
-		Commandline cl = super.createLinkerCommandLine( objectFiles, config );
-				
-		return cl;
-	}
-	
-	protected String getLinkerOutputOption()
-	{
-		return "/out:";
-	}
+    {
+        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+        {
+            config.setExecutable( "link.exe" );
+        }
+
+        Commandline cl = super.createLinkerCommandLine( objectFiles, config );
+
+        return cl;
+    }
+
+    protected String getLinkerOutputOption()
+    {
+        return "/out:";
+    }
 
 }

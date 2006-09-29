@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 import java.util.HashMap;
@@ -37,37 +37,36 @@ import org.codehaus.mojo.natives.util.EnvUtil;
  *
  */
 
-public class MSVC6EnvFactory 
-    extends AbstractMSVCEnvFactory 
+public class MSVC6EnvFactory
+    extends AbstractMSVCEnvFactory
 {
-	private static final String MSVS6_INSTALL_ENV_KEY = "MSVS6_INSTALL_DIR";
-	private static final String DEFAULT_MSVS6_INSTALL_DIR= "C:/Program Files/Microsoft Visual Studio" ;
-	
-    
+    private static final String MSVS6_INSTALL_ENV_KEY = "MSVS6_INSTALL_DIR";
+
+    private static final String DEFAULT_MSVS6_INSTALL_DIR = "C:/Program Files/Microsoft Visual Studio";
+
     private static Map envs;
-    
-    public synchronized Map getEnvironmentVariables() 
+
+    public synchronized Map getEnvironmentVariables()
         throws NativeBuildException
     {
         if ( envs == null )
         {
             envs = createEnvs();
         }
-        
+
         return envs;
     }
-    
-     
+
     private Map createEnvs()
-      throws NativeBuildException
-	{
-		File vsDir = new File ( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
-		
-		if ( ! vsDir.isDirectory() )
-		{
-			throw new NativeBuildException( vsDir.getPath() + " is not a directory." );
-		}
-		
+        throws NativeBuildException
+    {
+        File vsDir = new File( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
+
+        if ( !vsDir.isDirectory() )
+        {
+            throw new NativeBuildException( vsDir.getPath() + " is not a directory." );
+        }
+
         Map envs = new HashMap();
 
         String vcOsDir = "WINNT";
@@ -87,24 +86,17 @@ public class MSVC6EnvFactory
         //setup new PATH
         String currentPath = System.getProperty( "java.library.path" );
 
-        String newPath = msDevDir.getPath() + "\\BIN;" + 
-                         msvcDir.getPath() + "\\BIN;" + 
-                         vsCommonToolDir.getPath()+ "\\" + vcOsDir + ";" + 
-                         vsCommonToolDir.getPath() + ";" + 
-                         winDir + ";" + 
-                         currentPath;
+        String newPath = msDevDir.getPath() + "\\BIN;" + msvcDir.getPath() + "\\BIN;" + vsCommonToolDir.getPath()
+            + "\\" + vcOsDir + ";" + vsCommonToolDir.getPath() + ";" + winDir + ";" + currentPath;
 
         envs.put( "PATH", newPath );
 
         //setup new INCLUDE PATH
         String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludePath = msvcDir.getPath() + "\\ATL\\INCLUDE;" + 
-                                msvcDir.getPath() + "\\INCLUDE;"      + 
-                                msvcDir.getPath() + "\\MFC\\INCLUDE;" + 
-                                vsCommonToolDir.getPath() + vcOsDir + ";" +
-                                vsCommonToolDir.getPath() + ";" + 
-                                currentIncludePath;
+        String newIncludePath = msvcDir.getPath() + "\\ATL\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;"
+            + msvcDir.getPath() + "\\MFC\\INCLUDE;" + vsCommonToolDir.getPath() + vcOsDir + ";"
+            + vsCommonToolDir.getPath() + ";" + currentIncludePath;
 
         envs.put( "INCLUDE", newIncludePath );
 
@@ -113,14 +105,12 @@ public class MSVC6EnvFactory
         //
         String currentLibPath = EnvUtil.getEnv( "LIB" );
 
-        String newLibPath = msvcDir.getPath() + "\\LIB;" + 
-                            msvcDir.getPath() + "\\MFC\\LIB;" + 
-                            currentLibPath;
+        String newLibPath = msvcDir.getPath() + "\\LIB;" + msvcDir.getPath() + "\\MFC\\LIB;" + currentLibPath;
 
         envs.put( "LIB", newLibPath );
 
         return envs;
-		
-	}
+
+    }
 
 }

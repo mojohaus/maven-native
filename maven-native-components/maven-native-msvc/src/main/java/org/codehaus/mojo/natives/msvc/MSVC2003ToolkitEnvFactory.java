@@ -38,29 +38,31 @@ import org.codehaus.mojo.natives.util.EnvUtil;
  */
 
 public class MSVC2003ToolkitEnvFactory
-    extends  AbstractMSVCEnvFactory
+    extends AbstractMSVCEnvFactory
 {
     private static final String MSVC2003_TOOLKIT_INSTALL_ENV_KEY = "MSVC2003_TOOLKIT_INSTALL_DIR";
 
     private static final String DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR = "C:/Program Files/Microsoft Visual C++ Toolkit 2003";
 
     private static Map envs;
-    
-    public synchronized Map getEnvironmentVariables() 
+
+    public synchronized Map getEnvironmentVariables()
         throws NativeBuildException
     {
         if ( envs == null )
         {
             envs = createEnvs();
         }
-        
+
         return envs;
     }
-    
-    private  Map createEnvs()
+
+    private Map createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir = new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY, MSVC2003_TOOLKIT_INSTALL_ENV_KEY, DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
+        File vcInstallDir = new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
+                                                      MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
+                                                      DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {

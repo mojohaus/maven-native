@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.msvc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.AbstractCCompiler;
@@ -37,42 +37,42 @@ import java.util.Properties;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public class MSVCCompiler 
+public class MSVCCompiler
     extends AbstractCCompiler
 {
-	private Map environmentVariables;
-    
-    protected void setEnvironmentVariables ( Map envs )
+    private Map environmentVariables;
+
+    protected void setEnvironmentVariables( Map envs )
     {
         this.environmentVariables = envs;
     }
-    
+
     protected Map getEnvironmentVariables()
     {
         if ( this.environmentVariables == null )
         {
-            return new Properties ();
+            return new Properties();
         }
-        
+
         return this.environmentVariables;
     }
-    
-	protected String getOutputFileOption()
-	{
-		return "/Fo";
-	}
-	
-	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
-	   throws NativeBuildException
-	{
-		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-		{
-			config.setExecutable ( "cl.exe" );
-		}
-				
-		Commandline cl = super.getCommandLine( src, dest, config );
-        
-		return cl;
-	}
-	
+
+    protected String getOutputFileOption()
+    {
+        return "/Fo";
+    }
+
+    protected Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
+        throws NativeBuildException
+    {
+        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+        {
+            config.setExecutable( "cl.exe" );
+        }
+
+        Commandline cl = super.getCommandLine( src, dest, config );
+
+        return cl;
+    }
+
 }

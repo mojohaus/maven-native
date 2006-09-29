@@ -30,8 +30,8 @@ package org.codehaus.mojo.natives.msvc;
  *
  */
 
-public abstract class  AbstractMSVC2005EnvFactory
-    extends  AbstractMSVCEnvFactory
+public abstract class AbstractMSVC2005EnvFactory
+    extends AbstractMSVCEnvFactory
 {
     protected static final String MSVS2005_INSTALL_ENV_KEY = "MSVS2005_INSTALL_DIR";
 
