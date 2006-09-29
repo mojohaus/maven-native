@@ -22,8 +22,7 @@ package org.codehaus.mojo.natives.c;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
-
+ */
 
 /**
  * Generic C/CPP compiler with "-o" as its output option
@@ -32,13 +31,13 @@ package org.codehaus.mojo.natives.c;
  * @version $Id$
  */
 
-public class CCompilerClassic 
+public class CCompilerClassic
     extends AbstractCCompiler
 {
-		
-	protected String getOutputFileOption()
-	{
-		return "-o";
-	}
-	
+
+    protected String getOutputFileOption()
+    {
+        return "-o";
+    }
+
 }

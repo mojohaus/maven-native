@@ -41,7 +41,9 @@ import org.codehaus.mojo.natives.parser.CParser;
 public abstract class AbstractCCompiler
     extends AbstractCompiler
 {
-    //resuable parser in one Compilation session
+    /**
+     * resuable parser in one Compilation session
+     */
 
     private Parser parser = new CParser();
 
@@ -90,11 +92,11 @@ public abstract class AbstractCCompiler
         return cl;
     }
 
-    private void setOptions( Commandline cl, CompilerConfiguration config, String[] options )
+    private void setOptions( Commandline cl, String[] options )
     {
         if ( options != null )
         {
-            for ( int i = 0; options != null && i < options.length; ++i )
+            for ( int i = 0; i < options.length; ++i )
             {
                 cl.createArgument().setValue( options[i] );
             }
@@ -103,17 +105,17 @@ public abstract class AbstractCCompiler
 
     private void setStartOptions( Commandline cl, CompilerConfiguration config )
     {
-        this.setOptions( cl, config, config.getStartOptions() );
+        this.setOptions( cl, config.getStartOptions() );
     }
 
     private void setMiddleOptions( Commandline cl, CompilerConfiguration config )
     {
-        this.setOptions( cl, config, config.getMiddleOptions() );
+        this.setOptions( cl, config.getMiddleOptions() );
     }
 
     private void setEndOptions( Commandline cl, CompilerConfiguration config )
     {
-        this.setOptions( cl, config, config.getEndOptions() );
+        this.setOptions( cl, config.getEndOptions() );
     }
 
     private void setIncludePaths( Commandline cl, CompilerConfiguration config, File [] includePaths )

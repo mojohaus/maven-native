@@ -44,6 +44,9 @@ public class CLinker
     extends AbstractLinker
 {
 
+    /**
+     * @return Commandline of a linker base on its configuration and object files
+     */
     protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException
     {
@@ -96,12 +99,22 @@ public class CLinker
         return cl;
 
     }
-
+    
+    /**
+     * 
+     * @return output option flag of a generic C linker
+     */
     protected String getLinkerOutputOption()
     {
         return "-o ";
     }
 
+    /**
+     * Setup Commandline to handle external library depending on extention type
+     * @param cl Commandline
+     * @param config LinkerConfiguration
+     * @throws NativeBuildException
+     */
     protected void setCommandLineForExternalLibraries( Commandline cl, LinkerConfiguration config )
         throws NativeBuildException
     {
@@ -147,7 +160,7 @@ public class CLinker
 
                 if ( libFileName.startsWith( "lib" ) )
                 {
-                    libName = libName.substring( 3 );
+                    libName = libName.substring( "lib".length() );
                 }
 
                 cl.createArgument().setValue( "-l" + libName );
@@ -156,16 +169,15 @@ public class CLinker
     }
 
     /**
-     * Get relative path to working directory if possible
-     * @param path
-     * @param workingDirectory
-     * @return
+     * @param path String
+     * @param baseDirectory String
+     * @return relative path to a base directory if possible
      */
-    private String truncatePath( String path, String workingDirectory )
+    private String truncatePath( String path, String baseDirectory )
     {
-        if ( path.indexOf( workingDirectory ) >= 0 )
+        if ( path.indexOf( baseDirectory ) >= 0 )
         {
-            path = path.substring( path.indexOf( workingDirectory ) + workingDirectory.length() );
+            path = path.substring( path.indexOf( baseDirectory ) + baseDirectory.length() );
             if ( path.startsWith( File.separator ) )
             {
                 path = path.substring( File.separator.length() );
