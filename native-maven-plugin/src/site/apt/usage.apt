@@ -18,10 +18,8 @@ Usage
   
   * Determine your compiler and linker providers
   
-  * Determine your compiler and linker options and flags  
-  
-  * Determine your system environment factory
-  
+  * Determine your compiler and linker arguments  
+   
   []
   
 * Packaging Type
@@ -53,13 +51,12 @@ Usage
   One of these packaging types will go into the your pom.xml's packaging element.
   
   The native build lifecyle uses packaging type as the extension of 
-  the build artifact( ie dll, exe, lib, etc ). However, it has no detailed knowledge 
+  the build artifact( ie dll, exe, lib, etc ). However, it has minimal knowledge 
   to build each specific extension.  You must configure appropriate compiler/linker 
-  options at build phase. See Compiler Option.
+  options at build phase.
   
   "uexe" is a place holder for executable without extension name usually found
-  on UNIX environment.  The final artifact will have extension of "uexe".  You will need 
-  to remove the extension yourself at assembly time (see maven-assembly-plugin).
+  on UNIX environment.  The final artifact will have extension of "uexe".  
   
   Since this plugin uses its own lifecycle, you need to enable plugin's <extensions> to true
   
@@ -78,6 +75,7 @@ Usage
          <artifactId>native-maven-plugin</artifactId>
          <extensions>true</extensions>
          <configuration>
+            ...
          </configuration>
        </plugin>
      </plugins>
@@ -93,10 +91,10 @@ Usage
     
     []
     
-    Internally, this plugin copies all dependencies to ${project.build.directory}/lib
+    Internally, this plugin copies all dependencies to \$\{project.build.directory\}/lib
     without the version tag.  
     
-    The following examples show 2 .so dependency files, and other files in
+    The following example shows 2 .so dependency files, and other files in
     linker option to be linked to the final output file.
   
 ----------------------
@@ -126,11 +124,9 @@ Usage
          <extensions>true</extensions>
          <configuration>
            ....
-           
-          <linkerStartOptions>
-            <linkerStartOption>-shared -lxml2 -lz -lpthread -ldl</linkerStartOption> 
-          </linkerStartOptions>
-         
+           <linkerStartOptions>
+             <linkerStartOption>-shared -lxml2 -lz -lpthread -ldl</linkerStartOption> 
+           </linkerStartOptions>
          </configuration>
        </plugin>
      </plugins>
@@ -142,16 +138,16 @@ Usage
 * Include paths and source files  
 
   Include paths and source files are configured using <Source> configuration.
-  The following example shows the compilable source files consist of:
+  The following example shows a set of compilable source files consist of:
   
     * All <.cpp> files, <file1.c>, and <file2.c> under 
       <${basedir}/../src/main/native> directory excluding <somefile.cpp>
       
-    * <file3.c> and <file4.c> under <${basedir}/src/main/native>
+    * <file3.c> and <file4.c> under \${basedir}/src/main/native>
    
    []
    
-  Include paths consist of all <${directory}> under <${sources}>
+  Include paths consist of all \<${directory}\> under \<${sources}\>
   
 ------------------------
 
@@ -209,7 +205,7 @@ Usage
 * Compiler/Linker Provider
 
   If you are on a UNIX system, use the default "generic", or "generic-classic" but overwrite 
-  compilerExecutable and linkerExecutable configuration specific to 
+  <compilerExecutable> and <linkerExecutable> configuration specific to 
   your build. Default values for both generic compiler and linker are "gcc".
   Makesure the executables are on your path.
   
@@ -227,8 +223,8 @@ Usage
     []
     
     The following example use <generic-classic> with executable as <CC>.
-    Note since we dont change the linker provider, it is will use the 
-    the same provider compiler provider name.
+    Note since we dont change the linker provider, it is will use the same
+    name as the compiler provider name.
     
 ------------------------
 
@@ -247,16 +243,28 @@ Usage
    
 -----------------------        
   
-* Compiler/Linker options and flags 
+* Compiler/Linker arguments 
 
-  You are responsible to provide compiler/linker options except those already included by
-  your compiler/linker providers.
-
-* System Environments
-
-  Optionally, you can configure <EnvFactoryName> to apply a set of known environment
-  variables to each command line produced by compiler/linker provider. 
- 
+  You can inject your specific compiler and linker arguments to the final compiler 
+  and linker command lines via:
+  
+    * \<compilerStartOptions\>
+    
+    * \<compilerMiddleOptions\>
+    
+    * \<compilerEndOptions\>
+    
+    * \<linkerStartOptions\>
+    
+    * \<linkerMiddleOptions\>
+    
+    * \<linkerEndOptions\> 
+    
+    []
+    
+  Usually a pair of \<compilerStartOptions\> and \<linkerStartOptions\>
+  should be sufficient.
+  
   
   
 

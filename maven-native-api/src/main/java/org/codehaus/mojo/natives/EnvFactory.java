@@ -33,5 +33,10 @@ import java.util.Map;
  */
 public interface EnvFactory 
 {
-	public Map getEnvironmentVariables() throws NativeBuildException;
+    /**
+     * 
+     * @return a map of environment variable/value pairs
+     * @throws NativeBuildException
+     */
+	Map getEnvironmentVariables() throws NativeBuildException;
 }

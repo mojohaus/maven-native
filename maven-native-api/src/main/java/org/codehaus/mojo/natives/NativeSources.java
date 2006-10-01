@@ -54,21 +54,37 @@ public class NativeSources
         
     }
     
+    /**
+     * 
+     * @return
+     */
     public File getDirectory()
     {
         return this.directory;
     }
     
+    /**
+     * 
+     * @param directory
+     */
     public void setDirectory( File directory )
     {
         this.directory = directory;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String [] getFileNames()
     {
         return this.fileNames;
     }
     
+    /**
+     * 
+     * @param fileNames
+     */
     public void setFileNames( String [] fileNames )
     {
         if ( fileNames == null )
@@ -79,31 +95,55 @@ public class NativeSources
         this.fileNames = fileNames;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String [] getIncludes()
     {
         return this.includes;
     }
     
+    /**
+     * 
+     * @param includes
+     */
     public void setIncludes( String [] includes )
     {
         this.includes = includes;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String [] getExcludes()
     {
         return this.excludes;
     }
     
+    /**
+     * 
+     * @param excludes
+     */
     public void setExcludes( String [] excludes )
     {
         this.excludes = excludes;
     }    
     
+    /**
+     * 
+     * @return
+     */
     public boolean getDependencyAnalysisParticipation()
     {
         return this.dependencyAnalysisParticipation;
     }
     
+    /**
+     * 
+     * @param flag
+     */
     public void setDependencyAnalysisParticipation( boolean flag )
     {
         this.dependencyAnalysisParticipation = flag;

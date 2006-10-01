@@ -34,12 +34,20 @@ package org.codehaus.mojo.natives;
 public class NativeBuildException 
     extends Exception 
 {
-	
+	/**
+     * 
+     * @param msg
+	 */
 	public NativeBuildException( String msg )
 	{
 		super( msg );
 	}
 	
+    /**
+     * 
+     * @param msg
+     * @param cause
+     */
 	public NativeBuildException( String msg, Throwable cause ) 
 	{
 		super( msg, cause );

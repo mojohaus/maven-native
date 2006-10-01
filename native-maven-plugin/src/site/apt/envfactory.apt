@@ -8,31 +8,72 @@
 
 Environment Factories
 
-  Instead of setting up your compiler/linker command line environment prior to running 
-  maven to build your artfact, this plugin contains a set of built-in EnvFactories
-  that can be mapped to any command line produced by your compiler/linker.
+  Instead of setting up your compiler/linker command line environment prior 
+  running maven to build your artifact, you can use \<envFactoryName/> to 
+  configure one of the following built-in environments:
   
-  Available build-in factories
+    * org.codehaus.mojo.natives.msvc.MSVC6EnvFactory     
+                          
+    * org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory       
+                     
+    * org.codehaus.mojo.natives.msvc.MSVC2003ToolkitEnvFactory 
+                    
+    * org.codehaus.mojo.natives.msvc.MSVC2005AMDEnvFactory   
+                      
+    * org.codehaus.mojo.natives.msvc.MSVC2005x86AMD64EnvFactory  
+                  
+    * org.codehaus.mojo.natives.msvc.MSVC2005x86EnvFactory  
+                       
+    * org.codehaus.mojo.natives.bcc.BCCEnvFactory  
+    
+    []                            
   
+  This feature is extremely useful when you have a need to use various compilers 
+  in your build system and it is impossible to set up single
+  global environment to accomodate all compilers.
+  
+  The following example shows how to configure MSVC 2003 
+  
+-------------------
+<project>
+  ....
+  <build>   
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <compilerProvider>msvc</compilerProvider>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory</envFactoryName>
+          ...
+        </configuration>
+        ...
+----------------------            
+  
+  To create your own environment factory, implement
+  {{{../maven-native-api/xref/org/codehaus/mojo/natives/EnvFactory.html}EnvFactory interface}}
+  package it into a jar, and have the jar as this plugin's dependency.
+  
+-------------------
+<project>
+  ....
+  <build>   
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <dependencies>
+          <dependency>
+             your EnvFactory package 
+          </dependency>
+        </dependencyies>
+        <configuration>
+          <envFactoryName>myFactory</envFactoryName>
+          ...
+        </configuration>
+        ...
+-------------------
 
-*----------------------------------------------------------+------------+
-| Name                                                     | 
-*----------------------------------------------------------+------------+
-| org.codehaus.mojo.natives.msvc.MSVC6EnvFactory           |                 
-*-----------------+----------------------------------------+------------+
-| org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory        |                 
-*-----------------+----------------------------------------+------------+
-| org.codehaus.mojo.natives.msvc.MSVC2003ToolkitEnvFactory |                 
-*-----------------+----------------------------------------+------------+
-| org.codehaus.mojo.natives.msvc.MSVC2005AMDEnvFactory     |                 
-*-----------------+----------------------------------------+------------+
-| org.codehaus.mojo.natives.msvc.MSVC2005x86AMD64EnvFactory|                 
-*-----------------+----------------------------------------+------------+
-| org.codehaus.mojo.natives.msvc.MSVC2005x86EnvFactory     |                 
-*-----------------+----------------------------------------+------------+
-| org.codehaus.mojo.natives.bcc.BCCEnvFactory              |                 
-*-----------------+----------------------------------------+------------+
-
-  To create your own EnvFactory implementation, create a jar package and
-  have it as this plugin's dependency.
-  
+       

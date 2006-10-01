@@ -100,6 +100,7 @@
     <module>native-maven-plugin</module>
   </modules>
   
+  
   <reporting>
     <plugins>
       <plugin>
