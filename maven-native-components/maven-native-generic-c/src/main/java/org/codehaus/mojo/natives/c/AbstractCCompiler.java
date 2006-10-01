@@ -54,8 +54,9 @@ public abstract class AbstractCCompiler
         return this.parser;
     }
 
+
     /**
-     * 
+     * Setup Compiler Command line
      */
     protected Commandline getCommandLine( File srcFile, File destFile, CompilerConfiguration config )
         throws NativeBuildException
@@ -77,15 +78,15 @@ public abstract class AbstractCCompiler
 
         this.setStartOptions( cl, config );
 
-        this.setIncludePaths( cl, config, config.getIncludePaths() );
+        this.setIncludePaths( cl, config.getIncludePaths() );
 
-        this.setIncludePaths( cl, config, config.getSystemIncludePaths() );
+        this.setIncludePaths( cl, config.getSystemIncludePaths() );
 
         this.setMiddleOptions( cl, config );
 
-        this.setOutputArgs( cl, config, destFile );
+        this.setOutputArgs( cl, destFile );
         
-        this.setSourceArgs( cl, config, srcFile ) ;
+        this.setSourceArgs( cl, srcFile ) ;
 
         this.setEndOptions( cl, config );
 
@@ -118,7 +119,7 @@ public abstract class AbstractCCompiler
         this.setOptions( cl, config.getEndOptions() );
     }
 
-    private void setIncludePaths( Commandline cl, CompilerConfiguration config, File [] includePaths )
+    private void setIncludePaths( Commandline cl, File [] includePaths )
     {
         if ( includePaths != null )
         {
@@ -129,7 +130,7 @@ public abstract class AbstractCCompiler
         }
     }
     
-    private void setOutputArgs( Commandline cl, CompilerConfiguration config, File outputFile )
+    private void setOutputArgs( Commandline cl, File outputFile )
     {
         String outputFileOption = this.getOutputFileOption();
 
@@ -144,7 +145,7 @@ public abstract class AbstractCCompiler
         }    
     }
     
-    private void setSourceArgs( Commandline cl, CompilerConfiguration config, File srcFile )
+    private void setSourceArgs( Commandline cl, File srcFile )
     {
         cl.createArgument().setValue( "-c" );
         cl.createArgument().setValue( srcFile.getPath() );
