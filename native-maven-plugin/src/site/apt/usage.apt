@@ -24,7 +24,7 @@ Usage
   
 * Packaging Type
 
-  Native plugin supports the following packing type:
+  Native plugin supports the following packaging types:
 
   * dll
   
@@ -91,7 +91,7 @@ Usage
     
     []
     
-    Internally, this plugin copies all dependencies to \$\{project.build.directory\}/lib
+    Internally, this plugin copies all dependencies to $\{project.build.directory}/lib
     without the version tag.  
     
     The following example shows 2 .so dependency files, and other files in
@@ -141,13 +141,13 @@ Usage
   The following example shows a set of compilable source files consist of:
   
     * All <.cpp> files, <file1.c>, and <file2.c> under 
-      <${basedir}/../src/main/native> directory excluding <somefile.cpp>
+      <$\{basedir}/../src/main/native> directory excluding <somefile.cpp>
       
-    * <file3.c> and <file4.c> under \${basedir}/src/main/native>
+    * <file3.c> and <file4.c> under $\{basedir}/src/main/native>
    
    []
    
-  Include paths consist of all \<${directory}\> under \<${sources}\>
+  Include paths consist of all \<{directory}\> under \<{sources}\>
   
 ------------------------
 
@@ -212,8 +212,8 @@ Usage
   On Windows, use Windows supported compiler and linker such as "msvc" and "bcc"
   
   Each provided compiler/linker provider assumes minimal knowledge of available options.
-  The following contains a list of options that will be automatically added your
-  options:
+  The following contains a list of options that will be automatically injected to final 
+  command lines:
   
     * /c for all compilers
     

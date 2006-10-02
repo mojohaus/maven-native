@@ -17,21 +17,22 @@ Native Maven Plugin
   
 * Goals Overview
 
-  * native:initialize: Initialize build lifecycle 
+  * {{{initialize-mojo.html}native:initialize}}: Initialize build lifecycle 
   
-  * native:compile: Compile source files into native object files 
+  * {{{compile-mojo.html}native:compile}}: Compile source files into native object files 
   
-  * native:link: Link all previously built object and dependent library files into final build artifact 
+  * {{{link-mojo.html}native:link}}: Link all previously built object and dependent library files into final build artifact 
   
-  * native:javah: Generate jni include files based on a set of class names
+  * {{{javah-mojo.html}native:javah}}: Generate jni include files based on a set of class names
    
-  * native:ranlib: ranlib a Unix linker output file 
+  * {{{ranlib-mojo.html}native:ranlib}}: ranlib a Unix linker output file 
   
-  * native:resource-compile: Compile Windows resource files 
+  * {{{resource-compile-mojo.html}native:resource-compile}}: Compile Windows resource files 
   
-  * native:compile-message: Compile Windows message files 
+  * {{{message-compile-mojo.html}native:compile-message}}: Compile Windows message files 
   
   []
+  
   
 * Examples
 
