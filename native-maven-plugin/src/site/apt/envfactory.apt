@@ -9,7 +9,7 @@
 Environment Factories
 
   Instead of setting up your compiler/linker command line environment prior 
-  running maven to build your artifact, you can use \<envFactoryName/> to 
+  running maven to build your artifact, you can use \<envFactoryName> to 
   configure one of the following built-in environments:
   
     * org.codehaus.mojo.natives.msvc.MSVC6EnvFactory     
@@ -51,9 +51,9 @@ Environment Factories
         ...
 ----------------------            
   
-  To create your own environment factory, implement
+  To create your own environment factory, package your own implementation of 
   {{{../maven-native-api/xref/org/codehaus/mojo/natives/EnvFactory.html}EnvFactory interface}}
-  package it into a jar, and have the jar as this plugin's dependency.
+  into a jar, and have the jar as this plugin's dependency.
   
 -------------------
 <project>
