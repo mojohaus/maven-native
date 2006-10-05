@@ -48,7 +48,7 @@
         <executions>
           <execution>
             <id>ranlib</id>
-            <phase>package</package>
+            <phase>package</phase>
             <goals>
               <goal>ranlib</goal>
             </goals>
