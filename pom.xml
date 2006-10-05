@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
-  <version>1.0-alpha-2</version>
+  <version>1.0-alpha-3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
   <developers>
@@ -123,11 +123,4 @@
       </plugin> 
     </plugins>
   </build>
-  
-
-  <scm>
-    <connection>scm:svn:https://svn.codehaus.org/mojo/tags/maven-native-1.0-alpha-2</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/maven-native-1.0-alpha-2</developerConnection>
-    <url>https://svn.codehaus.org/mojo/tags/maven-native-1.0-alpha-2</url>
-  </scm>
 </project>
