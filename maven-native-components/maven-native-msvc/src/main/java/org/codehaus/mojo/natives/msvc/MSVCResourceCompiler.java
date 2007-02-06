@@ -73,7 +73,7 @@ public class MSVCResourceCompiler
 
         for ( int i = 0; i < config.getSystemIncludePaths().length; ++i )
         {
-            String includePath = config.getIncludePaths()[i].getPath();
+            String includePath = config.getSystemIncludePaths()[i].getPath();
 
             cl.createArgument().setValue( "/i" );
 
