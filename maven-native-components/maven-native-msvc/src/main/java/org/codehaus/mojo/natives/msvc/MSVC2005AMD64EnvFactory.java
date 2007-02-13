@@ -80,7 +80,7 @@ public class MSVC2005AMD64EnvFactory
         envs.put( "FrameworkVersion", frameworkVersion );
 
         File frameworkSDKDir = new File( vsInstallDir.getPath() + "/SDK/v2.0 64bit" );
-        envs.put( "FrameworkVersion", frameworkVersion );
+        envs.put( "FrameworkSDKDir", frameworkSDKDir.getPath() );
 
         File devEnvDir = new File( vsInstallDir.getPath() + "/Common7/IDE" );
         envs.put( "DevEnvDir", devEnvDir.getPath() );
