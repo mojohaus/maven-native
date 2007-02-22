@@ -159,8 +159,7 @@ public class NativeJavahMojo
     }
 
     /**
-     * Get all jars in the pom excluding transitive dependencies, and jars in
-     * test and provided scope.  
+     * Get all jars in the pom excluding transitive, test, and provided scope dependencies.  
      * @return
      */
     private List getJavahArtifacts()
@@ -172,13 +171,23 @@ public class NativeJavahMojo
         for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
         {
             Artifact artifact = (Artifact) iter.next();
-
-            //exclude some other scopes
-            if ( !Artifact.SCOPE_PROVIDED.equals( artifact.getScope() )
-                && !Artifact.SCOPE_TEST.equals( artifact.getScope() ) )
+            
+            //pick only jar files
+            if ( ! "jar".equals( artifact.getType() ) )
             {
-                list.add( artifact );
+                continue;	
             }
+            
+            //exclude some other scopes
+            if ( Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) ||
+                 Artifact.SCOPE_TEST.equals( artifact.getScope() )
+               )
+            {
+            	continue;
+            }
+            
+            list.add( artifact );
+            
         }
 
         return list;
@@ -267,7 +276,7 @@ public class NativeJavahMojo
             }
             catch ( IOException ioe )
             {
-                throw new MojoExecutionException( "Error searching for native class in dependencies", ioe );
+                throw new MojoExecutionException( "Error searching for native class in " + artifact.getFile() , ioe );
             }
         }
 
