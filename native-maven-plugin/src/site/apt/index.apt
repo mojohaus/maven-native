@@ -29,7 +29,7 @@ Native Maven Plugin
   
   * {{{resource-compile-mojo.html}native:resource-compile}}: Compile Windows resource files 
   
-  * {{{message-compile-mojo.html}native:compile-message}}: Compile Windows message files 
+  * {{{compile-message-mojo.html}native:compile-message}}: Compile Windows message files 
   
   []
   
