@@ -1,0 +1,213 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+    <artifactId>jni</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+  <artifactId>hello</artifactId>
+  
+  <name>JNI - DLL </name>
+  
+  <description>Example on how to build both jni and native in one maven project</description>
+  
+  <packaging>dll</packaging>
+    
+  
+  <build>
+    
+    <sourceDirectory>../java/src/main/java</sourceDirectory>
+    
+    <testSourceDirectory>../native/src/test/java</testSourceDirectory>
+    
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${project.build.directory}/${project.artifactId}-${version}.jar</file>
+                  <type>jar</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <extensions>true</extensions>       
+        <configuration>
+          <compilerProvider>msvc</compilerProvider>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory</envFactoryName>
+          <compilerStartOptions>
+            <compilerStartOption>${compiler.debug.options}</compilerStartOption>
+            <compilerStartOption>/W4 -O</compilerStartOption>
+          </compilerStartOptions>
+          
+          <javahOS>win32</javahOS>
+          
+          <sources>
+            <source>
+              <directory>../native/src/main/native</directory>
+              <fileNames>
+                <fileName>HelloWorld.c</fileName>
+              </fileNames>
+            </source>            
+          </sources>
+            
+          <linkerStartOptions>
+            <linkerStartOption>${linker.debug.options}</linkerStartOption>
+            <linkerStartOption> /INCREMENTAL:NO   /DLL oldnames.lib kernel32.lib </linkerStartOption>
+          </linkerStartOptions>
+          
+          
+        </configuration>
+        
+        <executions>
+        
+          <execution>
+            <id>javah</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>javah</goal> 
+            </goals>
+            
+            <configuration>
+              <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
+              <outputDirectory>${project.build.directory}/custom-javah</outputDirectory>
+              <outputFileName>HelloWorld.h</outputFileName>
+              <classNames>
+                <className>HelloWorld</className>
+              </classNames>
+            </configuration>
+          </execution>
+          
+          <!-- resource compile, the output hello.res is automatically link to final output hello.dll at link time -->
+          <execution>
+            <id>resource-compile</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>resource-compile</goal> 
+            </goals>
+            <configuration>
+              <sources>
+                <source>
+                  <directory>../native/src/main/native</directory>
+                  <fileNames>
+                    <fileName>hello.rc</fileName>
+                  </fileNames>
+                </source>            
+              </sources>
+            </configuration>
+          </execution>
+          
+        </executions>
+           
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>once</forkMode>
+          
+
+          <environmentVariables>
+            <path>${project.build.directory};${java.library.path}</path>
+          </environmentVariables>
+          
+          <!-- 
+            If you have single dll, then set 
+            working directory to where the dll is placed will work
+          -->
+          <!--workingDirectory>${project.build.directory}</workingDirectory-->
+
+          
+          <!--  known to work
+          <argLine>-Djava.library.path="${project.build.directory};${java.library.path}"</argLine>
+          -->
+          
+          <!-- currently not working
+          <systemProperties>
+            <property>
+              <name>java.library.path</name>
+              <value>${project.build.directory};${java.library.path}</value>
+            </property>
+          </systemProperties>
+          -->
+        
+        </configuration>
+      </plugin>
+
+    </plugins>    
+
+  </build>
+  
+  <profiles>
+  
+    <!-- to build debug artifact, run maven install -Ddebug -->
+    <profile>
+      <id>debug</id>
+      <activation>
+        <property>
+          <name>debug</name>
+        </property>
+      </activation>
+      <properties>
+        <compiler.debug.options>-MDd</compiler.debug.options>
+        <linker.debug.options>/DEBUG</linker.debug.options>
+      </properties>
+    </profile>
+    
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault >true</activeByDefault >
+      </activation>
+      <properties>
+        <compiler.debug.options>-MD</compiler.debug.options>
+        <linker.debug.options></linker.debug.options>
+      </properties>
+    </profile>
+      
+  </profiles>  
+
+</project>
