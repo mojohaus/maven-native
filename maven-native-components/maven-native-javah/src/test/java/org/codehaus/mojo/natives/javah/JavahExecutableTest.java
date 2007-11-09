@@ -27,17 +27,37 @@ public class JavahExecutableTest
 
     }
 
-    public void testJavahExecutable()
+    public void testDefaultJavahExecutable()
         throws Exception
     {
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand( config );
 
         File outputDir = new File( getBasedir(), "target/native" );
-        
+
         assertEquals( "javah", cl.getExecutable() );
-        assertTrue( cl.toString().contains("javah -d " + outputDir.getPath() + " -classpath path1" + File.pathSeparator
-            + "path2 className1 className2" ));
+        assertTrue( cl.toString().contains(
+                                            "javah -d " + outputDir.getPath() + " -classpath path1"
+                                                + File.pathSeparator + "path2 className1 className2" ) );
+    }
+
+    public void testConfiguredJavahExecutable()
+        throws Exception
+    {
+        File javaBin = new File( "/java/home/bin" );
+
+        JavahExecutable javah = new JavahExecutable();
+        config.setJavahPath( javaBin );
+        Commandline cl = javah.createJavahCommand( config );
+
+        File outputDir = new File( getBasedir(), "target/native" );
+
+        assertEquals( javaBin.getAbsolutePath(), cl.getExecutable() );
+        assertTrue( cl.toString().contains(
+                                            javaBin.getAbsolutePath() + " -d " + outputDir.getPath()
+                                                + " -classpath path1" + File.pathSeparator
+                                                + "path2 className1 className2" ) );
+
     }
 
     public void testJavahExecutableDashoOption()
@@ -48,20 +68,21 @@ public class JavahExecutableTest
         Commandline cl = javah.createJavahCommand( config );
 
         File outputFile = new File( getBasedir(), "target/native/" + "fileName" );
-        assertTrue(cl.toString().contains( "javah -o " + outputFile.getPath() + " -classpath path1"
-            + File.pathSeparator + "path2 className1 className2" ) );
+        assertTrue( cl.toString().contains(
+                                            "javah -o " + outputFile.getPath() + " -classpath path1"
+                                                + File.pathSeparator + "path2 className1 className2" ) );
     }
 
     public void testWorkingDirectory()
         throws Exception
     {
         JavahExecutable javah = new JavahExecutable();
-        
+
         File workingDirectory = new File( getBasedir() );
         config.setWorkingDirectory( workingDirectory );
-        
+
         Commandline cl = javah.createJavahCommand( config );
-        
+
         assertEquals( workingDirectory, cl.getWorkingDirectory() );
     }
 }

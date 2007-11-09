@@ -80,6 +80,13 @@ public class NativeJavahMojo
     private String[] classNames;
 
     /**
+     * Path to javah executable, if present, it will overide the default one which bases on architecture type. See 'implementation' argument
+     * @parameter
+     * @optional
+     */
+    private File javahPath;
+
+    /**
      * Internal readonly property.
      * @parameter expression="${project}"
      * @required
@@ -293,6 +300,7 @@ public class NativeJavahMojo
         config.setFileName( this.outputFileName );
         config.setClassPaths( this.getJavahClassPath() );
         config.setClassNames( this.getNativeClassNames() );
+        config.setJavahPath( this.javahPath );
 
         return config;
     }
