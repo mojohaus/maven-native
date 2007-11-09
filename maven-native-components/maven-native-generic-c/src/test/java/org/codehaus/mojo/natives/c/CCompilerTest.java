@@ -37,7 +37,7 @@ public class CCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertEquals( "gcc " + simpleArgv, cl.toString() );
+        assertTrue( cl.toString().contains( "gcc " + simpleArgv ));
     }
 
     public void testNonDefaultExecutable()
@@ -45,7 +45,7 @@ public class CCompilerTest
     {
         this.config.setExecutable( "cc" );
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertEquals( "cc " + simpleArgv, cl.toString() );
+        assertTrue( cl.toString().contains( "cc " + simpleArgv));
     }
 
     public void testStartOptions()
@@ -56,7 +56,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertEquals( "gcc -s1 -s2 " + simpleArgv, cl.toString() );
+        assertTrue( cl.toString().contains( "gcc -s1 -s2 " + simpleArgv ));
     }
 
     public void testIncludePaths()
@@ -68,7 +68,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertEquals( "gcc -Ip1 -Ip2 " + simpleArgv, cl.toString() );
+        assertTrue( cl.toString().contains( "gcc -Ip1 -Ip2 " + simpleArgv ));
     }
 
     public void testSystemIncludePaths()
@@ -84,7 +84,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertEquals( "gcc -Ip1 -Ip2 -Isp1 -Isp2 " + simpleArgv, cl.toString() );
+        assertTrue( cl.toString().contains( "gcc -Ip1 -Ip2 -Isp1 -Isp2 " + simpleArgv ));
     }
 
     public void testMiddleOptions()
@@ -100,7 +100,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertEquals( "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv, cl.toString() );
+        assertTrue( cl.toString().contains(  "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv ) );
     }
 
     public void testEndOptions()
@@ -119,6 +119,6 @@ public class CCompilerTest
         
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertEquals( "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv + " -e1 -e2", cl.toString() );
+        assertTrue( cl.toString().contains( "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv + " -e1 -e2" ));
     }
 }

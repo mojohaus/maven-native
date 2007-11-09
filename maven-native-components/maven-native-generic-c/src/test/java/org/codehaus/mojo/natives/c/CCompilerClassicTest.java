@@ -25,6 +25,6 @@ public class CCompilerClassicTest
         CompilerConfiguration config = new CompilerConfiguration();
         CCompilerClassic compiler = new CCompilerClassic();
         Commandline cl = compiler.getCommandLine( new File( "source.c" ), new File( "object.o" ), config );
-        assertEquals( "gcc -oobject.o -c source.c", cl.toString() );
+        assertTrue( cl.toString().contains( "gcc -oobject.o -c source.c" ));
     }
 }

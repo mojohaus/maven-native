@@ -61,7 +61,7 @@ public class MSVCLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertEquals( "link.exe /out:" + config.getOutputFile() + " source1.obj source2.obj", cl.toString() );
+        assertTrue( cl.toString().contains( "link.exe /out:" + config.getOutputFile() + " source1.obj source2.obj" ) );
     }
 
     /////////////////////////// HELPERS //////////////////////////////////////

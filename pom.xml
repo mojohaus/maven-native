@@ -2,7 +2,7 @@
   <parent>
     <artifactId>mojo</artifactId>
     <groupId>org.codehaus.mojo</groupId>
-    <version>14</version>
+    <version>16</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.codehaus.mojo.natives</groupId>
@@ -41,7 +41,7 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-utils</artifactId>
-        <version>1.4</version>
+        <version>1.4.7</version>
       </dependency>    
 
       <dependency>
@@ -130,6 +130,18 @@
           <source>1.4</source>
         </configuration>
       </plugin>
+      
+        <plugin>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <workspace>${basedir}</workspace>
+            <wtpversion>1.5</wtpversion>
+            <workspaceCodeStylesURL>
+              http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-eclipse-plugin/src/optional/eclipse-config/maven-styles.xml
+            </workspaceCodeStylesURL>
+          </configuration>
+        </plugin>
       
       
     </plugins>

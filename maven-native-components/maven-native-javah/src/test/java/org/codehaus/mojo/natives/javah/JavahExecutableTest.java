@@ -36,8 +36,8 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
         
         assertEquals( "javah", cl.getExecutable() );
-        assertEquals( "javah -d " + outputDir.getPath() + " -classpath path1" + File.pathSeparator
-            + "path2 className1 className2", cl.toString() );
+        assertTrue( cl.toString().contains("javah -d " + outputDir.getPath() + " -classpath path1" + File.pathSeparator
+            + "path2 className1 className2" ));
     }
 
     public void testJavahExecutableDashoOption()
@@ -48,8 +48,8 @@ public class JavahExecutableTest
         Commandline cl = javah.createJavahCommand( config );
 
         File outputFile = new File( getBasedir(), "target/native/" + "fileName" );
-        assertEquals( "javah -o " + outputFile.getPath() + " -classpath path1"
-            + File.pathSeparator + "path2 className1 className2", cl.toString() );
+        assertTrue(cl.toString().contains( "javah -o " + outputFile.getPath() + " -classpath path1"
+            + File.pathSeparator + "path2 className1 className2" ) );
     }
 
     public void testWorkingDirectory()
