@@ -48,7 +48,7 @@ public class CLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertEquals( "gcc", cl.getExecutable() );
+       	assertTrue( cl.getExecutable().endsWith("gcc") );
 
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
@@ -61,7 +61,8 @@ public class CLinkerTest
 
         Commandline cl = this.getCommandline();
 
-        assertEquals( "ld", cl.getExecutable() );
+       	assertTrue( cl.getExecutable().endsWith("ld") );
+
     }
 
     public void testObjectFileList()

@@ -9,6 +9,7 @@ import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
+import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public class MSVCLinkerTest
@@ -49,7 +50,7 @@ public class MSVCLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertEquals( "link.exe", cl.getExecutable() );
+      	assertTrue( cl.getExecutable().endsWith("link.exe") );
 
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
