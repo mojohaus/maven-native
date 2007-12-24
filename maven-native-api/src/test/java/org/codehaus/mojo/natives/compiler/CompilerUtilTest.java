@@ -23,21 +23,44 @@ public class CompilerUtilTest
             source = new File( "../dir1/dir2/fileWithoutExtenstion" );
         }
 
-        File objectFile = AbstractCompiler.getObjectFile( source, new File( "outputDirectory" ), null );
+        File outputDirectory = new File( "outputDirectory" );
+        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, outputDirectory, null );
 
-        assertEquals( new File( "outputDirectory/fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
+        assertEquals( new File( "fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
                       objectFile );
     }
 
     public void testGetObjectFileWithKnownExtension()
         throws Exception
     {
-        
+
         File source = new File( "target/somefile.c" );
 
-        File objectFile = AbstractCompiler.getObjectFile( source, new File( "outputDirectory" ), "someext");
+        File outputDirectory = new File( "outputDirectory" );
+        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, outputDirectory, "someext" );
 
-        assertEquals( new File( "outputDirectory/somefile." + "someext" ),
+        assertEquals( new File( "somefile." + "someext" ), objectFile );
+    }
+
+    public void testGetObjectFileWithWorkingAndOutputDirectoriesAreNotTheSame()
+        throws Exception
+    {
+        File source;
+
+        if ( Os.isFamily( "windows" ) )
+        {
+            source = new File( "..\\dir1\\dir2\\fileWithoutExtenstion" );
+        }
+        else
+        {
+            source = new File( "../dir1/dir2/fileWithoutExtenstion" );
+        }
+
+        File workingDir = new File( "./workingDir" );
+        File outputDir = new File( "./target" );
+        File objectFile = AbstractCompiler.getObjectFile( source, workingDir, outputDir, null );
+
+        assertEquals( new File( "../target/fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
                       objectFile );
     }
 }

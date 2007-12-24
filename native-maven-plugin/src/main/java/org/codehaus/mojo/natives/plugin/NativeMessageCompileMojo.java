@@ -100,7 +100,7 @@ public class NativeMessageCompileMojo
         MessageCompilerConfiguration config = new MessageCompilerConfiguration();
 
         config.setExecutable( this.messageCompilerExecutable );
-        config.setWorkingDirectory( this.project.getBasedir() );
+        config.setWorkingDirectory( this.workingDirectory );
         config.setOutputDirectory( this.outputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.messageCompilerOptions ) );
         config.setEnvFactoryName( this.envFactoryName );

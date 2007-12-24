@@ -96,7 +96,7 @@ public class NativeResourceCompileMojo
 
         ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
         config.setExecutable( this.resourceCompilerExecutable );
-        config.setWorkingDirectory( this.project.getBasedir() );
+        config.setWorkingDirectory( this.workingDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.resourceCompilerOptions ) );
         config.setOutputDirectory( this.outputDirectory );
         config.setEnvFactoryName( this.envFactoryName );

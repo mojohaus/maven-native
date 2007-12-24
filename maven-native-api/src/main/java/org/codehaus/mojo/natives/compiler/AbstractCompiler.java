@@ -2,26 +2,23 @@ package org.codehaus.mojo.natives.compiler;
 
 /*
  * The MIT License
- *
+ * 
  * Copyright (c) 2004, The Codehaus
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do
- * so, subject to the following conditions:
  * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 import java.io.File;
@@ -34,6 +31,7 @@ import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
+import org.codehaus.mojo.natives.util.FileUtil;
 
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.FileUtils;
@@ -64,7 +62,8 @@ public abstract class AbstractCompiler
         {
             File source = sourceFiles[i];
 
-            File objectFile = getObjectFile( source, config.getOutputDirectory(), config.getObjectFileExtension() );
+            File objectFile = getObjectFile( source, config.getWorkingDirectory(), config.getOutputDirectory(), config
+                .getObjectFileExtension() );
 
             compilerOutputFiles.add( objectFile );
 
@@ -78,11 +77,6 @@ public abstract class AbstractCompiler
 
                 CommandLineUtil.execute( cl, this.getLogger() );
 
-                if ( !objectFile.exists() )
-                {
-                    throw new NativeBuildException( "Internal error: " + objectFile
-                        + " not found after successfull compilation." );
-                }
             }
             else
             {
@@ -117,20 +111,21 @@ public abstract class AbstractCompiler
     }
 
     /**
-     * Figure out the object file path from a given source file
+     * Figure out the object file relative path from a given source file
      * @param sourceFile
+     * @param workingDirectory
      * @param outputDirectory
      * @param config
      * @return
      */
-    protected static File getObjectFile( File sourceFile, File outputDirectory, String objectFileExtension )
+    protected static File getObjectFile( File sourceFile, File workingDirectory, File outputDirectory,
+                                         String objectFileExtension )
         throws NativeBuildException
     {
         String objectFileName;
 
         try
         {
-
             objectFileExtension = AbstractCompiler.getObjectFileExtension( objectFileExtension );
 
             //plexus-util requires that we remove all ".." in the the file source, so getCanonicalPath is required
@@ -152,7 +147,10 @@ public abstract class AbstractCompiler
             throw new NativeBuildException( e.getMessage() );
         }
 
-        return new File( outputDirectory, objectFileName );
+        File objectFile = new File( outputDirectory, objectFileName );
+
+        return FileUtil.getRelativeFile( workingDirectory, objectFile );
+
     }
 
 }

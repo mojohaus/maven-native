@@ -27,7 +27,7 @@
   <profiles>
   
     <profile>
-      <id>add-win32-module</id>
+      <id>win32</id>
       <activation>
         <property>
           <name>platform</name>
@@ -40,7 +40,7 @@
     </profile>
 
     <profile>
-      <id>add-linux-x86-module</id>
+      <id>linux</id>
       <activation>
         <property>
           <name>platform</name>
@@ -53,7 +53,7 @@
     </profile>
     
     <profile>
-      <id>add-macosx-module</id>
+      <id>macosx</id>
       <activation>
         <property>
           <name>platform</name>
@@ -66,7 +66,7 @@
     </profile>
     
     <profile>
-      <id>add-aix-module</id>
+      <id>aix</id>
       <activation>
         <property>
           <name>platform</name>
@@ -79,7 +79,7 @@
     </profile>
 
     <profile>
-      <id>add-solaris-module</id>
+      <id>solaris</id>
       <activation>
         <property>
           <name>platform</name>

@@ -8,8 +8,8 @@
         <configuration>
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
           <implementation>noop</implementation>
+          <workingDirectory>${basedir}</workingDirectory>          
           <outputDirectory>target/javah</outputDirectory>
-          
         </configuration>
       </plugin>
     </plugins>

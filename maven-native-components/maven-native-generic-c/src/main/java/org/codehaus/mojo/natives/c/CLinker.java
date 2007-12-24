@@ -27,6 +27,7 @@ package org.codehaus.mojo.natives.c;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.mojo.natives.util.FileUtil;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
@@ -80,7 +81,7 @@ public class CLinker
         for ( int i = 0; i < objectFiles.size(); ++i )
         {
             File objFile = (File) objectFiles.get( i );
-            String objFilePath = truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
+            String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
             cl.createArgument().setValue( objFilePath );
         }
 
@@ -134,7 +135,7 @@ public class CLinker
             if ( "o".equals( ext ) || "obj".equals( ext ) || "lib".equals( ext ) || "dylib".equals( ext ) )
             {
                 File libFile = new File( config.getExternalLibDirectory(), libFileName );
-                String relativeLibFile = truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
+                String relativeLibFile = FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
                 cl.createArgument().setValue( relativeLibFile );
             }
             else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
@@ -168,21 +169,5 @@ public class CLinker
         }
     }
 
-    /**
-     * @param path String
-     * @param baseDirectory String
-     * @return relative path to a base directory if possible
-     */
-    private String truncatePath( String path, String baseDirectory )
-    {
-        if ( path.indexOf( baseDirectory ) >= 0 )
-        {
-            path = path.substring( path.indexOf( baseDirectory ) + baseDirectory.length() );
-            if ( path.startsWith( File.separator ) )
-            {
-                path = path.substring( File.separator.length() );
-            }
-        }
-        return path;
-    }
+
 }

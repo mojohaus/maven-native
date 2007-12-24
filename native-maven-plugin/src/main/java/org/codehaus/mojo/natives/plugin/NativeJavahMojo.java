@@ -95,6 +95,13 @@ public class NativeJavahMojo
     private MavenProject project;
 
     /**
+     * user directory when external tools( ie compiler/linker ) are invoked
+     * @parameter expression="${workingDirectory}" default-value="${basedir}"
+     * 
+     */
+    protected File workingDirectory;
+    
+    /**
      * Generated native source files go here
      * @parameter default-value="${project.build.directory}/native/javah" 
      * @required
@@ -294,7 +301,7 @@ public class NativeJavahMojo
         throws MojoExecutionException
     {
         JavahConfiguration config = new JavahConfiguration();
-        config.setWorkingDirectory( this.project.getBasedir() );
+        config.setWorkingDirectory( this.workingDirectory );
         config.setVerbose( this.verbose );
         config.setOutputDirectory( this.outputDirectory );
         config.setFileName( this.outputFileName );

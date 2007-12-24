@@ -53,6 +53,12 @@ public abstract class AbstractNativeMojo
     protected MavenProject project;
 
     /**
+     * user directory when external tools( ie compiler/linker ) are invoked
+     * @parameter expression="${workingDirectory}" default-value="${basedir}"
+     */
+    protected File workingDirectory;
+    
+    /**
      * Where to place the final packaging and compiler object files
      * @parameter expression="${project.build.directory}"
      * @required
