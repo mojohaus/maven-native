@@ -11,10 +11,10 @@ package org.codehaus.mojo.natives.plugin;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -49,11 +49,11 @@ import java.util.Set;
 /**
  * Link all previously built object and dependent library files into final build
  * artifact
- * 
+ *
  * @goal link
  * @phase package
  * @requiresDependencyResolution
- * 
+ *
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
  * @version $Id$
  */
@@ -63,7 +63,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by compilerProvider
-     * 
+     *
      * @parameter default-value="generic"
      * @optional
      * @description provider type
@@ -72,7 +72,7 @@ public class NativeLinkMojo
 
     /**
      * Default value is ${compilerProvider}
-     * 
+     *
      * @parameter
      * @optional
      */
@@ -80,7 +80,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by linkerProvider
-     * 
+     *
      * @parameter
      * @optional
      * @description default to compilerType if not provided
@@ -108,7 +108,7 @@ public class NativeLinkMojo
     /**
      * Option to reorder dependency list, each item has the format of
      * ${groupId}:${artifactId}
-     * 
+     *
      * @parameter
      * @optional
      */
@@ -117,7 +117,7 @@ public class NativeLinkMojo
 
     /**
      * Map of of project artifacts.
-     * 
+     *
      * @parameter expression="${project.artifactMap}"
      * @required
      * @readonly
@@ -127,7 +127,7 @@ public class NativeLinkMojo
     /**
      * Comma separated extension type to be installed/deployed. Use this option
      * to deploy library file produced by dll build on windows
-     * 
+     *
      * @parameter default-value=""
      * @optional
      */
@@ -151,7 +151,7 @@ public class NativeLinkMojo
     /**
      * Dependent libraries with version + classifier removed are copied to this
      * directory to be linked to the build artifact
-     * 
+     *
      * @parameter expression="${project.build.directory}/lib"
      * @required
      * @readonly
@@ -271,7 +271,7 @@ public class NativeLinkMojo
 
     /**
      * convert dependencyLinkingOrders to a file list
-     * 
+     *
      * @return
      */
     private List getDependenciesFileOrderList()
@@ -346,7 +346,7 @@ public class NativeLinkMojo
         }
         catch ( IOException ioe )
         {
-            throw new MojoExecutionException( "Unable to copy dependency to staging area" );
+            throw new MojoExecutionException( "Unable to copy dependency to staging area.  Could not copy " + artifact.getFile() + " to " + newLocation, ioe );
         }
 
         return newLocation;
@@ -358,7 +358,7 @@ public class NativeLinkMojo
      * For unittest only
      */
     private LinkerConfiguration config;
-    
+
     protected LinkerConfiguration getLgetLinkerConfiguration()
     {
         return this.config;
