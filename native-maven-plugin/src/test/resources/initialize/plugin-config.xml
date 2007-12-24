@@ -1,5 +1,6 @@
 <project>
   <build>
+    <finalName>someName</finalName>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

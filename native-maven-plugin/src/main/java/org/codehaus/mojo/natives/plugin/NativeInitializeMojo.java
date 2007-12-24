@@ -62,7 +62,9 @@ public class NativeInitializeMojo
             buildDirectory.mkdirs();
         }
         
-        //strip version from finalName;
+        //strip version from finalName since  and
+        // disallow user from changing the final name since many
+        //  final linker output depending heavily on the name without any associated version
         String finalName = project.getArtifactId();
         
         project.getBuild().setFinalName( finalName );
