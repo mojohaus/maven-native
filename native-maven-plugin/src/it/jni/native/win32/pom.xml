@@ -53,6 +53,7 @@
             </source>            
           </sources>
             
+          <classifier>${classifier}</classifier>
           <linkerStartOptions>
             <linkerStartOption>${linker.debug.options}</linkerStartOption>
             <linkerStartOption> /INCREMENTAL:NO   /DLL oldnames.lib kernel32.lib </linkerStartOption>
@@ -153,6 +154,7 @@
       <properties>
         <compiler.debug.options>-MDd</compiler.debug.options>
         <linker.debug.options>/DEBUG</linker.debug.options>
+        <classifier>debug</classifier>
       </properties>
     </profile>
     
@@ -164,6 +166,7 @@
       <properties>
         <compiler.debug.options>-MD</compiler.debug.options>
         <linker.debug.options></linker.debug.options>
+        <classifier></classifier>
       </properties>
     </profile>
       

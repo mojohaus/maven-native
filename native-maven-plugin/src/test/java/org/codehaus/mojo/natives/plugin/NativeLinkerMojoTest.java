@@ -13,7 +13,6 @@ import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.util.FileUtils;
 
 public class NativeLinkerMojoTest
     extends AbstractMojoTestCase
