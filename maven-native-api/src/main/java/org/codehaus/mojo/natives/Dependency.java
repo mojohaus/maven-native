@@ -257,7 +257,8 @@ public class Dependency
         {
             File tmpFile = new File( includePath[i], includeName );
             
-            if ( tmpFile.exists() ) 
+            //make sure we dont pickup directory like STL which has no extension
+            if ( tmpFile.exists() && tmpFile.isFile() ) 
             {
             	includeFile = tmpFile;
             	
