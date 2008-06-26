@@ -166,11 +166,22 @@ public class Dependency
 	private String [] getIncludeNames()
         throws IOException
     {
-        Reader reader = new BufferedReader( new FileReader( this.source ) );
+        Reader reader = null;
+        
+        try
+        {
+            reader = new BufferedReader( new FileReader( this.source ) );
+            parser.parse(reader);
             
-        parser.parse(reader);
-            
-        return parser.getIncludes();  		
+            return parser.getIncludes();   
+        }
+        finally
+        {
+            if ( reader != null )
+            {
+                reader.close();
+            }
+        }
     }
 
     /**
@@ -205,7 +216,7 @@ public class Dependency
     }
     
     /**
-     * Search for file that matches a include name with all available include paths
+     * Search for file that matches an include name with all available include paths
      * @param includeName
      * @return an file or null when it is not found in user include path
      * @throws IOException
@@ -231,7 +242,7 @@ public class Dependency
     }    
     
     /**
-     * Tranlate a include fle 
+     * Translate an include file 
      * @param includeName
      * @param includePath
      * @return
