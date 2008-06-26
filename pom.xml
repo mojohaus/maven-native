@@ -2,7 +2,7 @@
   <parent>
     <artifactId>mojo</artifactId>
     <groupId>org.codehaus.mojo</groupId>
-    <version>16</version>
+    <version>17</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.codehaus.mojo.natives</groupId>
@@ -134,7 +134,7 @@
       
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.5.1</version>
         <configuration>
           <workspace>${basedir}</workspace>
           <wtpversion>1.5</wtpversion>

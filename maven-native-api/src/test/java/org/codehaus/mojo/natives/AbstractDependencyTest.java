@@ -38,7 +38,7 @@ import org.codehaus.plexus.util.FileUtils;
  * @version $Id$
  */
 
-public class AbstractDependencyTest 
+public abstract class AbstractDependencyTest 
     extends TestCase 
 {
 	

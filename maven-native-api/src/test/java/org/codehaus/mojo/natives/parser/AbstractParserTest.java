@@ -22,7 +22,7 @@ import junit.framework.TestCase;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public class AbstractParserTest extends TestCase {
+public abstract class AbstractParserTest extends TestCase {
     public AbstractParserTest(String name) {
         super(name);
     }
