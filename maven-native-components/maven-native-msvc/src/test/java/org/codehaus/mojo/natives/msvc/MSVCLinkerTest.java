@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
@@ -62,7 +63,7 @@ public class MSVCLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertTrue( cl.toString().contains( "link.exe /out:" + config.getOutputFile() + " source1.obj source2.obj" ) );
+        assertTrue(  StringUtils.contains( cl.toString(), "link.exe /out:" + config.getOutputFile() + " source1.obj source2.obj" ) );
     }
 
     /////////////////////////// HELPERS //////////////////////////////////////

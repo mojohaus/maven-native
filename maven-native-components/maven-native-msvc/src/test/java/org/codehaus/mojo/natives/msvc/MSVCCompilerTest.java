@@ -2,6 +2,7 @@ package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -32,6 +33,6 @@ public class MSVCCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertTrue( cl.toString().contains(  "cl.exe " + simpleArgv ) );
+        assertTrue(  StringUtils.contains( cl.toString(),  "cl.exe " + simpleArgv ) );
     }
 }

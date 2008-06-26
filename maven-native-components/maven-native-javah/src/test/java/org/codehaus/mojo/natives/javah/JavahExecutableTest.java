@@ -2,6 +2,7 @@ package org.codehaus.mojo.natives.javah;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
 
@@ -36,7 +37,7 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
 
         assertEquals( "javah", cl.getExecutable() );
-        assertTrue( cl.toString().contains(
+        assertTrue(  StringUtils.contains( cl.toString(),
                                             "javah -d " + outputDir.getPath() + " -classpath path1"
                                                 + File.pathSeparator + "path2 className1 className2" ) );
     }
@@ -53,7 +54,7 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
 
         assertEquals( javaBin.getAbsolutePath(), cl.getExecutable() );
-        assertTrue( cl.toString().contains(
+        assertTrue( StringUtils.contains( cl.toString(),
                                             javaBin.getAbsolutePath() + " -d " + outputDir.getPath()
                                                 + " -classpath path1" + File.pathSeparator
                                                 + "path2 className1 className2" ) );
@@ -68,7 +69,7 @@ public class JavahExecutableTest
         Commandline cl = javah.createJavahCommand( config );
 
         File outputFile = new File( getBasedir(), "target/native/" + "fileName" );
-        assertTrue( cl.toString().contains(
+        assertTrue(  StringUtils.contains( cl.toString(),
                                             "javah -o " + outputFile.getPath() + " -classpath path1"
                                                 + File.pathSeparator + "path2 className1 className2" ) );
     }
