@@ -10,6 +10,13 @@
   <version>1.0-alpha-3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
+  
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/trunk/mojo/maven-native</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/trunk/mojo/maven-native</developerConnection>
+    <url>http://svn.codehaus.org/mojo/trunk/mojo/maven-native</url>
+  </scm>
+  
   <developers>
     <developer>
       <id>dtran</id>
@@ -21,6 +28,8 @@
       </roles>
     </developer>
   </developers>
+  
+  
   
   <dependencyManagement>
   
@@ -135,28 +144,31 @@
           </execution>
         </executions>
       </plugin> 
-      
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <target>1.4</target>
-          <source>1.4</source>
-        </configuration>
-      </plugin>
-      
-      <plugin>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.5.1</version>
-        <configuration>
-          <workspace>${basedir}</workspace>
-          <wtpversion>1.5</wtpversion>
-          <workspaceCodeStylesURL>
-            http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-eclipse-plugin/src/optional/eclipse-config/maven-styles.xml
-          </workspaceCodeStylesURL>
-        </configuration>
-      </plugin>
-      
-      
     </plugins>
+    
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <target>1.4</target>
+            <source>1.4</source>
+          </configuration>
+        </plugin>
+      
+        <plugin>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.5.1</version>
+          <configuration>
+            <workspace>${basedir}</workspace>
+            <workspaceCodeStylesURL>
+              http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-eclipse-plugin/src/optional/eclipse-config/maven-styles.xml
+            </workspaceCodeStylesURL>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  
+    
   </build>
 </project>
