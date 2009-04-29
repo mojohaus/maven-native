@@ -163,6 +163,13 @@ public class NativeLinkMojo
      * @parameter expression="${classifier}"
      */    
     private String classifier = null;
+    
+    /**
+     * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have 
+     * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle 
+     * @parameter expression="${attach}" default-value="true"
+     */    
+    private boolean attach = true;
 
     public void execute()
         throws MojoExecutionException
@@ -192,9 +199,12 @@ public class NativeLinkMojo
             throw new MojoExecutionException( nbe.getMessage(), nbe );
         }
 
-        this.attachPrimaryArtifact();
+        if ( this.attach )
+        {
+            this.attachPrimaryArtifact();
         
-        this.attachSecondaryArtifacts();
+            this.attachSecondaryArtifacts();
+        }
     }
 
     private LinkerConfiguration createLinkerConfiguration()
