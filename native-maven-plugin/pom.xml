@@ -29,6 +29,26 @@
       <artifactId>maven-plugin-api</artifactId>
     </dependency>    
 
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+    </dependency>    
+
+    <dependency>
+      <groupId>bcel</groupId>
+      <artifactId>bcel</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>    
+
     <!--
      |		Maven Native Artifacts
      -->

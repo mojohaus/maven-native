@@ -13,9 +13,16 @@
   <name>Maven Native C/C++</name>
   
   <dependencies>
+  
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
     </dependency>
+    
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>    
+    
   </dependencies>
 </project>

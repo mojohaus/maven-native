@@ -18,7 +18,13 @@
       <groupId>org.codehaus.mojo.natives</groupId>
       <artifactId>maven-native-generic-c</artifactId>
     </dependency>
-  
+    
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>    
+    
   </dependencies>
+  
   
 </project>

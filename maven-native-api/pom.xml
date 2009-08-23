@@ -23,17 +23,6 @@
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
     </dependency>    
-     
-    <dependency>
-      <groupId>bcel</groupId>
-      <artifactId>bcel</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-    </dependency>    
-
     
   </dependencies>
   

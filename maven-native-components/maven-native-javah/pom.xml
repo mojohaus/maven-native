@@ -12,4 +12,14 @@
   
   <name>Maven Native Javah</name>
   
+  <dependencies>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>    
+    
+  </dependencies>
+    
+  
 </project>
