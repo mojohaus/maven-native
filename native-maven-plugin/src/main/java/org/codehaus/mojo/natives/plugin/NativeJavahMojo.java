@@ -125,8 +125,7 @@ public class NativeJavahMojo
 
     /**
      * To look up javah implementation
-     * @parameter expression="${component.org.codehaus.mojo.natives.manager.JavahManager}"
-     * @required
+     * @component
      */
 
     private JavahManager manager;

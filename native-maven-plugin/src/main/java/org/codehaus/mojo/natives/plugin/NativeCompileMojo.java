@@ -119,7 +119,7 @@ public class NativeCompileMojo
 
     /**
      * Internal 
-     * @parameter expression="${component.org.codehaus.mojo.natives.manager.CompilerManager}"
+     * @component
      * @required
      * @readonly
      */

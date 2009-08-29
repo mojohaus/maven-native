@@ -132,17 +132,13 @@ public class NativeLinkMojo
     private String linkerSecondaryOutputExtensions = "";
 
     /**
-     * @parameter expression="${component.org.codehaus.mojo.natives.manager.LinkerManager}"
-     * @required
-     * @readonly
+     * @component
      */
 
     private LinkerManager manager;
 
     /**
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
-     * @required
-     * @readonly
+     * @component
      */
     private ArtifactFactory artifactFactory;
 

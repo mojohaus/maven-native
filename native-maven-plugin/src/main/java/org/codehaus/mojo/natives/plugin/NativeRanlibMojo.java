@@ -51,8 +51,7 @@ public class NativeRanlibMojo
 
     /**
      * To look up javah implementation
-     * @parameter expression="${component.org.codehaus.mojo.natives.manager.RanlibManager}"
-     * @required
+     * @component
      */
 
     private RanlibManager manager;

@@ -73,8 +73,7 @@ public class NativeMessageCompileMojo
     protected File[] messageFiles;
 
     /**
-     * @parameter expression="${component.org.codehaus.mojo.natives.manager.MessageCompilerManager}"
-     * @required
+     * @component
      */
     private MessageCompilerManager manager;
 

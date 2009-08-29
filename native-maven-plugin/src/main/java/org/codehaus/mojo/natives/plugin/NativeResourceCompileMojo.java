@@ -75,10 +75,8 @@ public class NativeResourceCompileMojo
     private NativeSources[] sources;
 
     /**
-     * @parameter expression="${component.org.codehaus.mojo.natives.manager.ResourceCompilerManager}"
-     * @required
+     * @component
      */
-
     private ResourceCompilerManager manager;
 
     public void execute()
