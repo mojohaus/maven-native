@@ -36,7 +36,7 @@
         <configuration>
           <workingDirectory>${project.build.directory}</workingDirectory>
           <compilerProvider>msvc</compilerProvider>
-          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory</envFactoryName>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC6EnvFactory</envFactoryName>
           <compilerStartOptions>
             <compilerStartOption>${compiler.debug.options}</compilerStartOption>
             <compilerStartOption>/W4 -O</compilerStartOption>
@@ -58,7 +58,6 @@
             <linkerStartOption>${linker.debug.options}</linkerStartOption>
             <linkerStartOption> /INCREMENTAL:NO   /DLL oldnames.lib kernel32.lib </linkerStartOption>
           </linkerStartOptions>
-          
           
         </configuration>
         
@@ -110,9 +109,11 @@
           <forkMode>once</forkMode>
           
 
+          <!--
           <environmentVariables>
             <path>${project.build.directory};${java.library.path}</path>
           </environmentVariables>
+          -->
           
           <!-- 
             If you have single dll, then set 
@@ -121,9 +122,7 @@
           <!--workingDirectory>${project.build.directory}</workingDirectory-->
 
           
-          <!--  known to work
           <argLine>-Djava.library.path="${project.build.directory};${java.library.path}"</argLine>
-          -->
           
           <!-- currently not working
           <systemProperties>
