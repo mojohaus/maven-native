@@ -21,6 +21,14 @@
       <artifactId>hello</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+    
+    <!-- just here to test MOJO-1448 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.6</version>
+      <scope>runtime</scope>
+    </dependency>  
   </dependencies>
   
   

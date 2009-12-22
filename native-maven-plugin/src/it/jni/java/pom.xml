@@ -10,6 +10,7 @@
 
   <groupId>org.codehaus.mojo.natives.it.jni</groupId>
   <artifactId>hello</artifactId>
+
   
   <name>JNI - Java </name>
 
