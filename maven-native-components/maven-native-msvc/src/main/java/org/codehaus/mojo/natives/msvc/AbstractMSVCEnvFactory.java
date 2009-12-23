@@ -7,9 +7,14 @@ public abstract class AbstractMSVCEnvFactory
     implements EnvFactory
 {
 
+    protected static String getProgramFiles()
+    {
+        return EnvUtil.getEnv( "ProgramFiles", "ProgramFiles", "C:/Program Files" );
+    }
+
     protected static String getSystemRoot()
     {
-        return EnvUtil.getEnv( "SystemRoot", "SystemRoot", "c:/WINDOWS" );
+        return EnvUtil.getEnv( "SystemRoot", "SystemRoot", "C:/WINDOWS" );
     }
 
 }
