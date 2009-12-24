@@ -18,6 +18,8 @@
   
   <build>
     
+    <defaultGoal>install</defaultGoal>
+    
     <plugins>
       <!-- share configuration to all win32 artifact -->
       <plugin>
@@ -26,14 +28,14 @@
         <extensions>true</extensions>   
         <configuration>
           <compilerProvider>msvc</compilerProvider>
-          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2003EnvFactory</envFactoryName>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2008x86EnvFactory</envFactoryName>
         </configuration>
       </plugin>
     </plugins>
   </build>
 
   <properties>
-    <commonCompilerOptions>/MD /W4 -O</commonCompilerOptions>
+    <commonCompilerOptions>/MD /W4</commonCompilerOptions>
   </properties>
     
   <modules>

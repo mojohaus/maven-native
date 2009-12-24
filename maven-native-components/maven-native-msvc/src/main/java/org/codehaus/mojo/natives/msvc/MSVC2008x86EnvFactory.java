@@ -90,7 +90,7 @@ public class MSVC2008x86EnvFactory
         String framework35Version = "v3.5";
         envs.put( "Framework35Version", framework35Version );
 
-        String devEnvDir = VS90COMNTOOLS_DIR + "\\IDE";
+        String devEnvDir = VS90COMNTOOLS_DIR + "..\\IDE";
         envs.put( "DevEnvDir", devEnvDir );
 
         //set "PATH=%WindowsSdkDir%bin;%PATH%"
@@ -105,9 +105,9 @@ public class MSVC2008x86EnvFactory
         //setup new PATH
         String currentPathEnv = System.getProperty( "java.library.path" );
 
-        String newPathEnv = devEnvDir + ";" + vcInstallDir.getPath() + "\\BIN" + ";" + VS90COMNTOOLS_DIR + ";"
+        String newPathEnv = devEnvDir + ";" + vcInstallDir.getPath() + "\\bin" + ";" + VS90COMNTOOLS_DIR + ";"
             + frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion + ";"
-            + vcInstallDir.getPath() + "\\VCPackages" + ";" + windowsSDKDir.getPath() + "\\BIN;" + currentPathEnv;
+            + vcInstallDir.getPath() + "\\VCPackages" + ";" + windowsSDKDir.getPath() + "\\bin;" + currentPathEnv;
 
         envs.put( "PATH", newPathEnv );
 
