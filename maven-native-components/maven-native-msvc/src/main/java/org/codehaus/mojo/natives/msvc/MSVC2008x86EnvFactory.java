@@ -2,33 +2,29 @@ package org.codehaus.mojo.natives.msvc;
 
 /*
  * The MIT License
- *
+ * 
  * Copyright (c) 2004, The Codehaus
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do
- * so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
@@ -43,9 +39,10 @@ public class MSVC2008x86EnvFactory
 {
     private static final String MSVS2008_INSTALL_ENV_KEY = "MSVS2008_INSTALL_DIR";
 
-    private static final String DEFAULT_MSVS2008_INSTALL_DIR = getProgramFilesX86() + "/Microsoft Visual Studio 9.0";
-    
-    private static final String VS90COMNTOOLS_DIR = EnvUtil.getEnv( "VS90COMNTOOLS", "VS90COMNTOOLS", "VS90COMNTOOLS_DIR" );
+    private static final String DEFAULT_MSVS2008_INSTALL_DIR = getProgramFilesX86() + "\\Microsoft Visual Studio 9.0";
+
+    private static final String VS90COMNTOOLS_DIR = EnvUtil.getEnv( "VS90COMNTOOLS", "VS90COMNTOOLS",
+                                                                    "VS90COMNTOOLS_DIR" );
 
     private static Map envs;
 
@@ -63,29 +60,29 @@ public class MSVC2008x86EnvFactory
     protected Map createEnvs()
         throws NativeBuildException
     {
+        Map envs = new HashMap();
+
         File vsInstallDir = new File( EnvUtil.getEnv( MSVS2008_INSTALL_ENV_KEY, MSVS2008_INSTALL_ENV_KEY,
                                                       DEFAULT_MSVS2008_INSTALL_DIR ) );
-
         if ( !vsInstallDir.isDirectory() )
         {
             throw new NativeBuildException( vsInstallDir.getPath() + " is not a directory." );
         }
+        envs.put( "VSINSTALLDIR", vsInstallDir.getPath() );
 
         File vcInstallDir = new File( vsInstallDir.getPath() + "\\VC" );
-
         if ( !vcInstallDir.isDirectory() )
         {
             throw new NativeBuildException( vcInstallDir.getPath() + " is not a directory." );
         }
+        envs.put( "VCINSTALLDIR", vcInstallDir.getPath() );
 
-        Map envs = new HashMap();
-        
         File frameworkDir = new File( getSystemRoot() + "\\Microsoft.NET\\Framework" );
         envs.put( "FrameworkDir", frameworkDir.getPath() );
-        
+
         //TODO use windows registry. see vsvars32.bat for details
-        File windowSDKDir = new File( getProgramFiles() + "/Microsoft SDKs/Windows/v6.0A" );
-        envs.put( "WindowSDKDir", windowSDKDir.getPath() );
+        File windowsSDKDir = new File( "C:\\Program Files" + "\\Microsoft SDKs\\Windows\\v6.0A" );
+        envs.put( "WindowsSdkDir", windowsSDKDir.getPath() );
 
         String frameworkVersion = "v2.0.50727";
         envs.put( "FrameworkVersion", frameworkVersion );
@@ -93,10 +90,9 @@ public class MSVC2008x86EnvFactory
         String framework35Version = "v3.5";
         envs.put( "Framework35Version", framework35Version );
 
-        
         String devEnvDir = VS90COMNTOOLS_DIR + "\\IDE";
+        envs.put( "DevEnvDir", devEnvDir );
 
-        
         //set "PATH=%WindowsSdkDir%bin;%PATH%"
         //@set PATH=C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE;
         //          C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN;
@@ -105,29 +101,23 @@ public class MSVC2008x86EnvFactory
         //          C:\Windows\Microsoft.NET\Framework\v2.0.50727;
         //          C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\VCPackages;
         //          %PATH%
-        
+
         //setup new PATH
         String currentPathEnv = System.getProperty( "java.library.path" );
-        
-        String newPathEnv = devEnvDir + ";" 
-            + vcInstallDir.getPath() + "\\BIN" + ";"
-            + VS90COMNTOOLS_DIR + ";" 
-            + frameworkDir + "\\" + frameworkVersion + ";"
-            + frameworkDir + "\\" + framework35Version + ";" 
-            + vcInstallDir.getPath() + "\\VCPackages" + ";"
-            + windowSDKDir.getPath() + "\\BIN;" 
-            + currentPathEnv;
+
+        String newPathEnv = devEnvDir + ";" + vcInstallDir.getPath() + "\\BIN" + ";" + VS90COMNTOOLS_DIR + ";"
+            + frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion + ";"
+            + vcInstallDir.getPath() + "\\VCPackages" + ";" + windowsSDKDir.getPath() + "\\BIN;" + currentPathEnv;
 
         envs.put( "PATH", newPathEnv );
-        
+
         //setup new INCLUDE PATH
         //@set "INCLUDE=%WindowsSdkDir%include;%INCLUDE%"
         //@set INCLUDE=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE;%INCLUDE%
 
         String currentIncludeEnv = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludeEnv = vcInstallDir.getPath() + "\\INCLUDE;"  
-            + windowSDKDir.getPath() + "\\include;" 
+        String newIncludeEnv = vcInstallDir.getPath() + "\\INCLUDE;" + windowsSDKDir.getPath() + "\\include;"
             + currentIncludeEnv;
 
         envs.put( "INCLUDE", newIncludeEnv );
@@ -139,9 +129,7 @@ public class MSVC2008x86EnvFactory
         //
         String currentLibEnv = EnvUtil.getEnv( "LIB" );
 
-        String newLibEnv = vcInstallDir.getPath() + "\\LIB;"  
-                     + windowSDKDir.getPath() + "\\LIB;" 
-                     + currentLibEnv;
+        String newLibEnv = vcInstallDir.getPath() + "\\LIB;" + windowsSDKDir.getPath() + "\\LIB;" + currentLibEnv;
 
         envs.put( "LIB", newLibEnv );
 
@@ -150,15 +138,12 @@ public class MSVC2008x86EnvFactory
 
          */
         String currentLibPathEnv = EnvUtil.getEnv( "LIBPATH" );
-        
-        String newLibPathEnv = 
-              frameworkDir + "\\" + framework35Version + ";" 
-            + frameworkDir + "\\" + frameworkVersion + ";"
-            + vcInstallDir.getPath() + "\\LIB;"  
-            + currentLibPathEnv;
+
+        String newLibPathEnv = frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion
+            + ";" + vcInstallDir.getPath() + "\\LIB;" + currentLibPathEnv;
 
         envs.put( "LIBPATH", newLibPathEnv );
-        
+
         return envs;
 
     }

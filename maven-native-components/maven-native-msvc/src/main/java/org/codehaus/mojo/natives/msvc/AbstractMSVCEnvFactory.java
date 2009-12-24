@@ -9,7 +9,7 @@ public abstract class AbstractMSVCEnvFactory
 
     protected static String getProgramFiles()
     {
-        return EnvUtil.getEnv( "ProgramFiles", "ProgramFiles", "C:/Program Files" );
+        return EnvUtil.getEnv( "ProgramFiles", "ProgramFiles", "C:\\Program Files" );
     }
 
     protected static String getProgramFilesX86()
@@ -19,7 +19,7 @@ public abstract class AbstractMSVCEnvFactory
     
     protected static String getSystemRoot()
     {
-        return EnvUtil.getEnv( "SystemRoot", "SystemRoot", "C:/WINDOWS" );
+        return EnvUtil.getEnv( "SystemRoot", "SystemRoot", "C:\\WINDOWS" );
     }
 
 }
