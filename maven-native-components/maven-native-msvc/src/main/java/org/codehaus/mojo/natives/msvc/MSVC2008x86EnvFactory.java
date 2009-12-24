@@ -60,7 +60,7 @@ public class MSVC2008x86EnvFactory
         return envs;
     }
 
-    private Map createEnvs()
+    protected Map createEnvs()
         throws NativeBuildException
     {
         File vsInstallDir = new File( EnvUtil.getEnv( MSVS2008_INSTALL_ENV_KEY, MSVS2008_INSTALL_ENV_KEY,

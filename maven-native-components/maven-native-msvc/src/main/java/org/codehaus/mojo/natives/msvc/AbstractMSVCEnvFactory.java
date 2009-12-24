@@ -1,10 +1,10 @@
 package org.codehaus.mojo.natives.msvc;
 
-import org.codehaus.mojo.natives.EnvFactory;
+import org.codehaus.mojo.natives.AbstractEnvFactory;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
 public abstract class AbstractMSVCEnvFactory
-    implements EnvFactory
+    extends AbstractEnvFactory
 {
 
     protected static String getProgramFiles()

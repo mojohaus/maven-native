@@ -27,6 +27,7 @@ package org.codehaus.mojo.natives.plugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.natives.EnvFactoryManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -65,6 +66,16 @@ public abstract class AbstractNativeMojo
      * @parameter
      */
     protected String envFactoryName;
+    
+    /**
+     * Internal 
+     * @component
+     * @required
+     * @readonly
+     */
+
+    protected EnvFactoryManager envFactoryManager;
+    
 
     protected static String[] removeEmptyOptions( List args )
     {
@@ -106,4 +117,5 @@ public abstract class AbstractNativeMojo
     {
         return this.project;
     }
+    
 }

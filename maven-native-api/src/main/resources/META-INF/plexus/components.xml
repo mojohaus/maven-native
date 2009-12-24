@@ -16,6 +16,13 @@
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
 
+    <component>
+      <role>org.codehaus.mojo.natives.EnvFactoryManager</role>
+      <role-hint>default</role-hint>
+      <implementation>org.codehaus.mojo.natives.DefaultEnvFactoryManager</implementation>
+      <instantiation-strategy>singleton</instantiation-strategy>
+    </component>
+
   </components>
     
 </component-set>

@@ -39,4 +39,6 @@ public interface EnvFactory
      * @throws NativeBuildException
      */
 	Map getEnvironmentVariables() throws NativeBuildException;
+	
+	
 }

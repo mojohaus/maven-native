@@ -57,7 +57,7 @@ public class MSVC2003EnvFactory
         return envs;
     }
 
-    private Map createEnvs()
+    protected Map createEnvs()
         throws NativeBuildException
     {
         File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY,
