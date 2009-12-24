@@ -60,9 +60,10 @@ public abstract class AbstractNativeMojo
     
     /**
      * Where to place the final packaging and compiler object files
-     * @parameter expression="${project.build.directory}"
+     * @deprecated use appropriate output directory configuration name per specific goal instead
+     * for example compilerOutputDirectory, ranlibOutputDirectory
+     * @parameter
      * @required
-     * @readonly
      */
     protected File outputDirectory;
 

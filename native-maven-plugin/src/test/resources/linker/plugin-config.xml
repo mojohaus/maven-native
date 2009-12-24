@@ -8,7 +8,7 @@
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
           <compilerProvider>noop</compilerProvider>
           
-          <outputDirectory>target</outputDirectory>
+          <linkerOutputDirectory>target</linkerOutputDirectory>
           
         </configuration>
       </plugin>

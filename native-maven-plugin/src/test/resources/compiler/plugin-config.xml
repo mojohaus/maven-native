@@ -9,7 +9,7 @@
           <compilerProvider>noop</compilerProvider>
           
           <workingDirectory>${basedir}</workingDirectory>
-          <outputDirectory>target</outputDirectory>
+          <compilerOutputDirectory>target</compilerOutputDirectory>
           
           <compilerExecutable>someExe</compilerExecutable>
           <compilerStartOptions>

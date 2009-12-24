@@ -33,6 +33,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -75,6 +76,13 @@ public class NativeResourceCompileMojo
     private NativeSources[] sources;
 
     /**
+     * @parameter expression="${project.build.directory}"
+     * @required
+     * @readonly
+     */
+    protected File resourceCompilerOutputDirectory;
+    
+    /**
      * @component
      */
     private ResourceCompilerManager manager;
@@ -82,10 +90,16 @@ public class NativeResourceCompileMojo
     public void execute()
         throws MojoExecutionException
     {
-
-        if ( !this.outputDirectory.exists() )
+        //until we remove the deprecated outputDirectory configuration
+        if ( this.outputDirectory != null  )
         {
-            this.outputDirectory.mkdirs();
+            this.resourceCompilerOutputDirectory = this.outputDirectory;
+        }
+
+
+        if ( !this.resourceCompilerOutputDirectory.exists() )
+        {
+            this.resourceCompilerOutputDirectory.mkdirs();
         }
 
         ResourceCompiler compiler = this.getResourceCompiler();
@@ -96,7 +110,7 @@ public class NativeResourceCompileMojo
         config.setExecutable( this.resourceCompilerExecutable );
         config.setWorkingDirectory( this.workingDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.resourceCompilerOptions ) );
-        config.setOutputDirectory( this.outputDirectory );
+        config.setOutputDirectory( this.resourceCompilerOutputDirectory );
         config.setEnvFactoryName( this.envFactoryName );
 
         List resourceOutputFiles;

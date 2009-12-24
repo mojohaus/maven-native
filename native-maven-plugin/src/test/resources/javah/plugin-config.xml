@@ -9,7 +9,7 @@
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
           <implementation>noop</implementation>
           <workingDirectory>${basedir}</workingDirectory>          
-          <outputDirectory>target/javah</outputDirectory>
+          <javahOutputDirectory>target/javah</javahOutputDirectory>
         </configuration>
       </plugin>
     </plugins>

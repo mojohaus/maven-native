@@ -42,6 +42,15 @@ import org.codehaus.mojo.natives.manager.RanlibManager;
 public class NativeRanlibMojo
     extends AbstractNativeMojo
 {
+    
+    /**
+     * Where to place the final packaging
+     * @parameter expression="${project.build.directory}"
+     * @required
+     * @readonly
+     */
+    protected File ranlibOutputDirectory;
+    
     /**
      * Ranlib Provider. 
      * @parameter default-value="default"
@@ -59,13 +68,19 @@ public class NativeRanlibMojo
     public void execute()
         throws MojoExecutionException
     {
+        //until we remove the deprecated outputDirectory configuration
+        if ( this.outputDirectory != null  )
+        {
+            this.ranlibOutputDirectory = this.outputDirectory;
+        }
+        
         try
         {
             String finalName = this.project.getBuild().getFinalName();
 
             String fileExt = this.project.getArtifact().getArtifactHandler().getExtension();
 
-            File outputFile = new File( this.outputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
+            File outputFile = new File( this.ranlibOutputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
 
             Ranlib ranlib = this.getRanlib();
             

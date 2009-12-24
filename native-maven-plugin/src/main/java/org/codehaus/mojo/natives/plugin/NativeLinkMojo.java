@@ -132,6 +132,14 @@ public class NativeLinkMojo
     private String linkerSecondaryOutputExtensions = "";
 
     /**
+     * Where to place the final packaging
+     * @parameter expression="${project.build.directory}"
+     * @required
+     * @readonly
+     */
+    protected File linkerOutputDirectory;
+    
+    /**
      * @component
      */
 
@@ -170,6 +178,12 @@ public class NativeLinkMojo
     public void execute()
         throws MojoExecutionException
     {
+        //until we remove the deprecated outputDirectory configuration
+        if ( this.outputDirectory != null  )
+        {
+            this.linkerOutputDirectory = this.outputDirectory;
+        }
+        
 
         if ( StringUtils.isEmpty( this.classifier ) )
         {
@@ -212,7 +226,7 @@ public class NativeLinkMojo
         config.setStartOptions( removeEmptyOptions( this.linkerStartOptions ) );
         config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );
         config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
-        config.setOutputDirectory( this.outputDirectory );
+        config.setOutputDirectory( this.linkerOutputDirectory );
         config.setOutputFileName( this.project.getBuild().getFinalName() );
         config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
         config.setExternalLibDirectory( this.externalLibDirectory );
@@ -253,7 +267,7 @@ public class NativeLinkMojo
 
         if ( null == this.classifier ) 
         {
-            artifact.setFile( new File( this.outputDirectory + "/" + this.project.getBuild().getFinalName() + "."
+            artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
                 + this.project.getArtifact().getArtifactHandler().getExtension() ) );
         }
         else
@@ -285,7 +299,7 @@ public class NativeLinkMojo
             clone.setDownloadUrl( artifact.getDownloadUrl() );
             clone.setRepository( artifact.getRepository() );
 
-            clone.setFile( new File( this.outputDirectory + "/" + this.project.getBuild().getFinalName() + "."
+            clone.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
                                         + this.project.getArtifact().getArtifactHandler().getExtension() ) );
             
             project.setArtifact( clone );
@@ -301,7 +315,7 @@ public class NativeLinkMojo
             // TODO: shouldn't need classifier
             Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(), project
                 .getVersion(), this.classifier, tokens[i].trim() );
-            artifact.setFile( new File( this.outputDirectory + "/" + this.project.getBuild().getFinalName() + "."
+            artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
                 + tokens[i].trim() ) );
 
             project.addAttachedArtifact( artifact );

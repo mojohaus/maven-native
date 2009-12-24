@@ -113,7 +113,7 @@
             
             <configuration>
               <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
-              <outputDirectory>${project.build.directory}/custom-javah</outputDirectory>
+              <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
               <outputFileName>HelloWorld.h</outputFileName>
               <classNames>
                 <className>HelloWorld</className>

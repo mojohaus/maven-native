@@ -73,6 +73,14 @@ public class NativeMessageCompileMojo
     protected File[] messageFiles;
 
     /**
+     * Where to place the compiler object files
+     * @parameter expression="${project.build.directory}"
+     * @required
+     * @readonly
+     */
+    protected File messageCompilerOutputDirectory;
+    
+    /**
      * @component
      */
     private MessageCompilerManager manager;
@@ -88,10 +96,16 @@ public class NativeMessageCompileMojo
     public void execute()
         throws MojoExecutionException
     {
-
-        if ( !this.outputDirectory.exists() )
+        //until we remove the deprecated outputDirectory configuration
+        if ( this.outputDirectory != null  )
         {
-            this.outputDirectory.mkdirs();
+            this.messageCompilerOutputDirectory = this.outputDirectory;
+        }
+        
+
+        if ( !this.messageCompilerOutputDirectory.exists() )
+        {
+            this.messageCompilerOutputDirectory.mkdirs();
         }
 
         MessageCompiler compiler = this.getMessageCompiler();
@@ -100,7 +114,7 @@ public class NativeMessageCompileMojo
 
         config.setExecutable( this.messageCompilerExecutable );
         config.setWorkingDirectory( this.workingDirectory );
-        config.setOutputDirectory( this.outputDirectory );
+        config.setOutputDirectory( this.messageCompilerOutputDirectory );
         config.setOptions( NativeMojoUtils.trimParams( this.messageCompilerOptions ) );
         config.setEnvFactoryName( this.envFactoryName );
 
@@ -113,7 +127,7 @@ public class NativeMessageCompileMojo
             throw new MojoExecutionException( e.getMessage(), e );
         }
 
-        this.project.addCompileSourceRoot( this.outputDirectory.getAbsolutePath() );
+        this.project.addCompileSourceRoot( this.messageCompilerOutputDirectory.getAbsolutePath() );
 
     }
 

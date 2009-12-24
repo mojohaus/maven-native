@@ -7,7 +7,7 @@
         <configuration>
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
           <provider>noop</provider>
-          <outputDirectory>target</outputDirectory>
+          <ranlibOutputDirectory>target</ranlibOutputDirectory>
         </configuration>
       </plugin>
     </plugins>

@@ -62,6 +62,9 @@ public class CompilerConfiguration
 
     private File[] systemIncludePaths;
 
+    /**
+     * Directory to place all object output files
+     */
     private File outputDirectory;
     
     public CompilerConfiguration()

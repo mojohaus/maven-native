@@ -118,6 +118,13 @@ public class NativeCompileMojo
     protected NativeSources[] sources = new NativeSources[0];
 
     /**
+     * @parameter expression="${project.build.directory}"
+     * @required
+     * @readonly
+     */
+    protected File compilerOutputDirectory;
+    
+    /**
      * Internal 
      * @component
      * @required
@@ -129,6 +136,7 @@ public class NativeCompileMojo
     public void execute()
         throws MojoExecutionException
     {
+        
         Compiler compiler;
 
         try
@@ -242,7 +250,7 @@ public class NativeCompileMojo
         config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
         config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
         config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
-        config.setOutputDirectory( this.outputDirectory );
+        config.setOutputDirectory( this.compilerOutputDirectory );
         config.setEnvFactoryName( this.envFactoryName );
         config.setObjectFileExtension( this.objectFileExtension );
 

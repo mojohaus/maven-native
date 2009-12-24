@@ -57,7 +57,7 @@ import java.util.zip.ZipFile;
  */
 
 public class NativeJavahMojo
-    extends AbstractMojo
+    extends AbstractNativeMojo
 {
 
     /**
@@ -83,26 +83,13 @@ public class NativeJavahMojo
     private File javahPath;
 
     /**
-     * Internal readonly property.
-     * @parameter expression="${project}"
+     * Where to place javah generated file
+     * @parameter expression="${project.build.directory}/native/javah"
      * @required
      * @readonly
      */
-    private MavenProject project;
-
-    /**
-     * user directory when external tools( ie compiler/linker ) are invoked
-     * @parameter expression="${workingDirectory}" default-value="${basedir}"
-     * 
-     */
-    protected File workingDirectory;
-
-    /**
-     * Generated native source files go here
-     * @parameter default-value="${project.build.directory}/native/javah" 
-     * @required
-     */
-    private File outputDirectory;
+    protected File javahOutputDirectory;
+    
 
     /**
      * if configured will be combined with outputDirectory to pass into javah's -o option
@@ -135,6 +122,12 @@ public class NativeJavahMojo
         throws MojoExecutionException
     {
 
+        //until we remove the deprecated outputDirectory configuration
+        if ( this.outputDirectory != null  )
+        {
+            this.javahOutputDirectory = this.outputDirectory;
+        }
+        
         try
         {
             this.config = this.createProviderConfiguration();
@@ -145,7 +138,7 @@ public class NativeJavahMojo
             throw new MojoExecutionException( "Error running javah command", e );
         }
 
-        this.project.addCompileSourceRoot( this.outputDirectory.getAbsolutePath() );
+        this.project.addCompileSourceRoot( this.javahOutputDirectory.getAbsolutePath() );
 
     }
 
@@ -300,7 +293,7 @@ public class NativeJavahMojo
         JavahConfiguration config = new JavahConfiguration();
         config.setWorkingDirectory( this.workingDirectory );
         config.setVerbose( this.verbose );
-        config.setOutputDirectory( this.outputDirectory );
+        config.setOutputDirectory( this.javahOutputDirectory );
         config.setFileName( this.outputFileName );
         config.setClassPaths( this.getJavahClassPath() );
         config.setClassNames( this.getNativeClassNames() );
