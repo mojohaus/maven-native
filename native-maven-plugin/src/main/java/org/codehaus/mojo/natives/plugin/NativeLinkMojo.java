@@ -135,7 +135,6 @@ public class NativeLinkMojo
      * Where to place the final packaging
      * @parameter expression="${project.build.directory}"
      * @required
-     * @readonly
      */
     protected File linkerOutputDirectory;
     
@@ -178,12 +177,6 @@ public class NativeLinkMojo
     public void execute()
         throws MojoExecutionException
     {
-        //until we remove the deprecated outputDirectory configuration
-        if ( this.outputDirectory != null  )
-        {
-            this.linkerOutputDirectory = this.outputDirectory;
-        }
-        
 
         if ( StringUtils.isEmpty( this.classifier ) )
         {

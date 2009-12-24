@@ -47,7 +47,6 @@ public class NativeRanlibMojo
      * Where to place the final packaging
      * @parameter expression="${project.build.directory}"
      * @required
-     * @readonly
      */
     protected File ranlibOutputDirectory;
     
@@ -68,11 +67,6 @@ public class NativeRanlibMojo
     public void execute()
         throws MojoExecutionException
     {
-        //until we remove the deprecated outputDirectory configuration
-        if ( this.outputDirectory != null  )
-        {
-            this.ranlibOutputDirectory = this.outputDirectory;
-        }
         
         try
         {

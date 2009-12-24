@@ -120,7 +120,6 @@ public class NativeCompileMojo
     /**
      * @parameter expression="${project.build.directory}"
      * @required
-     * @readonly
      */
     protected File compilerOutputDirectory;
     

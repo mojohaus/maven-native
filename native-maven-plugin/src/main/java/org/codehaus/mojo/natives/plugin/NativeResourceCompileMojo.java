@@ -78,7 +78,6 @@ public class NativeResourceCompileMojo
     /**
      * @parameter expression="${project.build.directory}"
      * @required
-     * @readonly
      */
     protected File resourceCompilerOutputDirectory;
     
@@ -90,12 +89,6 @@ public class NativeResourceCompileMojo
     public void execute()
         throws MojoExecutionException
     {
-        //until we remove the deprecated outputDirectory configuration
-        if ( this.outputDirectory != null  )
-        {
-            this.resourceCompilerOutputDirectory = this.outputDirectory;
-        }
-
 
         if ( !this.resourceCompilerOutputDirectory.exists() )
         {

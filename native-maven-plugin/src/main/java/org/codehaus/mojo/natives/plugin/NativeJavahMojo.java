@@ -84,9 +84,14 @@ public class NativeJavahMojo
 
     /**
      * Where to place javah generated file
+     * @deprecated use javahOutputDirectory instead
+     * @parameter 
+     */
+    protected File outputDirectory;
+    
+    /**
+     * Where to place javah generated file
      * @parameter expression="${project.build.directory}/native/javah"
-     * @required
-     * @readonly
      */
     protected File javahOutputDirectory;
     

@@ -76,7 +76,6 @@ public class NativeMessageCompileMojo
      * Where to place the compiler object files
      * @parameter expression="${project.build.directory}"
      * @required
-     * @readonly
      */
     protected File messageCompilerOutputDirectory;
     
@@ -96,12 +95,6 @@ public class NativeMessageCompileMojo
     public void execute()
         throws MojoExecutionException
     {
-        //until we remove the deprecated outputDirectory configuration
-        if ( this.outputDirectory != null  )
-        {
-            this.messageCompilerOutputDirectory = this.outputDirectory;
-        }
-        
 
         if ( !this.messageCompilerOutputDirectory.exists() )
         {

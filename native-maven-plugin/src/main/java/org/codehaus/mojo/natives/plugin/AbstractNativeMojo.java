@@ -59,15 +59,6 @@ public abstract class AbstractNativeMojo
     protected File workingDirectory;
     
     /**
-     * Where to place the final packaging and compiler object files
-     * @deprecated use appropriate output directory configuration name per specific goal instead
-     * for example compilerOutputDirectory, ranlibOutputDirectory
-     * @parameter
-     * @required
-     */
-    protected File outputDirectory;
-
-    /**
      * Specifies a fully qualified class name implementing the 
      * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
      * a set environment variables to be used with the command line.
