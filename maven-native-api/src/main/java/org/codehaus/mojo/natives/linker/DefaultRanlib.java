@@ -18,7 +18,7 @@ public class DefaultRanlib
 
         cl.setExecutable( "ranlib" );
 
-        cl.createArgument().setValue( file.getAbsolutePath() );
+        cl.createArg().setValue( file.getAbsolutePath() );
 
         CommandLineUtil.execute( cl, this.getLogger() );
     }

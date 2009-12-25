@@ -54,7 +54,7 @@ public abstract class AbstractMessageCompiler
         {
             Commandline cl = getCommandLine( config, sourceFiles[i] );
             
-            EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+            EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
             CommandLineUtil.execute( cl, this.getLogger() );
         }

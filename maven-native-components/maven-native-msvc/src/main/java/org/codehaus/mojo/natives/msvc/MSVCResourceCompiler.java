@@ -24,14 +24,13 @@ package org.codehaus.mojo.natives.msvc;
  * SOFTWARE.
  */
 
+import java.io.File;
+
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractResourceCompiler;
+import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.util.Os;
-
-import java.io.File;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -47,7 +46,7 @@ public class MSVCResourceCompiler
 
         Commandline cl = new Commandline();
 
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
         if ( config.getWorkingDirectory() != null )
         {
@@ -66,25 +65,25 @@ public class MSVCResourceCompiler
         {
             String includePath = config.getIncludePaths()[i].getPath();
 
-            cl.createArgument().setValue( "/i" );
+            cl.createArg().setValue( "/i" );
 
-            cl.createArgument().setValue( includePath );
+            cl.createArg().setValue( includePath );
         }
 
         for ( int i = 0; i < config.getSystemIncludePaths().length; ++i )
         {
             String includePath = config.getSystemIncludePaths()[i].getPath();
 
-            cl.createArgument().setValue( "/i" );
+            cl.createArg().setValue( "/i" );
 
-            cl.createArgument().setValue( includePath );
+            cl.createArg().setValue( includePath );
         }
 
-        cl.createArgument().setValue( "/fo" );
+        cl.createArg().setValue( "/fo" );
 
-        cl.createArgument().setValue( config.getOutputFile( source ).getPath() );
+        cl.createArg().setValue( config.getOutputFile( source ).getPath() );
 
-        cl.createArgument().setValue( source.getPath() );
+        cl.createArg().setValue( source.getPath() );
 
         return cl;
     }

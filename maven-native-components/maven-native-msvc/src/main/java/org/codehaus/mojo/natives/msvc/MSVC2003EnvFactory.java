@@ -44,19 +44,6 @@ public class MSVC2003EnvFactory
 
     private static final String DEFAULT_MSVS2003_INSTALL_DIR = getProgramFiles() + "/Microsoft Visual Studio .NET 2003";
 
-    private static Map envs;
-
-    public synchronized Map getEnvironmentVariables()
-        throws NativeBuildException
-    {
-        if ( envs == null )
-        {
-            envs = createEnvs();
-        }
-
-        return envs;
-    }
-
     protected Map createEnvs()
         throws NativeBuildException
     {

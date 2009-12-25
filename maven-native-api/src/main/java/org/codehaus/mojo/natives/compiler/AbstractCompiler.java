@@ -72,9 +72,8 @@ public abstract class AbstractCompiler
             if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) )
             {
                 Commandline cl = getCommandLine( source, objectFile, config );
-
-                EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
-
+                EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
+                
                 CommandLineUtil.execute( cl, this.getLogger() );
 
             }

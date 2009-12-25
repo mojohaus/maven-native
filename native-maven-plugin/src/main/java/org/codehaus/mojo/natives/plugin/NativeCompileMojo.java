@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.compiler.Compiler;
@@ -159,12 +158,9 @@ public class NativeCompileMojo
         try
         {
             //may want to remove this when we are dont with msvc2008 debugging
-            if ( this.getLog().isDebugEnabled() )
+            if ( this.getLog().isDebugEnabled() && getEnvFactory() != null )
             {
-                EnvFactory envFactory = this.envFactoryManager.getEnvFactory( config.getEnvFactoryName() );
-
-                //TODO move this to AbstractEnvFactory
-                Map alterEnvMap = envFactory.getEnvironmentVariables();
+                Map alterEnvMap = this.getEnvFactory().getEnvironmentVariables();
 
                 Iterator iter = alterEnvMap.keySet().iterator();
 
@@ -268,9 +264,9 @@ public class NativeCompileMojo
         config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
         config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
         config.setOutputDirectory( this.compilerOutputDirectory );
-        config.setEnvFactoryName( this.envFactoryName );
         config.setObjectFileExtension( this.objectFileExtension );
-
+        config.setEnvFactory( this.getEnvFactory() );
+        
         return config;
     }
 

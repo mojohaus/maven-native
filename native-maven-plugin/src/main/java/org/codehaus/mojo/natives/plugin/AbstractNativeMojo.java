@@ -24,14 +24,16 @@ package org.codehaus.mojo.natives.plugin;
  * SOFTWARE.
  */
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
-import org.codehaus.mojo.natives.EnvFactoryManager;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.natives.EnvFactory;
+import org.codehaus.mojo.natives.EnvFactoryManager;
+import org.codehaus.mojo.natives.NativeBuildException;
 
 /**
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>
@@ -65,7 +67,7 @@ public abstract class AbstractNativeMojo
      * a set environment variables to be used with the command line.
      * @parameter
      */
-    protected String envFactoryName;
+    private String envFactoryName;
     
     /**
      * Internal 
@@ -116,6 +118,26 @@ public abstract class AbstractNativeMojo
     protected MavenProject getProject()
     {
         return this.project;
+    }
+    
+    private EnvFactory envFactory = null;
+    
+    protected EnvFactory getEnvFactory()
+        throws MojoExecutionException
+    {
+        if ( envFactory == null && envFactoryName != null  )
+        {
+            try
+            {
+                envFactory = this.envFactoryManager.getEnvFactory( this.envFactoryName );
+            }
+            catch ( NativeBuildException e )
+            {
+                throw new MojoExecutionException( e.getMessage(), e );
+            }
+        }
+        
+        return envFactory;
     }
     
 }

@@ -70,19 +70,19 @@ public class CLinker
         String linkerOutputOption = this.getLinkerOutputOption();
         if ( linkerOutputOption.endsWith( " " ) )
         {
-            cl.createArgument().setValue( linkerOutputOption.substring( 0, linkerOutputOption.length() - 1 ) );
-            cl.createArgument().setFile( config.getOutputFile() );
+            cl.createArg().setValue( linkerOutputOption.substring( 0, linkerOutputOption.length() - 1 ) );
+            cl.createArg().setFile( config.getOutputFile() );
         }
         else
         {
-            cl.createArgument().setValue( linkerOutputOption + config.getOutputFile() );
+            cl.createArg().setValue( linkerOutputOption + config.getOutputFile() );
         }
 
         for ( int i = 0; i < objectFiles.size(); ++i )
         {
             File objFile = (File) objectFiles.get( i );
             String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
-            cl.createArgument().setValue( objFilePath );
+            cl.createArg().setValue( objFilePath );
         }
 
         if ( config.getMiddleOptions() != null )
@@ -136,7 +136,7 @@ public class CLinker
             {
                 File libFile = new File( config.getExternalLibDirectory(), libFileName );
                 String relativeLibFile = FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
-                cl.createArgument().setValue( relativeLibFile );
+                cl.createArg().setValue( relativeLibFile );
             }
             else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
             {
@@ -146,7 +146,7 @@ public class CLinker
 
         if ( hasUnixLinkage )
         {
-            cl.createArgument().setValue( "-L" + config.getExternalLibDirectory() );
+            cl.createArg().setValue( "-L" + config.getExternalLibDirectory() );
         }
 
         for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
@@ -164,7 +164,7 @@ public class CLinker
                     libName = libName.substring( "lib".length() );
                 }
 
-                cl.createArgument().setValue( "-l" + libName );
+                cl.createArg().setValue( "-l" + libName );
             }
         }
     }

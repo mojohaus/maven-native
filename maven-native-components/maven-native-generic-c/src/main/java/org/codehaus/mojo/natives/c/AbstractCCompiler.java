@@ -99,7 +99,7 @@ public abstract class AbstractCCompiler
         {
             for ( int i = 0; i < options.length; ++i )
             {
-                cl.createArgument().setValue( options[i] );
+                cl.createArg().setValue( options[i] );
             }
         }
     }
@@ -125,7 +125,7 @@ public abstract class AbstractCCompiler
         {
             for ( int i = 0; i < includePaths.length; ++i )
             {
-                cl.createArgument().setValue( "-I" + includePaths[i].getPath() );
+                cl.createArg().setValue( "-I" + includePaths[i].getPath() );
             }
         }
     }
@@ -136,18 +136,18 @@ public abstract class AbstractCCompiler
 
         if ( outputFileOption.endsWith( " " ) )
         {
-            cl.createArgument().setValue( outputFileOption.trim() );
-            cl.createArgument().setValue( outputFile.getPath() );
+            cl.createArg().setValue( outputFileOption.trim() );
+            cl.createArg().setValue( outputFile.getPath() );
         }
         else
         {
-            cl.createArgument().setValue( outputFileOption + outputFile.getPath() );
+            cl.createArg().setValue( outputFileOption + outputFile.getPath() );
         }    
     }
     
     private void setSourceArgs( Commandline cl, File srcFile )
     {
-        cl.createArgument().setValue( "-c" );
-        cl.createArgument().setValue( srcFile.getPath() );
+        cl.createArg().setValue( "-c" );
+        cl.createArg().setValue( srcFile.getPath() );
     }    
 }

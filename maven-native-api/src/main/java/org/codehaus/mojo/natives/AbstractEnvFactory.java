@@ -6,7 +6,6 @@ public abstract class AbstractEnvFactory
     implements EnvFactory
 {
 
-    /* until we can do one more refactoring
     private static Map envs;
     
     public synchronized Map getEnvironmentVariables() 
@@ -19,7 +18,6 @@ public abstract class AbstractEnvFactory
         
         return envs;
     }
-    */
 
     protected abstract Map createEnvs()
         throws NativeBuildException;

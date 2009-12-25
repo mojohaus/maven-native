@@ -58,20 +58,20 @@ public class TLibLinker
 	    	executable = config.getExecutable();
 	    }
 	    
-	    cl.createArgument().setValue( executable );
+	    cl.createArg().setValue( executable );
 	    
-	    cl.createArgument().setValue( "\"" + config.getOutputFile() + "\"" );
+	    cl.createArg().setValue( "\"" + config.getOutputFile() + "\"" );
 
 	    for ( int i = 0; i < config.getStartOptions().length; ++i )
 	    {
-	      cl.createArgument().setValue( config.getStartOptions()[i] );
+	      cl.createArg().setValue( config.getStartOptions()[i] );
 	    }
 
 	    for ( int i = 0; i < objectFiles.size(); ++i )
 	    {
 	    	File objFile = (File) objectFiles.get(i);
 
-		    cl.createArgument().setValue( "+\"" + objFile.getPath() + "\"" );
+		    cl.createArg().setValue( "+\"" + objFile.getPath() + "\"" );
 	    }
         
 	    return cl;

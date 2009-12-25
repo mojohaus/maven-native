@@ -49,7 +49,7 @@ public abstract class AbstractLinker
         
         Commandline cl = this.createLinkerCommandLine( compilerOutputFiles, config );
         
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
         CommandLineUtil.execute( cl, this.getLogger() );
 

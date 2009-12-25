@@ -32,6 +32,8 @@ package org.codehaus.mojo.natives.manager;
 public class NoSuchNativeProviderException 
     extends Exception 
 {
+    private static final long serialVersionUID = 1L;
+    
     private String providerName;
 
     public NoSuchNativeProviderException( String providerName )

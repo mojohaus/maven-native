@@ -60,29 +60,19 @@ public class EnvUtil
         return null;
     }
 
-    public static void setupCommandlineEnv( Commandline cl, String envFactoryName )
+    public static void setupCommandlineEnv( Commandline cl, EnvFactory envFactory )
         throws NativeBuildException
     {
-        if ( envFactoryName != null && envFactoryName.trim().length() != 0 )
+        if ( envFactory != null )
         {
-            try
+            Map envs = envFactory.getEnvironmentVariables();
+
+            Iterator iter = envs.keySet().iterator();
+
+            while ( iter.hasNext() )
             {
-                EnvFactory fact = (EnvFactory) Class.forName( envFactoryName ).newInstance();
-
-                Map envs = fact.getEnvironmentVariables();
-
-                Iterator iter = envs.keySet().iterator();
-
-                while ( iter.hasNext() )
-                {
-                    String key = (String) iter.next();
-
-                    cl.addEnvironment( key, (String) envs.get( key ) );
-                }
-            }
-            catch ( Exception e )
-            {
-                throw new NativeBuildException( " Unable to instantiate " + envFactoryName, e );
+                String key = (String) iter.next();
+                cl.addEnvironment( key, (String) envs.get( key ) );
             }
         }
     }

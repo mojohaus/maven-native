@@ -44,19 +44,6 @@ public class MSVC6EnvFactory
 
     private static final String DEFAULT_MSVS6_INSTALL_DIR = getProgramFilesX86() + "/Microsoft Visual Studio";
 
-    private static Map envs;
-    
-    public synchronized Map getEnvironmentVariables()
-        throws NativeBuildException
-    {
-        if ( envs == null )
-        {
-            envs = createEnvs();
-        }
-
-        return envs;
-    }
-
     protected Map createEnvs()
         throws NativeBuildException
     {

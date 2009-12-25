@@ -44,19 +44,6 @@ public class MSVC2003ToolkitEnvFactory
 
     private static final String DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR = getProgramFiles() + "/Microsoft Visual C++ Toolkit 2003";
 
-    private static Map envs;
-
-    public synchronized Map getEnvironmentVariables()
-        throws NativeBuildException
-    {
-        if ( envs == null )
-        {
-            envs = createEnvs();
-        }
-
-        return envs;
-    }
-
     protected Map createEnvs()
         throws NativeBuildException
     {

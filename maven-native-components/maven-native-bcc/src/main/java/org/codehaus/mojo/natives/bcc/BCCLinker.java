@@ -64,7 +64,7 @@ public class BCCLinker
             executable = config.getExecutable();
         }
     
-        cl.createArgument().setValue( executable );
+        cl.createArg().setValue( executable );
     
         cl.addArguments( config.getStartOptions() );
         
@@ -73,7 +73,7 @@ public class BCCLinker
         {
             File objFile = (File) objectFiles.get(i);
 
-            cl.createArgument().setValue( objFile.getPath() );
+            cl.createArg().setValue( objFile.getPath() );
         }
 
         for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
@@ -82,27 +82,27 @@ public class BCCLinker
 
             if ( ! FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
             {
-                cl.createArgument().setFile( new File( config.getExternalLibDirectory(),  fileName ) );
+                cl.createArg().setFile( new File( config.getExternalLibDirectory(),  fileName ) );
             }
         }
         
         //ouput file
-        cl.createArgument().setValue( "," + config.getOutputFile() );
+        cl.createArg().setValue( "," + config.getOutputFile() );
 
         //map files + system lib, and def file to be given by user in middle options
         //  a comma is required between map, lib, and def 
-        cl.createArgument().setValue( "," );
+        cl.createArg().setValue( "," );
         cl.addArguments( config.getMiddleOptions() );
         
         //res file
-        cl.createArgument().setValue( "," );
+        cl.createArg().setValue( "," );
         for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
             String fileName = (String) iter.next();
         
             if ( FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
             {
-                cl.createArgument().setFile( new File( config.getExternalLibDirectory(),  fileName ) );
+                cl.createArg().setFile( new File( config.getExternalLibDirectory(),  fileName ) );
             }
         }
                 

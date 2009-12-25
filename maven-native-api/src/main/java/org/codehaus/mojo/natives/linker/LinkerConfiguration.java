@@ -61,8 +61,6 @@ public class LinkerConfiguration
 
 	private String outputFileName; /* should not have extension */
 	
-	private String envFactoryName;
-	
     /**
      * Single location that the client must place library files to be linked with
      */
@@ -182,16 +180,6 @@ public class LinkerConfiguration
     public void setExternalLibFileNames ( List list )
     {
         this.externalLibFileNames = list;
-    }
-    
-    public String getEnvFactoryName()
-    {
-    	return this.envFactoryName;
-    }
-    
-    public void setEnvFactoryName( String factoryName )
-    {
-    	this.envFactoryName = factoryName;
     }
     
     public void setExternalLibDirectory ( File dir )

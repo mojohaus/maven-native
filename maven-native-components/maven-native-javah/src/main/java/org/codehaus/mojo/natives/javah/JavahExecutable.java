@@ -65,15 +65,15 @@ public class JavahExecutable
         if ( config.getFileName() != null && config.getFileName().length() > 0 )
         {
             File outputFile = new File( config.getOutputDirectory(), config.getFileName() );
-            cl.createArgument().setValue( "-o" );
-            cl.createArgument().setFile( outputFile );
+            cl.createArg().setValue( "-o" );
+            cl.createArg().setFile( outputFile );
         }
         else
         {
             if ( config.getOutputDirectory() != null )
             {
-                cl.createArgument().setValue( "-d" );
-                cl.createArgument().setFile( config.getOutputDirectory() );
+                cl.createArg().setValue( "-d" );
+                cl.createArg().setFile( config.getOutputDirectory() );
             }
         }
 
@@ -90,13 +90,13 @@ public class JavahExecutable
             }
         }
 
-        cl.createArgument().setValue( "-classpath" );
+        cl.createArg().setValue( "-classpath" );
 
-        cl.createArgument().setValue( classPathBuffer.toString() );
+        cl.createArg().setValue( classPathBuffer.toString() );
 
         if ( config.getVerbose() )
         {
-            cl.createArgument().setValue( "-verbose" );
+            cl.createArg().setValue( "-verbose" );
         }
 
         cl.addArguments( config.getClassNames() );

@@ -44,19 +44,6 @@ public class MSVC2008x86EnvFactory
     private static final String VS90COMNTOOLS_DIR = EnvUtil.getEnv( "VS90COMNTOOLS", "VS90COMNTOOLS",
                                                                     "VS90COMNTOOLS_DIR" );
 
-    private static Map envs;
-
-    public synchronized Map getEnvironmentVariables()
-        throws NativeBuildException
-    {
-        if ( envs == null )
-        {
-            envs = createEnvs();
-        }
-
-        return envs;
-    }
-
     protected Map createEnvs()
         throws NativeBuildException
     {

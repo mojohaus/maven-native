@@ -28,15 +28,16 @@ package org.codehaus.mojo.natives;
 
 public class ConfigurationBase
 {
-    private String envFactoryName;
-
-    public String getEnvFactoryName()
+    private EnvFactory envFactory;
+    
+    public EnvFactory getEnvFactory()
     {
-        return this.envFactoryName;
+        return envFactory;
+    }
+
+    public void setEnvFactory( EnvFactory envFactory )
+    {
+        this.envFactory = envFactory;
     }
     
-    public void setEnvFactoryName( String factoryName )
-    {
-        this.envFactoryName = factoryName;
-    }
 }

@@ -75,7 +75,7 @@ public abstract class AbstractResourceCompiler
             {
                 Commandline cl = getCommandLine( config, src );
 
-                EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+                EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
                 CommandLineUtil.execute( cl, this.getLogger() );
             }

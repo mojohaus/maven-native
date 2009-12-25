@@ -46,7 +46,7 @@ public class MSVCMessageCompiler
 
         Commandline cl = new Commandline();
 
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactoryName() );
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
         if ( config.getWorkingDirectory() != null )
         {
@@ -63,22 +63,22 @@ public class MSVCMessageCompiler
 
         if ( config.getOutputDirectory() != null && config.getOutputDirectory().getPath().trim().length() != 0 )
         {
-            cl.createArgument().setValue( "-r" );
-            cl.createArgument().setValue( config.getOutputDirectory().getPath() );
+            cl.createArg().setValue( "-r" );
+            cl.createArg().setValue( config.getOutputDirectory().getPath() );
 
-            cl.createArgument().setValue( "-h" );
-            cl.createArgument().setValue( config.getOutputDirectory().getPath() );
+            cl.createArg().setValue( "-h" );
+            cl.createArg().setValue( config.getOutputDirectory().getPath() );
 
         }
 
         if ( config.getDebugOutputDirectory() != null
             && config.getDebugOutputDirectory().getPath().trim().length() != 0 )
         {
-            cl.createArgument().setValue( "-x" );
-            cl.createArgument().setValue( config.getDebugOutputDirectory().getPath() );
+            cl.createArg().setValue( "-x" );
+            cl.createArg().setValue( config.getDebugOutputDirectory().getPath() );
         }
 
-        cl.createArgument().setValue( source.getPath() );
+        cl.createArg().setValue( source.getPath() );
 
         return cl;
     }

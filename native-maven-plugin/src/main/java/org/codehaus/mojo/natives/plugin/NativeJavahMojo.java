@@ -21,31 +21,27 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.artifact.Artifact;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
+import org.apache.bcel.classfile.ClassParser;
+import org.apache.bcel.classfile.JavaClass;
+import org.apache.bcel.classfile.Method;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.javah.Javah;
 import org.codehaus.mojo.natives.javah.JavahConfiguration;
 import org.codehaus.mojo.natives.manager.JavahManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.plexus.util.FileUtils;
-
-import org.apache.bcel.classfile.ClassParser;
-import org.apache.bcel.classfile.JavaClass;
-import org.apache.bcel.classfile.Method;
-
-import java.io.IOException;
-import java.io.File;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 /**
  * Generate jni include files based on a set of class names

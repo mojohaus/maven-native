@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Construct EnvFactory, Currently only use by MOJO for debugging purpose
+ * Construct EnvFactory
  * @author dantran
  *
  */

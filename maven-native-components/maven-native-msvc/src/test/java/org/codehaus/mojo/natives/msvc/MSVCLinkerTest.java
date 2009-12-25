@@ -6,11 +6,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.c.CLinker;
-import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
-import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public class MSVCLinkerTest

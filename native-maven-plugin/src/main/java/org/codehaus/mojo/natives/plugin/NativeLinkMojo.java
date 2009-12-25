@@ -224,7 +224,7 @@ public class NativeLinkMojo
         config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
         config.setExternalLibDirectory( this.externalLibDirectory );
         config.setExternalLibFileNames( this.getLibFileNames() );
-        config.setEnvFactoryName( this.envFactoryName );
+        config.setEnvFactory( this.getEnvFactory() );
 
         return config;
     }

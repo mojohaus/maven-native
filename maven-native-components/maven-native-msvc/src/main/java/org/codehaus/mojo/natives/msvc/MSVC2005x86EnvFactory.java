@@ -40,18 +40,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 public class MSVC2005x86EnvFactory
     extends AbstractMSVC2005EnvFactory
 {
-    private static Map envs;
-
-    public synchronized Map getEnvironmentVariables()
-        throws NativeBuildException
-    {
-        if ( envs == null )
-        {
-            envs = createEnvs();
-        }
-
-        return envs;
-    }
 
     protected Map createEnvs()
         throws NativeBuildException
