@@ -50,7 +50,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Archive file to bundle enable NativeSources
-     * @parameter default-value="${project.build.directory}/${project.build.finalName}-${project.version}-include.inczip"
+     * @parameter default-value="${project.build.directory}/${project.build.finalName}-${project.version}.inczip"
      */
     private File inZipFile;
 
@@ -81,13 +81,14 @@ public class NativeBundleIncludeFilesMojo
             try
             {
                 ZipArchiver archiver = new ZipArchiver();
-
+                
                 boolean zipIt = false;
                 for ( int i = 0; i < sources.length; ++i )
                 {
                     if ( sources[i].isDeployable() )
                     {
                         DefaultFileSet fileSet = new DefaultFileSet();
+                        
                         fileSet.setDirectory( sources[i].getDirectory() );
                         archiver.addFileSet( fileSet );
                         zipIt = true;
@@ -99,7 +100,7 @@ public class NativeBundleIncludeFilesMojo
                     archiver.setDestFile( this.inZipFile );
                     archiver.createArchive();
 
-                    projectHelper.attachArtifact( this.project, "inczip", "include", this.inZipFile );
+                    projectHelper.attachArtifact( this.project, "inczip", null, this.inZipFile );
                 }
             }
             catch ( Exception e )

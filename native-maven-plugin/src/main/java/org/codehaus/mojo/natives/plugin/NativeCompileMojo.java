@@ -22,14 +22,10 @@ package org.codehaus.mojo.natives.plugin;
  */
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
@@ -37,8 +33,6 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.manager.CompilerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
-import org.codehaus.plexus.archiver.UnArchiver;
-import org.codehaus.plexus.archiver.zip.ZipUnArchiver;
 
 /**
  * Compile source files into native object files
@@ -134,20 +128,6 @@ public class NativeCompileMojo
 
     private CompilerManager manager;
 
-    /**
-     * Directory to unpack .inczip dependency files to be included as system include path
-     * @parameter expression="${project.build.directory}/native/include"
-     * @required
-     */
-    private File dependencyIncludeDirectory;
-
-    /**
-     * Internal
-     * @parameter expression="${project.build.directory}/native/markers"
-     * @required
-     */
-    private File dependencyIncZipMarkerDirectory;
-
     public void execute()
         throws MojoExecutionException
     {
@@ -175,22 +155,6 @@ public class NativeCompileMojo
         List objectFiles;
         try
         {
-            //may want to remove this when we are dont with msvc2008 debugging
-            if ( this.getLog().isDebugEnabled() && getEnvFactory() != null )
-            {
-                Map alterEnvMap = this.getEnvFactory().getEnvironmentVariables();
-
-                Iterator iter = alterEnvMap.keySet().iterator();
-
-                while ( iter.hasNext() )
-                {
-                    String key = (String) iter.next();
-
-                    System.out.print( key + "=" );
-                    System.out.println( (String) alterEnvMap.get( key ) );
-                }
-            }
-
             objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
         }
         catch ( NativeBuildException e )
@@ -237,10 +201,15 @@ public class NativeCompileMojo
         throws MojoExecutionException
     {
         List additionalIncludePaths = project.getCompileSourceRoots();
+        
+        boolean includeDependencyFound =  this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND ) != null;
 
-        if ( additionalIncludePaths == null || additionalIncludePaths.size() < 2 )
+        if ( !includeDependencyFound )
         {
-            return;
+            if ( additionalIncludePaths == null || additionalIncludePaths.size() < 2 )
+            {
+                return;
+            }
         }
 
         if ( this.sources == null )
@@ -264,7 +233,7 @@ public class NativeCompileMojo
             }
         }
 
-        if ( unpackIncZipDepenedencies() )
+        if ( includeDependencyFound )
         {
             NativeSources dependencyIncludeSource = new NativeSources();
             dependencyIncludeSource.setDependencyAnalysisParticipation( false );
@@ -296,89 +265,6 @@ public class NativeCompileMojo
         config.setEnvFactory( this.getEnvFactory() );
 
         return config;
-    }
-
-    private boolean unpackIncZipDepenedencies()
-        throws MojoExecutionException
-    {
-        List files = getIncZipDependencies();
-
-        Iterator iter = files.iterator();
-
-        for ( int i = 0; i < files.size(); ++i )
-        {
-            Artifact artifact = (Artifact) iter.next();
-            File incZipFile = artifact.getFile();
-
-            File marker = new File( this.dependencyIncZipMarkerDirectory, artifact.getGroupId() + "."
-                + artifact.getArtifactId() );
-
-            if ( !marker.exists() || marker.lastModified() < incZipFile.lastModified() )
-            {
-                try
-                {
-                    unpackInZipFile( incZipFile );
-
-                    marker.delete();
-
-                    marker.createNewFile();
-                }
-                catch ( IOException e )
-                {
-                    throw new MojoExecutionException( e.getMessage(), e );
-                }
-            }
-        }
-        
-        return files.size() != 0;
-
-    }
-
-    protected void unpackInZipFile( File incZipFile )
-        throws MojoExecutionException
-    {
-
-        try
-        {
-            UnArchiver archiver = new ZipUnArchiver();
-            archiver.setOverwrite( true );
-            archiver.extract( incZipFile.getPath(), this.dependencyIncludeDirectory );
-        }
-        catch ( Exception e )
-        {
-            throw new MojoExecutionException( e.getMessage(), e );
-        }
-
-    }
-
-    /**
-     * Get all .inczip compile time dependencies  
-     * @return
-     */
-    private List getIncZipDependencies()
-    {
-        List list = new ArrayList();
-
-        List artifacts = this.project.getCompileArtifacts();
-
-        if ( artifacts != null )
-        {
-
-            for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
-            {
-                Artifact artifact = (Artifact) iter.next();
-
-                //pick up only jar files
-                if ( !"inczip".equals( artifact.getType() ) )
-                {
-                    continue;
-                }
-
-                list.add( artifact );
-            }
-        }
-
-        return list;
     }
 
     ////////////////////////////////////// UNIT TEST HELPERS ////////////////////////////////

@@ -34,6 +34,7 @@
             </source>  
             <source>
               <directory>${native.source.dir}/include</directory>
+              <deployable>true</deployable>
             </source>            
           </sources>
             

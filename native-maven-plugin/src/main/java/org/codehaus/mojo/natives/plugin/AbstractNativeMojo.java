@@ -45,6 +45,8 @@ public abstract class AbstractNativeMojo
 {
     public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
 
+    public static final String INCZIP_FOUND = "IncZipFound";
+    
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 
     /**
@@ -79,6 +81,13 @@ public abstract class AbstractNativeMojo
     protected EnvFactoryManager envFactoryManager;
     
 
+    /**
+     * Directory to unpack .inczip dependency files to be included as system include path
+     * @parameter expression="${project.build.directory}/native/include"
+     * @required
+     */
+    protected File dependencyIncludeDirectory;
+    
     protected static String[] removeEmptyOptions( List args )
     {
         return NativeMojoUtils.trimParams( args );

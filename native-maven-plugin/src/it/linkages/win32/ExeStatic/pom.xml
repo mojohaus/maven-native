@@ -23,8 +23,20 @@
     </dependency>
     <dependency>
        <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+       <artifactId>SubFuncStatic</artifactId>
+       <type>inczip</type>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
        <artifactId>FuncStatic</artifactId>
        <type>lib</type>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+       <artifactId>FuncStatic</artifactId>
+       <type>inczip</type>
        <version>${project.version}</version>
     </dependency>
   </dependencies>
