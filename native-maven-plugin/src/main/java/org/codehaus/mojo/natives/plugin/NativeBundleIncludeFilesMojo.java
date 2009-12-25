@@ -24,8 +24,8 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.mojo.natives.NativeSources;
-import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.archiver.util.DefaultFileSet;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 
@@ -53,12 +53,20 @@ public class NativeBundleIncludeFilesMojo
      * @parameter default-value="${project.build.directory}/${project.build.finalName}-${project.version}-include.inczip"
      */
     private File inZipFile;
-    
+
     /**
      * Option to skip include source bundle deployment
      * @parameter expression="${project.build.directory}/${project.build.finalName}-${project.version}-include.inczip" default-value="false"
      */
     private boolean skipIncludeDeployment;
+
+    /**
+     * Maven ProjectHelper.
+     * 
+     * @component
+     * @readonly
+     */
+    private MavenProjectHelper projectHelper;
 
     public void execute()
         throws MojoExecutionException
@@ -67,7 +75,7 @@ public class NativeBundleIncludeFilesMojo
         {
             return;
         }
-        
+
         if ( this.sources.length != 0 )
         {
             try
@@ -90,6 +98,8 @@ public class NativeBundleIncludeFilesMojo
                 {
                     archiver.setDestFile( this.inZipFile );
                     archiver.createArchive();
+
+                    projectHelper.attachArtifact( this.project, "inczip", "include", this.inZipFile );
                 }
             }
             catch ( Exception e )
