@@ -59,9 +59,13 @@
                 <fileName>hello.c</fileName>
               </fileNames>
             </source>  
+            
+            <!--  intentionally disable this to make sure inczip works 
             <source>
               <directory>${native.source.dir}/include</directory>
-            </source>            
+            </source>
+            -->   
+                     
           </sources>
             
           <linkerStartOptions>
