@@ -28,5 +28,13 @@
       <implementation>org.codehaus.mojo.natives.msvc.MSVCResourceCompiler</implementation>
     </component>
     
+    <component>
+      <role>org.codehaus.mojo.natives.linker.Manifest</role>
+      <role-hint>msvc</role-hint>
+      <implementation>org.codehaus.mojo.natives.msvc.MSVCManifest</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+        
+    
   </components>
 </component-set>

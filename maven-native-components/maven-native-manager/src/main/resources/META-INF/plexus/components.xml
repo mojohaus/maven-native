@@ -72,6 +72,18 @@
         </requirement>
       </requirements>
     </component>    
+
+    <component>
+      <role>org.codehaus.mojo.natives.manager.ManifestManager</role>
+      <role-hint>native-manifest-provider-manager</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultManifestManager</implementation>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.mojo.natives.linker.Manifest</role>
+          <field-name>providers</field-name>
+        </requirement>
+      </requirements>
+    </component>    
     
     <component>
       <role>org.codehaus.mojo.natives.manager.EnvFactoryManager</role>

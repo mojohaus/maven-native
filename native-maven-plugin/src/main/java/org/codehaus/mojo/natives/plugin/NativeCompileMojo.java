@@ -122,7 +122,6 @@ public class NativeCompileMojo
     /**
      * Internal 
      * @component
-     * @required
      * @readonly
      */
 
