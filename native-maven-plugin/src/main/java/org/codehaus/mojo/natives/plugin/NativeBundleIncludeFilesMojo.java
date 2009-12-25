@@ -88,7 +88,7 @@ public class NativeBundleIncludeFilesMojo
                     if ( sources[i].isDeployable() )
                     {
                         DefaultFileSet fileSet = new DefaultFileSet();
-                        
+                        fileSet.setUsingDefaultExcludes( true );
                         fileSet.setDirectory( sources[i].getDirectory() );
                         archiver.addFileSet( fileSet );
                         zipIt = true;
