@@ -79,6 +79,11 @@
 
     <dependency>
       <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-gcj</artifactId>
+    </dependency>    
+
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
       <artifactId>maven-native-manager</artifactId>
     </dependency>    
 

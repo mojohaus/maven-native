@@ -9,7 +9,7 @@
 Native Maven Plugin
 
   Use this plugin to compile c and c++ source under Maven 2 with  
-  compilers such as gcc, msvc, etc ... 
+  compilers such as gcc, msvc, gcj etc ... 
 
 * Usage
   
@@ -18,7 +18,11 @@ Native Maven Plugin
 * Goals Overview
 
   * {{{initialize-mojo.html}native:initialize}}: Initialize build lifecycle 
+
+  * {{{inczip-mojo.html}native:inczip}}: Bundle header files to be installed/deployed 
   
+  * {{{unzipinc-mojo.html}native:unzipin}}: Unpack dependencies with .inczip type to be included in include path 
+   
   * {{{compile-mojo.html}native:compile}}: Compile source files into native object files 
   
   * {{{link-mojo.html}native:link}}: Link all previously built object and dependent library files into final build artifact 
@@ -30,6 +34,8 @@ Native Maven Plugin
   * {{{resource-compile-mojo.html}native:resource-compile}}: Compile Windows resource files 
   
   * {{{compile-message-mojo.html}native:compile-message}}: Compile Windows message files 
+
+  * {{{manifest-mojo.html}native:manifest}}: Build native manifest  
   
   []
   

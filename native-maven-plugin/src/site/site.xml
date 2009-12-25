@@ -47,6 +47,7 @@
          <item name="jni-dll" href="examples/jni-dll.html"/>
          <item name="ar-ranlib" href="examples/static-lib-ranlib.html"/>
          <item name="share-lib" href="examples/share-lib.html"/>
+         <item name="gcj" href="examples/gcj.html"/>
       </menu>
       ${reports}
    </body>
