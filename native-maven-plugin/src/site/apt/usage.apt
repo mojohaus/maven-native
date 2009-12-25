@@ -8,8 +8,8 @@
 
 Usage
 
-  Here are general instructions to configure native-maven-plugin:
-  
+  The following contains summary of all available goals in native-maven-plugin.  They work together in a Maven custom build lifecycle
+
   * Determine your packaging type 
   
   * Determine your linker dependencies
