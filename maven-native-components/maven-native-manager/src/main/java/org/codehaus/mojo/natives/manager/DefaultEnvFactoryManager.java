@@ -1,7 +1,10 @@
-package org.codehaus.mojo.natives;
+package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.codehaus.mojo.natives.EnvFactory;
+import org.codehaus.mojo.natives.NativeBuildException;
 
 /**
  * Construct EnvFactory

@@ -9,39 +9,39 @@
   </parent>
 
   <artifactId>ExeStatic</artifactId>
-  
+
   <name>ExeStatic.exe</name>
-  
+
   <packaging>exe</packaging>
-  
+
   <dependencies>
     <dependency>
-       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
-       <artifactId>SubFuncStatic</artifactId>
-       <type>lib</type>
-       <version>${project.version}</version>
+      <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+      <artifactId>SubFuncStatic</artifactId>
+      <type>lib</type>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
-       <artifactId>SubFuncStatic</artifactId>
-       <type>inczip</type>
-       <version>${project.version}</version>
+      <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+      <artifactId>SubFuncStatic</artifactId>
+      <type>inczip</type>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
-       <artifactId>FuncStatic</artifactId>
-       <type>lib</type>
-       <version>${project.version}</version>
+      <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+      <artifactId>FuncStatic</artifactId>
+      <type>lib</type>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-       <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
-       <artifactId>FuncStatic</artifactId>
-       <type>inczip</type>
-       <version>${project.version}</version>
+      <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
+      <artifactId>FuncStatic</artifactId>
+      <type>inczip</type>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
-  
-  
+
+
   <build>
     <plugins>
       <plugin>
@@ -51,35 +51,36 @@
           <compilerStartOptions>
             <compilerStartOption>${commonCompilerOptions}</compilerStartOption>
           </compilerStartOptions>
-          
+
           <sources>
             <source>
               <directory>${native.source.dir}</directory>
-              <fileNames>
-                <fileName>hello.c</fileName>
-              </fileNames>
-            </source>  
-            
-            <!--  intentionally disable this to make sure inczip works 
-            <source>
-              <directory>${native.source.dir}/include</directory>
+              <includes>
+                <include>**/hello.c</include>
+              </includes>
             </source>
-            -->   
-                     
+
+            <!--
+              intentionally disable this to make sure inczip works 
+              <source>
+                <directory>${native.source.dir}/include</directory> 
+              </source>
+            -->
+
           </sources>
-            
+
           <linkerStartOptions>
             <linkerStartOption></linkerStartOption>
           </linkerStartOptions>
-          
-          
+
+
         </configuration>
-        
+
       </plugin>
 
-    </plugins>    
+    </plugins>
 
   </build>
-  
+
 
 </project>

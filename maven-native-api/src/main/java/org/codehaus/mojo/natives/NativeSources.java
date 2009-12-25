@@ -46,8 +46,14 @@ public class NativeSources
      */
     private boolean deployable = false;
 
+    /**
+     * ANT expression to get all compilable source files
+     */
     private String[] includes;
 
+    /**
+     * ANT expression for source exclusions
+     */
     private String[] excludes;
 
     public NativeSources()

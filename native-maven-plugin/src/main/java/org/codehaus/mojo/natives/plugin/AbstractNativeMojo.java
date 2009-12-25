@@ -32,8 +32,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.EnvFactory;
-import org.codehaus.mojo.natives.EnvFactoryManager;
 import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 
 /**
  * @author <a href="dantran@gmail.com">Dan T. Tran</a>

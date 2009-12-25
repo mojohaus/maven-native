@@ -73,5 +73,12 @@
       </requirements>
     </component>    
     
+    <component>
+      <role>org.codehaus.mojo.natives.manager.EnvFactoryManager</role>
+      <role-hint>default</role-hint>
+      <implementation>org.codehaus.mojo.natives.manager.DefaultEnvFactoryManager</implementation>
+      <instantiation-strategy>singleton</instantiation-strategy>
+    </component>
+    
   </components>
 </component-set>
