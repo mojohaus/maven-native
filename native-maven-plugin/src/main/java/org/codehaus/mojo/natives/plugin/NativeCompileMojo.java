@@ -118,6 +118,13 @@ public class NativeCompileMojo
      * @required
      */
     protected File compilerOutputDirectory;
+    
+    /**
+     * Number of parallel compilation threads
+     * @parameter default-value="1"
+     */
+    protected int numberOfConcurrentCompilation;
+    
 
     /**
      * Internal 
@@ -262,6 +269,7 @@ public class NativeCompileMojo
         config.setOutputDirectory( this.compilerOutputDirectory );
         config.setObjectFileExtension( this.objectFileExtension );
         config.setEnvFactory( this.getEnvFactory() );
+        config.setNumberOfConcurrentCompilation( numberOfConcurrentCompilation );
 
         return config;
     }

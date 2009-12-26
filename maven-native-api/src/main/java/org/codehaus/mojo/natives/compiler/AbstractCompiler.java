@@ -32,11 +32,15 @@ import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.mojo.natives.util.FileUtil;
-
 import org.codehaus.plexus.logging.AbstractLogEnabled;
+import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
+
+import edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
+import edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor;
+import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -56,7 +60,19 @@ public abstract class AbstractCompiler
     public List compile( CompilerConfiguration config, File[] sourceFiles )
         throws NativeBuildException
     {
+        if ( ! config.getOutputDirectory().exists() )
+        {
+            config.getOutputDirectory().mkdirs();
+        }
+        
         List compilerOutputFiles = new ArrayList( sourceFiles.length );
+
+        CompilerThreadPoolExecutor compilerThreadPoolExecutor = null;
+
+        if ( config.getNumberOfConcurrentCompilation() > 1 )
+        {
+            compilerThreadPoolExecutor = new CompilerThreadPoolExecutor( config.getNumberOfConcurrentCompilation() );
+        }
 
         for ( int i = 0; i < sourceFiles.length; ++i )
         {
@@ -71,15 +87,46 @@ public abstract class AbstractCompiler
 
             if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) )
             {
+                if ( compilerThreadPoolExecutor != null && compilerThreadPoolExecutor.isErrorFound() ) 
+                {
+                    break;
+                }
+
                 Commandline cl = getCommandLine( source, objectFile, config );
                 EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
-                
-                CommandLineUtil.execute( cl, this.getLogger() );
+
+                if ( compilerThreadPoolExecutor != null )
+                {
+                    compilerThreadPoolExecutor.execute( new CompilerRunnable( cl, this.getLogger() ) );
+                }
+                else
+                {
+                    CommandLineUtil.execute( cl, this.getLogger() );
+                }
 
             }
             else
             {
                 this.getLogger().debug( ( objectFile + " is up to date." ) );
+            }
+        }
+
+        if ( compilerThreadPoolExecutor != null )
+        {
+            compilerThreadPoolExecutor.shutdown();
+
+            try
+            {
+                compilerThreadPoolExecutor.awaitTermination( Integer.MAX_VALUE, TimeUnit.SECONDS );
+            }
+            catch ( InterruptedException e )
+            {
+
+            }
+
+            if ( compilerThreadPoolExecutor.isErrorFound() )
+            {
+                throw new NativeBuildException( "Compilation failure detected." );
             }
         }
 
@@ -149,6 +196,52 @@ public abstract class AbstractCompiler
         File objectFile = new File( outputDirectory, objectFileName );
 
         return FileUtil.getRelativeFile( workingDirectory, objectFile );
+
+    }
+
+    private class CompilerThreadPoolExecutor
+        extends ThreadPoolExecutor
+    {
+        private boolean errorFound = false;
+
+        public boolean isErrorFound()
+        {
+            return errorFound;
+        }
+
+        public CompilerThreadPoolExecutor( int corePoolSize )
+        {
+            super( corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, new ArrayBlockingQueue( corePoolSize * 2 ) );
+        }
+
+        protected void afterExecute( Runnable r, Throwable t )
+        {
+            if ( t != null )
+            {
+                errorFound = true;
+                this.shutdownNow();
+            }
+        }
+    }
+
+    public class CompilerRunnable
+        implements Runnable
+    {
+        private Commandline cl;
+
+        private Logger logger;
+
+        public CompilerRunnable( Commandline cl, Logger logger )
+        {
+            this.cl = cl;
+            this.logger = logger;
+        }
+
+        public void run()
+            throws NativeBuildException
+        {
+            CommandLineUtil.execute( cl, logger );
+        }
 
     }
 

@@ -12,5 +12,9 @@
     <module>cpptestsrc</module>
     <module>win32</module>
   </modules>
+  
+  <build>
+    <defaultGoal>install</defaultGoal>
+  </build>
 
 </project>

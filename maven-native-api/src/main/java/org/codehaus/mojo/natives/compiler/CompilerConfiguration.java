@@ -67,6 +67,8 @@ public class CompilerConfiguration
      */
     private File outputDirectory;
     
+    private int numberOfConcurrentCompilation = 4;
+    
     public CompilerConfiguration()
     {
     }
@@ -175,5 +177,14 @@ public class CompilerConfiguration
         this.endOptions = options;
     }
 
+    public int getNumberOfConcurrentCompilation()
+    {
+        return numberOfConcurrentCompilation;
+    }
+
+    public void setNumberOfConcurrentCompilation( int numberOfConcurrentCompilation )
+    {
+        this.numberOfConcurrentCompilation = numberOfConcurrentCompilation;
+    }
 
 }

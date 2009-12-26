@@ -32,7 +32,7 @@ package org.codehaus.mojo.natives;
  */
 
 public class NativeBuildException 
-    extends Exception 
+    extends RuntimeException 
 {
     private static final long serialVersionUID = 1L;
 
