@@ -23,6 +23,8 @@ Environment Factories
     * org.codehaus.mojo.natives.msvc.MSVC2005x86AMD64EnvFactory  
                   
     * org.codehaus.mojo.natives.msvc.MSVC2005x86EnvFactory  
+
+    * org.codehaus.mojo.natives.msvc.MSVC2008x86EnvFactory  
                        
     * org.codehaus.mojo.natives.bcc.BCCEnvFactory  
     
@@ -30,7 +32,7 @@ Environment Factories
   
   This feature is extremely useful when you have a need to use various compilers 
   in your build system and it is impossible to set up single
-  global environment to accomodate all compilers.
+  global environment to accommodate all compilers.
   
   The following example shows how to configure MSVC 2003 
   

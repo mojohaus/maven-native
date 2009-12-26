@@ -15,10 +15,11 @@ Build Lifecycle
 *-----------------------+---------------------------------------------------------------+
 | initialize            |org.codehaus.mojo:native-maven-plugin:initialize
 *-----------------------+---------------------------------------------------------------+
-| generate-sources      |
+| generate-sources      | org.codehaus.mojo:native-maven-plugin:unzipinc
 *-----------------------+---------------------------------------------------------------+
 | compile               | org.codehaus.mojo:native-maven-plugin:compile
 |                       | org.codehaus.mojo:native-maven-plugin:link
+|                       | org.codehaus.mojo:native-maven-plugin:manifest ( dll and exe only )
 *-----------------------+---------------------------------------------------------------+
 | process-test-resources| org.apache.maven.plugins:maven-resources-plugin:testResources
 *-----------------------+---------------------------------------------------------------+

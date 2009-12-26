@@ -84,8 +84,10 @@ Usage
       
 * Dependencies
 
-    * Dependencies with type "lib", "so" and "a", "sl", "jnilib", "dylib" "o", and "obj" 
+    * Dependencies with type <lib>, <so> and <a>, <sl>, <jnilib>, <dylib> <o>, and <obj>    
       will be linked to final artifact at link step.
+    
+    * Dependencies with type <inczip> are unpacked to be part of system include path at compile time.
       
     * You can explicitly add linker dependencies through normal linker option.
     
@@ -113,6 +115,12 @@ Usage
        <artifactId>someId2</artifactId>
        <version>someVersion<version>
        <type>so</type>
+     </dependency>
+     <dependency>
+       <groupId>someGroup</groupId>
+       <artifactId>someId2</artifactId>
+       <version>someVersion<version>
+       <type>inczip</type>
      </dependency>
    </dependencies>
    
@@ -165,7 +173,7 @@ Usage
                <directory>../src/main/native</directory>
                <!-- ant base wild card files>
                <includes>
-                 <include>*.cpp</include>
+                 <include>**/*.cpp</include>
                </includes>
                <excludes>
                  <exclude>somefile.cpp</exclude>
@@ -204,10 +212,10 @@ Usage
 
 * Compiler/Linker Provider
 
-  If you are on a UNIX system, use the default "generic", or "generic-classic" but overwrite 
+  If you are on a UNIX system, use the default <generic>, or <generic-classic> but overwrite 
   <compilerExecutable> and <linkerExecutable> configuration specific to 
   your build. Default values for both generic compiler and linker are "gcc".
-  Makesure the executables are on your path.
+  Ensure the executables are on your path.
   
   On Windows, use Windows supported compiler and linker such as "msvc" and "bcc"
   
@@ -221,6 +229,15 @@ Usage
       and "/out:" msvc linker, etc. 
       
     []
+    
+  Other notes:
+  
+    * Manifest goal is invoked right after linker step for MSVC that support manifest file ( ie Visual Studio 2005 and 2008 )
+    
+    * Concurrent compilations are supported via <numberOfConcurrentCompilation> configuration.
+    
+    []
+    
     
     The following example use <generic-classic> with executable as <CC>.
     Note since we dont change the linker provider, it is will use the same

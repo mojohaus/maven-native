@@ -5,7 +5,7 @@
   <title>Linker</title>
   
   <faq id="native:linker">
-    <question>Unable to invoke standalone native:linker.</question>
+    <question>Unable to invoke stand-alone native:linker.</question>
     <answer>
       <br/>
       Standalone native:linker is not supported.  Invoke "mvn compile" instead

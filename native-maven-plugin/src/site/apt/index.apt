@@ -17,17 +17,19 @@ Native Maven Plugin
   
 * Goals Overview
 
+  The following contains summaries of all main goals. They work together in {{{./lifycycle.html}custom build lifecycle }}.
+
   * {{{initialize-mojo.html}native:initialize}}: Initialize build lifecycle 
+  
+  * {{{unzipinc-mojo.html}native:unzipinc}}: Unpack dependencies with .inczip type to be included in include path at compile time
+   
+  * {{{compile-mojo.html}native:compile}}: Compile source files into native object files 
 
   * {{{inczip-mojo.html}native:inczip}}: Bundle header files to be installed/deployed 
   
-  * {{{unzipinc-mojo.html}native:unzipin}}: Unpack dependencies with .inczip type to be included in include path 
-   
-  * {{{compile-mojo.html}native:compile}}: Compile source files into native object files 
-  
   * {{{link-mojo.html}native:link}}: Link all previously built object and dependent library files into final build artifact 
   
-  * {{{javah-mojo.html}native:javah}}: Generate jni include files based on a set of class names
+  * {{{javah-mojo.html}native:javah}}: Generate JNI include files based on a set of class names
    
   * {{{ranlib-mojo.html}native:ranlib}}: ranlib a Unix linker output file 
   
@@ -35,7 +37,7 @@ Native Maven Plugin
   
   * {{{compile-message-mojo.html}native:compile-message}}: Compile Windows message files 
 
-  * {{{manifest-mojo.html}native:manifest}}: Build native manifest  
+  * {{{manifest-mojo.html}native:manifest}}: Build native manifest ( msvc only ) 
   
   []
   
