@@ -78,8 +78,7 @@ public abstract class AbstractCompiler
         {
             File source = sourceFiles[i];
 
-            File objectFile = getObjectFile( source, config.getWorkingDirectory(), config.getOutputDirectory(), config
-                .getObjectFileExtension() );
+            File objectFile = getObjectFile( source, config.getOutputDirectory(), config.getObjectFileExtension() );
 
             compilerOutputFiles.add( objectFile );
 
@@ -167,8 +166,7 @@ public abstract class AbstractCompiler
      * @param config
      * @return
      */
-    protected static File getObjectFile( File sourceFile, File workingDirectory, File outputDirectory,
-                                         String objectFileExtension )
+    protected static File getObjectFile( File sourceFile, File outputDirectory, String objectFileExtension )
         throws NativeBuildException
     {
         String objectFileName;
@@ -198,7 +196,7 @@ public abstract class AbstractCompiler
 
         File objectFile = new File( outputDirectory, objectFileName );
 
-        return FileUtil.getRelativeFile( workingDirectory, objectFile );
+        return objectFile;
 
     }
 
@@ -273,7 +271,7 @@ public abstract class AbstractCompiler
             {
                 return;
             }
-            
+
             CommandLineUtil.execute( cl, logger );
         }
 

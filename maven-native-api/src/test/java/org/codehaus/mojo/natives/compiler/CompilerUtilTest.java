@@ -24,9 +24,9 @@ public class CompilerUtilTest
         }
 
         File outputDirectory = new File( "outputDirectory" );
-        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, outputDirectory, null );
+        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, null );
 
-        assertEquals( new File( "fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
+        assertEquals( new File( outputDirectory, "fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
                       objectFile );
     }
 
@@ -37,30 +37,9 @@ public class CompilerUtilTest
         File source = new File( "target/somefile.c" );
 
         File outputDirectory = new File( "outputDirectory" );
-        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, outputDirectory, "someext" );
+        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, "someext" );
 
-        assertEquals( new File( "somefile." + "someext" ), objectFile );
+        assertEquals( new File( outputDirectory, "somefile." + "someext" ), objectFile );
     }
 
-    public void testGetObjectFileWithWorkingAndOutputDirectoriesAreNotTheSame()
-        throws Exception
-    {
-        File source;
-
-        if ( Os.isFamily( "windows" ) )
-        {
-            source = new File( "..\\dir1\\dir2\\fileWithoutExtenstion" );
-        }
-        else
-        {
-            source = new File( "../dir1/dir2/fileWithoutExtenstion" );
-        }
-
-        File workingDir = new File( "./workingDir" );
-        File outputDir = new File( "./target" );
-        File objectFile = AbstractCompiler.getObjectFile( source, workingDir, outputDir, null );
-
-        assertEquals( new File( "../target/fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
-                      objectFile );
-    }
 }

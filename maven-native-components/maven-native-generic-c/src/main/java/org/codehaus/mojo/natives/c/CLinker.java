@@ -81,7 +81,10 @@ public class CLinker
         for ( int i = 0; i < objectFiles.size(); ++i )
         {
             File objFile = (File) objectFiles.get( i );
+            
+            //we need to shorten the command line since windows has limited command line length
             String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
+            
             cl.createArg().setValue( objFilePath );
         }
 
