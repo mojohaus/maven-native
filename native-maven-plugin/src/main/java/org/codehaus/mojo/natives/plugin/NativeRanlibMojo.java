@@ -47,6 +47,7 @@ public class NativeRanlibMojo
      * Where to place the final packaging
      * @parameter expression="${project.build.directory}"
      * @required
+     * @since 1.0-alpha-2
      */
     protected File ranlibOutputDirectory;
     
@@ -54,12 +55,14 @@ public class NativeRanlibMojo
      * Ranlib Provider. 
      * @parameter default-value="default"
      * @required
+     * @since 1.0-alpha-2
      */
     private String provider;
 
     /**
-     * To look up javah implementation
+     * To look up ranlib implementation
      * @component
+     * @since 1.0-alpha-2
      */
 
     private RanlibManager manager;

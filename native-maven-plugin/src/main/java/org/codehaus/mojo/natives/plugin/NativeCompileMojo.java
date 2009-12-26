@@ -50,6 +50,7 @@ public class NativeCompileMojo
      * Compiler Provider Type
      * @parameter default-value="generic"
      * @required
+     * @since 1.0-alpha-2
      */
     private String compilerProvider;
 
@@ -58,6 +59,7 @@ public class NativeCompileMojo
      * The default extenstions are .obj and .o on Windows and Unix respectively
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
     private String objectFileExtension;
 
@@ -65,12 +67,14 @@ public class NativeCompileMojo
      * Use this field to override provider specific compiler executable
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
     private String compilerExecutable;
 
     /**
      * Compiler options
      * @parameter 
+     * @since 1.0-alpha-2
      */
     private List compilerStartOptions;
 
@@ -78,6 +82,7 @@ public class NativeCompileMojo
      * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter 
+     * @since 1.0-alpha-2
      */
     private List compilerMiddleOptions;
 
@@ -85,6 +90,7 @@ public class NativeCompileMojo
      * Compiler options 
      * @description Compiler options to produce native object file
      * @parameter
+     * @since 1.0-alpha-2
      */
     private List compilerEndOptions;
 
@@ -94,6 +100,7 @@ public class NativeCompileMojo
      * when this field is set
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
 
     private String javahOS;
@@ -102,6 +109,7 @@ public class NativeCompileMojo
      * JDK native include directory
      * @parameter  default-value="${java.home}/../include"
      * @optional
+     * @since 1.0-alpha-2
      */
 
     private File jdkIncludePath;
@@ -110,18 +118,21 @@ public class NativeCompileMojo
      * Array of NativeSources containing include directories and source files. 
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
     protected NativeSources[] sources = new NativeSources[0];
 
     /**
      * @parameter expression="${project.build.directory}"
      * @required
+     * @since 1.0-alpha-4
      */
     protected File compilerOutputDirectory;
     
     /**
      * Number of parallel compilation threads
      * @parameter default-value="1"
+     * @since 1.0-alpha-4
      */
     protected int numberOfConcurrentCompilation;
     
@@ -130,6 +141,7 @@ public class NativeCompileMojo
      * Internal 
      * @component
      * @readonly
+     * @since 1.0-alpha-2
      */
 
     private CompilerManager manager;

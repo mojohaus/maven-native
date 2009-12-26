@@ -32,7 +32,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-import org.codehaus.plexus.archiver.zip.ZipUnArchiver;
 
 /**
  * Unpack any .inczip dependencies to be included as system include path
@@ -41,8 +40,7 @@ import org.codehaus.plexus.archiver.zip.ZipUnArchiver;
  * @phase generate-sources
  * @requiresDependencyResolution compile
  *
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id: NativeLinkMojo.java 11529 2009-12-25 02:57:53Z dantran $
+ * @since 1.0-alpha-4
  */
 public class NativeUnZipIncMojo
     extends AbstractNativeMojo
@@ -52,6 +50,7 @@ public class NativeUnZipIncMojo
      * Internal
      * @parameter expression="${project.build.directory}/native/markers"
      * @required
+     * @since 1.0-alpha-4
      */
     private File dependencyIncZipMarkerDirectory;
     
@@ -60,7 +59,7 @@ public class NativeUnZipIncMojo
      * 
      * @component
      * @readonly
-     * @since beta-1
+     * @since 1.0-alpha-4
      */
     private ArchiverManager archiverManager;
     

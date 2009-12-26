@@ -44,9 +44,10 @@ public class NativeMessageCompileMojo
 {
 
     /**
+     * Compiler Provider Type
      * @parameter default-value="msvc"
      * @required
-     * @description Compiler Provider Type
+     * @since 1.0-alpha-2
      */
     private String provider;
 
@@ -54,18 +55,21 @@ public class NativeMessageCompileMojo
      * Use this field to override provider specific message compiler executable
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
     private String messageCompilerExecutable;
 
     /**
-     * @description Compiler options
+     * Compiler options
      * @parameter 
+     * @since 1.0-alpha-2
      */
     private List messageCompilerOptions;
 
     /**
      * @parameter 
      * @required
+     * @since 1.0-alpha-2
      */
     protected File[] messageFiles;
 
@@ -73,11 +77,14 @@ public class NativeMessageCompileMojo
      * Where to place the compiler object files
      * @parameter expression="${project.build.directory}"
      * @required
+     * @since 1.0-alpha-2
      */
     protected File messageCompilerOutputDirectory;
 
     /**
+     * Internal
      * @component
+     * @since 1.0-alpha-2
      */
     private MessageCompilerManager manager;
 
@@ -86,6 +93,7 @@ public class NativeMessageCompileMojo
      * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
      * a set environment variables to be used with the command line.
      * @parameter
+     * @since 1.0-alpha-2
      */
     protected String envFactoryName;
 

@@ -49,6 +49,7 @@ public class NativeResourceCompileMojo
      * Compiler Provider Type
      * @parameter default-value="msvc"
      * @required
+     * @since 1.0-alpha-2
      */
     private String provider;
 
@@ -56,18 +57,21 @@ public class NativeResourceCompileMojo
      * Use this field to override provider specific resource compiler executable
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
     private String resourceCompilerExecutable;
 
     /**
      * Resource compiler options
      * @parameter 
+     * @since 1.0-alpha-2
      */
     private List resourceCompilerOptions;
 
     /**
      * Array of NativeSources containing include directories and source files
      * @parameter
+     * @since 1.0-alpha-2
      */
 
     private NativeSources[] sources;
@@ -75,11 +79,13 @@ public class NativeResourceCompileMojo
     /**
      * @parameter expression="${project.build.directory}"
      * @required
+     * @since 1.0-alpha-2
      */
     protected File resourceCompilerOutputDirectory;
 
     /**
      * @component
+     * @since 1.0-alpha-2
      */
     private ResourceCompilerManager manager;
 

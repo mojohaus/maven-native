@@ -64,7 +64,7 @@ public class NativeLinkMojo
      *
      * @parameter default-value="generic"
      * @optional
-     * @description provider type
+     * @since 1.0-alpha-2
      */
     private String compilerProvider;
 
@@ -73,33 +73,37 @@ public class NativeLinkMojo
      *
      * @parameter
      * @optional
+     * @since 1.0-alpha-2
      */
     private String linkerProvider;
 
     /**
-     * Override this property if permitted by linkerProvider
+     * Override this property if permitted by linkerProvider. default to compilerType if not provided
      *
      * @parameter
      * @optional
-     * @description default to compilerType if not provided
+     * @since 1.0-alpha-2
      */
     private String linkerExecutable;
 
     /**
      * @parameter
      * @optional
+     * @since 1.0-alpha-2
      */
     private List linkerStartOptions;
 
     /**
      * @parameter
      * @optional
+     * @since 1.0-alpha-2
      */
     private List linkerMiddleOptions;
 
     /**
      * @parameter
      * @optional
+     * @since 1.0-alpha-2
      */
     private List linkerEndOptions;
 
@@ -109,6 +113,7 @@ public class NativeLinkMojo
      *
      * @parameter
      * @optional
+     * @since 1.0-alpha-2
      */
 
     private List linkingOrderLibs;
@@ -119,6 +124,7 @@ public class NativeLinkMojo
      * @parameter expression="${project.artifactMap}"
      * @required
      * @readonly
+     * @since 1.0-alpha-2
      */
     private Map projectArtifactMap;
 
@@ -128,6 +134,7 @@ public class NativeLinkMojo
      *
      * @parameter default-value=""
      * @optional
+     * @since 1.0-alpha-2
      */
     private String linkerSecondaryOutputExtensions = "";
 
@@ -135,17 +142,21 @@ public class NativeLinkMojo
      * Where to place the final packaging
      * @parameter expression="${project.build.directory}"
      * @required
+     * @since 1.0-alpha-2
      */
     protected File linkerOutputDirectory;
     
     /**
+     * Internal
      * @component
+     * @since 1.0-alpha-2
      */
-
     private LinkerManager manager;
 
     /**
+     * Internal
      * @component
+     * @since 1.0-alpha-2
      */
     private ArtifactFactory artifactFactory;
 
@@ -164,6 +175,7 @@ public class NativeLinkMojo
      * Option to install primary artifact as a classifier, useful to install/deploy 
      * debug artifacts
      * @parameter expression="${classifier}"
+     * @since 1.0-alpha-2
      */    
     private String classifier = null;
     
@@ -171,6 +183,7 @@ public class NativeLinkMojo
      * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have 
      * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle 
      * @parameter expression="${attach}" default-value="true"
+     * @since 1.0-alpha-2
      */    
     private boolean attach = true;
 

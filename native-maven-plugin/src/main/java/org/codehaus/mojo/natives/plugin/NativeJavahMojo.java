@@ -60,6 +60,7 @@ public class NativeJavahMojo
      * Javah Provider. 
      * @parameter default-value="default"
      * @required
+     * @since 1.0-alpha-2
      */
     private String implementation;
 
@@ -68,6 +69,7 @@ public class NativeJavahMojo
      * JNI classes available in the classpath excluding the 
      * transitive dependencies, jars with test scope and provided scope     
      * @parameter 
+     * @since 1.0-alpha-2
      */
     private String[] classNames;
 
@@ -75,6 +77,7 @@ public class NativeJavahMojo
      * Path to javah executable, if present, it will override the default one which bases on architecture type. See 'implementation' argument
      * @parameter
      * @optional
+     * @since 1.0-alpha-2
      */
     private File javahPath;
 
@@ -82,12 +85,14 @@ public class NativeJavahMojo
      * Where to place javah generated file
      * @deprecated use javahOutputDirectory instead
      * @parameter 
+     * @since 1.0-alpha-2
      */
     protected File outputDirectory;
     
     /**
      * Where to place javah generated file
      * @parameter expression="${project.build.directory}/native/javah"
+     * @since 1.0-alpha-2
      */
     protected File javahOutputDirectory;
     
@@ -96,6 +101,7 @@ public class NativeJavahMojo
      * if configured will be combined with outputDirectory to pass into javah's -o option
      * @parameter 
      * @optional
+     * @since 1.0-alpha-2
      */
     private String outputFileName;
 
@@ -103,6 +109,7 @@ public class NativeJavahMojo
      * Enable javah verbose mode
      * @parameter default-value="false"
      * @optional
+     * @since 1.0-alpha-2
      */
 
     private boolean verbose;
@@ -110,6 +117,7 @@ public class NativeJavahMojo
     /**
      * To look up javah implementation
      * @component
+     * @since 1.0-alpha-2
      */
 
     private JavahManager manager;

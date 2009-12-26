@@ -56,12 +56,14 @@ public abstract class AbstractNativeMojo
      * @parameter expression="${project}"
      * @required
      * @readonly
+     * @since 1.0-alpha-2
      */
     protected MavenProject project;
 
     /**
      * user directory when external tools( ie compiler/linker ) are invoked
      * @parameter expression="${workingDirectory}" default-value="${basedir}"
+     * @since 1.0-alpha-2
      */
     protected File workingDirectory;
     
@@ -70,6 +72,7 @@ public abstract class AbstractNativeMojo
      * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
      * a set environment variables to be used with the command line.
      * @parameter
+     * @since 1.0-alpha-2
      */
     private String envFactoryName;
     
@@ -78,8 +81,8 @@ public abstract class AbstractNativeMojo
      * @component
      * @required
      * @readonly
+     * @since 1.0-alpha-2
      */
-
     protected EnvFactoryManager envFactoryManager;
     
 

@@ -47,6 +47,7 @@ public class NativeInitializeMojo
      * @parameter expression="${project}"
      * @required
      * @readonly
+     * @since 1.0-alpha-2
      */
     protected MavenProject project;
         
