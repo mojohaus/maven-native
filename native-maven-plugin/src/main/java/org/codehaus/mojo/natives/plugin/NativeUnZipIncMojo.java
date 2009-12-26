@@ -48,7 +48,7 @@ public class NativeUnZipIncMojo
 
     /**
      * Internal
-     * @parameter expression="${project.build.directory}/native/markers"
+     * @parameter default-value="${project.build.directory}/native/markers"
      * @required
      * @since 1.0-alpha-4
      */

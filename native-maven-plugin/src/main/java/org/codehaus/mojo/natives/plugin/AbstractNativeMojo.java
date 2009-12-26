@@ -54,7 +54,6 @@ public abstract class AbstractNativeMojo
     /**
      * POM
      * @parameter expression="${project}"
-     * @required
      * @readonly
      * @since 1.0-alpha-2
      */
@@ -62,7 +61,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * user directory when external tools( ie compiler/linker ) are invoked
-     * @parameter expression="${workingDirectory}" default-value="${basedir}"
+     * @parameter  default-value="${basedir}"
      * @since 1.0-alpha-2
      */
     protected File workingDirectory;
@@ -79,7 +78,6 @@ public abstract class AbstractNativeMojo
     /**
      * Internal 
      * @component
-     * @required
      * @readonly
      * @since 1.0-alpha-2
      */
@@ -88,8 +86,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * Directory to unpack .inczip dependency files to be included as system include path
-     * @parameter expression="${project.build.directory}/native/include"
-     * @required
+     * @parameter default-value="${project.build.directory}/native/include" 
      */
     protected File dependencyIncludeDirectory;
     

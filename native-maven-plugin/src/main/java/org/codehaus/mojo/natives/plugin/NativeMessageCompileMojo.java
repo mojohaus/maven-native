@@ -54,19 +54,19 @@ public class NativeMessageCompileMojo
     /**
      * Use this field to override provider specific message compiler executable
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
     private String messageCompilerExecutable;
 
     /**
-     * Compiler options
+     * Additional Compiler options
      * @parameter 
      * @since 1.0-alpha-2
      */
     private List messageCompilerOptions;
 
     /**
+     * List of message files to compile
      * @parameter 
      * @required
      * @since 1.0-alpha-2

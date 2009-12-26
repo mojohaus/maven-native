@@ -47,8 +47,6 @@ import org.codehaus.plexus.util.FileUtils;
  * Generate jni include files based on a set of class names
  * @goal javah
  * @phase generate-sources
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
  * @requiresDependencyResolution compile
  */
 
@@ -76,7 +74,6 @@ public class NativeJavahMojo
     /**
      * Path to javah executable, if present, it will override the default one which bases on architecture type. See 'implementation' argument
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
     private File javahPath;
@@ -91,7 +88,8 @@ public class NativeJavahMojo
     
     /**
      * Where to place javah generated file
-     * @parameter expression="${project.build.directory}/native/javah"
+     * @parameter default-value="${project.build.directory}/native/javah"
+     * @required
      * @since 1.0-alpha-2
      */
     protected File javahOutputDirectory;
@@ -100,7 +98,6 @@ public class NativeJavahMojo
     /**
      * if configured will be combined with outputDirectory to pass into javah's -o option
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
     private String outputFileName;
@@ -108,14 +105,13 @@ public class NativeJavahMojo
     /**
      * Enable javah verbose mode
      * @parameter default-value="false"
-     * @optional
      * @since 1.0-alpha-2
      */
 
     private boolean verbose;
 
     /**
-     * To look up javah implementation
+     * Internal: To look up javah implementation
      * @component
      * @since 1.0-alpha-2
      */

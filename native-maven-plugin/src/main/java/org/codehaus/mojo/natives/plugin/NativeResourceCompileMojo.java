@@ -56,7 +56,6 @@ public class NativeResourceCompileMojo
     /**
      * Use this field to override provider specific resource compiler executable
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
     private String resourceCompilerExecutable;
@@ -77,15 +76,17 @@ public class NativeResourceCompileMojo
     private NativeSources[] sources;
 
     /**
-     * @parameter expression="${project.build.directory}"
+     * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
      */
     protected File resourceCompilerOutputDirectory;
 
     /**
+     * Internal
      * @component
      * @since 1.0-alpha-2
+     * @readonly
      */
     private ResourceCompilerManager manager;
 

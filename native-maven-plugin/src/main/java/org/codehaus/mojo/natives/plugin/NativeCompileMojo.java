@@ -56,9 +56,8 @@ public class NativeCompileMojo
 
     /**
      * Use this field to override object file extension.
-     * The default extenstions are .obj and .o on Windows and Unix respectively
+     * The default extentions are .obj and .o on Windows and Unix respectively
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
     private String objectFileExtension;
@@ -66,7 +65,6 @@ public class NativeCompileMojo
     /**
      * Use this field to override provider specific compiler executable
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
     private String compilerExecutable;
@@ -79,16 +77,14 @@ public class NativeCompileMojo
     private List compilerStartOptions;
 
     /**
-     * Compiler options 
-     * @description Compiler options to produce native object file
+     * Compiler options
      * @parameter 
      * @since 1.0-alpha-2
      */
     private List compilerMiddleOptions;
 
     /**
-     * Compiler options 
-     * @description Compiler options to produce native object file
+     * Compiler options
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -99,7 +95,6 @@ public class NativeCompileMojo
      * ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path 
      * when this field is set
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
 
@@ -108,7 +103,6 @@ public class NativeCompileMojo
     /**
      * JDK native include directory
      * @parameter  default-value="${java.home}/../include"
-     * @optional
      * @since 1.0-alpha-2
      */
 
@@ -117,13 +111,13 @@ public class NativeCompileMojo
     /**
      * Array of NativeSources containing include directories and source files. 
      * @parameter 
-     * @optional
      * @since 1.0-alpha-2
      */
     protected NativeSources[] sources = new NativeSources[0];
 
     /**
-     * @parameter expression="${project.build.directory}"
+     * Compiler output files ( .o, .obj, etc) location
+     * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-4
      */
@@ -140,7 +134,6 @@ public class NativeCompileMojo
     /**
      * Internal 
      * @component
-     * @readonly
      * @since 1.0-alpha-2
      */
 

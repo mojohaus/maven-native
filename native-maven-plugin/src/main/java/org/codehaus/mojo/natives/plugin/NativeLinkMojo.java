@@ -51,9 +51,6 @@ import java.util.Set;
  * @goal link
  * @phase package
  * @requiresDependencyResolution
- *
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
  */
 public class NativeLinkMojo
     extends AbstractNativeMojo
@@ -63,7 +60,7 @@ public class NativeLinkMojo
      * Override this property if permitted by compilerProvider
      *
      * @parameter default-value="generic"
-     * @optional
+     * @required
      * @since 1.0-alpha-2
      */
     private String compilerProvider;
@@ -72,37 +69,35 @@ public class NativeLinkMojo
      * Default value is ${compilerProvider}
      *
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
     private String linkerProvider;
 
     /**
-     * Override this property if permitted by linkerProvider. default to compilerType if not provided
+     * Override this property if permitted by linkerProvider. Default to compilerType if not provided
      *
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
     private String linkerExecutable;
 
     /**
+     * Additional linker command options
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
     private List linkerStartOptions;
 
     /**
+     * Additional linker command options
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
     private List linkerMiddleOptions;
 
     /**
+     * Additional linker command options
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
     private List linkerEndOptions;
@@ -112,18 +107,15 @@ public class NativeLinkMojo
      * ${groupId}:${artifactId}
      *
      * @parameter
-     * @optional
      * @since 1.0-alpha-2
      */
 
     private List linkingOrderLibs;
 
     /**
-     * Map of of project artifacts.
+     * Internal: Map of of project artifacts.
      *
      * @parameter expression="${project.artifactMap}"
-     * @required
-     * @readonly
      * @since 1.0-alpha-2
      */
     private Map projectArtifactMap;
@@ -133,14 +125,13 @@ public class NativeLinkMojo
      * to deploy library file produced by dll build on windows
      *
      * @parameter default-value=""
-     * @optional
      * @since 1.0-alpha-2
      */
     private String linkerSecondaryOutputExtensions = "";
 
     /**
      * Where to place the final packaging
-     * @parameter expression="${project.build.directory}"
+     * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
      */
@@ -164,9 +155,8 @@ public class NativeLinkMojo
      * Dependent libraries with version + classifier removed are copied to this
      * directory to be linked to the build artifact
      *
-     * @parameter expression="${project.build.directory}/lib"
+     * @parameter default-value="${project.build.directory}/lib"
      * @required
-     * @readonly
      */
 
     private File externalLibDirectory;
@@ -174,7 +164,7 @@ public class NativeLinkMojo
     /**
      * Option to install primary artifact as a classifier, useful to install/deploy 
      * debug artifacts
-     * @parameter expression="${classifier}"
+     * @parameter 
      * @since 1.0-alpha-2
      */    
     private String classifier = null;
@@ -182,7 +172,7 @@ public class NativeLinkMojo
     /**
      * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have 
      * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle 
-     * @parameter expression="${attach}" default-value="true"
+     * @parameter default-value="true"
      * @since 1.0-alpha-2
      */    
     private boolean attach = true;

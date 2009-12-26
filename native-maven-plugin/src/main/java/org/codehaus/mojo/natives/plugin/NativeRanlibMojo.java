@@ -45,7 +45,7 @@ public class NativeRanlibMojo
     
     /**
      * Where to place the final packaging
-     * @parameter expression="${project.build.directory}"
+     * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
      */
@@ -62,6 +62,7 @@ public class NativeRanlibMojo
     /**
      * To look up ranlib implementation
      * @component
+     * @readonly
      * @since 1.0-alpha-2
      */
 

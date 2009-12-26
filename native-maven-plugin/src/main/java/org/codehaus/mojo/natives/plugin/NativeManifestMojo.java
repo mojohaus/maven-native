@@ -49,18 +49,17 @@ public class NativeManifestMojo
     private String provider;
 
     /**
-     * Manifest extension.
+     * Manifest extension 
      * @parameter default-value="manifest"
      * @required
-     * @since 1.0-alpha4
+     * @since 1.0-alpha-4
      */
     private String manifestExtension;
 
     /**
      * Internal - To look up manifest implementation
      * @component 
-     * @readonly
-     * @since 1.0-alpha4
+     * @since 1.0-alpha-4
      */
     private ManifestManager manager;
 

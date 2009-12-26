@@ -48,15 +48,16 @@ public class NativeBundleIncludeFilesMojo
     private NativeSources[] sources = new NativeSources[0];
 
     /**
-     * Archive file to bundle enable NativeSources
+     * Archive file to bundle all enable NativeSources
      * @parameter default-value="${project.build.directory}/${project.build.finalName}-${project.version}.inczip"
+     * @required
      * @since 1.0-alpha-4
      */
     private File inZipFile;
 
     /**
      * Option to skip include source bundle deployment
-     * @parameter expression="${project.build.directory}/${project.build.finalName}-${project.version}-include.inczip" default-value="false"
+     * @parameter  default-value="false"
      * @since 1.0-alpha-4
      */
     private boolean skipIncludeDeployment;
