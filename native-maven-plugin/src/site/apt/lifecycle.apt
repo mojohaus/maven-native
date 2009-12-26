@@ -10,29 +10,31 @@ Build Lifecycle
 
    The native build lifecycle consists of the following phases with corresponding goals:
 
-*-----------------------+---------------------------------------------------------------+
-| <Phase>               | <Goal>
-*-----------------------+---------------------------------------------------------------+
-| initialize            |org.codehaus.mojo:native-maven-plugin:initialize
-*-----------------------+---------------------------------------------------------------+
-| generate-sources      | org.codehaus.mojo:native-maven-plugin:unzipinc
-*-----------------------+---------------------------------------------------------------+
-| compile               | org.codehaus.mojo:native-maven-plugin:compile
-|                       | org.codehaus.mojo:native-maven-plugin:link
-|                       | org.codehaus.mojo:native-maven-plugin:manifest ( dll and exe only )
-*-----------------------+---------------------------------------------------------------+
-| process-test-resources| org.apache.maven.plugins:maven-resources-plugin:testResources
-*-----------------------+---------------------------------------------------------------+
-| test-compile          | org.apache.maven.plugins:maven-compiler-plugin:testCompile
-*-----------------------+---------------------------------------------------------------+
-| test                  | org.apache.maven.plugins:maven-surefire-plugin:test
-*-----------------------+---------------------------------------------------------------+
-| package               | 
-*-----------------------+---------------------------------------------------------------+
-| install               | org.apache.maven.plugins:maven-install-plugin:install
-*-----------------------+---------------------------------------------------------------+
-| deploy                | org.apache.maven.plugins:maven-deploy-plugin:deploy
-*-----------------------+---------------------------------------------------------------+
+*-----------------------+---------------------------------------------------------------+------------+
+| <Phase>               | <Goal>                                                        | Notes
+*-----------------------+---------------------------------------------------------------+------------+
+| initialize            |org.codehaus.mojo:native-maven-plugin:initialize               |
+*-----------------------+---------------------------------------------------------------+------------+
+| generate-sources      | org.codehaus.mojo:native-maven-plugin:unzipinc                |
+*-----------------------+---------------------------------------------------------------+------------+
+| compile               | org.codehaus.mojo:native-maven-plugin:compile                 |
+*-----------------------+---------------------------------------------------------------+------------+
+| compile               | org.codehaus.mojo:native-maven-plugin:link                    |
+*-----------------------+---------------------------------------------------------------+------------+
+| compile               | org.codehaus.mojo:native-maven-plugin:manifest                | ( dll and exe only )
+*-----------------------+---------------------------------------------------------------+------------+
+| process-test-resources| org.apache.maven.plugins:maven-resources-plugin:testResources |
+*-----------------------+---------------------------------------------------------------+------------+
+| test-compile          | org.apache.maven.plugins:maven-compiler-plugin:testCompile    |
+*-----------------------+---------------------------------------------------------------+------------+
+| test                  | org.apache.maven.plugins:maven-surefire-plugin:test           |
+*-----------------------+---------------------------------------------------------------+------------+
+| package               | org.codehaus.mojo:native-maven-plugin:inczip                  | if enable via NativeSources
+*-----------------------+---------------------------------------------------------------+------------+
+| install               | org.apache.maven.plugins:maven-install-plugin:install         |
+*-----------------------+---------------------------------------------------------------+------------+
+| deploy                | org.apache.maven.plugins:maven-deploy-plugin:deploy           |
+*-----------------------+---------------------------------------------------------------+------------+
     
 
 

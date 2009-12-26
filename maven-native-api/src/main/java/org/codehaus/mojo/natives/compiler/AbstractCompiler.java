@@ -31,7 +31,6 @@ import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
-import org.codehaus.mojo.natives.util.FileUtil;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.FileUtils;
@@ -42,10 +41,6 @@ import edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
 import edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor;
 import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
 
 public abstract class AbstractCompiler
     extends AbstractLogEnabled

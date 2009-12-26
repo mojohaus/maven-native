@@ -8,9 +8,10 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.util.FileUtils;
+
+
 /**
  * Helper class to test native-maven-plugin
- * @author dtran
  *
  */
 public class NoopCompiler

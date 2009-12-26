@@ -29,8 +29,6 @@ import java.io.File;
 
 /**
  * Sun's javah compatible implementation
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
  */
 
 public class JavahExecutable

@@ -33,7 +33,7 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
  * Prepare include file bundle to be attached to maven for deployment purpose
  * @goal inczip
  * @phase package
- * @since 1.0-alpha4
+ * @since 1.0-alpha-4
  */
 
 public class NativeBundleIncludeFilesMojo

@@ -24,11 +24,6 @@ package org.codehaus.mojo.natives.manager;
  * SOFTWARE.
 */
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
-
 public class NoSuchNativeProviderException 
     extends Exception 
 {

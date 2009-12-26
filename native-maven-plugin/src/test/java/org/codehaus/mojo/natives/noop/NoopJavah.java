@@ -7,7 +7,6 @@ import org.codehaus.mojo.natives.javah.JavahConfiguration;
 
 /**
  * Helper class to test native-maven-plugin' javah mojo
- * @author dtran
  *
  */
 public class NoopJavah

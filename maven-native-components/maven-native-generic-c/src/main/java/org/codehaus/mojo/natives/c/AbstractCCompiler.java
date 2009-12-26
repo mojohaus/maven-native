@@ -33,10 +33,6 @@ import org.codehaus.mojo.natives.parser.CParser;
  * SOFTWARE.
  */
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
 
 public abstract class AbstractCCompiler
     extends AbstractCompiler

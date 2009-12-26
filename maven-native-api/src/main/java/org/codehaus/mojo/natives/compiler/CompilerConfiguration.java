@@ -28,12 +28,9 @@ import java.io.File;
 
 import org.codehaus.mojo.natives.ConfigurationBase;
 
-/*
+/**
  * CompilerConfiguration contains inputs by the user + 
- * DependencyMangement for dependecies analysis
- * 
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
+ * DependencyMangement for dependencies analysis
  * 
  */
 public class CompilerConfiguration

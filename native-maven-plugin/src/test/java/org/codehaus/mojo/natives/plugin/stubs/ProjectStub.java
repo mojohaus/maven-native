@@ -11,8 +11,6 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 
 /**
  * Stub MavenProject to support native-maven-plugin test harness
- * @author dtran
- *
  */
 
 public class ProjectStub

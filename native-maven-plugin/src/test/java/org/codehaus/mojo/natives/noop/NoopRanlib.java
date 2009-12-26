@@ -8,8 +8,6 @@ import org.codehaus.mojo.natives.linker.Ranlib;
 
 /**
  * Helper class to test native-maven-plugin' javah mojo
- * @author dtran
- *
  */
 public class NoopRanlib
     implements Ranlib 

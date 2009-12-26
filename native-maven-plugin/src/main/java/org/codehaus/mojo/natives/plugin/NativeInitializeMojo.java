@@ -34,8 +34,6 @@ import org.apache.maven.project.MavenProject;
  * Initialize build lifecycle
  * @goal initialize
  * @phase initialize
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
  */
 
 public class NativeInitializeMojo

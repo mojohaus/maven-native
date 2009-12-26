@@ -19,8 +19,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for the CParser class
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
  */
 public abstract class AbstractParserTest extends TestCase {
     public AbstractParserTest(String name) {

@@ -37,8 +37,6 @@ import java.util.List;
  * Compile Windows resource files
  * @goal resource-compile
  * @phase generate-sources
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
  */
 
 public class NativeResourceCompileMojo

@@ -33,7 +33,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Equivalent of Microsoft Visual C++ Toolkit 2003's vcvars32.bat
- * @author dtran
  *
  */
 

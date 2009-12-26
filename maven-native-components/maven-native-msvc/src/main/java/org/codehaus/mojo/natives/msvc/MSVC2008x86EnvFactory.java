@@ -30,7 +30,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Microsoft Visual Studio 9.0\Common7\Tools\vsvars32.bat environment
- * @author dtran
  *
  */
 

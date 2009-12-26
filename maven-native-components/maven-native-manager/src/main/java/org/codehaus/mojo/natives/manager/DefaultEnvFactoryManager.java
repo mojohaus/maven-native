@@ -8,7 +8,6 @@ import org.codehaus.mojo.natives.NativeBuildException;
 
 /**
  * Construct EnvFactory
- * @author dantran
  *
  */
 public class DefaultEnvFactoryManager

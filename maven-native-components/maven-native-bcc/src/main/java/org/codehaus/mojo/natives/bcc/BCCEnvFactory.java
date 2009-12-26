@@ -34,7 +34,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * BCC Environment Setup
- * @author dtran
  *
  */
 

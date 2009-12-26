@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.msvc;
 
 /**
  * Equivalent of MSVC2005's vcvars32.bat
- * @author dtran
  *
  */
 

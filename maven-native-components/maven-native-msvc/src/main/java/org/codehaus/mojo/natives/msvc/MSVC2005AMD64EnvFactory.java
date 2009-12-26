@@ -33,8 +33,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Equivalent of MSVC2005's vcvarsamd64.bat
- * @author dtran
- *
  */
 
 public class MSVC2005AMD64EnvFactory

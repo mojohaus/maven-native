@@ -26,10 +26,6 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.compiler.Compiler;
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
 
 public interface CompilerManager 
 {

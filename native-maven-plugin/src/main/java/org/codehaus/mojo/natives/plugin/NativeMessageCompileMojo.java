@@ -35,8 +35,6 @@ import java.util.List;
  * Compile Windows message files
  * @goal compile-message
  * @phase generate-sources
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
  */
 
 public class NativeMessageCompileMojo

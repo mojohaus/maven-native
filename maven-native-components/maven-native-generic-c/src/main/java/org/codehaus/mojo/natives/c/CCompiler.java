@@ -28,8 +28,6 @@ package org.codehaus.mojo.natives.c;
 /**
  * Generic C/CPP compiler with "-o " as its output option
  * 
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
  */
 
 public class CCompiler 

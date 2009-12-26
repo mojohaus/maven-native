@@ -7,11 +7,6 @@ import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
 
-/**
- * 
- * @author dtran
- *
- */
 public class CCompilerClassicTest
     extends PlexusTestCase
 {

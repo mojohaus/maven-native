@@ -4,7 +4,6 @@ import java.io.File;
 
 /**
  * @deprecated use the JavahExecutable instead since its invokes javah on system path
- * @author dtran
  *
  */
 public class JavahMacOSExecutable 

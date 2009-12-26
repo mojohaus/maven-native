@@ -38,8 +38,6 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  * Compile source files into native object files
  * @goal compile
  * @phase compile
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
  */
 
 public class NativeCompileMojo

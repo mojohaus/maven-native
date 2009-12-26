@@ -32,10 +32,6 @@ import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
 public class MSVCMessageCompiler
     extends AbstractMessageCompiler
 {

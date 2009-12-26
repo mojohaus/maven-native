@@ -29,8 +29,6 @@ import org.codehaus.mojo.natives.NativeBuildException;
 
 /**
  * Generates JNI header files using javah
- * @author dtran
- *
  */
 public interface Javah 
 {

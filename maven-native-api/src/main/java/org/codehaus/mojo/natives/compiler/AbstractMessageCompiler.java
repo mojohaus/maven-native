@@ -33,10 +33,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
 
 public abstract class AbstractMessageCompiler
     extends AbstractLogEnabled

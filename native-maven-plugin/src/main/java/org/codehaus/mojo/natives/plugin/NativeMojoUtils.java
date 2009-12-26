@@ -29,10 +29,6 @@ import java.util.List;
 
 import org.codehaus.plexus.util.StringUtils;
 
-/**
- * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
- * @version $Id$
- */
 
 public class NativeMojoUtils
 {
