@@ -21,6 +21,8 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.io.File;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Manifest;
@@ -48,7 +50,7 @@ public class NativeManifestMojo
      * @parameter default-value="manifest"
      * @required
      */
-    private String extension;
+    private String manifestExtension;
 
     /**
      * Internal - To look up manifest implementation
@@ -60,18 +62,28 @@ public class NativeManifestMojo
     public void execute()
         throws MojoExecutionException
     {
+        File linkerOutputFile = (File) this.getPluginContext().get( LINKER_OUTPUT_PATH );
+
+        if ( !linkerOutputFile.exists() )
+        {
+            return;
+        }
+
+        File linkerManifestFile = new File( linkerOutputFile.getAbsolutePath() + "." + manifestExtension );
+
+        if ( !linkerManifestFile.exists() )
+        {
+            return;
+        }
+
         try
         {
             ManifestConfiguration config = new ManifestConfiguration();
 
             config.setEnvFactory( this.getEnvFactory() );
             config.setWorkingDirectory( this.workingDirectory );
-            config.setArtifactName( this.project.getBuild().getFinalName() + "."
-                + this.project.getArtifact().getArtifactHandler().getExtension() );
-            // This should probably be a configuration item, but then it would
-            // require the user to configure it when it is fixed by MS
-            config.setManifestType( ( project.getArtifactId().equalsIgnoreCase( "EXE" ) ? "1" : "2" ) );
-            config.setManifestExtension( extension );
+            config.setInputFile( linkerOutputFile );
+            config.setManifestFile( linkerManifestFile );
 
             Manifest Manifest = this.getManifest();
 

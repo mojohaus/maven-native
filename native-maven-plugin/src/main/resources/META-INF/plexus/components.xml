@@ -49,7 +49,8 @@
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,
-            org.codehaus.mojo:native-maven-plugin:link
+            org.codehaus.mojo:native-maven-plugin:link,
+            org.codehaus.mojo:native-maven-plugin:manifest
           </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
@@ -86,7 +87,8 @@
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,
-            org.codehaus.mojo:native-maven-plugin:link
+            org.codehaus.mojo:native-maven-plugin:link,
+            org.codehaus.mojo:native-maven-plugin:manifest
           </compile>
           <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
           <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>

@@ -191,7 +191,10 @@ public class NativeLinkMojo
         {
             List allCompilerOuputFiles = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
 
-            linker.link( config, allCompilerOuputFiles );
+            File outputFile = linker.link( config, allCompilerOuputFiles );
+            
+            //to be used by post linker mojo  like native:manifest
+            this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
         }
         catch ( IOException ioe )
         {

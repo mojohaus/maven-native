@@ -44,6 +44,8 @@ public abstract class AbstractNativeMojo
     extends AbstractMojo
 {
     public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
+    
+    public static final String LINKER_OUTPUT_PATH = "NativeLinkerOutputPath";
 
     public static final String INCZIP_FOUND = "IncZipFound";
     

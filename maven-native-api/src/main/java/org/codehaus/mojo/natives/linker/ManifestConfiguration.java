@@ -37,21 +37,30 @@ public class ManifestConfiguration
 {
 
     private File workingDirectory;
+    
+    private File inputFile;
+    
+    private File manifestFile;
 
-    /**
-     * Artifact with extension (should be .exe or .dll)
-     */
-    private String artifactFullname;
+    public File getInputFile()
+    {
+        return inputFile;
+    }
 
-    /**
-     * Manifest type depending upon extension
-     */
-    private String manifestType;
+    public void setInputFile( File inputFile )
+    {
+        this.inputFile = inputFile;
+    }
 
-    /**
-     * Manifest extension
-     */
-    private String manifestExtension;
+    public File getManifestFile()
+    {
+        return manifestFile;
+    }
+
+    public void setManifestFile( File manifestFile )
+    {
+        this.manifestFile = manifestFile;
+    }
 
     public File getWorkingDirectory()
     {
@@ -63,33 +72,4 @@ public class ManifestConfiguration
         this.workingDirectory = dir;
     }
 
-    public String getArtifactName()
-    {
-        return this.artifactFullname;
-    }
-
-    public void setArtifactName( String artifactName )
-    {
-        this.artifactFullname = artifactName;
-    }
-
-    public String getManifestType()
-    {
-        return this.manifestType;
-    }
-
-    public void setManifestType ( String type )
-    {
-        this.manifestType = type;
-    }
-
-    public String getManifestExtension()
-    {
-        return this.manifestExtension;
-    }
-
-    public void setManifestExtension ( String extension )
-    {
-        this.manifestExtension = extension;
-    }
 }
