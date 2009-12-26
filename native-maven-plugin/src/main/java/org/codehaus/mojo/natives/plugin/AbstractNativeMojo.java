@@ -35,10 +35,6 @@ import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 
-/**
- * @author <a href="dantran@gmail.com">Dan T. Tran</a>
- * @version $Id$
- */
 
 public abstract class AbstractNativeMojo
     extends AbstractMojo
@@ -62,6 +58,7 @@ public abstract class AbstractNativeMojo
     /**
      * user directory when external tools( ie compiler/linker ) are invoked
      * @parameter  default-value="${basedir}"
+     * @required
      * @since 1.0-alpha-2
      */
     protected File workingDirectory;

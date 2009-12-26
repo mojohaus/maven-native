@@ -60,11 +60,11 @@ public abstract class AbstractCompiler
     public List compile( CompilerConfiguration config, File[] sourceFiles )
         throws NativeBuildException
     {
-        if ( ! config.getOutputDirectory().exists() )
+        if ( !config.getOutputDirectory().exists() )
         {
             config.getOutputDirectory().mkdirs();
         }
-        
+
         List compilerOutputFiles = new ArrayList( sourceFiles.length );
 
         CompilerThreadPoolExecutor compilerThreadPoolExecutor = null;
@@ -87,7 +87,7 @@ public abstract class AbstractCompiler
 
             if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) )
             {
-                if ( compilerThreadPoolExecutor != null && compilerThreadPoolExecutor.isErrorFound() ) 
+                if ( compilerThreadPoolExecutor != null && compilerThreadPoolExecutor.isErrorFound() )
                 {
                     break;
                 }
@@ -113,7 +113,10 @@ public abstract class AbstractCompiler
 
         if ( compilerThreadPoolExecutor != null )
         {
-            compilerThreadPoolExecutor.shutdown();
+            if ( !compilerThreadPoolExecutor.isErrorFound() )
+            {
+                compilerThreadPoolExecutor.shutdown();
+            }
 
             try
             {
@@ -204,7 +207,12 @@ public abstract class AbstractCompiler
     {
         private boolean errorFound = false;
 
-        public boolean isErrorFound()
+        public synchronized void setErrorFound( boolean errorFound )
+        {
+            this.errorFound = errorFound;
+        }
+
+        public synchronized boolean isErrorFound()
         {
             return errorFound;
         }
@@ -216,10 +224,24 @@ public abstract class AbstractCompiler
 
         protected void afterExecute( Runnable r, Throwable t )
         {
+            super.afterExecute( r, t );
+
             if ( t != null )
             {
-                errorFound = true;
-                this.shutdownNow();
+                this.setErrorFound( true );
+
+                this.shutdown();
+            }
+        }
+
+        protected void beforeExecute( Thread t, Runnable r )
+        {
+            super.beforeExecute( t, r );
+
+            //fail fast
+            if ( this.isErrorFound() )
+            {
+                ( (CompilerRunnable) r ).setSkip( true );
             }
         }
     }
@@ -231,6 +253,13 @@ public abstract class AbstractCompiler
 
         private Logger logger;
 
+        private boolean skip = false;
+
+        public void setSkip( boolean skip )
+        {
+            this.skip = skip;
+        }
+
         public CompilerRunnable( Commandline cl, Logger logger )
         {
             this.cl = cl;
@@ -240,6 +269,11 @@ public abstract class AbstractCompiler
         public void run()
             throws NativeBuildException
         {
+            if ( skip )
+            {
+                return;
+            }
+            
             CommandLineUtil.execute( cl, logger );
         }
 
