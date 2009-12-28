@@ -232,9 +232,13 @@ Usage
     
   Other notes:
   
+    * Javah goal is invoked automatically at <generate-sources> phase for all shared library ( dll, so, etc ). See example for details.
+      However, it is skipped when there is no <javahClassNames> available. 
+  
     * Manifest goal is invoked right after linker step for MSVC that support manifest file ( ie Visual Studio 2005 and 2008 )
     
     * Concurrent compilations are supported via <numberOfConcurrentCompilation> configuration.
+    
     
     []
     

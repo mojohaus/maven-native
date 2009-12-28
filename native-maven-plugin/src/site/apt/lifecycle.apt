@@ -17,6 +17,8 @@ Build Lifecycle
 *-----------------------+---------------------------------------------------------------+------------+
 | generate-sources      | org.codehaus.mojo:native-maven-plugin:unzipinc                |
 *-----------------------+---------------------------------------------------------------+------------+
+| generate-sources      | org.codehaus.mojo:native-maven-plugin:javah                   | all shared libraries custom build lifecycle
+*-----------------------+---------------------------------------------------------------+------------+
 | compile               | org.codehaus.mojo:native-maven-plugin:compile                 |
 *-----------------------+---------------------------------------------------------------+------------+
 | compile               | org.codehaus.mojo:native-maven-plugin:link                    |

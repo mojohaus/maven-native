@@ -45,7 +45,10 @@
       <configuration>
         <phases>
           <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
-          <generate-sources>org.codehaus.mojo:native-maven-plugin:unzipinc</generate-sources>
+          <generate-sources>
+            org.codehaus.mojo:native-maven-plugin:unzipinc,
+            org.codehaus.mojo:native-maven-plugin:javah
+          </generate-sources>
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,
@@ -186,7 +189,10 @@
       <configuration>
         <phases>
           <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
-          <generate-sources>org.codehaus.mojo:native-maven-plugin:unzipinc</generate-sources>
+          <generate-sources>
+            org.codehaus.mojo:native-maven-plugin:unzipinc,
+            org.codehaus.mojo:native-maven-plugin:javah
+          </generate-sources>
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,
@@ -224,7 +230,10 @@
       <configuration>
         <phases>
           <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
-          <generate-sources>org.codehaus.mojo:native-maven-plugin:unzipinc</generate-sources>
+          <generate-sources>
+            org.codehaus.mojo:native-maven-plugin:unzipinc,
+            org.codehaus.mojo:native-maven-plugin:javah
+          </generate-sources>
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,
@@ -261,7 +270,10 @@
       <configuration>
         <phases>
           <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
-          <generate-sources>org.codehaus.mojo:native-maven-plugin:unzipinc</generate-sources>
+          <generate-sources>
+            org.codehaus.mojo:native-maven-plugin:unzipinc,
+            org.codehaus.mojo:native-maven-plugin:javah
+          </generate-sources>
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,
@@ -299,7 +311,10 @@
       <configuration>
         <phases>
           <initialize>org.codehaus.mojo:native-maven-plugin:initialize</initialize>
-          <generate-sources>org.codehaus.mojo:native-maven-plugin:unzipinc</generate-sources>
+          <generate-sources>
+            org.codehaus.mojo:native-maven-plugin:unzipinc,
+            org.codehaus.mojo:native-maven-plugin:javah
+          </generate-sources>
           <process-sources></process-sources>
           <compile>
             org.codehaus.mojo:native-maven-plugin:compile,

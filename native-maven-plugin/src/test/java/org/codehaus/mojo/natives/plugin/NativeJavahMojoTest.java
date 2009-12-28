@@ -26,6 +26,7 @@ public class NativeJavahMojoTest
         
         JavahConfiguration config = mojo.getJavahConfiguration();
         
+        //only found ${project.build.outputDirectory}
         assertEquals( 1, config.getClassPaths().length );
         
         String classesDir = config.getClassPaths()[0];

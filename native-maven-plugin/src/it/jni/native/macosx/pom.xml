@@ -37,14 +37,19 @@
         <artifactId>native-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
+          <jdkIncludePath>${java.home}/include</jdkIncludePath>
+          <javahOS>macosx</javahOS>
+          <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
+          <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
+          <javahOutputFileName>HelloWorld.h</javahOutputFileName>
+          <javahClassNames>
+            <javahClassName>HelloWorld</javahClassName>
+          </javahClassNames>
+
           <compilerProvider>generic</compilerProvider>
           <compilerStartOptions>
             <compilerStartOption>-fPIC -O</compilerStartOption>
           </compilerStartOptions>
-
-          <jdkIncludePath>${java.home}/include</jdkIncludePath>
-          <javahOS>macosx</javahOS>
-
           <sources>
             <source>
               <directory>../src/main/native</directory>
@@ -52,7 +57,6 @@
                 <fileName>HelloWorld.c</fileName>
               </fileNames>
             </source>
-
           </sources>
 
           <linkerStartOptions>
@@ -60,22 +64,6 @@
           </linkerStartOptions>
 
         </configuration>
-
-        <executions>
-          <execution>
-            <id>javah</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <implementation>macos</implementation>
-              <classNames>
-                <className>HelloWorld</className>
-              </classNames>
-            </configuration>
-            <goals>
-              <goal>javah</goal>
-            </goals>
-          </execution>
-        </executions>
 
       </plugin>
 

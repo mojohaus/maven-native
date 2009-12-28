@@ -44,7 +44,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
- * Generate jni include files based on a set of class names
+ * Generate JNI include files based on a set of class names
  * @goal javah
  * @phase generate-sources
  * @requiresDependencyResolution compile
@@ -60,19 +60,35 @@ public class NativeJavahMojo
      * @required
      * @since 1.0-alpha-2
      */
-    private String implementation;
+    private String javahProvider;
 
     /**
-     * List of class names to generate native files. Default is all
-     * JNI classes available in the classpath excluding the 
-     * transitive dependencies, jars with test scope and provided scope     
      * @parameter 
+     * @deprecated Use javahClassNames instead.  Note starting 1.0-alpha-4, running javah in its own 
+     * execution is no longer necessary since it is implicitly bound to all shared library custom lifecycle.
      * @since 1.0-alpha-2
      */
-    private String[] classNames;
+    private List classNames;
 
     /**
-     * Path to javah executable, if present, it will override the default one which bases on architecture type. See 'implementation' argument
+     * List of class names to generate native files. Additional JNI interface will automatically 
+     * discovered from project's dependencies of <i>jar</i> type, 
+     * when <i>javahSearchJNIFromDependencies</i> is true
+     * @parameter 
+     * @since 1.0-alpha-4
+     */
+    private List javahClassNames = new ArrayList( 0 );
+
+    /**
+     * Enable the search from project dependencies for JNI interfaces, in addition to <i>javahClassNames</i>
+     * @parameter default-value="false"
+     * @since 1.0-alpha-4
+     */
+    private boolean javahSearchJNIFromDependencies;
+
+    /**
+     * Path to javah executable, if present, it will override the default one which bases on architecture type. 
+     * See 'javahProvider' argument
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -85,7 +101,7 @@ public class NativeJavahMojo
      * @since 1.0-alpha-2
      */
     protected File outputDirectory;
-    
+
     /**
      * Where to place javah generated file
      * @parameter default-value="${project.build.directory}/native/javah"
@@ -93,11 +109,18 @@ public class NativeJavahMojo
      * @since 1.0-alpha-2
      */
     protected File javahOutputDirectory;
-    
 
     /**
      * if configured will be combined with outputDirectory to pass into javah's -o option
      * @parameter 
+     * @since 1.0-alpha-4
+     */
+    private String javahOutputFileName;
+
+    /**
+     * if configured will be combined with outputDirectory to pass into javah's -o option
+     * @parameter 
+     * @deprecated Use javaOutputFileName instead
      * @since 1.0-alpha-2
      */
     private String outputFileName;
@@ -107,12 +130,12 @@ public class NativeJavahMojo
      * @parameter default-value="false"
      * @since 1.0-alpha-2
      */
-
-    private boolean verbose;
+    private boolean javahVerbose;
 
     /**
      * Internal: To look up javah implementation
      * @component
+     * @readonly
      * @since 1.0-alpha-2
      */
 
@@ -127,12 +150,29 @@ public class NativeJavahMojo
         throws MojoExecutionException
     {
 
-        //until we remove the deprecated outputDirectory configuration
-        if ( this.outputDirectory != null  )
+        //until we remove the deprecated  configuration
+        if ( this.outputDirectory != null )
         {
             this.javahOutputDirectory = this.outputDirectory;
         }
-        
+
+        if ( this.outputFileName != null )
+        {
+            this.javahOutputFileName = this.outputFileName;
+        }
+
+        if ( this.classNames != null )
+        {
+            this.javahClassNames.addAll( this.classNames );
+        }
+
+        this.discoverAdditionalJNIClassName();
+
+        if ( this.javahClassNames.size() == 0 )
+        {
+            return;
+        }
+
         try
         {
             this.config = this.createProviderConfiguration();
@@ -154,7 +194,7 @@ public class NativeJavahMojo
 
         try
         {
-            javah = this.manager.getJavah( this.implementation );
+            javah = this.manager.getJavah( this.javahProvider );
 
         }
         catch ( NoSuchNativeProviderException pe )
@@ -233,19 +273,17 @@ public class NativeJavahMojo
      * 
      */
 
-    private String[] getNativeClassNames()
+    private void discoverAdditionalJNIClassName()
         throws MojoExecutionException
     {
-        if ( this.classNames != null )
+        if ( !this.javahSearchJNIFromDependencies )
         {
-            return this.classNames;
+            return;
         }
 
         //scan the immediate dependency list for jni classes
 
         List artifacts = this.getJavahArtifacts();
-
-        List scannedClassNames = new ArrayList();
 
         for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
         {
@@ -273,7 +311,7 @@ public class NativeJavahMojo
                         {
                             if ( methods[j].isNative() )
                             {
-                                scannedClassNames.add( clazz.getClassName() );
+                                javahClassNames.add( clazz.getClassName() );
 
                                 this.getLog().info( "Found native class: " + clazz.getClassName() );
 
@@ -289,7 +327,6 @@ public class NativeJavahMojo
             }
         }
 
-        return (String[]) scannedClassNames.toArray( new String[scannedClassNames.size()] );
     }
 
     private JavahConfiguration createProviderConfiguration()
@@ -297,11 +334,11 @@ public class NativeJavahMojo
     {
         JavahConfiguration config = new JavahConfiguration();
         config.setWorkingDirectory( this.workingDirectory );
-        config.setVerbose( this.verbose );
+        config.setVerbose( this.javahVerbose );
         config.setOutputDirectory( this.javahOutputDirectory );
-        config.setFileName( this.outputFileName );
+        config.setFileName( this.javahOutputFileName );
         config.setClassPaths( this.getJavahClassPath() );
-        config.setClassNames( this.getNativeClassNames() );
+        config.setClassNames( (String[]) javahClassNames.toArray( new String[javahClassNames.size()] ) );
         config.setJavahPath( this.javahPath );
 
         return config;

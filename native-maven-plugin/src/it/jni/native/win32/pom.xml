@@ -43,15 +43,19 @@
         <extensions>true</extensions>       
         <configuration>
           <workingDirectory>${project.build.directory}</workingDirectory>
-          <compilerProvider>msvc</compilerProvider>
-          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC6EnvFactory</envFactoryName>
-          <compilerStartOptions>
-            <compilerStartOption>${compiler.debug.options}</compilerStartOption>
-            <compilerStartOption>/W4 -O</compilerStartOption>
-          </compilerStartOptions>
-          
+
+          <!--  trigger javah -->          
           <javahOS>win32</javahOS>
-          
+          <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
+          <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
+          <javahOutputFileName>HelloWorld.h</javahOutputFileName>
+          <javahClassNames>
+            <javahClassName>HelloWorld</javahClassName>
+          </javahClassNames>
+
+          <!--  compiler configuration -->          
+          <compilerProvider>msvc</compilerProvider>
+          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2008x86EnvFactory</envFactoryName>
           <sources>
             <source>
               <directory>../src/main/native</directory>
@@ -60,7 +64,13 @@
               </fileNames>
             </source>            
           </sources>
+          <compilerStartOptions>
+            <compilerStartOption>${compiler.debug.options}</compilerStartOption>
+            <compilerStartOption>/W4 -O</compilerStartOption>
+          </compilerStartOptions>
+          
             
+          <!--  linker configuration -->          
           <classifier>${classifier}</classifier>
           <linkerStartOptions>
             <linkerStartOption>${linker.debug.options}</linkerStartOption>
@@ -70,25 +80,11 @@
         </configuration>
         
         <executions>
-        
-          <execution>
-            <id>javah</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>javah</goal> 
-            </goals>
-            
-            <configuration>
-              <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
-              <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
-              <outputFileName>HelloWorld.h</outputFileName>
-              <classNames>
-                <className>HelloWorld</className>
-              </classNames>
-            </configuration>
-          </execution>
           
           <!-- resource compile, the output hello.res is automatically link to final output hello.dll at link time -->
+          
+          <!-- until we figure out how to get it to work with msvm2008 -->
+          <!-- 
           <execution>
             <id>resource-compile</id>
             <phase>generate-sources</phase>
@@ -106,6 +102,7 @@
               </sources>
             </configuration>
           </execution>
+          -->
           
         </executions>
            

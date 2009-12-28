@@ -7,9 +7,11 @@
         <artifactId>native-maven-plugin</artifactId>
         <configuration>
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
-          <implementation>noop</implementation>
+          <javahProvider>noop</javahProvider>
           <workingDirectory>${basedir}</workingDirectory>          
           <javahOutputDirectory>target/javah</javahOutputDirectory>
+          <!--  force classpatht to be computed -->
+          <classNames><className>dummy</className></classNames>
         </configuration>
       </plugin>
     </plugins>
