@@ -8,11 +8,11 @@
 
 Compile Java code using GNU gcj
 
-  The example uses GNU gcj to generate native build from java source.
+  The example uses GNU gcj to generate native executable from java source.
 
   Note:
       
-  * qualifiedMainEntry is mandatory and must be the complete name of the java class that implements the main() entry.
+  * <--main=full.class.name> is mandatory and must be the complete name of the java class that implements the main() entry.
       
   * Checkout real examples in {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/gcj}svn}}
   
@@ -48,7 +48,7 @@ Compile Java code using GNU gcj
           
           <linkerExecutable>gcj</linkerExecutable>
           <linkerStartOptions>
-            <linkerStartOption>--main=${project.groupId}.ImplementingGcj.App</linkerStartOption>
+            <linkerStartOption>--main=full.class.name</linkerStartOption>
           </linkerStartOptions>
           
          </configuration>

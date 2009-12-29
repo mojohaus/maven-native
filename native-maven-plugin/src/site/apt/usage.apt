@@ -195,6 +195,9 @@ Usage
              <!-- additional include path -->
              <source>
                <directory>...</directory>
+               <!-- use this to have maven deploying header files with a .inzip type -->
+               <!-- typically used to for library artifacts header files --->
+               <deployable>true</deployable>
              </source>          
 
              <!-- additional system include path -->

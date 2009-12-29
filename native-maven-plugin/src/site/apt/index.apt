@@ -17,7 +17,7 @@ Native Maven Plugin
   
 * Goals Overview
 
-  The following contains summaries of all main goals. They work together in {{{./lifycycle.html}custom build lifecycle }}.
+  The following contains summaries of all main goals. They work together in {{{./lifecycle.html}custom build lifecycle }}.
 
   * {{{initialize-mojo.html}native:initialize}}: Initialize build lifecycle 
   
