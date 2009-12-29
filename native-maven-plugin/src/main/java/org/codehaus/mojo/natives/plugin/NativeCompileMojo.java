@@ -115,7 +115,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler output files ( .o, .obj, etc) location
-     * @parameter default-value="${project.build.directory}"
+     * @parameter default-value="${project.build.directory}/objs"
      * @required
      * @since 1.0-alpha-4
      */
@@ -203,7 +203,7 @@ public class NativeCompileMojo
 
     /**
      * Pickup additional source paths that previous phases added to source root 
-     * Note: we intentionally ignore the first item of source root since this
+     * Note: we intentionally ignore the first item of source root ( ie ${project.build.directory}/classes since this
      * plugin never use it.
      */
     private void addAdditionalIncludePath()
