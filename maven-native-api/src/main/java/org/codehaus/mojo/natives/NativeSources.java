@@ -178,6 +178,7 @@ public class NativeSources
             scanner.setBasedir( this.directory );
             scanner.setIncludes( includes );
             scanner.setExcludes( excludes );
+            scanner.addDefaultExcludes();
 
             scanner.scan();
 
