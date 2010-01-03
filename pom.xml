@@ -170,6 +170,8 @@
   
   
   <build>
+  
+    <defaultGoal>install</defaultGoal>
     
     <pluginManagement>
       <plugins>
