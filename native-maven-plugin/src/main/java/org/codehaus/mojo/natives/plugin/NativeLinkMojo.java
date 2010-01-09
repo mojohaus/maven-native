@@ -113,14 +113,6 @@ public class NativeLinkMojo
     private List linkingOrderLibs;
 
     /**
-     * Internal: Map of of project artifacts.
-     *
-     * @parameter expression="${project.artifactMap}"
-     * @since 1.0-alpha-2
-     */
-    private Map projectArtifactMap;
-
-    /**
      * Comma separated extension type to be installed/deployed. Use this option
      * to deploy library file produced by dll build on windows
      *
@@ -136,7 +128,7 @@ public class NativeLinkMojo
      * @since 1.0-alpha-2
      */
     protected File linkerOutputDirectory;
-    
+
     /**
      * Internal
      * @component
@@ -166,15 +158,15 @@ public class NativeLinkMojo
      * debug artifacts
      * @parameter 
      * @since 1.0-alpha-2
-     */    
+     */
     private String classifier = null;
-    
+
     /**
      * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have 
      * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle 
      * @parameter default-value="true"
      * @since 1.0-alpha-2
-     */    
+     */
     private boolean attach = true;
 
     public void execute()
@@ -185,7 +177,7 @@ public class NativeLinkMojo
         {
             this.classifier = null;
         }
-        
+
         Linker linker = this.getLinker();
 
         this.config = this.createLinkerConfiguration();
@@ -195,7 +187,7 @@ public class NativeLinkMojo
             List allCompilerOuputFiles = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
 
             File outputFile = linker.link( config, allCompilerOuputFiles );
-            
+
             //to be used by post linker mojo  like native:manifest
             this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
         }
@@ -211,7 +203,7 @@ public class NativeLinkMojo
         if ( this.attach )
         {
             this.attachPrimaryArtifact();
-        
+
             this.attachSecondaryArtifacts();
         }
     }
@@ -264,7 +256,7 @@ public class NativeLinkMojo
     {
         Artifact artifact = this.project.getArtifact();
 
-        if ( null == this.classifier ) 
+        if ( null == this.classifier )
         {
             artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
                 + this.project.getArtifact().getArtifactHandler().getExtension() ) );
@@ -299,8 +291,8 @@ public class NativeLinkMojo
             clone.setRepository( artifact.getRepository() );
 
             clone.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                                        + this.project.getArtifact().getArtifactHandler().getExtension() ) );
-            
+                + this.project.getArtifact().getArtifactHandler().getExtension() ) );
+
             project.setArtifact( clone );
         }
     }
@@ -333,6 +325,11 @@ public class NativeLinkMojo
         {
             Artifact artifact = (Artifact) iter.next();
 
+            if ( "inczip".equals( artifact.getType() ) )
+            {
+                continue;
+            }
+
             String libFileName = FileUtils.filename( this.getDependencyFile( artifact, true ).getPath() );
 
             libList.add( libFileName );
@@ -359,7 +356,7 @@ public class NativeLinkMojo
             {
                 String element = i.next().toString();
 
-                Artifact artifact = (Artifact) projectArtifactMap.get( element );
+                Artifact artifact = lookupDependencyUsingGroupArtifactIdPair( element );
 
                 if ( artifact != null )
                 {
@@ -375,6 +372,46 @@ public class NativeLinkMojo
         }
 
         return list;
+    }
+    
+    /**
+     * Look up library in dependency list using groupId:artifactId key
+     * Note: we can not use project.artifactMap due the introduction of inczip dependency
+     * where 2 dependency with the same artifactId and groupId, but differs by extension type
+     * make the map not suitable for lookup
+     * 
+     * @param groupArtifactIdPair
+     * @return
+     * @throws MojoExecutionException
+     */
+    private Artifact lookupDependencyUsingGroupArtifactIdPair( String groupArtifactIdPair )
+        throws MojoExecutionException
+    {
+        String [] tokens = StringUtils.split( groupArtifactIdPair, ":" );
+        
+        if ( tokens.length != 2 )
+        {
+            throw new MojoExecutionException( "Invalid groupId and artifactId pair: " + groupArtifactIdPair );
+        }
+        
+        Set allDependencyArtifacts = project.getDependencyArtifacts();
+        
+        for ( Iterator iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
+        {
+            Artifact artifact = (Artifact) iter.next();
+            if ( "inzip".equals( artifact.getType() ) )
+            {
+                continue;
+            }
+            
+            if ( tokens[0].equals( artifact.getGroupId())  && tokens[1].equals( artifact.getArtifactId() ) )
+            {
+                return artifact;
+            }
+        }
+        
+        return null;
+        
     }
 
     private List reorderLibDependencies( List libs )
