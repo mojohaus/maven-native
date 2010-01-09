@@ -321,7 +321,7 @@ public class NativeLinkMojo
         {
             Artifact artifact = (Artifact) iter.next();
 
-            if ( INCZIP_FOUND.equals( artifact.getType() ) )
+            if ( INCZIP_TYPE.equals( artifact.getType() ) )
             {
                 continue;
             }
@@ -395,7 +395,7 @@ public class NativeLinkMojo
         for ( Iterator iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
         {
             Artifact artifact = (Artifact) iter.next();
-            if ( INCZIP_FOUND.equals( artifact.getType() ) )
+            if ( INCZIP_TYPE.equals( artifact.getType() ) )
             {
                 continue;
             }
