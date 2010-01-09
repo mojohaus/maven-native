@@ -18,25 +18,25 @@
     <dependency>
        <groupId>org.codehaus.mojo.natives.it.linkages.linux-x86</groupId>
        <artifactId>libFuncStatic</artifactId>
-       <type>inczip</type>
-       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-       <groupId>org.codehaus.mojo.natives.it.linkages.linux-x86</groupId>
-       <artifactId>libSubFuncStatic</artifactId>
-       <type>inczip</type>
+       <type>a</type>
        <version>${project.version}</version>
     </dependency>
     <dependency>
        <groupId>org.codehaus.mojo.natives.it.linkages.linux-x86</groupId>
        <artifactId>libFuncStatic</artifactId>
-       <type>a</type>
+       <type>inczip</type>
        <version>${project.version}</version>
     </dependency>
     <dependency>
        <groupId>org.codehaus.mojo.natives.it.linkages.linux-x86</groupId>
        <artifactId>libSubFuncStatic</artifactId>
        <type>a</type>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.codehaus.mojo.natives.it.linkages.linux-x86</groupId>
+       <artifactId>libSubFuncStatic</artifactId>
+       <type>inczip</type>
        <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -61,7 +61,7 @@
             </source>  
           </sources>
 
-          <!-- linux rquires static libs to be in a specfic order -->            
+          <!-- linux requires static libs to be in a specfic order -->            
           <linkingOrderLibs>
             <linkingOrderLib>
               org.codehaus.mojo.natives.it.linkages.linux-x86:libFuncStatic           
