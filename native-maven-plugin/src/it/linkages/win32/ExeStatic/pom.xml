@@ -77,10 +77,10 @@
           <!-- it is just here for testing purpose -->
           <linkingOrderLibs>
             <linkingOrderLib>
-              org.codehaus.mojo.natives.it.linkages.win32:FuncStatic           
+              org.codehaus.mojo.natives.it.linkages.win32:SubFuncStatic
             </linkingOrderLib>
             <linkingOrderLib>
-              org.codehaus.mojo.natives.it.linkages.win32:SubFuncStatic
+              org.codehaus.mojo.natives.it.linkages.win32:FuncStatic           
             </linkingOrderLib>
           </linkingOrderLibs>
           

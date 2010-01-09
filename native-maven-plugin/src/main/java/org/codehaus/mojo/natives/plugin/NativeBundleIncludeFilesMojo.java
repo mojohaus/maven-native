@@ -103,7 +103,7 @@ public class NativeBundleIncludeFilesMojo
                     archiver.setDestFile( this.inZipFile );
                     archiver.createArchive();
 
-                    projectHelper.attachArtifact( this.project, "inczip", null, this.inZipFile );
+                    projectHelper.attachArtifact( this.project, INCZIP_FOUND, null, this.inZipFile );
                 }
             }
             catch ( Exception e )

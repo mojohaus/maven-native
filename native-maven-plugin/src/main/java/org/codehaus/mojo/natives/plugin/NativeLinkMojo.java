@@ -21,28 +21,24 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.maven.plugin.MojoExecutionException;
-
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
-
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.manager.LinkerManager;
-import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
-import org.codehaus.mojo.natives.linker.Linker;
-import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.linker.Linker;
+import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.mojo.natives.manager.LinkerManager;
+import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Link all previously built object and dependent library files into final build
@@ -325,7 +321,7 @@ public class NativeLinkMojo
         {
             Artifact artifact = (Artifact) iter.next();
 
-            if ( "inczip".equals( artifact.getType() ) )
+            if ( INCZIP_FOUND.equals( artifact.getType() ) )
             {
                 continue;
             }
@@ -399,7 +395,7 @@ public class NativeLinkMojo
         for ( Iterator iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
         {
             Artifact artifact = (Artifact) iter.next();
-            if ( "inzip".equals( artifact.getType() ) )
+            if ( INCZIP_FOUND.equals( artifact.getType() ) )
             {
                 continue;
             }

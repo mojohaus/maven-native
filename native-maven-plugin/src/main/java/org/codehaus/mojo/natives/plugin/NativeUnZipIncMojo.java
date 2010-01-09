@@ -157,7 +157,7 @@ public class NativeUnZipIncMojo
                 Artifact artifact = (Artifact) iter.next();
 
                 //pick up only native header archive
-                if ( !"inczip".equals( artifact.getType() ) )
+                if ( !INCZIP_FOUND.equals( artifact.getType() ) )
                 {
                     continue;
                 }

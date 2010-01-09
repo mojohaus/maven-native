@@ -45,6 +45,8 @@ public abstract class AbstractNativeMojo
 
     public static final String INCZIP_FOUND = "IncZipFound";
     
+    public static final String INCZIP_TYPE = "inczip";
+    
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 
     /**
