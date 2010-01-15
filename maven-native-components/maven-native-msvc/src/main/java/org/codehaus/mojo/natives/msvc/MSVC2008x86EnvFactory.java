@@ -66,8 +66,13 @@ public class MSVC2008x86EnvFactory
         File frameworkDir = new File( getSystemRoot() + "\\Microsoft.NET\\Framework" );
         envs.put( "FrameworkDir", frameworkDir.getPath() );
 
-        //TODO use windows registry. see vsvars32.bat for details
         File windowsSDKDir = new File( "C:\\Program Files" + "\\Microsoft SDKs\\Windows\\v6.0A" );
+        String value = RegQuery.getValue( "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Microsoft SDKs\\Windows", "CurrentInstallFolder" );
+        if ( value == null )
+        {
+            windowsSDKDir = new File( value );
+        }
+        
         envs.put( "WindowsSdkDir", windowsSDKDir.getPath() );
 
         String frameworkVersion = "v2.0.50727";
@@ -80,13 +85,7 @@ public class MSVC2008x86EnvFactory
         envs.put( "DevEnvDir", devEnvDir );
 
         //set "PATH=%WindowsSdkDir%bin;%PATH%"
-        //@set PATH=C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE;
-        //          C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN;
-        //          C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools;
-        //          C:\Windows\Microsoft.NET\Framework\v3.5;
-        //          C:\Windows\Microsoft.NET\Framework\v2.0.50727;
-        //          C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\VCPackages;
-        //          %PATH%
+        //@set PATH=C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools;C:\Windows\Microsoft.NET\Framework\v3.5;C:\Windows\Microsoft.NET\Framework\v2.0.50727;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\VCPackages;%PATH%
 
         //setup new PATH
         String currentPathEnv = System.getProperty( "java.library.path" );
@@ -98,35 +97,32 @@ public class MSVC2008x86EnvFactory
         envs.put( "PATH", newPathEnv );
 
         //setup new INCLUDE PATH
-        //@set "INCLUDE=%WindowsSdkDir%include;%INCLUDE%"
-        //@set INCLUDE=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE;%INCLUDE%
+        //@set INCLUDE=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\ATLMFC\INCLUDE;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE;%INCLUDE%
 
         String currentIncludeEnv = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludeEnv = vcInstallDir.getPath() + "\\INCLUDE;" + windowsSDKDir.getPath() + "\\include;"
-            + currentIncludeEnv;
+        String newIncludeEnv = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + vcInstallDir.getPath() + "\\INCLUDE;"
+            + windowsSDKDir.getPath() + "\\include;" + currentIncludeEnv;
 
         envs.put( "INCLUDE", newIncludeEnv );
 
         //
         //setup new LIB PATH
-        //@set "LIB=%WindowsSdkDir%lib;%LIB%"            
-        //@set LIB=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\LIB;%LIB%
+        //@set LIB=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\ATLMFC\LIB;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\LIB;%LIB%
         //
         String currentLibEnv = EnvUtil.getEnv( "LIB" );
 
-        String newLibEnv = vcInstallDir.getPath() + "\\LIB;" + windowsSDKDir.getPath() + "\\LIB;" + currentLibEnv;
+        String newLibEnv = vcInstallDir.getPath() + "\\ATLMFC\\LIB;" + vcInstallDir.getPath() + "\\LIB;"
+            + windowsSDKDir.getPath() + "\\LIB;" + currentLibEnv;
 
         envs.put( "LIB", newLibEnv );
 
-        /**
-         * @set LIBPATH=C:\Windows\Microsoft.NET\Framework\v3.5;C:\Windows\Microsoft.NET\Framework\v2.0.50727;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\LIB;%LIBPATH%
+        //@set LIBPATH=C:\Windows\Microsoft.NET\Framework\v3.5;C:\Windows\Microsoft.NET\Framework\v2.0.50727;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\ATLMFC\LIB;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\LIB;%LIBPATH%
 
-         */
         String currentLibPathEnv = EnvUtil.getEnv( "LIBPATH" );
 
         String newLibPathEnv = frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion
-            + ";" + vcInstallDir.getPath() + "\\LIB;" + currentLibPathEnv;
+            + ";" + vcInstallDir.getPath() + "\\ATLMFC\\LIB;" + vcInstallDir.getPath() + "\\LIB;" + currentLibPathEnv;
 
         envs.put( "LIBPATH", newLibPathEnv );
 
