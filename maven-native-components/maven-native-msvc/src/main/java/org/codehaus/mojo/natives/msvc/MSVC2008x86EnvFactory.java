@@ -68,7 +68,7 @@ public class MSVC2008x86EnvFactory
 
         File windowsSDKDir = new File( "C:\\Program Files" + "\\Microsoft SDKs\\Windows\\v6.0A" );
         String value = RegQuery.getValue( "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Microsoft SDKs\\Windows", "CurrentInstallFolder" );
-        if ( value == null )
+        if ( value != null )
         {
             windowsSDKDir = new File( value );
         }
