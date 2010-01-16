@@ -22,6 +22,7 @@ package org.codehaus.mojo.natives.msvc;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,20 +37,17 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 public class MSVC2008x86EnvFactory
     extends AbstractMSVCEnvFactory
 {
-    private static final String MSVS2008_INSTALL_ENV_KEY = "MSVS2008_INSTALL_DIR";
-
-    private static final String DEFAULT_MSVS2008_INSTALL_DIR = getProgramFilesX86() + "\\Microsoft Visual Studio 9.0";
-
-    private static final String VS90COMNTOOLS_DIR = EnvUtil.getEnv( "VS90COMNTOOLS", "VS90COMNTOOLS",
-                                                                    "VS90COMNTOOLS_DIR" );
+    private static final String VS90COMNTOOLS_ENV_KEY = "VS90COMNTOOLS";
 
     protected Map createEnvs()
         throws NativeBuildException
     {
         Map envs = new HashMap();
 
-        File vsInstallDir = new File( EnvUtil.getEnv( MSVS2008_INSTALL_ENV_KEY, MSVS2008_INSTALL_ENV_KEY,
-                                                      DEFAULT_MSVS2008_INSTALL_DIR ) );
+        File vsCommonToolDir = this.getCommonToolDirectory();
+        
+        File vsInstallDir = this.getVisualStudioInstallDirectory( vsCommonToolDir  );
+        
         if ( !vsInstallDir.isDirectory() )
         {
             throw new NativeBuildException( vsInstallDir.getPath() + " is not a directory." );
@@ -81,7 +79,7 @@ public class MSVC2008x86EnvFactory
         String framework35Version = "v3.5";
         envs.put( "Framework35Version", framework35Version );
 
-        String devEnvDir = VS90COMNTOOLS_DIR + "..\\IDE";
+        String devEnvDir = vsCommonToolDir + "\\..\\IDE";
         envs.put( "DevEnvDir", devEnvDir );
 
         //set "PATH=%WindowsSdkDir%bin;%PATH%"
@@ -90,7 +88,7 @@ public class MSVC2008x86EnvFactory
         //setup new PATH
         String currentPathEnv = System.getProperty( "java.library.path" );
 
-        String newPathEnv = devEnvDir + ";" + vcInstallDir.getPath() + "\\bin" + ";" + VS90COMNTOOLS_DIR + ";"
+        String newPathEnv = devEnvDir + ";" + vcInstallDir.getPath() + "\\bin" + ";" + vsCommonToolDir + ";"
             + frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion + ";"
             + vcInstallDir.getPath() + "\\VCPackages" + ";" + windowsSDKDir.getPath() + "\\bin;" + currentPathEnv;
 
@@ -128,6 +126,31 @@ public class MSVC2008x86EnvFactory
 
         return envs;
 
+    }
+    
+    private File getCommonToolDirectory()
+        throws NativeBuildException
+    {
+        String envValue = System.getenv( VS90COMNTOOLS_ENV_KEY );
+        if ( envValue == null )
+        {
+            throw new NativeBuildException( "Environment variable: " + VS90COMNTOOLS_ENV_KEY  + " not available." );
+        }
+        
+        return new File( envValue );
+    }
+    
+    private File getVisualStudioInstallDirectory( File commonToolDir )
+        throws NativeBuildException
+    {
+        try
+        {
+            return new File( commonToolDir, "../.." ).getCanonicalFile();
+        }
+        catch ( IOException e )
+        {
+            throw new NativeBuildException( "Unable to contruct Visual Studio install directory using: " + commonToolDir, e );
+        }
     }
 
 }
