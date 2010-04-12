@@ -75,10 +75,10 @@ public class MSVC2005AMD64EnvFactory
         //setup new PATH
         String currentPath = System.getProperty( "java.library.path" );
 
-        String newPath = vcInstallDir.getPath() + "\\BIN\\amd64;" + platformSDKDir.getPath() + "\\BIN\\WIN64\\AMD;"
+        String newPath = vcInstallDir.getPath() + "\\BIN\\amd64;" + platformSDKDir.getPath() + "\\BIN\\WIN64\\AMD64;"
             + platformSDKDir.getPath() + "\\BIN;" + frameworkDir.getPath() + "\\" + frameworkVersion + ";"
             + vcInstallDir.getPath() + "\\VCPackages;" + devEnvDir.getPath() + ";" + vcInstallDir.getPath()
-            + "\\Common7\\Tools;" + frameworkSDKDir.getPath() + "\\BIN;" + currentPath;
+            + "\\Common7\\Tools;" + vcInstallDir.getPath() + "\\Common7\\Tools\\Bin;" + vcInstallDir.getPath() + "\\SDK\\v2.0\\bin;" + currentPath;
 
         envs.put( "PATH", newPath );
 
@@ -86,7 +86,7 @@ public class MSVC2005AMD64EnvFactory
         String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
         String newIncludePath = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + vcInstallDir.getPath() + "\\INCLUDE;"
-            + platformSDKDir.getPath() + "\\INCLUDE;" + frameworkSDKDir.getPath() + "\\INCLUDE;" + currentIncludePath;
+            + platformSDKDir.getPath() + "\\INCLUDE;" + vcInstallDir.getPath() + "\\SDK\\v2.0\\include;" + currentIncludePath;
 
         envs.put( "INCLUDE", newIncludePath );
 
@@ -96,7 +96,7 @@ public class MSVC2005AMD64EnvFactory
         String currentLibPath = EnvUtil.getEnv( "LIB" );
 
         String newLibPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64;" + vcInstallDir.getPath() + "\\LIB\\AMD64;"
-            + platformSDKDir.getPath() + "\\LIB\\AMD64;" + frameworkSDKDir.getPath() + "\\LIB\\AMD64;" + currentLibPath;
+            + platformSDKDir.getPath() + "\\LIB\\AMD64;" + vsInstallDir.getPath() + "\\SDK\\v2.0\\LIB\\AMD64;" + currentLibPath;
 
         envs.put( "LIB", newLibPath );
 
