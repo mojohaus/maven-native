@@ -1,16 +1,10 @@
 <project>
 
-  <parent>
-    <groupId>org.codehaus.mojo.natives.it</groupId>
-    <artifactId>it-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.codehaus.mojo.natives.it.jni</groupId>
-  <artifactId>jni</artifactId>
+  <groupId>org.codehaus.mojo.natives.it</groupId>
+  <artifactId>it-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>JNI Example</name>
+  <name>Maven Native Plugin IT Parent</name>
   
   <packaging>pom</packaging>
   

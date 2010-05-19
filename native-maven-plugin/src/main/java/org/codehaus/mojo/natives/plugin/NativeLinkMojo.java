@@ -180,7 +180,7 @@ public class NativeLinkMojo
 
         try
         {
-            List allCompilerOuputFiles = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
+            List allCompilerOuputFiles = this.getAllCompilersOutputFileList();
 
             File outputFile = linker.link( config, allCompilerOuputFiles );
 

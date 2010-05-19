@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.plugin;
  */
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -50,8 +51,6 @@ public class NativeInitializeMojo
     public void execute()
         throws MojoExecutionException
     {
-        this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, null );
-        
         File buildDirectory = new File( this.project.getBuild().getDirectory() );
         
         if ( ! buildDirectory.exists() )
