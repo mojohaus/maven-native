@@ -446,7 +446,7 @@ public class NativeLinkMojo
 
         try
         {
-            if ( doCopy && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
+            if ( doCopy && !artifact.getFile().isDirectory() && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
             {
                 FileUtils.copyFile( artifact.getFile(), newLocation );
             }
@@ -463,7 +463,7 @@ public class NativeLinkMojo
     ////////////////////////////////////// UNIT TEST HELPERS //////////////////////////////////
 
     /**
-     * For unittest only
+     * For unit test only
      */
     private LinkerConfiguration config;
 
