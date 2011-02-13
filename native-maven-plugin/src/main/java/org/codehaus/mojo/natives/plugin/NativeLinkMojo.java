@@ -439,9 +439,8 @@ public class NativeLinkMojo
     private File getDependencyFile( Artifact artifact, boolean doCopy )
         throws MojoExecutionException
     {
-        File newLocation = artifact.getFile();
 
-        newLocation = new File( this.externalLibDirectory, artifact.getArtifactId() + "."
+        File newLocation = new File( this.externalLibDirectory, artifact.getArtifactId() + "."
             + artifact.getArtifactHandler().getExtension() );
 
         try
