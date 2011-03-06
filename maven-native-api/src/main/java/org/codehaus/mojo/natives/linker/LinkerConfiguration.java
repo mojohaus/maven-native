@@ -70,11 +70,11 @@ public class LinkerConfiguration
      * Library file names in externalLibDirectory
      */
     private List externalLibFileNames;
-
-	public LinkerConfiguration() 
-	{
-		
-	}
+    
+    /**
+     * For project with lots of object files on windows, turn this flag to resolve Windows command line length limit
+     */
+    private boolean usingLinkerResponseFile;
 		
 	public File getOutputDirectory()
 	{
@@ -191,4 +191,15 @@ public class LinkerConfiguration
     {
         return this.externalLibDirectory;
     }
+    
+    public boolean isUsingLinkerResponseFile()
+    {
+        return usingLinkerResponseFile;
+    }
+
+    public void setUsingLinkerResponseFile( boolean useObjectsFile )
+    {
+        this.usingLinkerResponseFile = useObjectsFile;
+    }
+    
 }

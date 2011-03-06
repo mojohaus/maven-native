@@ -24,16 +24,18 @@ package org.codehaus.mojo.natives.c;
  * SOFTWARE.
  */
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.mojo.natives.util.FileUtil;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
-
-import java.io.File;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Generic C/CPP linker with "-o " as its output option 
@@ -76,14 +78,39 @@ public class CLinker
             cl.createArg().setValue( linkerOutputOption + config.getOutputFile() );
         }
 
-        for ( int i = 0; i < objectFiles.size(); ++i )
+        // On windows to avoid command lines too long we have to use a linker response file.
+        if ( config.isUsingLinkerResponseFile() ) 
         {
-            File objFile = (File) objectFiles.get( i );
+            try
+            {
+                File linkerFile = new File( config.getWorkingDirectory(), "objectsFile" );
+                FileWriter linkerFileWriter = new FileWriter( linkerFile, false /* Don't append */);
+                for ( int i = 0; i < objectFiles.size(); ++i )
+                {
+                    File objFile = ( File ) objectFiles.get( i );
+                    linkerFileWriter.write( objFile.getPath() + "\n" );
+                }
+                linkerFileWriter.close();
+            }
+            catch ( IOException error )
+            {
+                throw new NativeBuildException( "Error creating linker response file", error );
+            }
             
-            //we need to shorten the command line since windows has limited command line length
-            String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
-            
-            cl.createArg().setValue( objFilePath );
+            cl.createArg().setValue( "@objectsFile" );
+        }
+        else
+        { // Normal behavior.
+
+            for ( int i = 0; i < objectFiles.size(); ++i )
+            {
+                File objFile = ( File ) objectFiles.get( i );
+
+                //we need to shorten the command line since windows has limited command line length
+                String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
+
+                cl.createArg().setValue( objFilePath );
+            }
         }
 
         if ( config.getMiddleOptions() != null )

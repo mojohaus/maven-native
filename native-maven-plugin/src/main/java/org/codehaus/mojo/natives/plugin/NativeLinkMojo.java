@@ -164,6 +164,13 @@ public class NativeLinkMojo
      * @since 1.0-alpha-2
      */
     private boolean attach = true;
+    
+    /**
+     * For project with lots of object files on windows, turn this flag to resolve Windows commandline length limit
+     * @parameter default-value="false"
+     * @since 1.0-alpha-7
+     */
+    private boolean usingLinkerResponseFile;
 
     public void execute()
         throws MojoExecutionException
@@ -219,6 +226,7 @@ public class NativeLinkMojo
         config.setExternalLibDirectory( this.externalLibDirectory );
         config.setExternalLibFileNames( this.getLibFileNames() );
         config.setEnvFactory( this.getEnvFactory() );
+        config.setUsingLinkerResponseFile( usingLinkerResponseFile );
 
         return config;
     }

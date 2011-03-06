@@ -73,6 +73,16 @@ public class CLinkerTest
         assertTrue( cl.toString().indexOf( "source1.o source2.o" ) != -1 );
 
     }
+    
+    public void testLinkerResponseFile()
+        throws Exception
+    {
+        this.config.setUsingLinkerResponseFile( true );
+        this.config.setWorkingDirectory( new File( getBasedir(), "target" ) );
+        Commandline cl = this.getCommandline();
+        assertTrue( cl.toString().indexOf( "@objectsFile" ) != -1 );
+    }
+    
 
     public void testRelativeObjectFileList()
         throws Exception
