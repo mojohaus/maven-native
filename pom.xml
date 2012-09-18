@@ -181,7 +181,7 @@
           <configuration>
             <workspace>${basedir}</workspace>
             <workspaceCodeStylesURL>
-              http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-eclipse-plugin/src/optional/eclipse-config/maven-styles.xml
+              http://maven.apache.org/developers/maven-eclipse-codestyle.xml
             </workspaceCodeStylesURL>
           </configuration>
         </plugin>
