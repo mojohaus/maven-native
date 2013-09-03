@@ -66,7 +66,7 @@ public class NativeSourcesTest
 
         String[] includes = { "*.c", "*.cpp" };
 
-        //this file is unique comparing to above list 
+        // this file is unique comparing to above list
         File nodupFile = new File( this.workDirectory, "file3.c" );
         nodupFile.createNewFile();
 
@@ -123,7 +123,7 @@ public class NativeSourcesTest
         String[] fileNames = { "file1.c", "file2.c" };
         source.setFileNames( fileNames );
 
-        //this file is unique comparing to above list 
+        // this file is unique comparing to above list
         File nodupFile = new File( this.workDirectory, "file3.c" );
         nodupFile.createNewFile();
 
@@ -146,10 +146,37 @@ public class NativeSourcesTest
 
         File someFile = new File( this.workDirectory, "someFile.c" );
         someFile.createNewFile();
-        
+
         List files = source.getFiles();
 
         assertEquals( 1, files.size() );
+
+    }
+
+    public void testExcludes()
+        throws Exception
+    {
+        NativeSources source = new NativeSources();
+
+        source.setDirectory( this.workDirectory );
+
+        String[] includes = { "*.*" };
+        source.setIncludes( includes );
+        String[] excludes = { "*.cpp" };
+        source.setExcludes( excludes );
+
+        File someFile = new File( this.workDirectory, "someFile.c" );
+        someFile.createNewFile();
+
+        List files = source.getFiles();
+
+        assertEquals( 1, files.size() );
+        
+        String [] excludes2 = { "*.c" };
+        source.setExcludes( excludes2 );
+
+        assertEquals( 0, source.getFiles().size() );
+        
 
     }
 
