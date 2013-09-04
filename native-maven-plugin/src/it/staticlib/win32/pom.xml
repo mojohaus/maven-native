@@ -17,7 +17,7 @@
   
   <properties>
     <!-- similar to make -j -->
-    <j>4</j>
+    <j>2</j>
   </properties>
   
     

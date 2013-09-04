@@ -102,7 +102,6 @@ public class NativeBundleIncludeFilesMojo
                 {
                     archiver.setDestFile( this.incZipFile );
                     archiver.createArchive();
-
                     projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.incZipFile );
                 }
             }

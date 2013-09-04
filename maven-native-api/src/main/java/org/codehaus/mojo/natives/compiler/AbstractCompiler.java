@@ -38,9 +38,9 @@ import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
+import edu.emory.mathcs.backport.java.util.concurrent.RejectedExecutionException;
 import edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor;
 import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
-
 
 public abstract class AbstractCompiler
     extends AbstractLogEnabled
@@ -91,7 +91,14 @@ public abstract class AbstractCompiler
 
                 if ( compilerThreadPoolExecutor != null )
                 {
-                    compilerThreadPoolExecutor.execute( new CompilerRunnable( cl, this.getLogger() ) );
+                    try
+                    {
+                        compilerThreadPoolExecutor.execute( new CompilerRunnable( cl, this.getLogger() ) );
+                    }
+                    catch ( RejectedExecutionException e )
+                    {
+                        CommandLineUtil.execute( cl, this.getLogger() );
+                    }
                 }
                 else
                 {
@@ -132,6 +139,7 @@ public abstract class AbstractCompiler
 
     /**
      * return "obj" or "o" when file extension is not given based on current platform
+     * 
      * @return
      */
     protected static String getObjectFileExtension( String fileExtension )
@@ -155,6 +163,7 @@ public abstract class AbstractCompiler
 
     /**
      * Figure out the object file relative path from a given source file
+     * 
      * @param sourceFile
      * @param workingDirectory
      * @param outputDirectory
@@ -170,7 +179,7 @@ public abstract class AbstractCompiler
         {
             objectFileExtension = AbstractCompiler.getObjectFileExtension( objectFileExtension );
 
-            //plexus-util requires that we remove all ".." in the the file source, so getCanonicalPath is required
+            // plexus-util requires that we remove all ".." in the the file source, so getCanonicalPath is required
             // other filename with .. and no extension will throw StringIndexOutOfBoundsException
 
             objectFileName = FileUtils.basename( sourceFile.getCanonicalPath() );
@@ -231,7 +240,7 @@ public abstract class AbstractCompiler
         {
             super.beforeExecute( t, r );
 
-            //fail fast
+            // fail fast
             if ( this.isErrorFound() )
             {
                 ( (CompilerRunnable) r ).setSkip( true );
