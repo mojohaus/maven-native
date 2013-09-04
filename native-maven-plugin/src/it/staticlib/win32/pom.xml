@@ -32,6 +32,7 @@
         <artifactId>native-maven-plugin</artifactId>
         <extensions>true</extensions>       
         <configuration>
+          <numberOfConcurrentCompilation>4</numberOfConcurrentCompilation>
           <compilerProvider>msvc</compilerProvider>
           <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2008x86EnvFactory</envFactoryName>
           <numberOfConcurrentCompilation>${j}</numberOfConcurrentCompilation>
