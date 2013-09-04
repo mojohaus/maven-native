@@ -49,11 +49,11 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Archive file to bundle all enable NativeSources
-     * @parameter default-value="${project.build.directory}/${project.build.finalName}-${project.version}.inczip"
+     * @parameter default-value="${project.build.directory}/${project.build.finalName}.inczip"
      * @required
      * @since 1.0-alpha-4
      */
-    private File inZipFile;
+    private File incZipFile;
 
     /**
      * Option to skip include source bundle deployment
@@ -100,10 +100,10 @@ public class NativeBundleIncludeFilesMojo
 
                 if ( zipIt )
                 {
-                    archiver.setDestFile( this.inZipFile );
+                    archiver.setDestFile( this.incZipFile );
                     archiver.createArchive();
 
-                    projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.inZipFile );
+                    projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.incZipFile );
                 }
             }
             catch ( Exception e )
