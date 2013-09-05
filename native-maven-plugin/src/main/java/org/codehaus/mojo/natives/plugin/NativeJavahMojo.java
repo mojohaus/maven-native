@@ -46,6 +46,7 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.util.DefaultFileSet;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Generate JNI include files based on a set of class names
@@ -154,6 +155,14 @@ public class NativeJavahMojo
     private boolean attach;
 
     /**
+     * Classifier name when install/deploy generated includes file. See ${attach} for details
+     * 
+     * @parameter default-value="javah"
+     * @since 1.0-alpha-8
+     */
+    private String classifier;
+
+    /**
      * Archive file to bundle all generated include files if enable by ${attach}
      * 
      * @parameter default-value="${project.build.directory}/${project.build.finalName}.inczip"
@@ -230,7 +239,6 @@ public class NativeJavahMojo
 
         this.project.addCompileSourceRoot( this.javahOutputDirectory.getAbsolutePath() );
 
-
     }
 
     private void attachGeneratedIncludeFilesAsIncZip()
@@ -245,7 +253,15 @@ public class NativeJavahMojo
             archiver.addFileSet( fileSet );
             archiver.setDestFile( this.incZipFile );
             archiver.createArchive();
-            projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.incZipFile );
+
+            if ( StringUtils.isBlank( this.classifier ) )
+            {
+                projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.incZipFile );
+            }
+            else
+            {
+                projectHelper.attachArtifact( this.project, INCZIP_TYPE, this.classifier, this.incZipFile );
+            }
         }
         catch ( Exception e )
         {
