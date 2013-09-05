@@ -36,15 +36,20 @@ import org.apache.bcel.classfile.Method;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.javah.Javah;
 import org.codehaus.mojo.natives.javah.JavahConfiguration;
 import org.codehaus.mojo.natives.manager.JavahManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
+import org.codehaus.plexus.archiver.ArchiverException;
+import org.codehaus.plexus.archiver.util.DefaultFileSet;
+import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Generate JNI include files based on a set of class names
+ * 
  * @goal javah
  * @phase generate-sources
  * @requiresDependencyResolution compile
@@ -55,7 +60,8 @@ public class NativeJavahMojo
 {
 
     /**
-     * Javah Provider. 
+     * Javah Provider.
+     * 
      * @parameter default-value="default"
      * @required
      * @since 1.0-alpha-2
@@ -63,32 +69,34 @@ public class NativeJavahMojo
     private String javahProvider;
 
     /**
-     * @parameter 
-     * @deprecated Use javahClassNames instead.  Note starting 1.0-alpha-4, running javah in its own 
-     * execution is no longer necessary since it is implicitly bound to all shared library custom lifecycle.
+     * @parameter
+     * @deprecated Use javahClassNames instead. Note starting 1.0-alpha-4, running javah in its own execution is no
+     *             longer necessary since it is implicitly bound to all shared library custom lifecycle.
      * @since 1.0-alpha-2
      */
     private List classNames;
 
     /**
-     * List of class names to generate native files. Additional JNI interface will automatically 
-     * discovered from project's dependencies of <i>jar</i> type, 
-     * when <i>javahSearchJNIFromDependencies</i> is true
-     * @parameter 
+     * List of class names to generate native files. Additional JNI interface will automatically discovered from
+     * project's dependencies of <i>jar</i> type, when <i>javahSearchJNIFromDependencies</i> is true
+     * 
+     * @parameter
      * @since 1.0-alpha-4
      */
     private List javahClassNames = new ArrayList( 0 );
 
     /**
      * Enable the search from project dependencies for JNI interfaces, in addition to <i>javahClassNames</i>
+     * 
      * @parameter default-value="false"
      * @since 1.0-alpha-4
      */
     private boolean javahSearchJNIFromDependencies;
 
     /**
-     * Path to javah executable, if present, it will override the default one which bases on architecture type. 
-     * See 'javahProvider' argument
+     * Path to javah executable, if present, it will override the default one which bases on architecture type. See
+     * 'javahProvider' argument
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -96,14 +104,16 @@ public class NativeJavahMojo
 
     /**
      * Where to place javah generated file
+     * 
      * @deprecated use javahOutputDirectory instead
-     * @parameter 
+     * @parameter
      * @since 1.0-alpha-2
      */
     protected File outputDirectory;
 
     /**
      * Where to place javah generated file
+     * 
      * @parameter default-value="${project.build.directory}/native/javah"
      * @required
      * @since 1.0-alpha-2
@@ -112,14 +122,16 @@ public class NativeJavahMojo
 
     /**
      * if configured will be combined with outputDirectory to pass into javah's -o option
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-4
      */
     private String javahOutputFileName;
 
     /**
      * if configured will be combined with outputDirectory to pass into javah's -o option
-     * @parameter 
+     * 
+     * @parameter
      * @deprecated Use javaOutputFileName instead
      * @since 1.0-alpha-2
      */
@@ -127,19 +139,47 @@ public class NativeJavahMojo
 
     /**
      * Enable javah verbose mode
+     * 
      * @parameter default-value="false"
      * @since 1.0-alpha-2
      */
     private boolean javahVerbose;
 
     /**
+     * Archive all generated include files and deploy as an inczip
+     * 
+     * @parameter default-value="false"
+     * @since 1.0-alpha-8
+     */
+    private boolean attach;
+
+    /**
+     * Archive file to bundle all generated include files if enable by ${attach}
+     * 
+     * @parameter default-value="${project.build.directory}/${project.build.finalName}.inczip"
+     * @required
+     * @since 1.0-alpha-8
+     */
+    private File incZipFile;
+
+    /**
      * Internal: To look up javah implementation
+     * 
      * @component
      * @readonly
      * @since 1.0-alpha-2
      */
 
     private JavahManager manager;
+
+    /**
+     * Maven ProjectHelper.
+     * 
+     * @component
+     * @readonly
+     * @since 1.0-alpha-8
+     */
+    private MavenProjectHelper projectHelper;
 
     /**
      * For unit test only
@@ -150,7 +190,7 @@ public class NativeJavahMojo
         throws MojoExecutionException
     {
 
-        //until we remove the deprecated  configuration
+        // until we remove the deprecated configuration
         if ( this.outputDirectory != null )
         {
             this.javahOutputDirectory = this.outputDirectory;
@@ -177,6 +217,11 @@ public class NativeJavahMojo
         {
             this.config = this.createProviderConfiguration();
             this.getJavah().compile( config );
+            if ( this.attach )
+            {
+                attachGeneratedIncludeFilesAsIncZip();
+            }
+
         }
         catch ( NativeBuildException e )
         {
@@ -185,6 +230,27 @@ public class NativeJavahMojo
 
         this.project.addCompileSourceRoot( this.javahOutputDirectory.getAbsolutePath() );
 
+
+    }
+
+    private void attachGeneratedIncludeFilesAsIncZip()
+        throws MojoExecutionException
+    {
+        try
+        {
+            ZipArchiver archiver = new ZipArchiver();
+            DefaultFileSet fileSet = new DefaultFileSet();
+            fileSet.setUsingDefaultExcludes( true );
+            fileSet.setDirectory( javahOutputDirectory );
+            archiver.addFileSet( fileSet );
+            archiver.setDestFile( this.incZipFile );
+            archiver.createArchive();
+            projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.incZipFile );
+        }
+        catch ( Exception e )
+        {
+            throw new MojoExecutionException( "Unable to archive/deploy generated include files", e );
+        }
     }
 
     private Javah getJavah()
@@ -206,7 +272,8 @@ public class NativeJavahMojo
     }
 
     /**
-     * Get all jars in the pom excluding transitive, test, and provided scope dependencies.  
+     * Get all jars in the pom excluding transitive, test, and provided scope dependencies.
+     * 
      * @return
      */
     private List getJavahArtifacts()
@@ -222,13 +289,13 @@ public class NativeJavahMojo
             {
                 Artifact artifact = (Artifact) iter.next();
 
-                //pick up only jar files
+                // pick up only jar files
                 if ( !"jar".equals( artifact.getType() ) )
                 {
                     continue;
                 }
 
-                //exclude some other scopes
+                // exclude some other scopes
                 if ( Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) )
                 {
                     continue;
@@ -243,8 +310,8 @@ public class NativeJavahMojo
     }
 
     /**
-     * Build classpaths from dependent jars including project output directory
-     * (i.e. classes directory )
+     * Build classpaths from dependent jars including project output directory (i.e. classes directory )
+     * 
      * @return
      */
     private String[] getJavahClassPath()
@@ -268,9 +335,7 @@ public class NativeJavahMojo
     }
 
     /**
-     * 
-     * Get applicable class names to be "javahed" 
-     * 
+     * Get applicable class names to be "javahed"
      */
 
     private void discoverAdditionalJNIClassName()
@@ -281,7 +346,7 @@ public class NativeJavahMojo
             return;
         }
 
-        //scan the immediate dependency list for jni classes
+        // scan the immediate dependency list for jni classes
 
         List artifacts = this.getJavahArtifacts();
 
@@ -319,7 +384,7 @@ public class NativeJavahMojo
                             }
                         }
                     }
-                }//endwhile
+                }// endwhile
             }
             catch ( IOException ioe )
             {
@@ -346,6 +411,7 @@ public class NativeJavahMojo
 
     /**
      * Internal only for test harness purpose
+     * 
      * @return
      */
     protected JavahConfiguration getJavahConfiguration()
