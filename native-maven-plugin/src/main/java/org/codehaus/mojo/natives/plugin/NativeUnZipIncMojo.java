@@ -117,7 +117,7 @@ public class NativeUnZipIncMojo
     protected void unpackZipFile( File zipFile )
         throws MojoExecutionException
     {
-        System.out.println( "Unpacking: " + zipFile );
+        this.getLog().info( "Unpacking: " + zipFile );
 
         try
         {
