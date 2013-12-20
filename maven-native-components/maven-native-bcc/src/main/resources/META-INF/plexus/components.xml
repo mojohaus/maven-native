@@ -22,6 +22,12 @@
       <implementation>org.codehaus.mojo.natives.bcc.BCCLinker</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
+    
+    <component>
+      <role>org.codehaus.mojo.natives.compiler.ResourceCompiler</role>
+      <role-hint>bcc</role-hint>
+      <implementation>org.codehaus.mojo.natives.bcc.BCCResourceCompiler</implementation>
+    </component>    
 
   </components>
 </component-set>
