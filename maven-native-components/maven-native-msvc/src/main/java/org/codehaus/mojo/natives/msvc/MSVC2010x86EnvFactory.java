@@ -11,7 +11,7 @@ public class MSVC2010x86EnvFactory
     protected Map createEnvs()
         throws NativeBuildException
     {
-        return this.createEnvs( "VS110COMNTOOLS", "x86" );
+        return this.createEnvs( "VS100COMNTOOLS", "x86" );
     }
 
 }
