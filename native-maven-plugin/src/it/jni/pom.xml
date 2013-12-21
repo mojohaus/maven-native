@@ -20,7 +20,7 @@
   </modules>
 
   <profiles>
-<!--
+
     <profile>
       <id>add-windows-x86-module</id>
       <activation>
@@ -46,7 +46,6 @@
         <module>java-win32</module>
       </modules>
     </profile>
- -->
 
   </profiles>
 

@@ -8,8 +8,8 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.codehaus.mojo.natives.it.jni</groupId>
-  <artifactId>hello-java-win32</artifactId>
+  <groupId>org.codehaus.mojo.natives.it.jnijava</groupId>
+  <artifactId>hello</artifactId>
 
   <name>JNI - DLL </name>
 
@@ -84,6 +84,11 @@
 
           <javahOS>win32</javahOS>
 
+          <!-- TODO, not sure why we are no longer able to discover native class -->
+          <javahClassNames>
+            <javahClassName>HelloWorld</javahClassName>
+          </javahClassNames>
+
           <sources>
             <source>
               <directory>../native/src/main/native</directory>
@@ -95,30 +100,13 @@
 
           <linkerStartOptions>
             <linkerStartOption>${linker.debug.options}</linkerStartOption>
-            <linkerStartOption> /INCREMENTAL:NO   /DLL oldnames.lib kernel32.lib </linkerStartOption>
+            <linkerStartOption> /INCREMENTAL:NO /DLL oldnames.lib kernel32.lib </linkerStartOption>
           </linkerStartOptions>
-
 
         </configuration>
 
+
         <executions>
-
-          <execution>
-            <id>javah</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>javah</goal>
-            </goals>
-
-            <configuration>
-              <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
-              <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
-              <outputFileName>HelloWorld.h</outputFileName>
-              <classNames>
-                <className>HelloWorld</className>
-              </classNames>
-            </configuration>
-          </execution>
 
           <!-- resource compile, the output hello.res is automatically link to final output hello.dll at link time -->
           <execution>
@@ -147,32 +135,8 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>once</forkMode>
-
-
-          <environmentVariables>
-            <path>${project.build.directory};${java.library.path}</path>
-          </environmentVariables>
-
-          <!--
-            If you have single dll, then set
-            working directory to where the dll is placed will work
-          -->
-          <!--workingDirectory>${project.build.directory}</workingDirectory-->
-
-
-          <!--  known to work
-          <argLine>-Djava.library.path="${project.build.directory};${java.library.path}"</argLine>
-          -->
-
-          <!-- currently not working
-          <systemProperties>
-            <property>
-              <name>java.library.path</name>
-              <value>${project.build.directory};${java.library.path}</value>
-            </property>
-          </systemProperties>
-          -->
-
+          <!-- If you have single dll, then set working directory to where the dll is placed will work -->
+          <workingDirectory>${project.build.directory}</workingDirectory>
         </configuration>
       </plugin>
 
@@ -199,7 +163,7 @@
     <profile>
       <id>release</id>
       <activation>
-        <activeByDefault >true</activeByDefault >
+        <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
         <compiler.debug.options>-MD</compiler.debug.options>

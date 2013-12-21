@@ -82,9 +82,6 @@
         <executions>
 
           <!-- resource compile, the output hello.res is automatically link to final output hello.dll at link time -->
-
-          <!-- until we figure out how to get it to work with msvm2008 -->
-          <!--
           <execution>
             <id>resource-compile</id>
             <phase>generate-sources</phase>
@@ -102,7 +99,6 @@
               </sources>
             </configuration>
           </execution>
-          -->
 
         </executions>
 
@@ -112,8 +108,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>once</forkMode>
-
-
           <!--
           <environmentVariables>
             <path>${project.build.directory};${java.library.path}</path>
