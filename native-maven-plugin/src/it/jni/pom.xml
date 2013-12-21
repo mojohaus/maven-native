@@ -5,30 +5,49 @@
     <artifactId>it-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.codehaus.mojo.natives.it.jni</groupId>
   <artifactId>jni</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>JNI Example</name>
-  
+
   <packaging>pom</packaging>
-  
-  
+
   <modules>
     <module>java</module>
     <module>native</module>
   </modules>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>native-maven-plugin</artifactId>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-  
+  <profiles>
+<!--
+    <profile>
+      <id>add-windows-x86-module</id>
+      <activation>
+        <os>
+          <family>windows</family>
+          <arch>x86</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>java-win32</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>add-windows-x64-module</id>
+      <activation>
+        <os>
+          <family>windows</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>java-win32</module>
+      </modules>
+    </profile>
+ -->
+
+  </profiles>
+
 </project>

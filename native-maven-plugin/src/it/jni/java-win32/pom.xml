@@ -9,14 +9,13 @@
   </parent>
 
   <groupId>org.codehaus.mojo.natives.it.jni</groupId>
-  <artifactId>hello</artifactId>
+  <artifactId>hello-java-win32</artifactId>
 
   <name>JNI - DLL </name>
 
   <description>Example on how to build both jni and native in one maven project</description>
 
   <packaging>dll</packaging>
-
 
   <build>
 
@@ -62,7 +61,7 @@
             <configuration>
               <artifacts>
                 <artifact>
-                  <file>${project.build.directory}/${project.artifactId}-${version}.jar</file>
+                  <file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
                   <type>jar</type>
                 </artifact>
               </artifacts>
