@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -126,6 +126,14 @@ public class NativeLinkMojo
     protected File linkerOutputDirectory;
 
     /**
+     * The name of the generated file
+     * @parameter default-value="${project.build.finalName}"
+     * @required
+     * @since 1.0-alpha-8
+     */
+    private String linkerFinalName;
+
+    /**
      * Internal
      * @component
      * @since 1.0-alpha-2
@@ -150,21 +158,21 @@ public class NativeLinkMojo
     private File externalLibDirectory;
 
     /**
-     * Option to install primary artifact as a classifier, useful to install/deploy 
+     * Option to install primary artifact as a classifier, useful to install/deploy
      * debug artifacts
-     * @parameter 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private String classifier = null;
 
     /**
-     * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have 
-     * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle 
+     * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have
+     * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle
      * @parameter default-value="true"
      * @since 1.0-alpha-2
      */
     private boolean attach = true;
-    
+
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows commandline length limit
      * @parameter default-value="false"
@@ -221,7 +229,7 @@ public class NativeLinkMojo
         config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );
         config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
         config.setOutputDirectory( this.linkerOutputDirectory );
-        config.setOutputFileName( this.project.getBuild().getFinalName() );
+        config.setOutputFileName( this.linkerFinalName );
         config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
         config.setExternalLibDirectory( this.externalLibDirectory );
         config.setExternalLibFileNames( this.getLibFileNames() );
@@ -254,7 +262,7 @@ public class NativeLinkMojo
     }
 
     /**
-     * 
+     *
      */
     private void attachPrimaryArtifact()
     {
@@ -377,13 +385,13 @@ public class NativeLinkMojo
 
         return list;
     }
-    
+
     /**
      * Look up library in dependency list using groupId:artifactId key
      * Note: we can not use project.artifactMap due the introduction of inczip dependency
      * where 2 dependency with the same artifactId and groupId, but differs by extension type
      * make the map not suitable for lookup
-     * 
+     *
      * @param groupArtifactIdPair
      * @return
      * @throws MojoExecutionException
@@ -392,14 +400,14 @@ public class NativeLinkMojo
         throws MojoExecutionException
     {
         String [] tokens = StringUtils.split( groupArtifactIdPair, ":" );
-        
+
         if ( tokens.length != 2 )
         {
             throw new MojoExecutionException( "Invalid groupId and artifactId pair: " + groupArtifactIdPair );
         }
-        
+
         Set allDependencyArtifacts = project.getDependencyArtifacts();
-        
+
         for ( Iterator iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
         {
             Artifact artifact = (Artifact) iter.next();
@@ -407,15 +415,15 @@ public class NativeLinkMojo
             {
                 continue;
             }
-            
+
             if ( tokens[0].equals( artifact.getGroupId())  && tokens[1].equals( artifact.getArtifactId() ) )
             {
                 return artifact;
             }
         }
-        
+
         return null;
-        
+
     }
 
     private List reorderLibDependencies( List libs )

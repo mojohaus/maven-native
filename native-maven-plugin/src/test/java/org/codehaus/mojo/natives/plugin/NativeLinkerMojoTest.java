@@ -31,35 +31,38 @@ public class NativeLinkerMojoTest
         File pluginXml = new File( getBasedir(), "src/test/resources/linker/plugin-config.xml" );
         NativeLinkMojo mojo = (NativeLinkMojo) lookupMojo( "link", pluginXml );
         assertNotNull( mojo );
-        
+
         //must init this
         mojo.setPluginContext( new HashMap() );
-        
+
         //simulate object files
         List objectList = new ArrayList();
         objectList.add( new File( "o1.o" ) );
         objectList.add( new File( "o2.o" ) );
         mojo.saveCompilerOutputFilePaths( objectList );
-        
-        //simulate artifact 
+
+        //simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
-       
+
         Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler );
         mojo.getProject().setArtifact( artifact );
 
-        //simulate artifacts 
+        //simulate artifacts
         mojo.getProject().setArtifacts( new HashSet() ); //no extern libs for now
-        
+
+        String linkerFinalName = "some-final-name";
+        setVariableValueToObject( mojo, "linkerFinalName", linkerFinalName );
+
         mojo.execute();
-        
+
         LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
-        
+
         //"target is set in the stub
         assertEquals( new File( "target" ), conf.getOutputDirectory() );
-        assertEquals( "some-final-name", conf.getOutputFileName() );
+        assertEquals( linkerFinalName, conf.getOutputFileName() );
         //current artifactHandler mocking return null extension name
-        assertEquals( new File( "target/some-final-name.null" ), conf.getOutputFile() ); 
-         
-        
+        assertEquals( new File( "target/some-final-name.null" ), conf.getOutputFile() );
+
+
     }
 }
