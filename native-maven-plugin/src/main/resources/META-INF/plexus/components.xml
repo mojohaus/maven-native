@@ -1,5 +1,5 @@
 <component-set>
-<components>
+  <components>
 
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -22,7 +22,7 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
+    </component>
 
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
@@ -33,11 +33,9 @@
         <extension>lib</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>  
+    </component>
 
-    <!--
-     |			native-dll
-     -->
+    <!-- | native-dll -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>dll</role-hint>
@@ -63,8 +61,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-        
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>dll</role-hint>
@@ -74,11 +72,9 @@
         <extension>dll</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>  
-    
-    <!--
-     |			native-exe
-     -->
+    </component>
+
+    <!-- | native-exe -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>exe</role-hint>
@@ -101,7 +97,7 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
+    </component>
 
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
@@ -112,11 +108,9 @@
         <extension>exe</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>  
-        
-    <!--
-     |			native-a
-     -->
+    </component>
+
+    <!-- | native-a -->
 
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -139,11 +133,9 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
+    </component>
 
-    <!--
-     |			native-o, on linux one can compile multiple .o files into one
-     -->
+    <!-- | native-o, on linux one can compile multiple .o files into one -->
 
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -166,8 +158,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-    
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>o</role-hint>
@@ -177,11 +169,9 @@
         <extension>o</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>   
-    
-    <!--
-     |			native-so
-     -->
+    </component>
+
+    <!-- | native-so -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>so</role-hint>
@@ -206,8 +196,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-    
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>so</role-hint>
@@ -217,12 +207,10 @@
         <extension>so</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>       
-          
-    <!--
-     |			hpux sl share
-     -->
-          
+    </component>
+
+    <!-- | hpux sl share -->
+
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>sl</role-hint>
@@ -247,8 +235,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-    
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>sl</role-hint>
@@ -258,11 +246,9 @@
         <extension>sl</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>                
+    </component>
 
-    <!--
-     |			native-dylib - MacOS
-     -->
+    <!-- | native-dylib - MacOS -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>dylib</role-hint>
@@ -287,8 +273,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-    
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>dylib</role-hint>
@@ -298,12 +284,10 @@
         <extension>dylib</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>       
+    </component>
 
 
-    <!--
-     |                  native-jnilib ( a jni library for macosx )
-     -->
+    <!-- | native-jnilib ( a jni library for macosx ) -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
       <role-hint>jnilib</role-hint>
@@ -328,8 +312,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-   
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>jnilib</role-hint>
@@ -339,13 +323,11 @@
         <extension>jnilib</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>      
+    </component>
 
 
-          
-    <!--
-     |			native-uexe  unix executable requires an extension
-     -->
+
+    <!-- | native-uexe unix executable requires an extension -->
 
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -368,8 +350,8 @@
           <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
         </phases>
       </configuration>
-    </component>  
-    
+    </component>
+
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
       <role-hint>uexe</role-hint>
@@ -379,7 +361,7 @@
         <extension>uexe</extension>
         <includesDependencies>true</includesDependencies>
       </configuration>
-    </component>                
-                  
-  </components> 
+    </component>
+
+  </components>
 </component-set>

@@ -1,6 +1,6 @@
 <component-set>
   <components>
-    
+
     <component>
       <role>org.codehaus.mojo.natives.compiler.Compiler</role>
       <role-hint>generic</role-hint>

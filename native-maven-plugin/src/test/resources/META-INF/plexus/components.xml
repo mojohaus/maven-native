@@ -1,6 +1,6 @@
 <component-set>
   <components>
-    
+
     <component>
       <role>org.codehaus.mojo.natives.compiler.Compiler</role>
       <role-hint>noop</role-hint>
@@ -28,6 +28,6 @@
       <implementation>org.codehaus.mojo.natives.noop.NoopRanlib</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
-    
+
   </components>
 </component-set>

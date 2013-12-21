@@ -12,6 +12,6 @@
       <implementation>org.codehaus.mojo.natives.javah.JavahMacOSExecutable</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
     </component>
-    
+
   </components>
 </component-set>

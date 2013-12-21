@@ -5,7 +5,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native-maven-plugin</artifactId>
         <configuration>
-          <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
+          <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub" />
           <compilerProvider>noop</compilerProvider>
           <javahOS>someOS</javahOS>
           <jdkIncludePath>someJDKPath</jdkIncludePath>

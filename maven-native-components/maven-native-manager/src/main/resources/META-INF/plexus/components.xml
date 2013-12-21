@@ -10,7 +10,7 @@
           <field-name>providers</field-name>
         </requirement>
       </requirements>
-      
+
     </component>
 
     <component>
@@ -24,7 +24,7 @@
         </requirement>
       </requirements>
     </component>
-    
+
     <component>
       <role>org.codehaus.mojo.natives.manager.JavahManager</role>
       <role-hint>native-javah-provider-manager</role-hint>
@@ -35,7 +35,7 @@
           <field-name>providers</field-name>
         </requirement>
       </requirements>
-    </component>    
+    </component>
 
     <component>
       <role>org.codehaus.mojo.natives.manager.MessageCompilerManager</role>
@@ -47,7 +47,7 @@
           <field-name>providers</field-name>
         </requirement>
       </requirements>
-    </component>    
+    </component>
 
     <component>
       <role>org.codehaus.mojo.natives.manager.ResourceCompilerManager</role>
@@ -59,8 +59,8 @@
           <field-name>providers</field-name>
         </requirement>
       </requirements>
-    </component>    
-    
+    </component>
+
     <component>
       <role>org.codehaus.mojo.natives.manager.RanlibManager</role>
       <role-hint>native-ranlib-provider-manager</role-hint>
@@ -71,7 +71,7 @@
           <field-name>providers</field-name>
         </requirement>
       </requirements>
-    </component>    
+    </component>
 
     <component>
       <role>org.codehaus.mojo.natives.manager.ManifestManager</role>
@@ -83,14 +83,14 @@
           <field-name>providers</field-name>
         </requirement>
       </requirements>
-    </component>    
-    
+    </component>
+
     <component>
       <role>org.codehaus.mojo.natives.manager.EnvFactoryManager</role>
       <role-hint>default</role-hint>
       <implementation>org.codehaus.mojo.natives.manager.DefaultEnvFactoryManager</implementation>
       <instantiation-strategy>singleton</instantiation-strategy>
     </component>
-    
+
   </components>
 </component-set>
