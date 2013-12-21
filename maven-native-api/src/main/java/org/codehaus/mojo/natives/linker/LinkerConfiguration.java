@@ -11,10 +11,10 @@ package org.codehaus.mojo.natives.linker;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,22 +32,22 @@ import org.codehaus.mojo.natives.ConfigurationBase;
 
 
 /*
- * CompilerConfiguration contains inputs by the user + 
+ * CompilerConfiguration contains inputs by the user +
  * DependencyMangement for dependecies analysis
  */
 public class LinkerConfiguration
     extends ConfigurationBase
 {
-	
+
 	private File workingDirectory;
-	
+
 	/**
 	 * Must be in your path
 	 */
 	private String executable;
-	
+
 	/**
-	 * Will be passed to linker executable 
+	 * Will be passed to linker executable
 	 */
 	private String [] startOptions;
 
@@ -56,11 +56,11 @@ public class LinkerConfiguration
 	private String [] endOptions;
 
 	private File   outputDirectory;
-	
+
 	private String outputFileExtension;
 
 	private String outputFileName; /* should not have extension */
-	
+
     /**
      * Single location that the client must place library files to be linked with
      */
@@ -70,38 +70,44 @@ public class LinkerConfiguration
      * Library file names in externalLibDirectory
      */
     private List externalLibFileNames;
-    
+
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows command line length limit
      */
     private boolean usingLinkerResponseFile;
-		
-	public File getOutputDirectory()
+
+    /**
+     * Enable this option to speed up linkage for large project with no dependencies changes
+     * @since 1.0-alpha-8
+     */
+    private boolean checkStaleLinkage;
+
+    public File getOutputDirectory()
 	{
 		return this.outputDirectory;
 	}
-	
-	public void setOutputDirectory( File dir ) 
+
+	public void setOutputDirectory( File dir )
 	{
 		this.outputDirectory = dir;
 	}
-	
-	public String getOutputFileExtension() 
+
+	public String getOutputFileExtension()
 	{
 		return this.outputFileExtension;
 	}
-	
-	public void setOutputFileExtension ( String ext ) 
+
+	public void setOutputFileExtension ( String ext )
 	{
 		this.outputFileExtension = ext;
 	}
-	
+
 	public File getWorkingDirectory()
 	{
 		return this.workingDirectory;
 	}
-	
-	public void setWorkingDirectory( File dir ) 
+
+	public void setWorkingDirectory( File dir )
 	{
 		this.workingDirectory = dir;
 	}
@@ -135,63 +141,63 @@ public class LinkerConfiguration
 	{
 		this.endOptions = options;
 	}
-	
+
 	public String getExecutable()
 	{
 		return this.executable;
 	}
-	
+
 	public void setExecutable( String executable )
 	{
 		this.executable = executable;
 	}
-	
+
 	public String getOutputFileName()
 	{
 		return this.outputFileName;
 	}
-	
-	public void setOutputFileName ( String name ) 
+
+	public void setOutputFileName ( String name )
 	{
-		this.outputFileName = name; 
+		this.outputFileName = name;
 	}
-	
+
     /**
      * convenient method to get linker output file
      * @return
      */
-	public File getOutputFile() 
+	public File getOutputFile()
 	{
 		File out = new File( this.outputDirectory , this.outputFileName  + "." + this.outputFileExtension );
-		
+
 		return out;
 	}
-	
-    public List getExternalLibFileNames() 
+
+    public List getExternalLibFileNames()
     {
         if ( this.externalLibFileNames == null )
         {
             return new ArrayList(0);
         }
-        
+
         return this.externalLibFileNames;
     }
-    
+
     public void setExternalLibFileNames ( List list )
     {
         this.externalLibFileNames = list;
     }
-    
+
     public void setExternalLibDirectory ( File dir )
     {
         this.externalLibDirectory = dir;
     }
-	
+
     public File getExternalLibDirectory()
     {
         return this.externalLibDirectory;
     }
-    
+
     public boolean isUsingLinkerResponseFile()
     {
         return usingLinkerResponseFile;
@@ -201,5 +207,16 @@ public class LinkerConfiguration
     {
         this.usingLinkerResponseFile = useObjectsFile;
     }
-    
+
+    public boolean isCheckStaleLinkage()
+    {
+        return checkStaleLinkage;
+    }
+
+    public void setCheckStaleLinkage( boolean checkStaleLinkage )
+    {
+        this.checkStaleLinkage = checkStaleLinkage;
+    }
+
+
 }

@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -32,6 +32,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Embeds a Visual Studio manifest file into a generated executable
+ *
  * @goal manifest
  * @phase package
  * @since 1.0-alpha4
@@ -41,15 +42,16 @@ public class NativeManifestMojo
 {
     /**
      * Manifest Provider.
+     *
      * @parameter default-value="msvc"
      * @required
      * @since 1.0-alpha4
-     * 
      */
     private String provider;
 
     /**
-     * Manifest extension 
+     * Manifest extension
+     *
      * @parameter default-value="manifest"
      * @required
      * @since 1.0-alpha-4
@@ -57,8 +59,17 @@ public class NativeManifestMojo
     private String manifestExtension;
 
     /**
+     * Enable this option to speed up linkage for large project with no dependencies changes
+     *
+     * @parameter default-value="false"
+     * @since 1.0-alpha-8
+     */
+    private boolean checkStaleLinkage;
+
+    /**
      * Internal - To look up manifest implementation
-     * @component 
+     *
+     * @component
      * @since 1.0-alpha-4
      */
     private ManifestManager manager;
@@ -70,12 +81,19 @@ public class NativeManifestMojo
 
         if ( !linkerOutputFile.exists() )
         {
+            // @TODO ERROR?
             return;
         }
 
         File linkerManifestFile = new File( linkerOutputFile.getAbsolutePath() + "." + manifestExtension );
 
         if ( !linkerManifestFile.exists() )
+        {
+            // @TODO ERROR?
+            return;
+        }
+
+        if ( checkStaleLinkage && linkerOutputFile.lastModified() > linkerManifestFile.lastModified() )
         {
             return;
         }
@@ -97,6 +115,7 @@ public class NativeManifestMojo
         {
             throw new MojoExecutionException( "Error executing Manifest.", e );
         }
+
     }
 
     private Manifest getManifest()
@@ -107,7 +126,6 @@ public class NativeManifestMojo
         try
         {
             Manifest = this.manager.getManifest( this.provider );
-
         }
         catch ( NoSuchNativeProviderException pe )
         {

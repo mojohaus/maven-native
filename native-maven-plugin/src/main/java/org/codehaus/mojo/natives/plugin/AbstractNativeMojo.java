@@ -11,10 +11,10 @@ package org.codehaus.mojo.natives.plugin;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,13 +40,13 @@ public abstract class AbstractNativeMojo
     extends AbstractMojo
 {
     public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
-    
+
     public static final String LINKER_OUTPUT_PATH = "NativeLinkerOutputPath";
 
     public static final String INCZIP_FOUND = "IncZipFound";
-    
+
     public static final String INCZIP_TYPE = "inczip";
-    
+
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 
     /**
@@ -64,31 +64,31 @@ public abstract class AbstractNativeMojo
      * @since 1.0-alpha-2
      */
     protected File workingDirectory;
-    
+
     /**
-     * Specifies a fully qualified class name implementing the 
-     * org.codehaus.mojo.natives.EnvFactory interface. The class creates 
+     * Specifies a fully qualified class name implementing the
+     * org.codehaus.mojo.natives.EnvFactory interface. The class creates
      * a set environment variables to be used with the command line.
      * @parameter
      * @since 1.0-alpha-2
      */
     private String envFactoryName;
-    
+
     /**
-     * Internal 
+     * Internal
      * @component
      * @readonly
      * @since 1.0-alpha-2
      */
     protected EnvFactoryManager envFactoryManager;
-    
+
 
     /**
      * Directory to unpack .inczip dependency files to be included as system include path
-     * @parameter default-value="${project.build.directory}/native/include" 
+     * @parameter default-value="${project.build.directory}/native/include"
      */
     protected File dependencyIncludeDirectory;
-    
+
     protected static String[] removeEmptyOptions( List args )
     {
         return NativeMojoUtils.trimParams( args );
@@ -129,9 +129,9 @@ public abstract class AbstractNativeMojo
     {
         return this.project;
     }
-    
+
     private EnvFactory envFactory = null;
-    
+
     protected EnvFactory getEnvFactory()
         throws MojoExecutionException
     {
@@ -146,8 +146,8 @@ public abstract class AbstractNativeMojo
                 throw new MojoExecutionException( e.getMessage(), e );
             }
         }
-        
+
         return envFactory;
     }
-    
+
 }

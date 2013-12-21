@@ -180,6 +180,14 @@ public class NativeLinkMojo
      */
     private boolean usingLinkerResponseFile;
 
+    /**
+     * Enable this option to speed up linkage for large project with no dependencies changes
+     * @parameter default-value="false"
+     * @since 1.0-alpha-8
+     */
+    private boolean checkStaleLinkage;
+
+
     public void execute()
         throws MojoExecutionException
     {
@@ -201,6 +209,7 @@ public class NativeLinkMojo
 
             //to be used by post linker mojo  like native:manifest
             this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
+
         }
         catch ( IOException ioe )
         {
@@ -235,6 +244,7 @@ public class NativeLinkMojo
         config.setExternalLibFileNames( this.getLibFileNames() );
         config.setEnvFactory( this.getEnvFactory() );
         config.setUsingLinkerResponseFile( usingLinkerResponseFile );
+        config.setCheckStaleLinkage( this.checkStaleLinkage );
 
         return config;
     }
