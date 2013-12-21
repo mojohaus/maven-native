@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -41,8 +41,8 @@ public class NativeBundleIncludeFilesMojo
 {
 
     /**
-     * Array of NativeSources containing include directories and source files. 
-     * @parameter 
+     * Array of NativeSources containing include directories and source files.
+     * @parameter
      * @since 1.0-alpha-4
      */
     private NativeSources[] sources = new NativeSources[0];
@@ -64,7 +64,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Maven ProjectHelper.
-     * 
+     *
      * @component
      * @readonly
      * @since 1.0-alpha-4
@@ -84,7 +84,7 @@ public class NativeBundleIncludeFilesMojo
             try
             {
                 ZipArchiver archiver = new ZipArchiver();
-                
+
                 boolean zipIt = false;
                 for ( int i = 0; i < sources.length; ++i )
                 {
@@ -93,6 +93,8 @@ public class NativeBundleIncludeFilesMojo
                         DefaultFileSet fileSet = new DefaultFileSet();
                         fileSet.setUsingDefaultExcludes( true );
                         fileSet.setDirectory( sources[i].getDirectory() );
+                        fileSet.setIncludes( sources[i].getIncludes() );
+                        fileSet.setExcludes( sources[i].getExcludes() );
                         archiver.addFileSet( fileSet );
                         zipIt = true;
                     }
