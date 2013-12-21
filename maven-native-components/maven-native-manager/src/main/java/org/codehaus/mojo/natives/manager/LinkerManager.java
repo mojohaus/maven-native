@@ -22,14 +22,14 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.linker.Linker;
 
-
-public interface LinkerManager 
+public interface LinkerManager
 {
-	String ROLE = LinkerManager.class.getName();
+    String ROLE = LinkerManager.class.getName();
 
-	Linker getLinker( String roleHint ) throws NoSuchNativeProviderException;
+    Linker getLinker( String roleHint )
+        throws NoSuchNativeProviderException;
 }

@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.bcc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
@@ -32,46 +32,44 @@ import org.codehaus.plexus.util.cli.Commandline;
 import java.io.File;
 import java.util.List;
 
-
 public class TLibLinker
     extends AbstractLinker
 {
 
-	public static final String EXECUTABLE = "tlib";
+    public static final String EXECUTABLE = "tlib";
 
-       
-	protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
         throws NativeBuildException
-	{
-	    Commandline cl = new Commandline();
-        
-	    cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+    {
+        Commandline cl = new Commandline();
 
-	    String executable = EXECUTABLE;
-	    
-	    if ( config.getExecutable() != null && config.getExecutable().trim().length() != 0 )
-	    {
-	    	executable = config.getExecutable();
-	    }
-	    
-	    cl.createArg().setValue( executable );
-	    
-	    cl.createArg().setValue( "\"" + config.getOutputFile() + "\"" );
+        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
 
-	    for ( int i = 0; i < config.getStartOptions().length; ++i )
-	    {
-	      cl.createArg().setValue( config.getStartOptions()[i] );
-	    }
+        String executable = EXECUTABLE;
 
-	    for ( int i = 0; i < objectFiles.size(); ++i )
-	    {
-	    	File objFile = (File) objectFiles.get(i);
+        if ( config.getExecutable() != null && config.getExecutable().trim().length() != 0 )
+        {
+            executable = config.getExecutable();
+        }
 
-		    cl.createArg().setValue( "+\"" + objFile.getPath() + "\"" );
-	    }
-        
-	    return cl;
-		
-	}
+        cl.createArg().setValue( executable );
+
+        cl.createArg().setValue( "\"" + config.getOutputFile() + "\"" );
+
+        for ( int i = 0; i < config.getStartOptions().length; ++i )
+        {
+            cl.createArg().setValue( config.getStartOptions()[i] );
+        }
+
+        for ( int i = 0; i < objectFiles.size(); ++i )
+        {
+            File objFile = (File) objectFiles.get( i );
+
+            cl.createArg().setValue( "+\"" + objFile.getPath() + "\"" );
+        }
+
+        return cl;
+
+    }
 
 }

@@ -33,7 +33,7 @@ public class CCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertTrue( StringUtils.contains( cl.toString(), "gcc " + simpleArgv ));
+        assertTrue( StringUtils.contains( cl.toString(), "gcc " + simpleArgv ) );
     }
 
     public void testNonDefaultExecutable()
@@ -41,7 +41,7 @@ public class CCompilerTest
     {
         this.config.setExecutable( "cc" );
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertTrue(  StringUtils.contains( cl.toString(), "cc " + simpleArgv));
+        assertTrue( StringUtils.contains( cl.toString(), "cc " + simpleArgv ) );
     }
 
     public void testStartOptions()
@@ -52,7 +52,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertTrue(  StringUtils.contains( cl.toString(), "gcc -s1 -s2 " + simpleArgv ));
+        assertTrue( StringUtils.contains( cl.toString(), "gcc -s1 -s2 " + simpleArgv ) );
     }
 
     public void testIncludePaths()
@@ -64,7 +64,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertTrue(  StringUtils.contains( cl.toString(), "gcc -Ip1 -Ip2 " + simpleArgv ));
+        assertTrue( StringUtils.contains( cl.toString(), "gcc -Ip1 -Ip2 " + simpleArgv ) );
     }
 
     public void testSystemIncludePaths()
@@ -80,7 +80,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertTrue(  StringUtils.contains( cl.toString(), "gcc -Ip1 -Ip2 -Isp1 -Isp2 " + simpleArgv ));
+        assertTrue( StringUtils.contains( cl.toString(), "gcc -Ip1 -Ip2 -Isp1 -Isp2 " + simpleArgv ) );
     }
 
     public void testMiddleOptions()
@@ -96,7 +96,7 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertTrue(  StringUtils.contains( cl.toString(), "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv ) );
+        assertTrue( StringUtils.contains( cl.toString(), "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv ) );
     }
 
     public void testEndOptions()
@@ -107,14 +107,13 @@ public class CCompilerTest
 
         String[] startOptions = { "-s1", "-s2" };
         String[] middleOptions = { "-m1", "-m2" };
-        String[] endOptions = { "-e1", "-e2" };        
+        String[] endOptions = { "-e1", "-e2" };
         config.setStartOptions( startOptions );
         config.setMiddleOptions( middleOptions );
         config.setEndOptions( endOptions );
 
-        
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertTrue(  StringUtils.contains( cl.toString(), "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv + " -e1 -e2" ));
+        assertTrue( StringUtils.contains( cl.toString(), "gcc -s1 -s2 -Ip1 -Ip2 -m1 -m2 " + simpleArgv + " -e1 -e2" ) );
     }
 }

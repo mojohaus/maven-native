@@ -22,12 +22,11 @@ package org.codehaus.mojo.natives.linker;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 
 import org.codehaus.mojo.natives.ConfigurationBase;
-
 
 /*
  * ManifestConfiguration contains inputs by the user
@@ -37,9 +36,9 @@ public class ManifestConfiguration
 {
 
     private File workingDirectory;
-    
+
     private File inputFile;
-    
+
     private File manifestFile;
 
     public File getInputFile()

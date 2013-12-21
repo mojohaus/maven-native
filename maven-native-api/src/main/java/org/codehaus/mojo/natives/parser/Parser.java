@@ -22,12 +22,13 @@ import java.io.Reader;
 
 /**
  * A parser that extracts #include statements from a Reader.
- *
+ * 
  * @author Curt Arnold
  */
-public interface Parser 
+public interface Parser
 {
     String[] getIncludes();
-    
-    void parse(Reader reader) throws IOException;
+
+    void parse( Reader reader )
+        throws IOException;
 }

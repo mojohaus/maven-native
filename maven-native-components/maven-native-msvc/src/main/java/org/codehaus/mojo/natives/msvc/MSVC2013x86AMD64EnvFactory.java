@@ -1,6 +1,5 @@
 package org.codehaus.mojo.natives.msvc;
 
-
 import java.util.Map;
 
 import org.codehaus.mojo.natives.NativeBuildException;

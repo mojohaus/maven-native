@@ -48,7 +48,7 @@ public class CLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-       	assertTrue( cl.getExecutable().endsWith("gcc") );
+        assertTrue( cl.getExecutable().endsWith( "gcc" ) );
 
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
@@ -61,7 +61,7 @@ public class CLinkerTest
 
         Commandline cl = this.getCommandline();
 
-       	assertTrue( cl.getExecutable().endsWith("ld") );
+        assertTrue( cl.getExecutable().endsWith( "ld" ) );
 
     }
 
@@ -73,7 +73,7 @@ public class CLinkerTest
         assertTrue( cl.toString().indexOf( "source1.o source2.o" ) != -1 );
 
     }
-    
+
     public void testLinkerResponseFile()
         throws Exception
     {
@@ -82,7 +82,6 @@ public class CLinkerTest
         Commandline cl = this.getCommandline();
         assertTrue( cl.toString().indexOf( "@objectsFile" ) != -1 );
     }
-    
 
     public void testRelativeObjectFileList()
         throws Exception
@@ -92,7 +91,7 @@ public class CLinkerTest
         objectFiles.add( new File( config.getOutputDirectory(), "file2.o" ) );
 
         Commandline cl = this.getCommandline( objectFiles );
-        
+
         String cli = cl.toString();
 
         if ( Os.isFamily( "windows" ) )
@@ -113,7 +112,7 @@ public class CLinkerTest
         config.setStartOptions( options );
 
         String cli = this.getCommandline().toString();
-        
+
         assertTrue( cli.indexOf( "-o1 -o2 -o3" ) != -1 );
 
     }
@@ -138,7 +137,7 @@ public class CLinkerTest
         externalLibFileNames.add( "libfile3.a" );
 
         config.setExternalLibFileNames( externalLibFileNames );
-        
+
         String cli = this.getCommandline( new ArrayList( 0 ) ).toString();
 
         assertTrue( "Invalid external libraries settings: " + cli,
@@ -146,7 +145,7 @@ public class CLinkerTest
 
     }
 
-    /////////////////////////// HELPERS //////////////////////////////////////
+    // ///////////////////////// HELPERS //////////////////////////////////////
     private Commandline getCommandline()
         throws NativeBuildException
     {

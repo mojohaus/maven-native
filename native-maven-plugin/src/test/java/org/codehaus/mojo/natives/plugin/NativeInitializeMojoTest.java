@@ -19,16 +19,17 @@ public class NativeInitializeMojoTest
         File pluginXml = new File( getBasedir(), "src/test/resources/initialize/plugin-config.xml" );
         NativeInitializeMojo mojo = (NativeInitializeMojo) lookupMojo( "initialize", pluginXml );
         assertNotNull( mojo );
-        
-        //simulate artifact 
+
+        // simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
-        Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler );
+        Artifact artifact =
+            new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe",
+                                 null, artifactHandler );
         mojo.project.setArtifact( artifact );
         mojo.setPluginContext( new HashMap() );
-        
-        
+
         mojo.execute();
-        
+
         assertEquals( "someArtifactId", mojo.project.getBuild().getFinalName() );
     }
 

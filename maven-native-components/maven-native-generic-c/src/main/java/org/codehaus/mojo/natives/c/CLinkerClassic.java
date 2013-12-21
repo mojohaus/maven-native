@@ -22,19 +22,18 @@ package org.codehaus.mojo.natives.c;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
-
-/**
- * Generic C/CPP linker with "-o" as its output option 
  */
 
-public class CLinkerClassic 
+/**
+ * Generic C/CPP linker with "-o" as its output option
+ */
+
+public class CLinkerClassic
     extends CLinker
-{	
-	protected String getLinkerOutputOption()
-	{
-		return "-o";
-	}
-    
+{
+    protected String getLinkerOutputOption()
+    {
+        return "-o";
+    }
 
 }

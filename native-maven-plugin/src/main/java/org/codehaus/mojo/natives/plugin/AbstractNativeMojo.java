@@ -35,7 +35,6 @@ import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 
-
 public abstract class AbstractNativeMojo
     extends AbstractMojo
 {
@@ -51,6 +50,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * POM
+     * 
      * @parameter expression="${project}"
      * @readonly
      * @since 1.0-alpha-2
@@ -59,16 +59,17 @@ public abstract class AbstractNativeMojo
 
     /**
      * user directory when external tools( ie compiler/linker ) are invoked
-     * @parameter  default-value="${basedir}"
+     * 
+     * @parameter default-value="${basedir}"
      * @required
      * @since 1.0-alpha-2
      */
     protected File workingDirectory;
 
     /**
-     * Specifies a fully qualified class name implementing the
-     * org.codehaus.mojo.natives.EnvFactory interface. The class creates
-     * a set environment variables to be used with the command line.
+     * Specifies a fully qualified class name implementing the org.codehaus.mojo.natives.EnvFactory interface. The class
+     * creates a set environment variables to be used with the command line.
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -76,15 +77,16 @@ public abstract class AbstractNativeMojo
 
     /**
      * Internal
+     * 
      * @component
      * @readonly
      * @since 1.0-alpha-2
      */
     protected EnvFactoryManager envFactoryManager;
 
-
     /**
      * Directory to unpack .inczip dependency files to be included as system include path
+     * 
      * @parameter default-value="${project.build.directory}/native/include"
      */
     protected File dependencyIncludeDirectory;
@@ -135,7 +137,7 @@ public abstract class AbstractNativeMojo
     protected EnvFactory getEnvFactory()
         throws MojoExecutionException
     {
-        if ( envFactory == null && envFactoryName != null  )
+        if ( envFactory == null && envFactoryName != null )
         {
             try
             {

@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.c;
 
 /**
  * Generic C/CPP compiler with "-o" as its output option
- * 
  */
 
 public class CCompilerClassic

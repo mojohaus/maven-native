@@ -21,7 +21,7 @@ public class MSVC2012EnvFactoryTest
             Assert.assertTrue( env.containsKey( "INCLUDE" ) );
             Assert.assertTrue( env.containsKey( "FrameworkVersion32" ) );
         }
-        
+
     }
 
 }

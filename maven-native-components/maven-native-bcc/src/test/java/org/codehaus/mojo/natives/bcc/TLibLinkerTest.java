@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.bcc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import junit.framework.TestCase;
 
@@ -33,42 +33,40 @@ import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 
-public class TLibLinkerTest 
-    extends TestCase 
+public class TLibLinkerTest
+    extends TestCase
 {
-	private static String FS = File.separator;
+    private static String FS = File.separator;
 
-	public void testCommandLine()
+    public void testCommandLine()
         throws Exception
-	{
-		TLibLinker linker = new TLibLinker();
-		
-		LinkerConfiguration config = new LinkerConfiguration();
-		
-		config.setWorkingDirectory( new File( "." ) );
-		
-		String [] options = {"/C"};
-		config.setStartOptions ( options );
-		config.setOutputFileName("tlib");
-		config.setOutputFileExtension("lib");
-		config.setOutputDirectory( new File ( "target" ) );
-		
-		List objectFiles = new ArrayList();
-		objectFiles.add( new File ( "target/a.obj" ) );
-		objectFiles.add( new File ( "target/b.obj" ) );
-		objectFiles.add( new File ( "target/c.obj") );
-		
-		Commandline cl = linker.createLinkerCommandLine(objectFiles, config);
-		
-		String expectedCl = "tlib target" + FS + "tlib.lib" + " /C " + 
-		                    "+target" + FS + "a.obj " +
-		                    "+target" + FS + "b.obj " + 
-		                    "+target" + FS + "c.obj" ; 
-		
-        //TODO do to a bug in commandline.tostring, it is no longer possible to contruct the right string
-        //assertEquals( expectedCl, cl.toString() );
-		
-	}
+    {
+        TLibLinker linker = new TLibLinker();
 
-	
+        LinkerConfiguration config = new LinkerConfiguration();
+
+        config.setWorkingDirectory( new File( "." ) );
+
+        String[] options = { "/C" };
+        config.setStartOptions( options );
+        config.setOutputFileName( "tlib" );
+        config.setOutputFileExtension( "lib" );
+        config.setOutputDirectory( new File( "target" ) );
+
+        List objectFiles = new ArrayList();
+        objectFiles.add( new File( "target/a.obj" ) );
+        objectFiles.add( new File( "target/b.obj" ) );
+        objectFiles.add( new File( "target/c.obj" ) );
+
+        Commandline cl = linker.createLinkerCommandLine( objectFiles, config );
+
+        String expectedCl =
+            "tlib target" + FS + "tlib.lib" + " /C " + "+target" + FS + "a.obj " + "+target" + FS + "b.obj "
+                + "+target" + FS + "c.obj";
+
+        // TODO do to a bug in commandline.tostring, it is no longer possible to contruct the right string
+        // assertEquals( expectedCl, cl.toString() );
+
+    }
+
 }

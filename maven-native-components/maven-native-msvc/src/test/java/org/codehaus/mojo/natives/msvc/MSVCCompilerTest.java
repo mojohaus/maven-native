@@ -33,6 +33,6 @@ public class MSVCCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertTrue(  StringUtils.contains( cl.toString(),  "cl.exe " + simpleArgv ) );
+        assertTrue( StringUtils.contains( cl.toString(), "cl.exe " + simpleArgv ) );
     }
 }

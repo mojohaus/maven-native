@@ -22,14 +22,14 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 
-
-public interface MessageCompilerManager 
+public interface MessageCompilerManager
 {
-	String ROLE = MessageCompilerManager.class.getName();
+    String ROLE = MessageCompilerManager.class.getName();
 
-    MessageCompiler getMessageCompiler( String roleHint ) throws NoSuchNativeProviderException;
+    MessageCompiler getMessageCompiler( String roleHint )
+        throws NoSuchNativeProviderException;
 }

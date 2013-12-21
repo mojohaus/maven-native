@@ -14,8 +14,8 @@ public class NoopLinker
     public File link( LinkerConfiguration config, List compilerOutputFiles )
         throws NativeBuildException
     {
-        String fileName = config.getOutputFileName() ;
-        
+        String fileName = config.getOutputFileName();
+
         if ( config.getOutputFileExtension() != null )
         {
             fileName += "." + config.getOutputFileExtension();

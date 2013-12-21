@@ -33,7 +33,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Equivalent of MSVC6's vcvars32.bat
- *
  */
 
 public class MSVC6EnvFactory
@@ -46,7 +45,8 @@ public class MSVC6EnvFactory
     protected Map createEnvs()
         throws NativeBuildException
     {
-        File vsDir = new File( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
+        File vsDir =
+            new File( EnvUtil.getEnv( MSVS6_INSTALL_ENV_KEY, MSVS6_INSTALL_ENV_KEY, DEFAULT_MSVS6_INSTALL_DIR ) );
 
         if ( !vsDir.isDirectory() )
         {
@@ -69,25 +69,27 @@ public class MSVC6EnvFactory
 
         envs.put( "MSVCDir", msvcDir.getPath() );
 
-        //setup new PATH
+        // setup new PATH
         String currentPath = System.getProperty( "java.library.path" );
 
-        String newPath = msDevDir.getPath() + "\\BIN;" + msvcDir.getPath() + "\\BIN;" + vsCommonToolDir.getPath()
-            + "\\" + vcOsDir + ";" + vsCommonToolDir.getPath() + ";" + winDir + ";" + currentPath;
+        String newPath =
+            msDevDir.getPath() + "\\BIN;" + msvcDir.getPath() + "\\BIN;" + vsCommonToolDir.getPath() + "\\" + vcOsDir
+                + ";" + vsCommonToolDir.getPath() + ";" + winDir + ";" + currentPath;
 
         envs.put( "PATH", newPath );
 
-        //setup new INCLUDE PATH
+        // setup new INCLUDE PATH
         String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludePath = msvcDir.getPath() + "\\ATL\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;"
-            + msvcDir.getPath() + "\\MFC\\INCLUDE;" + vsCommonToolDir.getPath() + vcOsDir + ";"
-            + vsCommonToolDir.getPath() + ";" + currentIncludePath;
+        String newIncludePath =
+            msvcDir.getPath() + "\\ATL\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;" + msvcDir.getPath()
+                + "\\MFC\\INCLUDE;" + vsCommonToolDir.getPath() + vcOsDir + ";" + vsCommonToolDir.getPath() + ";"
+                + currentIncludePath;
 
         envs.put( "INCLUDE", newIncludePath );
 
         //
-        //setup new LIB PATH
+        // setup new LIB PATH
         //
         String currentLibPath = EnvUtil.getEnv( "LIB" );
 

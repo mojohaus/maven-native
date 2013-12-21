@@ -29,9 +29,7 @@ import java.io.File;
 import org.codehaus.mojo.natives.ConfigurationBase;
 
 /**
- * CompilerConfiguration contains inputs by the user + 
- * DependencyMangement for dependencies analysis
- * 
+ * CompilerConfiguration contains inputs by the user + DependencyMangement for dependencies analysis
  */
 public class CompilerConfiguration
     extends ConfigurationBase
@@ -47,7 +45,7 @@ public class CompilerConfiguration
     private String objectFileExtension;
 
     /**
-     * Will be passed to compiler executable 
+     * Will be passed to compiler executable
      */
     private String[] startOptions;
 
@@ -63,9 +61,9 @@ public class CompilerConfiguration
      * Directory to place all object output files
      */
     private File outputDirectory;
-    
+
     private int numberOfConcurrentCompilation = 4;
-    
+
     public CompilerConfiguration()
     {
     }

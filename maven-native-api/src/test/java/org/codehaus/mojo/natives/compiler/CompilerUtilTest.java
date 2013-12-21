@@ -26,8 +26,8 @@ public class CompilerUtilTest
         File outputDirectory = new File( "outputDirectory" );
         File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, null );
 
-        assertEquals( new File( outputDirectory, "fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
-                      objectFile );
+        assertEquals( new File( outputDirectory, "fileWithoutExtenstion."
+                          + AbstractCompiler.getObjectFileExtension( null ) ), objectFile );
     }
 
     public void testGetObjectFileWithKnownExtension()

@@ -16,26 +16,32 @@
  */
 package org.codehaus.mojo.natives.parser;
 
-
-public class PostE extends AbstractParserState {
+public class PostE
+    extends AbstractParserState
+{
     private AbstractParserState bracket;
+
     private AbstractParserState quote;
-    public PostE(CParser parser, AbstractParserState bracket,
-            AbstractParserState quote) {
-        super(parser);
+
+    public PostE( CParser parser, AbstractParserState bracket, AbstractParserState quote )
+    {
+        super( parser );
         this.bracket = bracket;
         this.quote = quote;
     }
-    public AbstractParserState consume(char ch) {
-        switch (ch) {
-            case ' ' :
-            case '\t' :
+
+    public AbstractParserState consume( char ch )
+    {
+        switch ( ch )
+        {
+            case ' ':
+            case '\t':
                 return this;
-            case '<' :
+            case '<':
                 return bracket;
-            case '"' :
+            case '"':
                 return quote;
-            case '\n' :
+            case '\n':
                 return getParser().getNewLineState();
         }
         return null;

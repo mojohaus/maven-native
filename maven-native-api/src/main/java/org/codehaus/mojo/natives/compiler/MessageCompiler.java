@@ -22,17 +22,17 @@ package org.codehaus.mojo.natives.compiler;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
-
 public interface MessageCompiler
 {
-	String ROLE = MessageCompiler.class.getName();
-	
-	void compile( MessageCompilerConfiguration config, File [] sourceFiles ) throws NativeBuildException;
+    String ROLE = MessageCompiler.class.getName();
+
+    void compile( MessageCompilerConfiguration config, File[] sourceFiles )
+        throws NativeBuildException;
 
 }

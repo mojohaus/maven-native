@@ -22,14 +22,14 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.javah.Javah;
 
-
-public interface JavahManager 
+public interface JavahManager
 {
-	String ROLE = JavahManager.class.getName();
+    String ROLE = JavahManager.class.getName();
 
-	Javah getJavah( String roleHint ) throws NoSuchNativeProviderException;
+    Javah getJavah( String roleHint )
+        throws NoSuchNativeProviderException;
 }

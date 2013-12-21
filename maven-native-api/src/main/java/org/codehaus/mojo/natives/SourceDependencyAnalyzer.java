@@ -27,44 +27,43 @@ import org.codehaus.mojo.natives.parser.Parser;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
 
-public class SourceDependencyAnalyzer 
+public class SourceDependencyAnalyzer
 {
-	public static boolean isStaled ( File source, File dest, Parser parser, File [] includePaths )
-    	throws NativeBuildException
-	{
-	    if ( ! source.exists() )
-	    {
-	    	throw new NativeBuildException ( source.getPath() + " not found." );
-	    }
-		
-		//quick compare  with the source where the user likely to change first
-		if ( ( !dest.exists() ) || 
-			 ( dest.lastModified() < source.lastModified() ) )
-		{
-			return true;
-		}
+    public static boolean isStaled( File source, File dest, Parser parser, File[] includePaths )
+        throws NativeBuildException
+    {
+        if ( !source.exists() )
+        {
+            throw new NativeBuildException( source.getPath() + " not found." );
+        }
 
-		//analyze the depenencies of the source file to detect any new changes
-		Dependency dependency = new Dependency( null, source, parser, includePaths );
+        // quick compare with the source where the user likely to change first
+        if ( ( !dest.exists() ) || ( dest.lastModified() < source.lastModified() ) )
+        {
+            return true;
+        }
 
-		try 
-		{
-			dependency.analyze();
-		}
-		catch ( IOException ioe )
-		{
-			throw new NativeBuildException( "Error analysing " + source.getPath() + ". Reason: " + ioe.getMessage() );
-		}
-		
-		return dest.lastModified() < dependency.getCompositeLastModified();
-		
-	}
-	
+        // analyze the depenencies of the source file to detect any new changes
+        Dependency dependency = new Dependency( null, source, parser, includePaths );
+
+        try
+        {
+            dependency.analyze();
+        }
+        catch ( IOException ioe )
+        {
+            throw new NativeBuildException( "Error analysing " + source.getPath() + ". Reason: " + ioe.getMessage() );
+        }
+
+        return dest.lastModified() < dependency.getCompositeLastModified();
+
+    }
+
 }

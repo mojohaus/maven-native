@@ -22,14 +22,13 @@ package org.codehaus.mojo.natives.linker;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.mojo.natives.ConfigurationBase;
-
 
 /*
  * CompilerConfiguration contains inputs by the user +
@@ -39,27 +38,27 @@ public class LinkerConfiguration
     extends ConfigurationBase
 {
 
-	private File workingDirectory;
+    private File workingDirectory;
 
-	/**
-	 * Must be in your path
-	 */
-	private String executable;
+    /**
+     * Must be in your path
+     */
+    private String executable;
 
-	/**
-	 * Will be passed to linker executable
-	 */
-	private String [] startOptions;
+    /**
+     * Will be passed to linker executable
+     */
+    private String[] startOptions;
 
-	private String [] middleOptions;
+    private String[] middleOptions;
 
-	private String [] endOptions;
+    private String[] endOptions;
 
-	private File   outputDirectory;
+    private File outputDirectory;
 
-	private String outputFileExtension;
+    private String outputFileExtension;
 
-	private String outputFileName; /* should not have extension */
+    private String outputFileName; /* should not have extension */
 
     /**
      * Single location that the client must place library files to be linked with
@@ -78,117 +77,119 @@ public class LinkerConfiguration
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
+     * 
      * @since 1.0-alpha-8
      */
     private boolean checkStaleLinkage;
 
     public File getOutputDirectory()
-	{
-		return this.outputDirectory;
-	}
+    {
+        return this.outputDirectory;
+    }
 
-	public void setOutputDirectory( File dir )
-	{
-		this.outputDirectory = dir;
-	}
+    public void setOutputDirectory( File dir )
+    {
+        this.outputDirectory = dir;
+    }
 
-	public String getOutputFileExtension()
-	{
-		return this.outputFileExtension;
-	}
+    public String getOutputFileExtension()
+    {
+        return this.outputFileExtension;
+    }
 
-	public void setOutputFileExtension ( String ext )
-	{
-		this.outputFileExtension = ext;
-	}
+    public void setOutputFileExtension( String ext )
+    {
+        this.outputFileExtension = ext;
+    }
 
-	public File getWorkingDirectory()
-	{
-		return this.workingDirectory;
-	}
+    public File getWorkingDirectory()
+    {
+        return this.workingDirectory;
+    }
 
-	public void setWorkingDirectory( File dir )
-	{
-		this.workingDirectory = dir;
-	}
+    public void setWorkingDirectory( File dir )
+    {
+        this.workingDirectory = dir;
+    }
 
-	public String [] getStartOptions()
-	{
-		return this.startOptions;
-	}
+    public String[] getStartOptions()
+    {
+        return this.startOptions;
+    }
 
-	public void setStartOptions( String [] options )
-	{
-		this.startOptions = options;
-	}
+    public void setStartOptions( String[] options )
+    {
+        this.startOptions = options;
+    }
 
-	public String [] getMiddleOptions()
-	{
-		return this.middleOptions;
-	}
+    public String[] getMiddleOptions()
+    {
+        return this.middleOptions;
+    }
 
-	public void setMiddleOptions( String [] options )
-	{
-		this.middleOptions = options;
-	}
+    public void setMiddleOptions( String[] options )
+    {
+        this.middleOptions = options;
+    }
 
-	public String [] getEndOptions()
-	{
-		return this.endOptions;
-	}
+    public String[] getEndOptions()
+    {
+        return this.endOptions;
+    }
 
-	public void setEndOptions( String [] options )
-	{
-		this.endOptions = options;
-	}
+    public void setEndOptions( String[] options )
+    {
+        this.endOptions = options;
+    }
 
-	public String getExecutable()
-	{
-		return this.executable;
-	}
+    public String getExecutable()
+    {
+        return this.executable;
+    }
 
-	public void setExecutable( String executable )
-	{
-		this.executable = executable;
-	}
+    public void setExecutable( String executable )
+    {
+        this.executable = executable;
+    }
 
-	public String getOutputFileName()
-	{
-		return this.outputFileName;
-	}
+    public String getOutputFileName()
+    {
+        return this.outputFileName;
+    }
 
-	public void setOutputFileName ( String name )
-	{
-		this.outputFileName = name;
-	}
+    public void setOutputFileName( String name )
+    {
+        this.outputFileName = name;
+    }
 
     /**
      * convenient method to get linker output file
+     * 
      * @return
      */
-	public File getOutputFile()
-	{
-		File out = new File( this.outputDirectory , this.outputFileName  + "." + this.outputFileExtension );
+    public File getOutputFile()
+    {
+        File out = new File( this.outputDirectory, this.outputFileName + "." + this.outputFileExtension );
 
-		return out;
-	}
+        return out;
+    }
 
     public List getExternalLibFileNames()
     {
         if ( this.externalLibFileNames == null )
         {
-            return new ArrayList(0);
+            return new ArrayList( 0 );
         }
 
         return this.externalLibFileNames;
     }
 
-    public void setExternalLibFileNames ( List list )
+    public void setExternalLibFileNames( List list )
     {
         this.externalLibFileNames = list;
     }
 
-    public void setExternalLibDirectory ( File dir )
+    public void setExternalLibDirectory( File dir )
     {
         this.externalLibDirectory = dir;
     }
@@ -217,6 +218,5 @@ public class LinkerConfiguration
     {
         this.checkStaleLinkage = checkStaleLinkage;
     }
-
 
 }

@@ -33,7 +33,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
-
 public abstract class AbstractMessageCompiler
     extends AbstractLogEnabled
     implements MessageCompiler
@@ -49,7 +48,7 @@ public abstract class AbstractMessageCompiler
         for ( int i = 0; i < sourceFiles.length; ++i )
         {
             Commandline cl = getCommandLine( config, sourceFiles[i] );
-            
+
             EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
             CommandLineUtil.execute( cl, this.getLogger() );

@@ -36,6 +36,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Compile source files into native object files
+ * 
  * @goal compile
  * @phase compile
  */
@@ -46,6 +47,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler Provider Type
+     * 
      * @parameter default-value="generic"
      * @required
      * @since 1.0-alpha-2
@@ -53,46 +55,51 @@ public class NativeCompileMojo
     private String compilerProvider;
 
     /**
-     * Use this field to override object file extension.
-     * The default extentions are .obj and .o on Windows and Unix respectively
-     * @parameter 
+     * Use this field to override object file extension. The default extentions are .obj and .o on Windows and Unix
+     * respectively
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private String objectFileExtension;
 
     /**
      * Use this field to override provider specific compiler executable
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private String compilerExecutable;
 
     /**
      * Compiler options
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private List compilerStartOptions;
 
     /**
      * Compiler options
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private List compilerMiddleOptions;
 
     /**
      * Compiler options
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
     private List compilerEndOptions;
 
     /**
-     * Javah OS name.
-     * ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path 
-     * when this field is set
-     * @parameter 
+     * Javah OS name. ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path when this field
+     * is set
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
 
@@ -100,37 +107,41 @@ public class NativeCompileMojo
 
     /**
      * JDK native include directory
-     * @parameter  default-value="${java.home}/../include"
+     * 
+     * @parameter default-value="${java.home}/../include"
      * @since 1.0-alpha-2
      */
 
     private File jdkIncludePath;
 
     /**
-     * Array of NativeSources containing include directories and source files. 
-     * @parameter 
+     * Array of NativeSources containing include directories and source files.
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     protected NativeSources[] sources = new NativeSources[0];
 
     /**
      * Compiler output files ( .o, .obj, etc) location
+     * 
      * @parameter default-value="${project.build.directory}/objs"
      * @required
      * @since 1.0-alpha-4
      */
     protected File compilerOutputDirectory;
-    
+
     /**
      * Number of parallel compilation threads
+     * 
      * @parameter default-value="1"
      * @since 1.0-alpha-4
      */
     protected int numberOfConcurrentCompilation;
-    
 
     /**
-     * Internal 
+     * Internal
+     * 
      * @component
      * @since 1.0-alpha-2
      */
@@ -202,16 +213,15 @@ public class NativeCompileMojo
     }
 
     /**
-     * Pickup additional source paths that previous phases added to source root 
-     * Note: we intentionally ignore the first item of source root ( ie ${project.build.directory}/classes since this
-     * plugin never use it.
+     * Pickup additional source paths that previous phases added to source root Note: we intentionally ignore the first
+     * item of source root ( ie ${project.build.directory}/classes since this plugin never use it.
      */
     private void addAdditionalIncludePath()
         throws MojoExecutionException
     {
         List additionalIncludePaths = project.getCompileSourceRoots();
-        
-        boolean includeDependencyFound =  this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND ) != null;
+
+        boolean includeDependencyFound = this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND ) != null;
 
         if ( !includeDependencyFound )
         {
@@ -277,7 +287,7 @@ public class NativeCompileMojo
         return config;
     }
 
-    ////////////////////////////////////// UNIT TEST HELPERS ////////////////////////////////
+    // //////////////////////////////////// UNIT TEST HELPERS ////////////////////////////////
 
     /**
      * For unittest only
@@ -286,6 +296,7 @@ public class NativeCompileMojo
 
     /**
      * Internal only for test harness purpose
+     * 
      * @return
      */
     protected CompilerConfiguration getCompilerConfiguration()

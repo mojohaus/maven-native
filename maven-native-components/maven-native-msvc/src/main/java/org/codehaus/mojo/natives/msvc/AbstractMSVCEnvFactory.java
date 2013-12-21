@@ -108,7 +108,8 @@ public abstract class AbstractMSVCEnvFactory
 
         StringBuffer buffer = new StringBuffer();
         buffer.append( "@echo off\r\n" );
-        buffer.append( "call \"" ).append( vsInstallDir ).append( "\"" ).append( "\\VC\\vcvarsall.bat " + platform + "\n\r" );
+        buffer.append( "call \"" ).append( vsInstallDir ).append( "\"" ).append( "\\VC\\vcvarsall.bat " + platform
+                                                                                     + "\n\r" );
         buffer.append( "echo " + EnvStreamConsumer.START_PARSING_INDICATOR ).append( "\r\n" );
         buffer.append( "set\n\r" );
 

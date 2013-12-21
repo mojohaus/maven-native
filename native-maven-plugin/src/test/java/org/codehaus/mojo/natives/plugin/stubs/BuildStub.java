@@ -9,24 +9,24 @@ public class BuildStub
      * 
      */
     private static final long serialVersionUID = 1L;
-    
+
     private String finalName = "some-final-name";
-    
+
     public String getOutputDirectory()
     {
         return "fake-output-directory";
     }
-    
+
     public String getFinalName()
     {
-    	return  this.finalName;
+        return this.finalName;
     }
-    
+
     public void setFinalName( String name )
     {
         this.finalName = name;
     }
-    
+
     public String getDirectory()
     {
         return "target";

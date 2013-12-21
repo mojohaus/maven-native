@@ -41,9 +41,8 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Link all previously built object and dependent library files into final build
- * artifact
- *
+ * Link all previously built object and dependent library files into final build artifact
+ * 
  * @goal link
  * @phase package
  * @requiresDependencyResolution
@@ -54,7 +53,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by compilerProvider
-     *
+     * 
      * @parameter default-value="generic"
      * @required
      * @since 1.0-alpha-2
@@ -63,7 +62,7 @@ public class NativeLinkMojo
 
     /**
      * Default value is ${compilerProvider}
-     *
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -71,7 +70,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by linkerProvider. Default to compilerType if not provided
-     *
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -79,6 +78,7 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -86,6 +86,7 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -93,15 +94,15 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
     private List linkerEndOptions;
 
     /**
-     * Option to reorder dependency list, each item has the format of
-     * ${groupId}:${artifactId}
-     *
+     * Option to reorder dependency list, each item has the format of ${groupId}:${artifactId}
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -109,9 +110,9 @@ public class NativeLinkMojo
     private List linkingOrderLibs;
 
     /**
-     * Comma separated extension type to be installed/deployed. Use this option
-     * to deploy library file produced by dll build on windows
-     *
+     * Comma separated extension type to be installed/deployed. Use this option to deploy library file produced by dll
+     * build on windows
+     * 
      * @parameter default-value=""
      * @since 1.0-alpha-2
      */
@@ -119,6 +120,7 @@ public class NativeLinkMojo
 
     /**
      * Where to place the final packaging
+     * 
      * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
@@ -127,6 +129,7 @@ public class NativeLinkMojo
 
     /**
      * The name of the generated file
+     * 
      * @parameter default-value="${project.build.finalName}"
      * @required
      * @since 1.0-alpha-8
@@ -135,6 +138,7 @@ public class NativeLinkMojo
 
     /**
      * Internal
+     * 
      * @component
      * @since 1.0-alpha-2
      */
@@ -142,15 +146,16 @@ public class NativeLinkMojo
 
     /**
      * Internal
+     * 
      * @component
      * @since 1.0-alpha-2
      */
     private ArtifactFactory artifactFactory;
 
     /**
-     * Dependent libraries with version + classifier removed are copied to this
-     * directory to be linked to the build artifact
-     *
+     * Dependent libraries with version + classifier removed are copied to this directory to be linked to the build
+     * artifact
+     * 
      * @parameter default-value="${project.build.directory}/lib"
      * @required
      */
@@ -158,16 +163,17 @@ public class NativeLinkMojo
     private File externalLibDirectory;
 
     /**
-     * Option to install primary artifact as a classifier, useful to install/deploy
-     * debug artifacts
+     * Option to install primary artifact as a classifier, useful to install/deploy debug artifacts
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
     private String classifier = null;
 
     /**
-     * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have
-     * other mean of deployment, for example using maven-assembly-plugin to deploy your own bundle
+     * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have other mean of
+     * deployment, for example using maven-assembly-plugin to deploy your own bundle
+     * 
      * @parameter default-value="true"
      * @since 1.0-alpha-2
      */
@@ -175,6 +181,7 @@ public class NativeLinkMojo
 
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows commandline length limit
+     * 
      * @parameter default-value="false"
      * @since 1.0-alpha-7
      */
@@ -182,11 +189,11 @@ public class NativeLinkMojo
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
+     * 
      * @parameter default-value="false"
      * @since 1.0-alpha-8
      */
     private boolean checkStaleLinkage;
-
 
     public void execute()
         throws MojoExecutionException
@@ -207,7 +214,7 @@ public class NativeLinkMojo
 
             File outputFile = linker.link( config, allCompilerOuputFiles );
 
-            //to be used by post linker mojo  like native:manifest
+            // to be used by post linker mojo like native:manifest
             this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
 
         }
@@ -285,11 +292,12 @@ public class NativeLinkMojo
         }
         else
         {
-            //install primary artifact as a classifier
+            // install primary artifact as a classifier
 
-            DefaultArtifact clone = new DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(), artifact
-                .getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(), classifier, artifact
-                .getArtifactHandler(), artifact.isOptional() );
+            DefaultArtifact clone =
+                new DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(),
+                                     artifact.getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(),
+                                     classifier, artifact.getArtifactHandler(), artifact.isOptional() );
 
             clone.setRelease( artifact.isRelease() );
             clone.setResolvedVersion( artifact.getVersion() );
@@ -326,8 +334,9 @@ public class NativeLinkMojo
         for ( int i = 0; i < tokens.length; ++i )
         {
             // TODO: shouldn't need classifier
-            Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(), project
-                .getVersion(), this.classifier, tokens[i].trim() );
+            Artifact artifact =
+                artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(), project.getVersion(),
+                                                this.classifier, tokens[i].trim() );
             artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
                 + tokens[i].trim() ) );
 
@@ -364,7 +373,7 @@ public class NativeLinkMojo
 
     /**
      * convert dependencyLinkingOrders to a file list
-     *
+     * 
      * @return
      */
     private List getDependenciesFileOrderList()
@@ -397,11 +406,10 @@ public class NativeLinkMojo
     }
 
     /**
-     * Look up library in dependency list using groupId:artifactId key
-     * Note: we can not use project.artifactMap due the introduction of inczip dependency
-     * where 2 dependency with the same artifactId and groupId, but differs by extension type
-     * make the map not suitable for lookup
-     *
+     * Look up library in dependency list using groupId:artifactId key Note: we can not use project.artifactMap due the
+     * introduction of inczip dependency where 2 dependency with the same artifactId and groupId, but differs by
+     * extension type make the map not suitable for lookup
+     * 
      * @param groupArtifactIdPair
      * @return
      * @throws MojoExecutionException
@@ -409,7 +417,7 @@ public class NativeLinkMojo
     private Artifact lookupDependencyUsingGroupArtifactIdPair( String groupArtifactIdPair )
         throws MojoExecutionException
     {
-        String [] tokens = StringUtils.split( groupArtifactIdPair, ":" );
+        String[] tokens = StringUtils.split( groupArtifactIdPair, ":" );
 
         if ( tokens.length != 2 )
         {
@@ -426,7 +434,7 @@ public class NativeLinkMojo
                 continue;
             }
 
-            if ( tokens[0].equals( artifact.getGroupId())  && tokens[1].equals( artifact.getArtifactId() ) )
+            if ( tokens[0].equals( artifact.getGroupId() ) && tokens[1].equals( artifact.getArtifactId() ) )
             {
                 return artifact;
             }
@@ -466,12 +474,14 @@ public class NativeLinkMojo
         throws MojoExecutionException
     {
 
-        File newLocation = new File( this.externalLibDirectory, artifact.getArtifactId() + "."
-            + artifact.getArtifactHandler().getExtension() );
+        File newLocation =
+            new File( this.externalLibDirectory, artifact.getArtifactId() + "."
+                + artifact.getArtifactHandler().getExtension() );
 
         try
         {
-            if ( doCopy && !artifact.getFile().isDirectory() && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
+            if ( doCopy && !artifact.getFile().isDirectory()
+                && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
             {
                 FileUtils.copyFile( artifact.getFile(), newLocation );
             }
@@ -485,7 +495,7 @@ public class NativeLinkMojo
         return newLocation;
     }
 
-    ////////////////////////////////////// UNIT TEST HELPERS //////////////////////////////////
+    // //////////////////////////////////// UNIT TEST HELPERS //////////////////////////////////
 
     /**
      * For unit test only

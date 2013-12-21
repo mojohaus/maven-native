@@ -35,11 +35,10 @@ import org.codehaus.plexus.archiver.manager.ArchiverManager;
 
 /**
  * Unpack any .inczip dependencies to be included as system include path
- *
+ * 
  * @goal unzipinc
  * @phase generate-sources
  * @requiresDependencyResolution compile
- *
  * @since 1.0-alpha-4
  */
 public class NativeUnZipIncMojo
@@ -48,12 +47,13 @@ public class NativeUnZipIncMojo
 
     /**
      * Internal
+     * 
      * @parameter default-value="${project.build.directory}/native/markers"
      * @required
      * @since 1.0-alpha-4
      */
     private File dependencyIncZipMarkerDirectory;
-    
+
     /**
      * Internal component for archiving purposes
      * 
@@ -62,14 +62,13 @@ public class NativeUnZipIncMojo
      * @since 1.0-alpha-4
      */
     private ArchiverManager archiverManager;
-    
 
     public void execute()
         throws MojoExecutionException
     {
         if ( unpackIncZipDepenedencies() )
         {
-            this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, new Boolean( "true") );
+            this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, new Boolean( "true" ) );
         }
     }
 
@@ -85,8 +84,8 @@ public class NativeUnZipIncMojo
             Artifact artifact = (Artifact) iter.next();
             File incZipFile = artifact.getFile();
 
-            File marker = new File( this.dependencyIncZipMarkerDirectory, artifact.getGroupId() + "."
-                + artifact.getArtifactId() );
+            File marker =
+                new File( this.dependencyIncZipMarkerDirectory, artifact.getGroupId() + "." + artifact.getArtifactId() );
 
             if ( !marker.exists() || marker.lastModified() < incZipFile.lastModified() )
             {
@@ -96,7 +95,7 @@ public class NativeUnZipIncMojo
 
                     marker.delete();
 
-                    if ( ! dependencyIncZipMarkerDirectory.exists() )
+                    if ( !dependencyIncZipMarkerDirectory.exists() )
                     {
                         dependencyIncZipMarkerDirectory.mkdirs();
                     }
@@ -121,12 +120,11 @@ public class NativeUnZipIncMojo
 
         try
         {
-            if ( ! dependencyIncludeDirectory.exists() )
+            if ( !dependencyIncludeDirectory.exists() )
             {
                 dependencyIncludeDirectory.mkdirs();
             }
-            
-            
+
             UnArchiver archiver = this.archiverManager.getUnArchiver( "zip" );
             archiver.setOverwrite( true );
             archiver.setDestDirectory( this.dependencyIncludeDirectory );
@@ -141,7 +139,8 @@ public class NativeUnZipIncMojo
     }
 
     /**
-     * Get all .inczip compile time dependencies  
+     * Get all .inczip compile time dependencies
+     * 
      * @return
      */
     private List getIncZipDependencies()
@@ -156,7 +155,7 @@ public class NativeUnZipIncMojo
             {
                 Artifact artifact = (Artifact) iter.next();
 
-                //pick up only native header archive
+                // pick up only native header archive
                 if ( !INCZIP_TYPE.equals( artifact.getType() ) )
                 {
                     continue;

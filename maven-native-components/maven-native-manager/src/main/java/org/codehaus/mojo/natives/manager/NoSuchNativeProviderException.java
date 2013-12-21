@@ -22,13 +22,13 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
-public class NoSuchNativeProviderException 
-    extends Exception 
+public class NoSuchNativeProviderException
+    extends Exception
 {
     private static final long serialVersionUID = 1L;
-    
+
     private String providerName;
 
     public NoSuchNativeProviderException( String providerName )

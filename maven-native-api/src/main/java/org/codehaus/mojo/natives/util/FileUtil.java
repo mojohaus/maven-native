@@ -9,16 +9,12 @@ public class FileUtil
 {
 
     /**
-     * Returns a relative path for the targetFile relative to the base
-     * directory.
-     *
-     * @param canonicalBase
-     *            base directory as returned by File.getCanonicalPath()
-     * @param targetFile
-     *            target file
-     * @return relative path of target file. Returns targetFile if there were
-     *         no commonalities between the base and the target
-     *
+     * Returns a relative path for the targetFile relative to the base directory.
+     * 
+     * @param canonicalBase base directory as returned by File.getCanonicalPath()
+     * @param targetFile target file
+     * @return relative path of target file. Returns targetFile if there were no commonalities between the base and the
+     *         target
      * @author Curt Arnold
      */
     public static File getRelativeFile( File workingDirectory, File targetFile )
@@ -26,7 +22,7 @@ public class FileUtil
         try
         {
             //
-            //   remove trailing file separator
+            // remove trailing file separator
             //
             String canonicalBase = workingDirectory.getCanonicalFile().getAbsolutePath();
 
@@ -36,7 +32,7 @@ public class FileUtil
             }
 
             //
-            //   get canonical name of target and remove trailing separator
+            // get canonical name of target and remove trailing separator
             //
 
             String canonicalTarget;
@@ -57,23 +53,23 @@ public class FileUtil
 
             if ( canonicalTarget.equals( canonicalBase ) )
             {
-                return new File ( "." );
+                return new File( "." );
             }
 
             //
-            //  see if the prefixes are the same
+            // see if the prefixes are the same
             //
             if ( canonicalBase.substring( 0, 2 ).equals( "\\\\" ) )
             {
                 //
-                //  UNC file name, if target file doesn't also start with same
-                //      server name, don't go there
+                // UNC file name, if target file doesn't also start with same
+                // server name, don't go there
                 int endPrefix = canonicalBase.indexOf( '\\', 2 );
                 String prefix1 = canonicalBase.substring( 0, endPrefix );
                 String prefix2 = canonicalTarget.substring( 0, endPrefix );
                 if ( !prefix1.equals( prefix2 ) )
                 {
-                    return new File ( canonicalTarget );
+                    return new File( canonicalTarget );
                 }
             }
             else
@@ -85,7 +81,7 @@ public class FileUtil
                     String prefix2 = canonicalTarget.substring( 0, endPrefix );
                     if ( !prefix1.equals( prefix2 ) )
                     {
-                        return new File ( canonicalTarget );
+                        return new File( canonicalTarget );
                     }
                 }
                 else
@@ -94,7 +90,7 @@ public class FileUtil
                     {
                         if ( canonicalTarget.charAt( 0 ) != '/' )
                         {
-                            return new File ( canonicalTarget );
+                            return new File( canonicalTarget );
                         }
                     }
                 }
@@ -112,8 +108,8 @@ public class FileUtil
             int firstDifference = minLength + 1;
 
             //
-            //  walk to the shorter of the two paths
-            //      finding the last separator they have in common
+            // walk to the shorter of the two paths
+            // finding the last separator they have in common
             for ( int i = 0; i < minLength; i++ )
             {
                 if ( canonicalTarget.charAt( i ) == canonicalBase.charAt( i ) )
@@ -133,8 +129,8 @@ public class FileUtil
             StringBuffer relativePath = new StringBuffer( 50 );
 
             //
-            //   walk from the first difference to the end of the base
-            //      adding "../" for each separator encountered
+            // walk from the first difference to the end of the base
+            // adding "../" for each separator encountered
             //
             if ( canonicalBase.length() > firstDifference )
             {
@@ -152,7 +148,7 @@ public class FileUtil
             if ( canonicalTarget.length() > firstDifference )
             {
                 //
-                //    append the rest of the target
+                // append the rest of the target
                 //
 
                 if ( relativePath.length() > 0 )
@@ -163,12 +159,12 @@ public class FileUtil
                 relativePath.append( canonicalTarget.substring( firstDifference ) );
             }
 
-            return new File ( relativePath.toString() );
+            return new File( relativePath.toString() );
 
         }
         catch ( IOException ex )
         {
-            //TODO more handling
+            // TODO more handling
         }
 
         return targetFile;

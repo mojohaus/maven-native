@@ -1,6 +1,5 @@
 package org.codehaus.mojo.natives.parser;
 
-
 /*
  *
  * Copyright 2001-2004 The Ant-Contrib project
@@ -21,60 +20,58 @@ package org.codehaus.mojo.natives.parser;
 import java.io.IOException;
 import java.io.Reader;
 
-
-
 /**
  * An abstract base class for simple parsers
- *
+ * 
  * @author Curt Arnold
  */
-public abstract class AbstractParser {
+public abstract class AbstractParser
+{
 
-
-    protected AbstractParser() 
+    protected AbstractParser()
     {
     }
-    
-    protected abstract void addFilename(String filename);
-    
+
+    protected abstract void addFilename( String filename );
+
     public abstract AbstractParserState getNewLineState();
-    
-    protected void parse(Reader reader) 
-        throws IOException 
+
+    protected void parse( Reader reader )
+        throws IOException
     {
         char[] buf = new char[4096];
         AbstractParserState newLineState = getNewLineState();
         AbstractParserState state = newLineState;
         int charsRead = -1;
-        
-        do 
+
+        do
         {
-            charsRead = reader.read(buf, 0, buf.length);
-            if (state == null) 
+            charsRead = reader.read( buf, 0, buf.length );
+            if ( state == null )
             {
-                for (int i = 0; i < charsRead; i++) 
+                for ( int i = 0; i < charsRead; i++ )
                 {
-                    if (buf[i] == '\n') 
+                    if ( buf[i] == '\n' )
                     {
                         state = newLineState;
                         break;
                     }
                 }
             }
-            
-            if (state != null) 
+
+            if ( state != null )
             {
-                for (int i = 0; i < charsRead; i++) 
+                for ( int i = 0; i < charsRead; i++ )
                 {
-                    state = state.consume(buf[i]);
+                    state = state.consume( buf[i] );
                     //
-                    //  didn't match a production, skip to a new line
+                    // didn't match a production, skip to a new line
                     //
-                    if (state == null) 
+                    if ( state == null )
                     {
-                        for (; i < charsRead; i++) 
+                        for ( ; i < charsRead; i++ )
                         {
-                            if (buf[i] == '\n') 
+                            if ( buf[i] == '\n' )
                             {
                                 state = newLineState;
                                 break;
@@ -83,7 +80,8 @@ public abstract class AbstractParser {
                     }
                 }
             }
-            
-        } while (charsRead >= 0);
+
+        }
+        while ( charsRead >= 0 );
     }
 }

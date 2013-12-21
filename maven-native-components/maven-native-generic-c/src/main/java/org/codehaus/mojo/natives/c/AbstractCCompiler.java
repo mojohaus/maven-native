@@ -33,7 +33,6 @@ import org.codehaus.mojo.natives.parser.CParser;
  * SOFTWARE.
  */
 
-
 public abstract class AbstractCCompiler
     extends AbstractCompiler
 {
@@ -50,7 +49,6 @@ public abstract class AbstractCCompiler
         return this.parser;
     }
 
-
     /**
      * Setup Compiler Command line
      */
@@ -62,7 +60,7 @@ public abstract class AbstractCCompiler
         {
             config.setExecutable( "gcc" );
         }
-        
+
         Commandline cl = new Commandline();
 
         cl.setExecutable( config.getExecutable() );
@@ -81,8 +79,8 @@ public abstract class AbstractCCompiler
         this.setMiddleOptions( cl, config );
 
         this.setOutputArgs( cl, destFile );
-        
-        this.setSourceArgs( cl, srcFile ) ;
+
+        this.setSourceArgs( cl, srcFile );
 
         this.setEndOptions( cl, config );
 
@@ -115,7 +113,7 @@ public abstract class AbstractCCompiler
         this.setOptions( cl, config.getEndOptions() );
     }
 
-    private void setIncludePaths( Commandline cl, File [] includePaths )
+    private void setIncludePaths( Commandline cl, File[] includePaths )
     {
         if ( includePaths != null )
         {
@@ -125,7 +123,7 @@ public abstract class AbstractCCompiler
             }
         }
     }
-    
+
     private void setOutputArgs( Commandline cl, File outputFile )
     {
         String outputFileOption = this.getOutputFileOption();
@@ -138,12 +136,12 @@ public abstract class AbstractCCompiler
         else
         {
             cl.createArg().setValue( outputFileOption + outputFile.getPath() );
-        }    
+        }
     }
-    
+
     private void setSourceArgs( Commandline cl, File srcFile )
     {
         cl.createArg().setValue( "-c" );
         cl.createArg().setValue( srcFile.getPath() );
-    }    
+    }
 }

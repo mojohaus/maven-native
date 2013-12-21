@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 
@@ -32,12 +32,11 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class DefaultMessageCompilerManager 
+public class DefaultMessageCompilerManager
     extends AbstractLogEnabled
     implements MessageCompilerManager, Initializable
 {
-	private Map providers;
+    private Map providers;
 
     // ----------------------------------------------------------------------
     // Component Lifecycle
@@ -47,7 +46,7 @@ public class DefaultMessageCompilerManager
     {
         if ( providers == null )
         {
-        	providers = new HashMap();
+            providers = new HashMap();
         }
 
         if ( providers.size() == 0 )
@@ -55,11 +54,11 @@ public class DefaultMessageCompilerManager
             getLogger().warn( "No compiler providers configured." );
         }
     }
-    
-    public MessageCompiler getMessageCompiler ( String providerType )
-    	throws NoSuchNativeProviderException
+
+    public MessageCompiler getMessageCompiler( String providerType )
+        throws NoSuchNativeProviderException
     {
-        
+
         MessageCompiler provider = (MessageCompiler) providers.get( providerType );
 
         if ( provider == null )

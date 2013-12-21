@@ -35,6 +35,7 @@ import java.util.List;
 
 /**
  * Compile Windows resource files
+ * 
  * @goal resource-compile
  * @phase generate-sources
  */
@@ -45,6 +46,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Compiler Provider Type
+     * 
      * @parameter default-value="msvc"
      * @required
      * @since 1.0-alpha-2
@@ -53,20 +55,23 @@ public class NativeResourceCompileMojo
 
     /**
      * Use this field to override provider specific resource compiler executable
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private String resourceCompilerExecutable;
 
     /**
      * Resource compiler options
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private List resourceCompilerOptions;
 
     /**
      * Array of NativeSources containing include directories and source files
+     * 
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -82,6 +87,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Internal
+     * 
      * @component
      * @since 1.0-alpha-2
      * @readonly

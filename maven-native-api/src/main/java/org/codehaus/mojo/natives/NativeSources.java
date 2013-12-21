@@ -29,8 +29,9 @@ import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
  * Compilable list of source file in a directory
+ * 
  * @author dantran@gmail.com
- * @description 
+ * @description
  * @version $Id$
  */
 public class NativeSources
@@ -62,7 +63,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @return
      */
     public File getDirectory()
@@ -71,7 +71,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @param directory
      */
     public void setDirectory( File directory )
@@ -80,7 +79,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @return
      */
     public String[] getFileNames()
@@ -89,7 +87,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @param fileNames
      */
     public void setFileNames( String[] fileNames )
@@ -103,7 +100,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @return
      */
     public String[] getIncludes()
@@ -112,7 +108,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @param includes
      */
     public void setIncludes( String[] includes )
@@ -121,7 +116,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @return
      */
     public String[] getExcludes()
@@ -130,7 +124,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @param excludes
      */
     public void setExcludes( String[] excludes )
@@ -139,7 +132,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @return
      */
     public boolean getDependencyAnalysisParticipation()
@@ -148,7 +140,6 @@ public class NativeSources
     }
 
     /**
-     * 
      * @param flag
      */
     public void setDependencyAnalysisParticipation( boolean flag )
@@ -166,8 +157,8 @@ public class NativeSources
         this.deployable = deployable;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    
+    // //////////////////////////////////////////////////////////////////////////
+
     public List getFiles()
     {
         String[] filePaths = new String[0];
@@ -191,7 +182,7 @@ public class NativeSources
             files.add( new File( this.directory, filePaths[i] ) );
         }
 
-        //remove duplicate files 
+        // remove duplicate files
         for ( int i = 0; i < this.fileNames.length; ++i )
         {
             File file = new File( this.directory, this.fileNames[i] );
@@ -217,12 +208,13 @@ public class NativeSources
 
     }
 
-    /////////////////////////////////////////////////////////////////////////
-    //                              HELPERS
-    /////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////
+    // HELPERS
+    // ///////////////////////////////////////////////////////////////////////
 
     /**
      * Helper to get all source files in a Array of NativeSources
+     * 
      * @param sources
      * @return
      */

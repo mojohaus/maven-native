@@ -38,7 +38,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
- * Generic C/CPP linker with "-o " as its output option 
+ * Generic C/CPP linker with "-o " as its output option
  */
 
 public class CLinker
@@ -79,7 +79,7 @@ public class CLinker
         }
 
         // On windows to avoid command lines too long we have to use a linker response file.
-        if ( config.isUsingLinkerResponseFile() ) 
+        if ( config.isUsingLinkerResponseFile() )
         {
             try
             {
@@ -87,7 +87,7 @@ public class CLinker
                 FileWriter linkerFileWriter = new FileWriter( linkerFile, false /* Don't append */);
                 for ( int i = 0; i < objectFiles.size(); ++i )
                 {
-                    File objFile = ( File ) objectFiles.get( i );
+                    File objFile = (File) objectFiles.get( i );
                     linkerFileWriter.write( objFile.getPath() + "\n" );
                 }
                 linkerFileWriter.close();
@@ -96,7 +96,7 @@ public class CLinker
             {
                 throw new NativeBuildException( "Error creating linker response file", error );
             }
-            
+
             cl.createArg().setValue( "@objectsFile" );
         }
         else
@@ -104,9 +104,9 @@ public class CLinker
 
             for ( int i = 0; i < objectFiles.size(); ++i )
             {
-                File objFile = ( File ) objectFiles.get( i );
+                File objFile = (File) objectFiles.get( i );
 
-                //we need to shorten the command line since windows has limited command line length
+                // we need to shorten the command line since windows has limited command line length
                 String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
 
                 cl.createArg().setValue( objFilePath );
@@ -128,9 +128,8 @@ public class CLinker
         return cl;
 
     }
-    
+
     /**
-     * 
      * @return output option flag of a generic C linker
      */
     protected String getLinkerOutputOption()
@@ -140,6 +139,7 @@ public class CLinker
 
     /**
      * Setup Commandline to handle external library depending on extention type
+     * 
      * @param cl Commandline
      * @param config LinkerConfiguration
      * @throws NativeBuildException
@@ -163,7 +163,8 @@ public class CLinker
             if ( "o".equals( ext ) || "obj".equals( ext ) || "lib".equals( ext ) || "dylib".equals( ext ) )
             {
                 File libFile = new File( config.getExternalLibDirectory(), libFileName );
-                String relativeLibFile = FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
+                String relativeLibFile =
+                    FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
                 cl.createArg().setValue( relativeLibFile );
             }
             else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
@@ -196,6 +197,5 @@ public class CLinker
             }
         }
     }
-
 
 }

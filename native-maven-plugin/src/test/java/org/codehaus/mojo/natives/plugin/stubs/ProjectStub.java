@@ -14,13 +14,12 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
  */
 
 public class ProjectStub
-   extends MavenProjectStub
-{    
+    extends MavenProjectStub
+{
     private Build build = new BuildStub();
 
- 
     private Set dependencyArtifacts = new HashSet();
-    
+
     public ProjectStub()
     {
         super( (Model) null );
@@ -29,47 +28,46 @@ public class ProjectStub
     // kinda dangerous...
     public ProjectStub( Model model )
     {
-        //  super(model);
+        // super(model);
         super( (Model) null );
     }
 
     // kinda dangerous...
     public ProjectStub( MavenProject project )
     {
-        //super(project);
+        // super(project);
         super( (Model) null );
     }
-    
+
     public Build getBuild()
     {
         return this.build;
     }
-    
+
     public Set getDependencyArtifacts()
     {
         return this.dependencyArtifacts;
     }
-    
+
     private Set artifacts;
-    
+
     public void setArtifacts( Set artifacts )
     {
-    	this.artifacts = artifacts;
+        this.artifacts = artifacts;
     }
 
     public Set getArtifacts()
     {
-    	if ( this.artifacts == null )
-    	{
-    		this.artifacts = new HashSet();
-    	}
-    	return this.artifacts;
+        if ( this.artifacts == null )
+        {
+            this.artifacts = new HashSet();
+        }
+        return this.artifacts;
     }
-    
+
     public String getArtifactId()
     {
         return "someArtifactId";
     }
-    
-    
+
 }

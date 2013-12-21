@@ -46,9 +46,9 @@ public class MSVCManifest
         cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
 
         cl.createArg().setValue( "-manifest" );
-        
+
         int manifestType = 0;
-        
+
         if ( "EXE".equalsIgnoreCase( FileUtils.getExtension( config.getInputFile().getPath() ) ) )
         {
             manifestType = 1;
@@ -57,15 +57,15 @@ public class MSVCManifest
         {
             manifestType = 2;
         }
-        
-        if ( manifestType == 0  )
+
+        if ( manifestType == 0 )
         {
             throw new NativeBuildException( "Unknown manifest input file type: " + config.getInputFile() );
         }
-        
+
         cl.createArg().setFile( config.getManifestFile() );
         cl.createArg().setValue( "-outputresource:" + config.getInputFile() + ";" + manifestType );
-        
+
         EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
         CommandLineUtil.execute( cl, this.getLogger() );

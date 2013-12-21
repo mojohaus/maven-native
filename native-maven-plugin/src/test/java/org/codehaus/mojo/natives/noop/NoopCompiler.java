@@ -9,13 +9,11 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.util.FileUtils;
 
-
 /**
  * Helper class to test native-maven-plugin
- *
  */
 public class NoopCompiler
-    implements Compiler 
+    implements Compiler
 {
 
     public List compile( CompilerConfiguration config, File[] sourceFiles )
@@ -37,28 +35,28 @@ public class NoopCompiler
     }
 
     /**
-     * 
      * @return
      */
     protected String getObjectFileExtension()
     {
-        //no need to test system specific extension
+        // no need to test system specific extension
         return "o";
     }
 
     /**
      * Figure out the object file path from a given source file
+     * 
      * @param sourceFile
      * @return
      */
-    private File getObjectFile ( File sourceFile, CompilerConfiguration config )
+    private File getObjectFile( File sourceFile, CompilerConfiguration config )
     {
         String srcPath = sourceFile.getPath();
-            
-        String destPath = config.getOutputDirectory().getPath() + "/" + 
-                          FileUtils.basename( srcPath ) + this.getObjectFileExtension();
 
-        return new File ( destPath );
-    }   
+        String destPath =
+            config.getOutputDirectory().getPath() + "/" + FileUtils.basename( srcPath ) + this.getObjectFileExtension();
+
+        return new File( destPath );
+    }
 
 }

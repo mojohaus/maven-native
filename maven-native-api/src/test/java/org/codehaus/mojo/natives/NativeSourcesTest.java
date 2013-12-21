@@ -156,10 +156,10 @@ public class NativeSourcesTest
     public void testExcludes()
         throws Exception
     {
-        
+
         new File( this.workDirectory, "someFile.c" ).createNewFile();
         new File( this.workDirectory, "someFile.cpp" ).createNewFile();
-        
+
         NativeSources source = new NativeSources();
 
         source.setDirectory( this.workDirectory );
@@ -167,23 +167,23 @@ public class NativeSourcesTest
         String[] includes = { "*.*" };
         source.setIncludes( includes );
         assertEquals( 2, source.getFiles().size() );
-        
+
         String[] excludes = { "*.cpp" };
         source.setExcludes( excludes );
         assertEquals( 1, source.getFiles().size() );
-        
-        String [] excludes2 = { "*.c" };
+
+        String[] excludes2 = { "*.c" };
         source.setExcludes( excludes2 );
         assertEquals( 1, source.getFiles().size() );
-        
-        String [] excludes3 = { "someFile.c" };
+
+        String[] excludes3 = { "someFile.c" };
         source.setExcludes( excludes3 );
         assertEquals( 1, source.getFiles().size() );
 
-        String [] excludes4 = { "someFile.c", "someFile.cpp" };
+        String[] excludes4 = { "someFile.c", "someFile.cpp" };
         source.setExcludes( excludes4 );
         assertEquals( 0, source.getFiles().size() );
-        
+
     }
 
 }

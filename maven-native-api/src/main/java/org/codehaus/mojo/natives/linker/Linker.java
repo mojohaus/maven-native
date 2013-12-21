@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.linker;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,9 @@ import org.codehaus.mojo.natives.NativeBuildException;
 
 public interface Linker
 {
-	String ROLE = Linker.class.getName();
-	
-	File link( LinkerConfiguration config, List compilerOutputFiles ) throws NativeBuildException, IOException;
+    String ROLE = Linker.class.getName();
+
+    File link( LinkerConfiguration config, List compilerOutputFiles )
+        throws NativeBuildException, IOException;
 
 }

@@ -37,9 +37,8 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
 
         assertEquals( "javah", cl.getExecutable() );
-        assertTrue(  StringUtils.contains( cl.toString(),
-                                            "javah -d " + outputDir.getPath() + " -classpath path1"
-                                                + File.pathSeparator + "path2 className1 className2" ) );
+        assertTrue( StringUtils.contains( cl.toString(), "javah -d " + outputDir.getPath() + " -classpath path1"
+            + File.pathSeparator + "path2 className1 className2" ) );
     }
 
     public void testConfiguredJavahExecutable()
@@ -54,10 +53,8 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
 
         assertEquals( javaBin.getAbsolutePath(), cl.getExecutable() );
-        assertTrue( StringUtils.contains( cl.toString(),
-                                            javaBin.getAbsolutePath() + " -d " + outputDir.getPath()
-                                                + " -classpath path1" + File.pathSeparator
-                                                + "path2 className1 className2" ) );
+        assertTrue( StringUtils.contains( cl.toString(), javaBin.getAbsolutePath() + " -d " + outputDir.getPath()
+            + " -classpath path1" + File.pathSeparator + "path2 className1 className2" ) );
 
     }
 
@@ -69,9 +66,8 @@ public class JavahExecutableTest
         Commandline cl = javah.createJavahCommand( config );
 
         File outputFile = new File( getBasedir(), "target/native/" + "fileName" );
-        assertTrue(  StringUtils.contains( cl.toString(),
-                                            "javah -o " + outputFile.getPath() + " -classpath path1"
-                                                + File.pathSeparator + "path2 className1 className2" ) );
+        assertTrue( StringUtils.contains( cl.toString(), "javah -o " + outputFile.getPath() + " -classpath path1"
+            + File.pathSeparator + "path2 className1 className2" ) );
     }
 
     public void testWorkingDirectory()

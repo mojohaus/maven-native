@@ -22,25 +22,24 @@ package org.codehaus.mojo.natives.compiler;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 
-
 public interface ResourceCompiler
 {
-	String ROLE = ResourceCompiler.class.getName();
-	
+    String ROLE = ResourceCompiler.class.getName();
+
     /**
-     * 
      * @param config
      * @param sources
      * @return List of resource ouput files
      * @throws NativeBuildException
      */
-	List  compile( ResourceCompilerConfiguration config, NativeSources [] sources ) throws NativeBuildException;
+    List compile( ResourceCompilerConfiguration config, NativeSources[] sources )
+        throws NativeBuildException;
 
 }

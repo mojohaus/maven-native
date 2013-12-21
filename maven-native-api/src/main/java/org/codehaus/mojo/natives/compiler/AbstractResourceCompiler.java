@@ -39,7 +39,6 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
-
 public abstract class AbstractResourceCompiler
     extends AbstractLogEnabled
     implements ResourceCompiler

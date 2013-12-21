@@ -23,7 +23,6 @@ import java.util.Arrays;
  * limitations under the License.
  */
 
-
 public class FileSet
 {
     private File basedir;
@@ -43,12 +42,13 @@ public class FileSet
         this( basedir, new File[] { file } );
     }
 
-    public FileSet( File basedir, String includes, String excludes ) throws IOException
+    public FileSet( File basedir, String includes, String excludes )
+        throws IOException
     {
         this.basedir = basedir;
-        
+
         excludes = this.trimCommaSeparateString( excludes );
-        
+
         includes = this.trimCommaSeparateString( includes );
 
         files = (File[]) FileUtils.getFiles( basedir, includes, excludes ).toArray( EMPTY_FILE_ARRAY );
@@ -80,33 +80,33 @@ public class FileSet
         return this.files;
     }
 
-    public String toString() {
-        return "basedir = " + basedir + "; files = " + Arrays.asList(files);
-    }
-    
-    //temp solution until plexus-util is fix
-    
-    private String trimCommaSeparateString ( String in ) 
+    public String toString()
     {
-    	if ( in == null || in.trim().length() == 0 ) 
-    	{
-    		return "";
-    	}
-    	
-    	
-    	StringBuffer out = new StringBuffer();
-    	
-    	String [] tokens = StringUtils.split( in, ",");
-    	for ( int i = 0; i < tokens.length; ++i )
-    	{
-    		if ( i != 0 )
-    		{
-    			out.append( "," );
-    		}
-    		out.append( tokens[i].trim() );
-    	}
-    	
-    	return out.toString();
+        return "basedir = " + basedir + "; files = " + Arrays.asList( files );
     }
-        
+
+    // temp solution until plexus-util is fix
+
+    private String trimCommaSeparateString( String in )
+    {
+        if ( in == null || in.trim().length() == 0 )
+        {
+            return "";
+        }
+
+        StringBuffer out = new StringBuffer();
+
+        String[] tokens = StringUtils.split( in, "," );
+        for ( int i = 0; i < tokens.length; ++i )
+        {
+            if ( i != 0 )
+            {
+                out.append( "," );
+            }
+            out.append( tokens[i].trim() );
+        }
+
+        return out.toString();
+    }
+
 }

@@ -34,23 +34,26 @@ import org.codehaus.mojo.natives.manager.RanlibManager;
 
 /**
  * ranlib a Unix linker output file
+ * 
  * @goal ranlib
  * @phase package
  */
 public class NativeRanlibMojo
     extends AbstractNativeMojo
 {
-    
+
     /**
      * Where to place the final packaging
+     * 
      * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
      */
     protected File ranlibOutputDirectory;
-    
+
     /**
-     * Ranlib Provider. 
+     * Ranlib Provider.
+     * 
      * @parameter default-value="default"
      * @required
      * @since 1.0-alpha-2
@@ -59,6 +62,7 @@ public class NativeRanlibMojo
 
     /**
      * To look up ranlib implementation
+     * 
      * @component
      * @readonly
      * @since 1.0-alpha-2
@@ -69,7 +73,7 @@ public class NativeRanlibMojo
     public void execute()
         throws MojoExecutionException
     {
-        
+
         try
         {
             String finalName = this.project.getBuild().getFinalName();
@@ -79,7 +83,7 @@ public class NativeRanlibMojo
             File outputFile = new File( this.ranlibOutputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
 
             Ranlib ranlib = this.getRanlib();
-            
+
             ranlib.run( outputFile );
         }
         catch ( NativeBuildException e )

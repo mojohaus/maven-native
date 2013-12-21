@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import junit.framework.TestCase;
 
@@ -33,49 +33,48 @@ import java.io.IOException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.FileUtils;
 
-
-public abstract class AbstractDependencyTest 
-    extends TestCase 
+public abstract class AbstractDependencyTest
+    extends TestCase
 {
-	
-	public AbstractDependencyTest( String name )
-	{
-		super( name );
-	}	
-	
-	protected void mkDir ( String dirPath )
-        throws IOException
-	{
-		FileUtils.forceMkdir(new File ( dirPath ) );
-	}
 
-	protected void rmDir ( String dirPath )
-      throws IOException
-    { 
-	   FileUtils.deleteDirectory( dirPath );
+    public AbstractDependencyTest( String name )
+    {
+        super( name );
     }
 
-	protected void writeFile ( String filePath, String content)
-       throws IOException
-	{
-		FileOutputStream fs = new FileOutputStream( filePath );
-		try 
-		{
-			IOUtil.copy( content, fs);
-		}
-		finally
-		{
-			if ( fs != null )
-			{
-				IOUtil.close(fs);
-			}
-		}
-	}
+    protected void mkDir( String dirPath )
+        throws IOException
+    {
+        FileUtils.forceMkdir( new File( dirPath ) );
+    }
 
-	protected void removeFile ( String filePath )
-      throws IOException
-	{
-		new File ( filePath ).delete();
-	}
-    
+    protected void rmDir( String dirPath )
+        throws IOException
+    {
+        FileUtils.deleteDirectory( dirPath );
+    }
+
+    protected void writeFile( String filePath, String content )
+        throws IOException
+    {
+        FileOutputStream fs = new FileOutputStream( filePath );
+        try
+        {
+            IOUtil.copy( content, fs );
+        }
+        finally
+        {
+            if ( fs != null )
+            {
+                IOUtil.close( fs );
+            }
+        }
+    }
+
+    protected void removeFile( String filePath )
+        throws IOException
+    {
+        new File( filePath ).delete();
+    }
+
 }

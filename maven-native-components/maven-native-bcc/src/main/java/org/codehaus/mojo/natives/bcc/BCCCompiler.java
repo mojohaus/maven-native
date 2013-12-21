@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.bcc;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CCompiler;
@@ -31,27 +31,26 @@ import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
 
-public class BCCCompiler 
+public class BCCCompiler
     extends CCompiler
 {
-    
-	protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config )
-	   throws NativeBuildException
-	{
-		if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-		{
-			config.setExecutable ( "bcc32" );
-		}
-				
-		Commandline cl = super.getCommandLine( src, dest, config );
-	    
-		return cl;
-	}
-	
+
+    protected Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
+        throws NativeBuildException
+    {
+        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+        {
+            config.setExecutable( "bcc32" );
+        }
+
+        Commandline cl = super.getCommandLine( src, dest, config );
+
+        return cl;
+    }
+
     protected String getOutputFileOption()
     {
         return "-o";
-    }    
-
+    }
 
 }

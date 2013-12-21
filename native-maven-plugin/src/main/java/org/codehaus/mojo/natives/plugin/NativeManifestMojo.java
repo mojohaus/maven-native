@@ -32,7 +32,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Embeds a Visual Studio manifest file into a generated executable
- *
+ * 
  * @goal manifest
  * @phase package
  * @since 1.0-alpha4
@@ -42,7 +42,7 @@ public class NativeManifestMojo
 {
     /**
      * Manifest Provider.
-     *
+     * 
      * @parameter default-value="msvc"
      * @required
      * @since 1.0-alpha4
@@ -51,7 +51,7 @@ public class NativeManifestMojo
 
     /**
      * Manifest extension
-     *
+     * 
      * @parameter default-value="manifest"
      * @required
      * @since 1.0-alpha-4
@@ -60,7 +60,7 @@ public class NativeManifestMojo
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
-     *
+     * 
      * @parameter default-value="false"
      * @since 1.0-alpha-8
      */
@@ -68,7 +68,7 @@ public class NativeManifestMojo
 
     /**
      * Internal - To look up manifest implementation
-     *
+     * 
      * @component
      * @since 1.0-alpha-4
      */

@@ -138,7 +138,7 @@ public abstract class AbstractCompiler
 
     /**
      * return "obj" or "o" when file extension is not given based on current platform
-     *
+     * 
      * @return
      */
     protected static String getObjectFileExtension( String fileExtension )
@@ -162,7 +162,7 @@ public abstract class AbstractCompiler
 
     /**
      * Figure out the object file relative path from a given source file
-     *
+     * 
      * @param sourceFile
      * @param workingDirectory
      * @param outputDirectory
@@ -194,7 +194,8 @@ public abstract class AbstractCompiler
         }
         catch ( IOException e )
         {
-            throw new NativeBuildException("Failed to figure out object file name for " + sourceFile + ": " + e.getMessage() , e );
+            throw new NativeBuildException( "Failed to figure out object file name for " + sourceFile + ": "
+                + e.getMessage(), e );
         }
 
         File objectFile = new File( outputDirectory, objectFileName );

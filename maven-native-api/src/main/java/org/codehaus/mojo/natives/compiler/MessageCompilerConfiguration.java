@@ -43,7 +43,7 @@ public class MessageCompilerConfiguration
     private File debugOutputDirectory;
 
     private String[] options = new String[0];
-    
+
     public MessageCompilerConfiguration()
     {
     }
@@ -103,5 +103,5 @@ public class MessageCompilerConfiguration
     {
         this.debugOutputDirectory = dir;
     }
-    
+
 }

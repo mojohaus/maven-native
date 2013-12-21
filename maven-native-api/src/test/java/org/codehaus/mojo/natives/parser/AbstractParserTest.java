@@ -15,13 +15,17 @@
  *  limitations under the License.
  */
 package org.codehaus.mojo.natives.parser;
+
 import junit.framework.TestCase;
 
 /**
  * Tests for the CParser class
  */
-public abstract class AbstractParserTest extends TestCase {
-    public AbstractParserTest(String name) {
-        super(name);
+public abstract class AbstractParserTest
+    extends TestCase
+{
+    public AbstractParserTest( String name )
+    {
+        super( name );
     }
 }

@@ -25,7 +25,7 @@ public class EnvUtil
 
         try
         {
-            //TODO move this to an env object similar to Ant Environment
+            // TODO move this to an env object similar to Ant Environment
             envValue = System.getenv( envKey );
 
             if ( envValue == null && alternateSystemProperty != null )
@@ -35,7 +35,7 @@ public class EnvUtil
         }
         catch ( Error e )
         {
-            //JDK 1.4?
+            // JDK 1.4?
             if ( alternateSystemProperty != null )
             {
                 envValue = getProperty( alternateSystemProperty );

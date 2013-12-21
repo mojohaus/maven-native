@@ -48,7 +48,7 @@ public class MSVCLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-      	assertTrue( cl.getExecutable().endsWith("link.exe") );
+        assertTrue( cl.getExecutable().endsWith( "link.exe" ) );
 
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
@@ -60,15 +60,15 @@ public class MSVCLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertTrue(  StringUtils.contains( cl.toString(), "link.exe /out:" + config.getOutputFile() + " source1.obj source2.obj" ) );
+        assertTrue( StringUtils.contains( cl.toString(), "link.exe /out:" + config.getOutputFile()
+            + " source1.obj source2.obj" ) );
     }
 
-    /////////////////////////// HELPERS //////////////////////////////////////
+    // ///////////////////////// HELPERS //////////////////////////////////////
     private Commandline getCommandline()
         throws NativeBuildException
     {
         return this.linker.createLinkerCommandLine( defautlObjectFiles, config );
     }
 
- 
 }

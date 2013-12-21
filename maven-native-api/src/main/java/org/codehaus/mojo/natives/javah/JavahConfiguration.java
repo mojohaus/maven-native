@@ -31,14 +31,13 @@ public class JavahConfiguration
     private File workingDirectory;
 
     /**
-     *  Directory to save generate files, must either be fullpath 
-     *  or relative to relative workingDirectory
+     * Directory to save generate files, must either be fullpath or relative to relative workingDirectory
      */
     private File outputDirectory;
 
     /**
-     * Option to combine all generated include files into one file ${outputDirectory}/${fileName}
-     * Support javah -o option
+     * Option to combine all generated include files into one file ${outputDirectory}/${fileName} Support javah -o
+     * option
      */
     private String fileName;
 
@@ -48,7 +47,7 @@ public class JavahConfiguration
     private File javahPath;
 
     /*
-     *  the fully-qualified class name
+     * the fully-qualified class name
      */
     private String[] classNames;
 

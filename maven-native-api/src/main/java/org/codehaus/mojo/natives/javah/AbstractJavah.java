@@ -22,16 +22,13 @@ package org.codehaus.mojo.natives.javah;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 
-
-
 public abstract class AbstractJavah
     extends AbstractLogEnabled
-    implements Javah 
+    implements Javah
 {
-
 
 }

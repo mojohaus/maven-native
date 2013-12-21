@@ -33,6 +33,7 @@ import java.util.List;
 
 /**
  * Compile Windows message files
+ * 
  * @goal compile-message
  * @phase generate-sources
  */
@@ -43,6 +44,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Compiler Provider Type
+     * 
      * @parameter default-value="msvc"
      * @required
      * @since 1.0-alpha-2
@@ -51,21 +53,24 @@ public class NativeMessageCompileMojo
 
     /**
      * Use this field to override provider specific message compiler executable
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private String messageCompilerExecutable;
 
     /**
      * Additional Compiler options
-     * @parameter 
+     * 
+     * @parameter
      * @since 1.0-alpha-2
      */
     private List messageCompilerOptions;
 
     /**
      * List of message files to compile
-     * @parameter 
+     * 
+     * @parameter
      * @required
      * @since 1.0-alpha-2
      */
@@ -73,6 +78,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Where to place the compiler object files
+     * 
      * @parameter expression="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
@@ -81,6 +87,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Internal
+     * 
      * @component
      * @since 1.0-alpha-2
      */

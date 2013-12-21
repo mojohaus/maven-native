@@ -33,6 +33,7 @@ import org.apache.maven.project.MavenProject;
 
 /**
  * Initialize build lifecycle
+ * 
  * @goal initialize
  * @phase initialize
  */
@@ -43,36 +44,37 @@ public class NativeInitializeMojo
 
     /**
      * Internal
+     * 
      * @parameter expression="${project}"
      * @since 1.0-alpha-2
      */
     protected MavenProject project;
-        
+
     public void execute()
         throws MojoExecutionException
     {
         File buildDirectory = new File( this.project.getBuild().getDirectory() );
-        
-        if ( ! buildDirectory.exists() )
+
+        if ( !buildDirectory.exists() )
         {
             buildDirectory.mkdirs();
         }
-        
-        //strip version from finalName since  and
+
+        // strip version from finalName since and
         // disallow user from changing the final name since many
-        //  final linker output depending heavily on the name without any associated version
+        // final linker output depending heavily on the name without any associated version
         String finalName = project.getArtifactId();
-        
+
         project.getBuild().setFinalName( finalName );
 
-        //we need to clear out object files list since it possible that compile phase gets called mulitple times
+        // we need to clear out object files list since it possible that compile phase gets called mulitple times
         // and produce duplicate objects, and therefore will fail at link phase
         List objList = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
-        if ( objList != null ) {
+        if ( objList != null )
+        {
             objList.clear();
         }
-        
-                
+
     }
 
 }

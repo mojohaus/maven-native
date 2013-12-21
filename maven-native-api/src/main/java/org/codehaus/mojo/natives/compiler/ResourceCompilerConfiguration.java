@@ -29,7 +29,6 @@ import java.io.File;
 import org.codehaus.mojo.natives.ConfigurationBase;
 import org.codehaus.plexus.util.FileUtils;
 
-
 public class ResourceCompilerConfiguration
     extends ConfigurationBase
 {
@@ -53,7 +52,7 @@ public class ResourceCompilerConfiguration
     private File[] includePaths = EMPTY_FILE_ARRAY;
 
     private File[] systemIncludePaths = EMPTY_FILE_ARRAY;
-    
+
     public ResourceCompilerConfiguration()
     {
     }
@@ -142,11 +141,10 @@ public class ResourceCompilerConfiguration
             this.systemIncludePaths = EMPTY_FILE_ARRAY;
         }
     }
-    
 
-    ////////////////////////////////////////////////////////////
-    //                           HELPER
-    ///////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////
+    // HELPER
+    // /////////////////////////////////////////////////////////
     public File getOutputFile( File src )
     {
         String srcPath = src.getPath();

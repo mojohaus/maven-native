@@ -31,6 +31,7 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
 
 /**
  * Prepare include file bundle to be attached to maven for deployment purpose
+ * 
  * @goal inczip
  * @phase package
  * @since 1.0-alpha-4
@@ -42,6 +43,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Array of NativeSources containing include directories and source files.
+     * 
      * @parameter
      * @since 1.0-alpha-4
      */
@@ -49,6 +51,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Archive file to bundle all enable NativeSources
+     * 
      * @parameter default-value="${project.build.directory}/${project.build.finalName}.inczip"
      * @required
      * @since 1.0-alpha-4
@@ -57,14 +60,15 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Option to skip include source bundle deployment
-     * @parameter  default-value="false"
+     * 
+     * @parameter default-value="false"
      * @since 1.0-alpha-4
      */
     private boolean skipIncludeDeployment;
 
     /**
      * Maven ProjectHelper.
-     *
+     * 
      * @component
      * @readonly
      * @since 1.0-alpha-4

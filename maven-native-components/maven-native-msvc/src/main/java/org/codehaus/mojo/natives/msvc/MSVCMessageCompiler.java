@@ -49,11 +49,11 @@ public class MSVCMessageCompiler
             cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
         }
 
-	if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-	{
-  	   config.setExecutable ( "mc.exe" );
-	}
-	cl.setExecutable(config.getExecutable().trim());
+        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+        {
+            config.setExecutable( "mc.exe" );
+        }
+        cl.setExecutable( config.getExecutable().trim() );
 
         cl.addArguments( config.getOptions() );
 

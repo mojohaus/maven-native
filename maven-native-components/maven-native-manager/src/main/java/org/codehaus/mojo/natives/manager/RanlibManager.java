@@ -22,14 +22,14 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.linker.Ranlib;
 
-
-public interface RanlibManager 
+public interface RanlibManager
 {
-	String ROLE = RanlibManager.class.getName();
+    String ROLE = RanlibManager.class.getName();
 
-	Ranlib getRanlib( String roleHint ) throws NoSuchNativeProviderException;
+    Ranlib getRanlib( String roleHint )
+        throws NoSuchNativeProviderException;
 }

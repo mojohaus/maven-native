@@ -22,7 +22,7 @@ package org.codehaus.mojo.natives.manager;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.linker.Linker;
 
@@ -32,12 +32,11 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class DefaultLinkerManager 
+public class DefaultLinkerManager
     extends AbstractLogEnabled
     implements LinkerManager, Initializable
 {
-	private Map providers;
+    private Map providers;
 
     // ----------------------------------------------------------------------
     // Component Lifecycle
@@ -47,7 +46,7 @@ public class DefaultLinkerManager
     {
         if ( providers == null )
         {
-        	providers = new HashMap();
+            providers = new HashMap();
         }
 
         if ( providers.size() == 0 )
@@ -55,11 +54,11 @@ public class DefaultLinkerManager
             getLogger().warn( "No linker providers configured." );
         }
     }
-    
+
     public Linker getLinker( String providerType )
         throws NoSuchNativeProviderException
     {
-    	Linker provider = (Linker) providers.get( providerType );
+        Linker provider = (Linker) providers.get( providerType );
 
         if ( provider == null )
         {

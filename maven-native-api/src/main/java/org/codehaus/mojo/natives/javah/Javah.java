@@ -22,18 +22,17 @@ package org.codehaus.mojo.natives.javah;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-*/
+ */
 
 import org.codehaus.mojo.natives.NativeBuildException;
-
 
 /**
  * Generates JNI header files using javah
  */
-public interface Javah 
+public interface Javah
 {
     static String ROLE = Javah.class.getName();
 
     void compile( JavahConfiguration configuration )
-      throws NativeBuildException;
+        throws NativeBuildException;
 }

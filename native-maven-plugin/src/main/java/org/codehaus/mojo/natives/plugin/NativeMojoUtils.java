@@ -29,15 +29,15 @@ import java.util.List;
 
 import org.codehaus.plexus.util.StringUtils;
 
-
 public class NativeMojoUtils
 {
     /**
      * Remove/trim empty or null member of a string array
+     * 
      * @param args
      * @return
      */
-    public static String [] trimParams( List args )
+    public static String[] trimParams( List args )
     {
         if ( args == null )
         {
@@ -47,28 +47,28 @@ public class NativeMojoUtils
         List tokenArray = new ArrayList();
 
         for ( int i = 0; i < args.size(); ++i )
-        {           
+        {
             String arg = (String) args.get( i );
-            
+
             if ( arg == null || arg.length() == 0 )
             {
                 continue;
             }
-            
-            String [] tokens = StringUtils.split( arg );
 
-            for ( int k = 0 ; k < tokens.length; ++k )
-            {           
+            String[] tokens = StringUtils.split( arg );
+
+            for ( int k = 0; k < tokens.length; ++k )
+            {
                 if ( tokens[k] == null || tokens[k].trim().length() == 0 )
                 {
                     continue;
                 }
-                
-                tokenArray.add( tokens[k].trim() );             
+
+                tokenArray.add( tokens[k].trim() );
             }
         }
-        
-        return (String []) tokenArray.toArray( new String[ tokenArray.size() ] );
+
+        return (String[]) tokenArray.toArray( new String[tokenArray.size()] );
     }
-    
+
 }

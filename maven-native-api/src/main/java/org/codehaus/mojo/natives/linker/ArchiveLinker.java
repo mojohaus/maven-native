@@ -59,7 +59,7 @@ public class ArchiveLinker
             cl.createArg().setValue( config.getStartOptions()[i] );
         }
 
-        //the next 2 are for completeness, the start options should be good enough
+        // the next 2 are for completeness, the start options should be good enough
         for ( int i = 0; i < config.getMiddleOptions().length; ++i )
         {
             cl.createArg().setValue( config.getMiddleOptions()[i] );

@@ -31,7 +31,7 @@ public class RegQuery
         }
         catch ( CommandLineException e )
         {
-            throw new NativeBuildException ( e.getMessage(), e );
+            throw new NativeBuildException( e.getMessage(), e );
         }
 
         String result = stdout.getOutput();

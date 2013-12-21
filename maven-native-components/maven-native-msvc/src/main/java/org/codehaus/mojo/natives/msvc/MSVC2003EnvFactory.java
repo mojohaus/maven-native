@@ -45,8 +45,8 @@ public class MSVC2003EnvFactory
     protected Map createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir = new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY,
-                                                      DEFAULT_MSVS2003_INSTALL_DIR ) );
+        File vcInstallDir =
+            new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {
@@ -57,7 +57,7 @@ public class MSVC2003EnvFactory
 
         File vsInstallDir = new File( vcInstallDir.getPath() + "/Common7/IDE" );
 
-        //TODO get winhome dir
+        // TODO get winhome dir
         File frameworkDir = new File( getSystemRoot() + "/Microsoft.NET/Framework" );
         envs.put( "FrameworkDir", frameworkDir.getPath() );
 
@@ -71,32 +71,35 @@ public class MSVC2003EnvFactory
 
         File msvcDir = new File( vcInstallDir.getPath() + "/VC7" );
 
-        //setup new PATH
+        // setup new PATH
         String currentPath = System.getProperty( "java.library.path" );
 
-        String newPath = devEnvDir.getPath() + ";" + msvcDir.getPath() + "\\BIN;" + vcInstallDir.getPath()
-            + "\\Common7\\Tools;" + vcInstallDir.getPath() + "\\Common7\\Tools\\bin\\prerelease;"
-            + vcInstallDir.getPath() + "\\Common7\\Tools\\bin;" + frameworkSDKDir.getPath() + "\\bin;"
-            + frameworkDir.getPath() + "\\" + frameworkVersion + ";" + currentPath;
+        String newPath =
+            devEnvDir.getPath() + ";" + msvcDir.getPath() + "\\BIN;" + vcInstallDir.getPath() + "\\Common7\\Tools;"
+                + vcInstallDir.getPath() + "\\Common7\\Tools\\bin\\prerelease;" + vcInstallDir.getPath()
+                + "\\Common7\\Tools\\bin;" + frameworkSDKDir.getPath() + "\\bin;" + frameworkDir.getPath() + "\\"
+                + frameworkVersion + ";" + currentPath;
 
         envs.put( "PATH", newPath );
 
-        //setup new INCLUDE PATH
+        // setup new INCLUDE PATH
         String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludePath = msvcDir.getPath() + "\\ATLMFC\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;"
-            + msvcDir.getPath() + "\\PlatformSDK\\include\\prerelease;" + msvcDir.getPath() + "\\PlatformSDK\\include;"
-            + frameworkSDKDir.getPath() + "\\include;" + currentIncludePath;
+        String newIncludePath =
+            msvcDir.getPath() + "\\ATLMFC\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;" + msvcDir.getPath()
+                + "\\PlatformSDK\\include\\prerelease;" + msvcDir.getPath() + "\\PlatformSDK\\include;"
+                + frameworkSDKDir.getPath() + "\\include;" + currentIncludePath;
 
         envs.put( "INCLUDE", newIncludePath );
 
         //
-        //setup new LIB PATH
+        // setup new LIB PATH
         //
         String currentLibPath = EnvUtil.getEnv( "LIB" );
 
-        String newLibPath = msvcDir.getPath() + "\\ATLMFC\\LIB;" + msvcDir.getPath() + "\\LIB;" + msvcDir.getPath()
-            + "\\PlatformSDK\\lib\\prerelease;" + msvcDir.getPath() + "\\PlatformSDK\\lib;" + currentLibPath;
+        String newLibPath =
+            msvcDir.getPath() + "\\ATLMFC\\LIB;" + msvcDir.getPath() + "\\LIB;" + msvcDir.getPath()
+                + "\\PlatformSDK\\lib\\prerelease;" + msvcDir.getPath() + "\\PlatformSDK\\lib;" + currentLibPath;
 
         envs.put( "LIB", newLibPath );
 

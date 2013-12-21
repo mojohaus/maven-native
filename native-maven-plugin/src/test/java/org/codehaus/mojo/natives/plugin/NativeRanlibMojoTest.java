@@ -18,13 +18,15 @@ public class NativeRanlibMojoTest
         File pluginXml = new File( getBasedir(), "src/test/resources/linker/plugin-config-ranlib.xml" );
         NativeRanlibMojo mojo = (NativeRanlibMojo) lookupMojo( "ranlib", pluginXml );
         assertNotNull( mojo );
-        
-        //simulate artifact 
+
+        // simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
-       
-        Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler );
+
+        Artifact artifact =
+            new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe",
+                                 null, artifactHandler );
         mojo.getProject().setArtifact( artifact );
-        
+
         mojo.execute();
     }
 
