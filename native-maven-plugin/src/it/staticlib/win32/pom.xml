@@ -10,30 +10,30 @@
 
   <groupId>org.codehaus.mojo.natives.it.lib.win32</groupId>
   <artifactId>libcpptest</artifactId>
-  
+
   <name>LIB - CppTest Win32</name>
-  
+
   <packaging>lib</packaging>
-  
+
   <properties>
     <!-- similar to make -j -->
     <j>2</j>
   </properties>
-  
-    
+
+
   <build>
-    
-    
+
+
     <testSourceDirectory>../src/test/java</testSourceDirectory>
-    
+
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native-maven-plugin</artifactId>
-        <extensions>true</extensions>       
+        <extensions>true</extensions>
         <configuration>
           <compilerProvider>msvc</compilerProvider>
-          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2008x86EnvFactory</envFactoryName>
+          <envFactoryName>${msvc.env.factory}</envFactoryName>
           <numberOfConcurrentCompilation>${j}</numberOfConcurrentCompilation>
           <compilerOutputDirectory>${project.build.directory}/objs</compilerOutputDirectory>
           <workingDirectory>${project.build.directory}</workingDirectory>
@@ -44,7 +44,7 @@
           </compilerStartOptions>
           <sources>
             <source>
-              <directory>../cpptestsrc/target/src</directory>        
+              <directory>../cpptestsrc/target/src</directory>
               <fileNames>
                 <fileName>collectoroutput.cpp</fileName>
                 <fileName>compileroutput.cpp</fileName>
@@ -56,28 +56,28 @@
                 <fileName>time.cpp</fileName>
                 <fileName>utils.cpp</fileName>
               </fileNames>
-            </source>            
+            </source>
             <source>
-              <directory>../cpptestsrc/target/win</directory>        
-            </source>            
+              <directory>../cpptestsrc/target/win</directory>
+            </source>
           </sources>
-            
+
           <linkerStartOptions>
             <linkerStartOption>/LIB</linkerStartOption>
             <linkerStartOption>${linker.debug.options}</linkerStartOption>
           </linkerStartOptions>
-          
-          
+
+
         </configuration>
-        
+
       </plugin>
 
-    </plugins>    
+    </plugins>
 
   </build>
-  
+
   <profiles>
-  
+
     <!-- to build debug artifact, run maven install -Ddebug -->
     <profile>
       <id>debug</id>
@@ -91,7 +91,7 @@
         <linker.debug.options></linker.debug.options>
       </properties>
     </profile>
-    
+
     <profile>
       <id>release</id>
       <activation>
@@ -102,7 +102,7 @@
         <linker.debug.options></linker.debug.options>
       </properties>
     </profile>
-      
-  </profiles>  
+
+  </profiles>
 
 </project>

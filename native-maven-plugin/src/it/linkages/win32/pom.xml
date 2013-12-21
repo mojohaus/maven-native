@@ -10,25 +10,25 @@
 
   <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
   <artifactId>win32</artifactId>
-  
+
   <name>Win32 Root Pom</name>
-  
+
   <packaging>pom</packaging>
-  
-  
+
+
   <build>
-    
+
     <defaultGoal>install</defaultGoal>
-    
+
     <plugins>
       <!-- share configuration to all win32 artifact -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native-maven-plugin</artifactId>
-        <extensions>true</extensions>   
+        <extensions>true</extensions>
         <configuration>
           <compilerProvider>msvc</compilerProvider>
-          <envFactoryName>org.codehaus.mojo.natives.msvc.MSVC2008x86EnvFactory</envFactoryName>
+          <envFactoryName>${msvc.env.factory}</envFactoryName>
         </configuration>
       </plugin>
     </plugins>
@@ -37,7 +37,7 @@
   <properties>
     <commonCompilerOptions>/MD /W4</commonCompilerOptions>
   </properties>
-    
+
   <modules>
     <!-- unorder modules to demonstrate maven can handle build sequence correctly -->
     <module>ExeStatic</module>

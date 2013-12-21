@@ -5,14 +5,19 @@
   <artifactId>it-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Maven Native Plugin IT Parent</name>
-  
+
   <packaging>pom</packaging>
-  
-  
+
+
   <modules>
-    <module>java</module>
-    <module>native</module>
+    <module>jni</module>
+    <module>linkages</module>
+    <module>staticlib</module>
   </modules>
+
+  <properties>
+    <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2012x86AMD64EnvFactory</msvc.env.factory>
+  </properties>
 
   <build>
     <pluginManagement>
@@ -25,5 +30,5 @@
       </plugins>
     </pluginManagement>
   </build>
-  
+
 </project>
