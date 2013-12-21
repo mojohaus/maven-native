@@ -69,14 +69,6 @@ public class NativeJavahMojo
     private String javahProvider;
 
     /**
-     * @parameter
-     * @deprecated Use javahClassNames instead. Note starting 1.0-alpha-4, running javah in its own execution is no
-     *             longer necessary since it is implicitly bound to all shared library custom lifecycle.
-     * @since 1.0-alpha-2
-     */
-    private List classNames;
-
-    /**
      * List of class names to generate native files. Additional JNI interface will automatically discovered from
      * project's dependencies of <i>jar</i> type, when <i>javahSearchJNIFromDependencies</i> is true
      *
@@ -105,15 +97,6 @@ public class NativeJavahMojo
     /**
      * Where to place javah generated file
      *
-     * @deprecated use javahOutputDirectory instead
-     * @parameter
-     * @since 1.0-alpha-2
-     */
-    protected File outputDirectory;
-
-    /**
-     * Where to place javah generated file
-     *
      * @parameter default-value="${project.build.directory}/native/javah"
      * @required
      * @since 1.0-alpha-2
@@ -127,15 +110,6 @@ public class NativeJavahMojo
      * @since 1.0-alpha-4
      */
     private String javahOutputFileName;
-
-    /**
-     * if configured will be combined with outputDirectory to pass into javah's -o option
-     *
-     * @parameter
-     * @deprecated Use javaOutputFileName instead
-     * @since 1.0-alpha-2
-     */
-    private String outputFileName;
 
     /**
      * Enable javah verbose mode
@@ -197,22 +171,6 @@ public class NativeJavahMojo
     public void execute()
         throws MojoExecutionException
     {
-
-        // until we remove the deprecated configuration
-        if ( this.outputDirectory != null )
-        {
-            this.javahOutputDirectory = this.outputDirectory;
-        }
-
-        if ( this.outputFileName != null )
-        {
-            this.javahOutputFileName = this.outputFileName;
-        }
-
-        if ( this.classNames != null )
-        {
-            this.javahClassNames.addAll( this.classNames );
-        }
 
         this.discoverAdditionalJNIClassName();
 

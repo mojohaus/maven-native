@@ -8,10 +8,10 @@
         <configuration>
           <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
           <javahProvider>noop</javahProvider>
-          <workingDirectory>${basedir}</workingDirectory>          
+          <workingDirectory>${basedir}</workingDirectory>
           <javahOutputDirectory>target/javah</javahOutputDirectory>
           <!--  force classpatht to be computed -->
-          <classNames><className>dummy</className></classNames>
+          <javahClassNames><javahClassName>dummy</javahClassName></javahClassNames>
         </configuration>
       </plugin>
     </plugins>
