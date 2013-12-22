@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -35,7 +35,7 @@ import org.codehaus.plexus.archiver.manager.ArchiverManager;
 
 /**
  * Unpack any .inczip dependencies to be included as system include path
- * 
+ *
  * @goal unzipinc
  * @phase generate-sources
  * @requiresDependencyResolution compile
@@ -47,7 +47,7 @@ public class NativeUnZipIncMojo
 
     /**
      * Internal
-     * 
+     *
      * @parameter default-value="${project.build.directory}/native/markers"
      * @required
      * @since 1.0-alpha-4
@@ -56,7 +56,7 @@ public class NativeUnZipIncMojo
 
     /**
      * Internal component for archiving purposes
-     * 
+     *
      * @component
      * @readonly
      * @since 1.0-alpha-4
@@ -140,7 +140,7 @@ public class NativeUnZipIncMojo
 
     /**
      * Get all .inczip compile time dependencies
-     * 
+     *
      * @return
      */
     private List getIncZipDependencies()

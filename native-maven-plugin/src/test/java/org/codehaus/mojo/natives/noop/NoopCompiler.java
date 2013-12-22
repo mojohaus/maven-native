@@ -45,7 +45,7 @@ public class NoopCompiler
 
     /**
      * Figure out the object file path from a given source file
-     * 
+     *
      * @param sourceFile
      * @return
      */

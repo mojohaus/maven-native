@@ -50,7 +50,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * POM
-     * 
+     *
      * @parameter expression="${project}"
      * @readonly
      * @since 1.0-alpha-2
@@ -59,7 +59,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * user directory when external tools( ie compiler/linker ) are invoked
-     * 
+     *
      * @parameter default-value="${basedir}"
      * @required
      * @since 1.0-alpha-2
@@ -69,7 +69,7 @@ public abstract class AbstractNativeMojo
     /**
      * Specifies a fully qualified class name implementing the org.codehaus.mojo.natives.EnvFactory interface. The class
      * creates a set environment variables to be used with the command line.
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -77,7 +77,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * Internal
-     * 
+     *
      * @component
      * @readonly
      * @since 1.0-alpha-2
@@ -86,7 +86,7 @@ public abstract class AbstractNativeMojo
 
     /**
      * Directory to unpack .inczip dependency files to be included as system include path
-     * 
+     *
      * @parameter default-value="${project.build.directory}/native/include"
      */
     protected File dependencyIncludeDirectory;

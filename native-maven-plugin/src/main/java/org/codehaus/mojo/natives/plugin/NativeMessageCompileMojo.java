@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Compile Windows message files
- * 
+ *
  * @goal compile-message
  * @phase generate-sources
  */
@@ -44,7 +44,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Compiler Provider Type
-     * 
+     *
      * @parameter default-value="msvc"
      * @required
      * @since 1.0-alpha-2
@@ -53,7 +53,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Use this field to override provider specific message compiler executable
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -61,7 +61,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Additional Compiler options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -69,7 +69,7 @@ public class NativeMessageCompileMojo
 
     /**
      * List of message files to compile
-     * 
+     *
      * @parameter
      * @required
      * @since 1.0-alpha-2
@@ -78,7 +78,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Where to place the compiler object files
-     * 
+     *
      * @parameter expression="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
@@ -87,7 +87,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Internal
-     * 
+     *
      * @component
      * @since 1.0-alpha-2
      */

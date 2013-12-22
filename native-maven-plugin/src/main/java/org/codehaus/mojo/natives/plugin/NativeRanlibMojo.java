@@ -11,10 +11,10 @@ package org.codehaus.mojo.natives.plugin;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,7 +34,7 @@ import org.codehaus.mojo.natives.manager.RanlibManager;
 
 /**
  * ranlib a Unix linker output file
- * 
+ *
  * @goal ranlib
  * @phase package
  */
@@ -44,7 +44,7 @@ public class NativeRanlibMojo
 
     /**
      * Where to place the final packaging
-     * 
+     *
      * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
@@ -53,7 +53,7 @@ public class NativeRanlibMojo
 
     /**
      * Ranlib Provider.
-     * 
+     *
      * @parameter default-value="default"
      * @required
      * @since 1.0-alpha-2
@@ -62,7 +62,7 @@ public class NativeRanlibMojo
 
     /**
      * To look up ranlib implementation
-     * 
+     *
      * @component
      * @readonly
      * @since 1.0-alpha-2

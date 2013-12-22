@@ -42,7 +42,7 @@ import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Link all previously built object and dependent library files into final build artifact
- * 
+ *
  * @goal link
  * @phase package
  * @requiresDependencyResolution
@@ -53,7 +53,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by compilerProvider
-     * 
+     *
      * @parameter default-value="generic"
      * @required
      * @since 1.0-alpha-2
@@ -62,7 +62,7 @@ public class NativeLinkMojo
 
     /**
      * Default value is ${compilerProvider}
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -70,7 +70,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by linkerProvider. Default to compilerType if not provided
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -78,7 +78,7 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -86,7 +86,7 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -94,7 +94,7 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -102,7 +102,7 @@ public class NativeLinkMojo
 
     /**
      * Option to reorder dependency list, each item has the format of ${groupId}:${artifactId}
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -112,7 +112,7 @@ public class NativeLinkMojo
     /**
      * Comma separated extension type to be installed/deployed. Use this option to deploy library file produced by dll
      * build on windows
-     * 
+     *
      * @parameter default-value=""
      * @since 1.0-alpha-2
      */
@@ -120,7 +120,7 @@ public class NativeLinkMojo
 
     /**
      * Where to place the final packaging
-     * 
+     *
      * @parameter default-value="${project.build.directory}"
      * @required
      * @since 1.0-alpha-2
@@ -129,7 +129,7 @@ public class NativeLinkMojo
 
     /**
      * The name of the generated file
-     * 
+     *
      * @parameter default-value="${project.build.finalName}"
      * @required
      * @since 1.0-alpha-8
@@ -138,7 +138,7 @@ public class NativeLinkMojo
 
     /**
      * Internal
-     * 
+     *
      * @component
      * @since 1.0-alpha-2
      */
@@ -146,7 +146,7 @@ public class NativeLinkMojo
 
     /**
      * Internal
-     * 
+     *
      * @component
      * @since 1.0-alpha-2
      */
@@ -155,7 +155,7 @@ public class NativeLinkMojo
     /**
      * Dependent libraries with version + classifier removed are copied to this directory to be linked to the build
      * artifact
-     * 
+     *
      * @parameter default-value="${project.build.directory}/lib"
      * @required
      */
@@ -164,7 +164,7 @@ public class NativeLinkMojo
 
     /**
      * Option to install primary artifact as a classifier, useful to install/deploy debug artifacts
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -173,7 +173,7 @@ public class NativeLinkMojo
     /**
      * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have other mean of
      * deployment, for example using maven-assembly-plugin to deploy your own bundle
-     * 
+     *
      * @parameter default-value="true"
      * @since 1.0-alpha-2
      */
@@ -181,7 +181,7 @@ public class NativeLinkMojo
 
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows commandline length limit
-     * 
+     *
      * @parameter default-value="false"
      * @since 1.0-alpha-7
      */
@@ -189,7 +189,7 @@ public class NativeLinkMojo
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
-     * 
+     *
      * @parameter default-value="false"
      * @since 1.0-alpha-8
      */
@@ -373,7 +373,7 @@ public class NativeLinkMojo
 
     /**
      * convert dependencyLinkingOrders to a file list
-     * 
+     *
      * @return
      */
     private List getDependenciesFileOrderList()
@@ -409,7 +409,7 @@ public class NativeLinkMojo
      * Look up library in dependency list using groupId:artifactId key Note: we can not use project.artifactMap due the
      * introduction of inczip dependency where 2 dependency with the same artifactId and groupId, but differs by
      * extension type make the map not suitable for lookup
-     * 
+     *
      * @param groupArtifactIdPair
      * @return
      * @throws MojoExecutionException
