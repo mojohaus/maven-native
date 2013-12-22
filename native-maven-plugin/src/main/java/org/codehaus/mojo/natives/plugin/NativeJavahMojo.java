@@ -45,7 +45,6 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.plexus.archiver.util.DefaultFileSet;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
@@ -330,10 +329,9 @@ public class NativeJavahMojo
 
             this.getLog().info( "Parsing " + artifact.getFile() + " for native classes." );
 
-            ZipFile zipFile = null;
             try
             {
-                zipFile = new ZipFile( artifact.getFile() );
+                ZipFile zipFile = new ZipFile( artifact.getFile() );
                 Enumeration zipEntries = zipFile.entries();
 
                 while ( zipEntries.hasMoreElements() )
