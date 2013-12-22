@@ -75,8 +75,10 @@
         <artifactId>native-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
+
           <compilerProvider>msvc</compilerProvider>
           <envFactoryName>${msvc.env.factory}</envFactoryName>
+
           <compilerStartOptions>
             <compilerStartOption>${compiler.debug.options}</compilerStartOption>
             <compilerStartOption>/W4 </compilerStartOption>
@@ -88,6 +90,15 @@
           <javahClassNames>
             <javahClassName>HelloWorld</javahClassName>
           </javahClassNames>
+
+          <resources>
+            <resource>
+              <directory>../native/src/main/native</directory>
+              <fileNames>
+                <fileName>hello.rc</fileName>
+              </fileNames>
+            </resource>
+          </resources>
 
           <sources>
             <source>
@@ -104,30 +115,6 @@
           </linkerStartOptions>
 
         </configuration>
-
-
-        <executions>
-
-          <!-- resource compile, the output hello.res is automatically link to final output hello.dll at link time -->
-          <execution>
-            <id>resource-compile</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>resource-compile</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>
-                  <directory>../native/src/main/native</directory>
-                  <fileNames>
-                    <fileName>hello.rc</fileName>
-                  </fileNames>
-                </source>
-              </sources>
-            </configuration>
-          </execution>
-
-        </executions>
 
       </plugin>
 

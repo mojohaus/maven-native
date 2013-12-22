@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -36,7 +36,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Compile source files into native object files
- * 
+ *
  * @goal compile
  * @phase compile
  */
@@ -47,7 +47,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler Provider Type
-     * 
+     *
      * @parameter default-value="generic"
      * @required
      * @since 1.0-alpha-2
@@ -55,9 +55,9 @@ public class NativeCompileMojo
     private String compilerProvider;
 
     /**
-     * Use this field to override object file extension. The default extentions are .obj and .o on Windows and Unix
+     * Use this field to override object file extension. The default extensions are .obj and .o on Windows and Unix
      * respectively
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -65,7 +65,7 @@ public class NativeCompileMojo
 
     /**
      * Use this field to override provider specific compiler executable
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -73,7 +73,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -81,7 +81,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -89,7 +89,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -98,7 +98,7 @@ public class NativeCompileMojo
     /**
      * Javah OS name. ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path when this field
      * is set
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -107,7 +107,7 @@ public class NativeCompileMojo
 
     /**
      * JDK native include directory
-     * 
+     *
      * @parameter default-value="${java.home}/../include"
      * @since 1.0-alpha-2
      */
@@ -116,7 +116,7 @@ public class NativeCompileMojo
 
     /**
      * Array of NativeSources containing include directories and source files.
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -124,7 +124,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler output files ( .o, .obj, etc) location
-     * 
+     *
      * @parameter default-value="${project.build.directory}/objs"
      * @required
      * @since 1.0-alpha-4
@@ -133,7 +133,7 @@ public class NativeCompileMojo
 
     /**
      * Number of parallel compilation threads
-     * 
+     *
      * @parameter default-value="1"
      * @since 1.0-alpha-4
      */
@@ -141,7 +141,7 @@ public class NativeCompileMojo
 
     /**
      * Internal
-     * 
+     *
      * @component
      * @since 1.0-alpha-2
      */
@@ -296,7 +296,7 @@ public class NativeCompileMojo
 
     /**
      * Internal only for test harness purpose
-     * 
+     *
      * @return
      */
     protected CompilerConfiguration getCompilerConfiguration()

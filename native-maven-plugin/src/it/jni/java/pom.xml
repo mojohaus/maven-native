@@ -11,6 +11,6 @@
   <groupId>org.codehaus.mojo.natives.it.jni</groupId>
   <artifactId>hello</artifactId>
 
-  <name>JNI - Java </name>
+  <name>JNI - Java</name>
 
 </project>

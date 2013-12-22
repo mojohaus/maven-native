@@ -11,10 +11,10 @@ package org.codehaus.mojo.natives.compiler;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -35,8 +35,8 @@ import org.codehaus.mojo.natives.parser.CParser;
 import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
-
 import org.codehaus.plexus.logging.AbstractLogEnabled;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public abstract class AbstractResourceCompiler
@@ -61,6 +61,11 @@ public abstract class AbstractResourceCompiler
         for ( int i = 0; i < sourceFiles.length; ++i )
         {
             File src = sourceFiles[i];
+
+            if ( ! "rc".equals( FileUtils.getExtension( src.getPath() ) ) )
+            {
+                continue;
+            }
 
             File outputFile = config.getOutputFile( src );
 

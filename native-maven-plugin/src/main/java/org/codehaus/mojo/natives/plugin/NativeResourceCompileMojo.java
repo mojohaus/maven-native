@@ -2,18 +2,18 @@ package org.codehaus.mojo.natives.plugin;
 
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Compile Windows resource files
- * 
+ *
  * @goal resource-compile
  * @phase generate-sources
  */
@@ -46,7 +46,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Compiler Provider Type
-     * 
+     *
      * @parameter default-value="msvc"
      * @required
      * @since 1.0-alpha-2
@@ -55,7 +55,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Use this field to override provider specific resource compiler executable
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -63,7 +63,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Resource compiler options
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -71,12 +71,13 @@ public class NativeResourceCompileMojo
 
     /**
      * Array of NativeSources containing include directories and source files
-     * 
+     *
      * @parameter
-     * @since 1.0-alpha-2
+     * @since 1.0-alpha-8
      */
 
-    private NativeSources[] sources;
+    private NativeSources[] resources;
+
 
     /**
      * @parameter default-value="${project.build.directory}"
@@ -87,7 +88,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Internal
-     * 
+     *
      * @component
      * @since 1.0-alpha-2
      * @readonly
@@ -117,7 +118,7 @@ public class NativeResourceCompileMojo
         try
         {
             List resourceOutputFiles;
-            resourceOutputFiles = compiler.compile( config, this.sources );
+            resourceOutputFiles = compiler.compile( config, this.resources );
 
             this.saveCompilerOutputFilePaths( resourceOutputFiles );
         }
