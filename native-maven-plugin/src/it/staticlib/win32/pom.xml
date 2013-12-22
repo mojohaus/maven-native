@@ -62,6 +62,8 @@
             </source>
           </sources>
 
+          <!-- to verify this, run 'mvn' the the second time and check the build output -->
+          <checkStaleLinkage>true</checkStaleLinkage>
           <linkerStartOptions>
             <linkerStartOption>/LIB</linkerStartOption>
             <linkerStartOption>${linker.debug.options}</linkerStartOption>

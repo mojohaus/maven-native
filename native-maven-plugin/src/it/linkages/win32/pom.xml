@@ -29,6 +29,7 @@
         <configuration>
           <compilerProvider>msvc</compilerProvider>
           <envFactoryName>${msvc.env.factory}</envFactoryName>
+          <checkStaleLinkage>true</checkStaleLinkage>
         </configuration>
       </plugin>
     </plugins>
