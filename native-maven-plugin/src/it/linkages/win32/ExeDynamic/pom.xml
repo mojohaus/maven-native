@@ -1,4 +1,5 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -9,11 +10,11 @@
   </parent>
 
   <artifactId>ExeDynamic</artifactId>
-  
+
   <name>ExeDynamic.exe</name>
-  
+
   <packaging>exe</packaging>
-  
+
   <dependencies>
     <dependency>
        <groupId>org.codehaus.mojo.natives.it.linkages.win32</groupId>
@@ -28,8 +29,7 @@
        <version>${project.version}</version>
     </dependency>
   </dependencies>
-  
-  
+
   <build>
     <plugins>
       <plugin>
@@ -39,31 +39,30 @@
           <compilerStartOptions>
             <compilerStartOption>${commonCompilerOptions}</compilerStartOption>
           </compilerStartOptions>
-          
+
           <sources>
             <source>
               <directory>${native.source.dir}</directory>
               <fileNames>
                 <fileName>hello.c</fileName>
               </fileNames>
-            </source>  
+            </source>
             <source>
               <directory>${native.source.dir}/include</directory>
-            </source>            
+            </source>
           </sources>
-            
+
           <linkerStartOptions>
             <linkerStartOption></linkerStartOption>
           </linkerStartOptions>
-          
-          
+
         </configuration>
-        
+
       </plugin>
 
-    </plugins>    
+    </plugins>
 
   </build>
-  
+
 
 </project>

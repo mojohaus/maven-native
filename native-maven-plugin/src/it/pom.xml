@@ -48,6 +48,41 @@
           <version>1.7</version>
         </plugin>
 
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>native-maven-plugin</artifactId>
+                    <versionRange>[1.0-alpha-7,)</versionRange>
+                    <goals>
+                      <goal>initialize</goal>
+                      <goal>javah</goal>
+                      <goal>unzipinc</goal>
+                      <goal>manifest</goal>
+                      <goal>compile</goal>
+                      <goal>resource-compile</goal>
+                      <goal>link</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute>
+                      <runOnIncremental>false</runOnIncremental>
+                    </execute>
+                    <!-->ignore></ignore-->
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+
+
       </plugins>
     </pluginManagement>
   </build>

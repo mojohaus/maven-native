@@ -1,4 +1,5 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -9,12 +10,12 @@
   </parent>
 
   <artifactId>SubFuncStatic</artifactId>
-  
+
   <name>SubFuncStatic.lib</name>
-  
+
   <packaging>lib</packaging>
-  
-  
+
+
   <build>
     <plugins>
       <plugin>
@@ -24,32 +25,32 @@
           <compilerStartOptions>
             <compilerStartOption>${commonCompilerOptions}</compilerStartOption>
           </compilerStartOptions>
-          
+
           <sources>
             <source>
               <directory>${native.source.dir}</directory>
               <fileNames>
                 <fileName>helloSubFunc.c</fileName>
               </fileNames>
-            </source>  
+            </source>
             <source>
               <directory>${native.source.dir}/include</directory>
               <deployable>true</deployable>
-            </source>            
+            </source>
           </sources>
-            
+
           <linkerStartOptions>
             <linkerStartOption>/LIB</linkerStartOption>
           </linkerStartOptions>
-          
-          
+
+
         </configuration>
-        
+
       </plugin>
 
-    </plugins>    
+    </plugins>
 
   </build>
-  
+
 
 </project>
