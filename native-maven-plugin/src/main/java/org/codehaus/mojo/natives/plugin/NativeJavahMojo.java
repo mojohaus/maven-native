@@ -45,11 +45,12 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.plexus.archiver.util.DefaultFileSet;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Generate JNI include files based on a set of class names
- * 
+ *
  * @goal javah
  * @phase generate-sources
  * @requiresDependencyResolution compile
@@ -61,7 +62,7 @@ public class NativeJavahMojo
 
     /**
      * Javah Provider.
-     * 
+     *
      * @parameter default-value="default"
      * @required
      * @since 1.0-alpha-2
@@ -71,7 +72,7 @@ public class NativeJavahMojo
     /**
      * List of class names to generate native files. Additional JNI interface will automatically discovered from
      * project's dependencies of <i>jar</i> type, when <i>javahSearchJNIFromDependencies</i> is true
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-4
      */
@@ -79,7 +80,7 @@ public class NativeJavahMojo
 
     /**
      * Enable the search from project dependencies for JNI interfaces, in addition to <i>javahClassNames</i>
-     * 
+     *
      * @parameter default-value="false"
      * @since 1.0-alpha-4
      */
@@ -88,7 +89,7 @@ public class NativeJavahMojo
     /**
      * Path to javah executable, if present, it will override the default one which bases on architecture type. See
      * 'javahProvider' argument
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-2
      */
@@ -96,7 +97,7 @@ public class NativeJavahMojo
 
     /**
      * Where to place javah generated file
-     * 
+     *
      * @parameter default-value="${project.build.directory}/native/javah"
      * @required
      * @since 1.0-alpha-2
@@ -105,7 +106,7 @@ public class NativeJavahMojo
 
     /**
      * if configured, this value will be combined with outputDirectory to pass into javah's -o option
-     * 
+     *
      * @parameter
      * @since 1.0-alpha-4
      */
@@ -113,7 +114,7 @@ public class NativeJavahMojo
 
     /**
      * Enable javah verbose mode
-     * 
+     *
      * @parameter default-value="false"
      * @since 1.0-alpha-2
      */
@@ -121,7 +122,7 @@ public class NativeJavahMojo
 
     /**
      * Archive all generated include files and deploy as an inczip
-     * 
+     *
      * @parameter default-value="false"
      * @since 1.0-alpha-8
      */
@@ -129,7 +130,7 @@ public class NativeJavahMojo
 
     /**
      * Classifier name when install/deploy generated includes file. See ${attach} for details
-     * 
+     *
      * @parameter default-value="javah"
      * @since 1.0-alpha-8
      */
@@ -137,7 +138,7 @@ public class NativeJavahMojo
 
     /**
      * Archive file to bundle all generated include files if enable by ${attach}
-     * 
+     *
      * @parameter default-value="${project.build.directory}/${project.build.finalName}.inczip"
      * @required
      * @since 1.0-alpha-8
@@ -146,7 +147,7 @@ public class NativeJavahMojo
 
     /**
      * Internal: To look up javah implementation
-     * 
+     *
      * @component
      * @readonly
      * @since 1.0-alpha-2
@@ -156,7 +157,7 @@ public class NativeJavahMojo
 
     /**
      * Maven ProjectHelper.
-     * 
+     *
      * @component
      * @readonly
      * @since 1.0-alpha-8
@@ -246,7 +247,7 @@ public class NativeJavahMojo
 
     /**
      * Get all jars in the pom excluding transitive, test, and provided scope dependencies.
-     * 
+     *
      * @return
      */
     private List getJavahArtifacts()
@@ -284,7 +285,7 @@ public class NativeJavahMojo
 
     /**
      * Build classpaths from dependent jars including project output directory (i.e. classes directory )
-     * 
+     *
      * @return
      */
     private String[] getJavahClassPath()
@@ -329,9 +330,11 @@ public class NativeJavahMojo
 
             this.getLog().info( "Parsing " + artifact.getFile() + " for native classes." );
 
+            ZipFile zipFile = null;
             try
             {
-                Enumeration zipEntries = new ZipFile( artifact.getFile() ).entries();
+                zipFile = new ZipFile( artifact.getFile() );
+                Enumeration zipEntries = zipFile.entries();
 
                 while ( zipEntries.hasMoreElements() )
                 {
@@ -358,6 +361,9 @@ public class NativeJavahMojo
                         }
                     }
                 }// endwhile
+
+                //not full proof
+                zipFile.close();
             }
             catch ( IOException ioe )
             {
@@ -384,7 +390,7 @@ public class NativeJavahMojo
 
     /**
      * Internal only for test harness purpose
-     * 
+     *
      * @return
      */
     protected JavahConfiguration getJavahConfiguration()
