@@ -31,7 +31,6 @@
   </modules>
 
   <properties>
-    <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2012x86AMD64EnvFactory</msvc.env.factory>
   </properties>
 
   <build>
@@ -74,7 +73,7 @@
                     <execute>
                       <runOnIncremental>false</runOnIncremental>
                     </execute>
-                    <!-->ignore></ignore-->
+                    <!-->ignore></ignore -->
                   </action>
                 </pluginExecution>
               </pluginExecutions>
@@ -86,5 +85,54 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>msvc-2013</id>
+      <activation>
+        <property>
+          <name>env.VS120COMNTOOLS</name>
+        </property>
+      </activation>
+      <properties>
+        <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2013x86AMD64EnvFactory</msvc.env.factory>
+      </properties>
+    </profile>
+    <profile>
+      <id>msvc-2012</id>
+      <activation>
+        <property>
+          <name>env.VS110COMNTOOLS</name>
+        </property>
+      </activation>
+      <properties>
+        <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2012x86AMD64EnvFactory</msvc.env.factory>
+      </properties>
+    </profile>
+    <profile>
+      <id>msvc-2010</id>
+      <activation>
+        <property>
+          <name>env.VS100COMNTOOLS</name>
+        </property>
+      </activation>
+      <properties>
+        <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2010x86AMD64EnvFactory</msvc.env.factory>
+      </properties>
+    </profile>
+    <profile>
+      <id>msvc-2008</id>
+      <activation>
+        <property>
+          <name>env.VS90COMNTOOLS</name>
+        </property>
+      </activation>
+      <properties>
+        <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2008x86AMD64EnvFactory</msvc.env.factory>
+      </properties>
+    </profile>
+
+
+  </profiles>
 
 </project>
