@@ -112,6 +112,24 @@ public class NativeJavahMojo
     private String javahOutputFileName;
 
     /**
+     * Additional javah classname and its corresponding header name. Use this option to create one class per header
+     * <p/>
+     *
+     * <pre>
+     * &lt;javahIncludes&gt;
+     *   &lt;javahInclude&gt;
+     *     &lt;className&gt;com.some.Class&lt;/className&gt;
+     *     &lt;headerName&gt;Class.h&lt;/headerName&gt;
+     *   &lt;javahInclude&gt;
+     * &lt;/javahIncludes&gt;
+     * </pre>
+     *
+     * @parameter
+     * @since 1.0-alpha-8
+     */
+    private List javahIncludes = new ArrayList();
+
+    /**
      * Enable javah verbose mode
      *
      * @parameter default-value="false"
@@ -174,20 +192,34 @@ public class NativeJavahMojo
 
         this.discoverAdditionalJNIClassName();
 
-        if ( this.javahClassNames.size() == 0 )
+        if ( this.javahClassNames.size() == 0 && this.javahIncludes.size() == 0 )
         {
             return;
         }
 
         try
         {
-            this.config = this.createProviderConfiguration();
-            this.getJavah().compile( config );
+            if ( this.javahClassNames.size() != 0 )
+            {
+                this.config =
+                    this.createProviderConfiguration( (String[]) javahClassNames.toArray( new String[javahClassNames.size()] ),
+                                                      this.javahOutputFileName );
+                this.getJavah().compile( config );
+            }
+
+            for ( int i = 0; i < this.javahIncludes.size(); ++i )
+            {
+                JavahInclude javahInclude = (JavahInclude) this.javahIncludes.get( i );
+                this.config =
+                    this.createProviderConfiguration( new String[] { javahInclude.getClassName() },
+                                                      javahInclude.getHeaderName() );
+                this.getJavah().compile( config );
+            }
+
             if ( this.attach )
             {
                 attachGeneratedIncludeFilesAsIncZip();
             }
-
         }
         catch ( NativeBuildException e )
         {
@@ -360,7 +392,7 @@ public class NativeJavahMojo
                     }
                 }// endwhile
 
-                //not full proof
+                // not full proof
                 zipFile.close();
             }
             catch ( IOException ioe )
@@ -371,16 +403,16 @@ public class NativeJavahMojo
 
     }
 
-    private JavahConfiguration createProviderConfiguration()
+    private JavahConfiguration createProviderConfiguration( String[] classNames, String javahOutputFileName )
         throws MojoExecutionException
     {
         JavahConfiguration config = new JavahConfiguration();
         config.setWorkingDirectory( this.workingDirectory );
         config.setVerbose( this.javahVerbose );
         config.setOutputDirectory( this.javahOutputDirectory );
-        config.setFileName( this.javahOutputFileName );
+        config.setFileName( javahOutputFileName );
         config.setClassPaths( this.getJavahClassPath() );
-        config.setClassNames( (String[]) javahClassNames.toArray( new String[javahClassNames.size()] ) );
+        config.setClassNames( classNames );
         config.setJavahPath( this.javahPath );
 
         return config;
