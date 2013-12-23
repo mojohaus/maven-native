@@ -8,14 +8,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
-  <version>1.0-alpha-8</version>
+  <version>1.0-alpha-9-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
   
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/maven-native-1.0-alpha-8</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/maven-native-1.0-alpha-8</developerConnection>
-    <url>http://svn.codehaus.org/mojo/tags/maven-native-1.0-alpha-8</url>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/trunk/mojo/maven-native</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/trunk/mojo/maven-native</developerConnection>
+    <url>http://svn.codehaus.org/mojo/trunk/mojo/maven-native</url>
   </scm>
   
   <developers>
