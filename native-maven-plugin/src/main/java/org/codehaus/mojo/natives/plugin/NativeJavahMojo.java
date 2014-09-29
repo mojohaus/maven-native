@@ -163,8 +163,8 @@ public class NativeJavahMojo
     private File incZipFile;
 
     /**
-     * Set CLASSPATH env variable instead of using -classpath command-line argument.
-     * Use this option to allow large number of jars in classpath due to command line size limit under Windows
+     * Set CLASSPATH env variable instead of using -classpath command-line argument. Use this option to allow large
+     * number of jars in classpath due to command line size limit under Windows
      *
      * @parameter default-value="false"
      * @since 1.0-alpha-9
@@ -421,7 +421,7 @@ public class NativeJavahMojo
         config.setOutputDirectory( this.javahOutputDirectory );
         config.setFileName( javahOutputFileName );
         config.setClassPaths( this.getJavahClassPath() );
-        config.setUseEnvClasspath(useEnvClasspath);
+        config.setUseEnvClasspath( useEnvClasspath );
         config.setClassNames( classNames );
         config.setJavahPath( this.javahPath );
 

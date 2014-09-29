@@ -62,7 +62,7 @@ public abstract class AbstractResourceCompiler
         {
             File src = sourceFiles[i];
 
-            if ( ! "rc".equals( FileUtils.getExtension( src.getPath() ) ) )
+            if ( !"rc".equals( FileUtils.getExtension( src.getPath() ) ) )
             {
                 continue;
             }

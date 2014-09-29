@@ -89,11 +89,11 @@ public class NativeManifestMojo
 
         if ( !linkerManifestFile.exists() )
         {
-            //no need to inject manifest file into the executable
+            // no need to inject manifest file into the executable
             return;
         }
 
-        //@Todo check for stale output, and skip if needed
+        // @Todo check for stale output, and skip if needed
         try
         {
             ManifestConfiguration config = new ManifestConfiguration();

@@ -90,7 +90,7 @@ public class JavahExecutable
 
         if ( config.getUseEnvClasspath() )
         {
-        	cl.addEnvironment( "CLASSPATH", classPathBuffer.toString() );
+            cl.addEnvironment( "CLASSPATH", classPathBuffer.toString() );
         }
         else
         {

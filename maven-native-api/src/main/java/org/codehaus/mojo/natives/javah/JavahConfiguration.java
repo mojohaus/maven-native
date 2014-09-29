@@ -55,7 +55,7 @@ public class JavahConfiguration
      * ClassPaths to locate classNames
      */
     private String[] classPaths;
-    
+
     private boolean useEnvClasspath = false;
 
     private boolean verbose = false;

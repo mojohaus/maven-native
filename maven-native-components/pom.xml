@@ -1,36 +1,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  
+
   <parent>
     <groupId>org.codehaus.mojo.natives</groupId>
     <artifactId>maven-native</artifactId>
     <version>1.0-alpha-9-SNAPSHOT</version>
   </parent>
-  
+
   <packaging>pom</packaging>
-  
+
   <artifactId>maven-native-components</artifactId>
-  
+
   <name>Maven Native Components</name>
-  
+
   <dependencies>
-  
+
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-container-default</artifactId>
     </dependency>
-  
+
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-    </dependency>    
-     
+    </dependency>
+
     <dependency>
       <groupId>org.codehaus.mojo.natives</groupId>
       <artifactId>maven-native-api</artifactId>
     </dependency>
-    
+
   </dependencies>
 
   <modules>
@@ -40,5 +40,5 @@
     <module>maven-native-bcc</module>
     <module>maven-native-msvc</module>
   </modules>
-  
+
 </project>
