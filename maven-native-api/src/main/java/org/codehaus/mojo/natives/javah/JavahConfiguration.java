@@ -55,6 +55,8 @@ public class JavahConfiguration
      * ClassPaths to locate classNames
      */
     private String[] classPaths;
+    
+    private boolean useEnvClasspath = false;
 
     private boolean verbose = false;
 
@@ -81,6 +83,16 @@ public class JavahConfiguration
     public void setClassPaths( String[] paths )
     {
         this.classPaths = paths;
+    }
+
+    public void setUseEnvClasspath( boolean flag )
+    {
+        this.useEnvClasspath = flag;
+    }
+
+    public boolean getUseEnvClasspath()
+    {
+        return this.useEnvClasspath;
     }
 
     public void setVerbose( boolean flag )
