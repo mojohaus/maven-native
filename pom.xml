@@ -30,6 +30,12 @@
     </developer>
   </developers>
 
+  <contributors>
+    <contributor>
+      <name>Justin Georgeson</name>
+    </contributor>
+  </contributors>
+
 
 
   <dependencyManagement>
