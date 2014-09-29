@@ -65,7 +65,7 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-utils</artifactId>
-        <version>2.0.1</version>
+        <version>3.0.18</version>
       </dependency>
 
       <dependency>
@@ -102,20 +102,13 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-archiver</artifactId>
-        <version>1.0-alpha-12</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-component-api</artifactId>
-          </exclusion>
-        </exclusions>
-
+        <version>2.6.1</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.maven.shared</groupId>
         <artifactId>maven-plugin-testing-harness</artifactId>
-        <version>1.0-beta-1</version>
+        <version>1.1</version>
         <scope>test</scope>
       </dependency>
 
@@ -165,17 +158,6 @@
 
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.2</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-
-
   <modules>
     <module>maven-native-api</module>
     <module>maven-native-components</module>
@@ -184,23 +166,7 @@
 
 
   <build>
-
     <defaultGoal>install</defaultGoal>
-
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-eclipse-plugin</artifactId>
-          <version>2.7</version>
-          <configuration>
-            <workspace>${basedir}</workspace>
-            <workspaceCodeStylesURL>
-              http://maven.apache.org/developers/maven-eclipse-codestyle.xml
-            </workspaceCodeStylesURL>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
 
   </build>
 
