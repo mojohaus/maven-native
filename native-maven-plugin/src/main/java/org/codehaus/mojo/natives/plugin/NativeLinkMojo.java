@@ -137,6 +137,16 @@ public class NativeLinkMojo
     private String linkerFinalName;
 
     /**
+     * The extension of the generated file. Unless specified, the extension of the main project
+     * artifact is used.
+     *
+     * @parameter default-value=""
+     * @required
+     * @since 1.0-alpha-9
+     */
+    private String linkerFinalNameExt;
+
+    /**
      * Internal
      *
      * @component
@@ -246,7 +256,14 @@ public class NativeLinkMojo
         config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
         config.setOutputDirectory( this.linkerOutputDirectory );
         config.setOutputFileName( this.linkerFinalName );
-        config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
+        if ( StringUtils.isEmpty(this.linkerFinalNameExt) )
+        {
+            config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
+        }
+        else
+        {
+            config.setOutputFileExtension( this.linkerFinalNameExt );
+        }
         config.setExternalLibDirectory( this.externalLibDirectory );
         config.setExternalLibFileNames( this.getLibFileNames() );
         config.setEnvFactory( this.getEnvFactory() );
