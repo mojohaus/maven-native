@@ -1,0 +1,3 @@
+org.codehaus.mojo.natives
+org.codehaus.mojo.natives.compiler
+org.codehaus.mojo.natives.parser

@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>Maven Native API - Checkstyle report</title>
+    <link>http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api</link>
+    <description>Maven Native API - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2016 MojoHaus</copyright>
+    <item>
+      <title>File: 43,
+             Errors: 82,
+             Warnings: 205,
+             Infos: 8
+      </title>
+            <link>http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.CParser.java">org/codehaus/mojo/natives/parser/CParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration.java">org/codehaus/mojo/natives/compiler/MessageCompilerConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.util.FileSet.java">org/codehaus/mojo/natives/util/FileSet.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.AbstractResourceCompiler.java">org/codehaus/mojo/natives/compiler/AbstractResourceCompiler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.WhitespaceOrLetterState.java">org/codehaus/mojo/natives/parser/WhitespaceOrLetterState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.Ranlib.java">org/codehaus/mojo/natives/linker/Ranlib.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.BranchState.java">org/codehaus/mojo/natives/parser/BranchState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.Manifest.java">org/codehaus/mojo/natives/linker/Manifest.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.SourceDependencyAnalyzer.java">org/codehaus/mojo/natives/SourceDependencyAnalyzer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.NativeSources.java">org/codehaus/mojo/natives/NativeSources.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.ArchiveLinker.java">org/codehaus/mojo/natives/linker/ArchiveLinker.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.AbstractParserState.java">org/codehaus/mojo/natives/parser/AbstractParserState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.Compiler.java">org/codehaus/mojo/natives/compiler/Compiler.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.MessageCompiler.java">org/codehaus/mojo/natives/compiler/MessageCompiler.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.CompilerConfiguration.java">org/codehaus/mojo/natives/compiler/CompilerConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.AbstractMessageCompiler.java">org/codehaus/mojo/natives/compiler/AbstractMessageCompiler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.AbstractCompiler.java">org/codehaus/mojo/natives/compiler/AbstractCompiler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.DefaultRanlib.java">org/codehaus/mojo/natives/linker/DefaultRanlib.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.FortranParser.java">org/codehaus/mojo/natives/parser/FortranParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.util.EnvUtil.java">org/codehaus/mojo/natives/util/EnvUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.NativeBuildException.java">org/codehaus/mojo/natives/NativeBuildException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.FilenameState.java">org/codehaus/mojo/natives/parser/FilenameState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.EnvFactory.java">org/codehaus/mojo/natives/EnvFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.LetterState.java">org/codehaus/mojo/natives/parser/LetterState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.LinkerConfiguration.java">org/codehaus/mojo/natives/linker/LinkerConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.AbstractParser.java">org/codehaus/mojo/natives/parser/AbstractParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration.java">org/codehaus/mojo/natives/compiler/ResourceCompilerConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.compiler.ResourceCompiler.java">org/codehaus/mojo/natives/compiler/ResourceCompiler.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.AbstractLinker.java">org/codehaus/mojo/natives/linker/AbstractLinker.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.javah.AbstractJavah.java">org/codehaus/mojo/natives/javah/AbstractJavah.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.Linker.java">org/codehaus/mojo/natives/linker/Linker.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.javah.Javah.java">org/codehaus/mojo/natives/javah/Javah.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.ManifestConfiguration.java">org/codehaus/mojo/natives/linker/ManifestConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.PostE.java">org/codehaus/mojo/natives/parser/PostE.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.CaseInsensitiveLetterState.java">org/codehaus/mojo/natives/parser/CaseInsensitiveLetterState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.AbstractEnvFactory.java">org/codehaus/mojo/natives/AbstractEnvFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.javah.JavahConfiguration.java">org/codehaus/mojo/natives/javah/JavahConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.util.FileUtil.java">org/codehaus/mojo/natives/util/FileUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.util.CommandLineUtil.java">org/codehaus/mojo/natives/util/CommandLineUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.ConfigurationBase.java">org/codehaus/mojo/natives/ConfigurationBase.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.Dependency.java">org/codehaus/mojo/natives/Dependency.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.WhitespaceOrCaseInsensitiveLetterState.java">org/codehaus/mojo/natives/parser/WhitespaceOrCaseInsensitiveLetterState.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.parser.Parser.java">org/codehaus/mojo/natives/parser/Parser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
