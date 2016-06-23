@@ -3,7 +3,7 @@
   <parent>
     <artifactId>mojo-parent</artifactId>
     <groupId>org.codehaus.mojo</groupId>
-    <version>34</version>
+    <version>38</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -13,10 +13,20 @@
   <packaging>pom</packaging>
   <name>Maven Native</name>
 
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/mojohaus/maven-native/issues/</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis-CI</system>
+    <url>https://travis-ci.org/mojohaus/maven-native</url>
+  </ciManagement>
+
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/mojo/trunk/mojo/maven-native</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/trunk/mojo/maven-native</developerConnection>
-    <url>http://svn.codehaus.org/mojo/trunk/mojo/maven-native</url>
+    <connection>scm:git:https://github.com/mojohaus/maven-native.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/mojohaus/maven-native.git</developerConnection>
+    <url>https://github.com/mojohaus/maven-native</url>
+    <tag>master</tag>
   </scm>
 
   <developers>
@@ -43,6 +53,7 @@
 
   <properties>
     <maven.api.version>2.2.1</maven.api.version>
+    <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
   </properties>
 
 
