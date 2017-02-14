@@ -45,6 +45,9 @@
     <contributor>
       <name>Justin Georgeson</name>
     </contributor>
+    <contributor>
+        <name>Guillaume Chauvet</name>
+    </contributor>
   </contributors>
 
   <prerequisites>
@@ -162,6 +165,12 @@
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-bcc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-mingw</artifactId>
         <version>${project.version}</version>
       </dependency>
 

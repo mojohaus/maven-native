@@ -28,6 +28,6 @@
       <role-hint>bcc</role-hint>
       <implementation>org.codehaus.mojo.natives.bcc.BCCResourceCompiler</implementation>
     </component>
-
+    
   </components>
 </component-set>
