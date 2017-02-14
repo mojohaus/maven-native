@@ -66,6 +66,10 @@ public final class WindresResourceCompiler extends AbstractResourceCompiler {
 
             cl.createArg().setValue(includePath);
         }
+        
+        cl.createArg().setValue("-O");
+        
+        cl.createArg().setValue("coff");
 
         cl.createArg().setValue("-o");
 
