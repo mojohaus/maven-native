@@ -4,13 +4,11 @@
             <role>org.codehaus.mojo.natives.compiler.Compiler</role>
             <role-hint>mingw</role-hint>
             <implementation>org.codehaus.mojo.natives.mingw.GccCompiler</implementation>
-            <instantiation-strategy>per-lookup</instantiation-strategy>
         </component>
         <component>
             <role>org.codehaus.mojo.natives.linker.Linker</role>
             <role-hint>mingw</role-hint>
-            <implementation>org.codehaus.mojo.natives.mingw.LdLinker</implementation>
-            <instantiation-strategy>per-lookup</instantiation-strategy>
+            <implementation>org.codehaus.mojo.natives.mingw.GccLinker</implementation>
         </component>
         <component>
             <role>org.codehaus.mojo.natives.compiler.ResourceCompiler</role>

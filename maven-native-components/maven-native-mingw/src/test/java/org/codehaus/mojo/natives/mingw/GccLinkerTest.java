@@ -10,9 +10,9 @@ import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
-public class LdLinkerTest extends PlexusTestCase {
+public class GccLinkerTest extends PlexusTestCase {
 
-    private LdLinker linker;
+    private GccLinker linker;
 
     private LinkerConfiguration config;
 
@@ -24,15 +24,13 @@ public class LdLinkerTest extends PlexusTestCase {
 
     private String basedir;
 
-    public void setUp()
-            throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
-
         this.defautlObjectFiles = new ArrayList();
         this.defautlObjectFiles.add(objectFile0);
         this.defautlObjectFiles.add(objectFile1);
 
-        this.linker = new LdLinker();
+        this.linker = new GccLinker();
         this.config = new LinkerConfiguration();
         this.basedir = getBasedir();
         config.setWorkingDirectory(new File(basedir));

@@ -39,7 +39,7 @@ import org.codehaus.plexus.util.cli.Commandline;
 /**
  * Generic MinGW linker with "-o " as its output option
  */
-public final class LdLinker extends AbstractLinker {
+public final class GccLinker extends AbstractLinker {
 
     /**
      * @return Commandline of a linker base on its configuration and object
