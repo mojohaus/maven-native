@@ -43,7 +43,7 @@ public class NativeLinkerMojoTest
         Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler);
         mojo.getProject().setArtifact( artifact );
 
-        // simulate artifactss
+        // simulate artifacts
         mojo.getProject().setArtifacts( new HashSet() ); // no extern libs for now
 
         String linkerFinalName = "some-final-name";
