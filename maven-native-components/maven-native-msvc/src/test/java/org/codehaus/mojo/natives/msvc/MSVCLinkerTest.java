@@ -9,6 +9,7 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import static org.junit.Assert.*;
 
 public class MSVCLinkerTest
     extends PlexusTestCase
@@ -47,21 +48,15 @@ public class MSVCLinkerTest
         throws Exception
     {
         Commandline cl = this.getCommandline();
-
-        assertTrue( cl.getExecutable().endsWith( "link.exe" ) );
-
+        assertEquals("link.exe", cl.getLiteralExecutable() );
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
-
-        System.out.println( cl.toString() );
     }
 
     public void testSimpleLinkerCommand()
         throws Exception
     {
         Commandline cl = this.getCommandline();
-
-        assertTrue( StringUtils.contains( cl.toString(), "link.exe /out:" + config.getOutputFile()
-            + " source1.obj source2.obj" ) );
+        assertArrayEquals(new String[] {"link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj"}, cl.getCommandline());
     }
 
     // ///////////////////////// HELPERS //////////////////////////////////////
