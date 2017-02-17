@@ -21,8 +21,6 @@ package org.codehaus.mojo.natives.linker;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.codehaus.mojo.natives.linker.AbstractLinker;
-import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
