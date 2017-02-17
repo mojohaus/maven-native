@@ -96,7 +96,7 @@ public class CLinkerTest
 
         int index = Arrays.asList(cl.getArguments()).indexOf("target" + File.separator + "file1.o");
         assertTrue(index >= 0);
-        assertEquals("target/file2.o", cl.getArguments()[index+1]);
+        assertEquals("target" + File.separator + "file2.o", cl.getArguments()[index+1]);
 
     }
 

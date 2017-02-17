@@ -32,11 +32,11 @@ import org.codehaus.plexus.util.cli.Commandline;
 import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
+import static org.junit.Assert.*;
 
 public class TLibLinkerTest
     extends TestCase
 {
-    private static String FS = File.separator;
 
     public void testCommandLine()
         throws Exception
@@ -54,18 +54,20 @@ public class TLibLinkerTest
         config.setOutputDirectory( new File( "target" ) );
 
         List objectFiles = new ArrayList();
-        objectFiles.add( new File( "target/a.obj" ) );
-        objectFiles.add( new File( "target/b.obj" ) );
-        objectFiles.add( new File( "target/c.obj" ) );
+        objectFiles.add( new File( "target" + File.separator + "a.obj" ) );
+        objectFiles.add( new File( "target" + File.separator + "b.obj" ) );
+        objectFiles.add( new File( "target" + File.separator + "c.obj" ) );
 
         Commandline cl = linker.createLinkerCommandLine( objectFiles, config );
 
-        String expectedCl =
-            "tlib target" + FS + "tlib.lib" + " /C " + "+target" + FS + "a.obj " + "+target" + FS + "b.obj "
-                + "+target" + FS + "c.obj";
-
-        // TODO do to a bug in commandline.tostring, it is no longer possible to contruct the right string
-        // assertEquals( expectedCl, cl.toString() );
+        assertArrayEquals(new String[] {
+            "tlib",
+            "\"target" + File.separator + "tlib.lib\"",
+            "/C",
+            "+\"target" + File.separator + "a.obj\"",
+            "+\"target" + File.separator + "b.obj\"",
+            "+\"target" + File.separator + "c.obj\""
+        }, cl.getArguments());
 
     }
 
