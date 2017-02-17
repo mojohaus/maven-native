@@ -30,8 +30,31 @@
       <groupId>org.codehaus.mojo.natives</groupId>
       <artifactId>maven-native-api</artifactId>
     </dependency>
+    
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-component-annotations</artifactId>
+    </dependency>
 
   </dependencies>
+  
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-component-metadata</artifactId>
+              <version>1.7.1</version>
+              <executions>
+                  <execution>
+                      <id>process-classes</id>
+                      <goals>
+                          <goal>generate-metadata</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
 
   <modules>
     <module>maven-native-manager</module>

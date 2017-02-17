@@ -31,11 +31,15 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Requirement;
 
+@Component(role = RanlibManager.class, hint = "native-ranlib-provider-manager")
 public class DefaultRanlibManager
     extends AbstractLogEnabled
     implements RanlibManager, Initializable
 {
+    @Requirement(role = Ranlib.class)
     private Map providers;
 
     // ----------------------------------------------------------------------

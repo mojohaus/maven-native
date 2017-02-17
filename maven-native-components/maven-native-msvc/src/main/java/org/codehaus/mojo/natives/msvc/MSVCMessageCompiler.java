@@ -31,7 +31,10 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
+import org.codehaus.mojo.natives.compiler.MessageCompiler;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = MessageCompiler.class, hint = "msvc")
 public class MSVCMessageCompiler
     extends AbstractMessageCompiler
 {

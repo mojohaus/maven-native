@@ -24,6 +24,10 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Manifest;
 import org.codehaus.mojo.natives.linker.ManifestConfiguration;
@@ -32,46 +36,38 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Embeds a Visual Studio manifest file into a generated executable
- *
- * @goal manifest
- * @phase package
  * @since 1.0-alpha4
  */
+@Mojo(name = "manifest", defaultPhase = LifecyclePhase.PACKAGE)
 public class NativeManifestMojo
     extends AbstractNativeMojo
 {
     /**
      * Manifest Provider.
-     *
-     * @parameter default-value="msvc"
-     * @required
      * @since 1.0-alpha4
      */
+    @Parameter(defaultValue = "msvc", required = true)
     private String provider;
 
     /**
      * Manifest extension
-     *
-     * @parameter default-value="manifest"
-     * @required
      * @since 1.0-alpha-4
      */
+    @Parameter(defaultValue = "manifest", required = true)
     private String manifestExtension;
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
-     *
-     * @parameter default-value="false"
      * @since 1.0-alpha-8
      */
+    @Parameter(defaultValue = "false")
     private boolean checkStaleLinkage;
 
     /**
      * Internal - To look up manifest implementation
-     *
-     * @component
      * @since 1.0-alpha-4
      */
+    @Component
     private ManifestManager manager;
 
     public void execute()

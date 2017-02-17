@@ -29,10 +29,12 @@ import org.codehaus.mojo.natives.linker.Manifest;
 import org.codehaus.mojo.natives.linker.ManifestConfiguration;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
+@Component(role = Manifest.class, hint = "msvc", instantiationStrategy = "per-lookup")
 public class MSVCManifest
     extends AbstractLogEnabled
     implements Manifest

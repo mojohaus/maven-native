@@ -1,5 +1,8 @@
 package org.codehaus.mojo.natives.c;
 
+import org.codehaus.mojo.natives.linker.Linker;
+import org.codehaus.plexus.component.annotations.Component;
+
 /*
  * The MIT License
  *
@@ -27,7 +30,7 @@ package org.codehaus.mojo.natives.c;
 /**
  * Generic C/CPP linker with "-o" as its output option
  */
-
+@Component(role = Linker.class, hint = "generic-classic", instantiationStrategy = "per-lookup")
 public class CLinkerClassic
     extends CLinker
 {

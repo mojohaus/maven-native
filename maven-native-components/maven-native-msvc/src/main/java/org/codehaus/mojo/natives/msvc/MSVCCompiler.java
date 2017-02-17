@@ -32,7 +32,9 @@ import org.codehaus.plexus.util.cli.Commandline;
 import java.io.File;
 import java.util.Map;
 import java.util.Properties;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = Compiler.class, hint = "msvc")
 public class MSVCCompiler
     extends AbstractCCompiler
 {

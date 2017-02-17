@@ -32,15 +32,17 @@ import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
+import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.mojo.natives.util.FileUtil;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
  * Generic C/CPP linker with "-o " as its output option
  */
-
+@Component(role = Linker.class, hint = "generic", instantiationStrategy = "per-lookup")
 public class CLinker
     extends AbstractLinker
 {

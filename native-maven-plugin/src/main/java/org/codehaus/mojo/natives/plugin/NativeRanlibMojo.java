@@ -27,6 +27,10 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Ranlib;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
@@ -34,40 +38,31 @@ import org.codehaus.mojo.natives.manager.RanlibManager;
 
 /**
  * ranlib a Unix linker output file
- *
- * @goal ranlib
- * @phase package
  */
+@Mojo(name = "ranlib", defaultPhase = LifecyclePhase.PACKAGE)
 public class NativeRanlibMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Where to place the final packaging
-     *
-     * @parameter default-value="${project.build.directory}"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "${project.build.directory}", required = true)
     protected File ranlibOutputDirectory;
 
     /**
      * Ranlib Provider.
-     *
-     * @parameter default-value="default"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "default", required = true)
     private String provider;
 
     /**
      * To look up ranlib implementation
-     *
-     * @component
-     * @readonly
      * @since 1.0-alpha-2
      */
-
+    @Component
     private RanlibManager manager;
 
     public void execute()

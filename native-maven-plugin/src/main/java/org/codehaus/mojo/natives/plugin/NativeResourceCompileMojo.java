@@ -32,66 +32,58 @@ import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 import java.util.List;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Compile Windows resource files
- *
- * @goal resource-compile
- * @phase generate-sources
  */
-
+@Mojo(name = "resource-compile", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class NativeResourceCompileMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Compiler Provider Type
-     *
-     * @parameter default-value="msvc"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "msvc", required = true)
     private String provider;
 
     /**
      * Use this field to override provider specific resource compiler executable
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private String resourceCompilerExecutable;
 
     /**
      * Resource compiler options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List resourceCompilerOptions;
 
     /**
      * Array of NativeSources containing include directories and source files
-     *
-     * @parameter
      * @since 1.0-alpha-8
      */
-
+    @Parameter
     private NativeSources[] resources;
 
     /**
-     * @parameter default-value="${project.build.directory}"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "${project.build.directory}", required = true)
     protected File resourceCompilerOutputDirectory;
 
     /**
      * Internal
-     *
-     * @component
      * @since 1.0-alpha-2
-     * @readonly
      */
+    @Component
     private ResourceCompilerManager manager;
 
     public void execute()

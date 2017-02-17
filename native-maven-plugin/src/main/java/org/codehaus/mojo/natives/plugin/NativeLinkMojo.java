@@ -32,6 +32,11 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
@@ -42,167 +47,139 @@ import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Link all previously built object and dependent library files into final build artifact
- *
- * @goal link
- * @phase package
- * @requiresDependencyResolution
  */
+@Mojo(name = "link", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeLinkMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Override this property if permitted by compilerProvider
-     *
-     * @parameter default-value="generic"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "generic", required = true)
     private String compilerProvider;
 
     /**
      * Default value is ${compilerProvider}
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private String linkerProvider;
 
     /**
      * Override this property if permitted by linkerProvider. Default to compilerType if not provided
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private String linkerExecutable;
 
     /**
      * Additional linker command options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List linkerStartOptions;
 
     /**
      * Additional linker command options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List linkerMiddleOptions;
 
     /**
      * Additional linker command options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List linkerEndOptions;
 
     /**
      * Option to reorder dependency list, each item has the format of ${groupId}:${artifactId}
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
-
+    @Parameter
     private List linkingOrderLibs;
 
     /**
      * Comma separated extension type to be installed/deployed. Use this option to deploy library file produced by dll
      * build on windows
-     *
-     * @parameter default-value=""
      * @since 1.0-alpha-2
      */
-    private String linkerSecondaryOutputExtensions = "";
+    @Parameter(defaultValue = "")
+    private String linkerSecondaryOutputExtensions;
 
     /**
      * Where to place the final packaging
-     *
-     * @parameter default-value="${project.build.directory}"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "${project.build.directory}", required = true)
     protected File linkerOutputDirectory;
 
     /**
      * The name of the generated file
-     *
-     * @parameter default-value="${project.build.finalName}"
-     * @required
      * @since 1.0-alpha-8
      */
+    @Parameter(defaultValue = "${project.build.finalName}", required = true)
     private String linkerFinalName;
 
     /**
      * The extension of the generated file. Unless specified, the extension of the main project
      * artifact is used.
-     *
-     * @parameter default-value=""
-     * @required
      * @since 1.0-alpha-9
      */
+    @Parameter(defaultValue = "", required = true)
     private String linkerFinalNameExt;
 
     /**
      * Internal
-     *
-     * @component
      * @since 1.0-alpha-2
      */
+    @Component
     private LinkerManager manager;
 
     /**
      * Internal
-     *
-     * @component
      * @since 1.0-alpha-2
      */
+    @Component
     private ArtifactFactory artifactFactory;
 
     /**
      * Dependent libraries with version + classifier removed are copied to this directory to be linked to the build
      * artifact
-     *
-     * @parameter default-value="${project.build.directory}/lib"
-     * @required
      */
-
+    @Parameter(defaultValue = "${project.build.directory}/lib", required = true)
     private File externalLibDirectory;
 
     /**
      * Option to install primary artifact as a classifier, useful to install/deploy debug artifacts
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
-    private String classifier = null;
+    @Parameter
+    private String classifier;
 
     /**
      * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have other mean of
      * deployment, for example using maven-assembly-plugin to deploy your own bundle
-     *
-     * @parameter default-value="true"
      * @since 1.0-alpha-2
      */
-    private boolean attach = true;
+    @Parameter(defaultValue = "true")
+    private boolean attach;
 
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows commandline length limit
-     *
-     * @parameter default-value="false"
      * @since 1.0-alpha-7
      */
+    @Parameter(defaultValue = "false")
     private boolean usingLinkerResponseFile;
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
-     *
-     * @parameter default-value="false"
      * @since 1.0-alpha-8
      */
+    @Parameter(defaultValue = "false")
     private boolean checkStaleLinkage;
 
     public void execute()

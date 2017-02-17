@@ -6,7 +6,9 @@ import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = Linker.class, hint = "noop")
 public class NoopLinker
     implements Linker
 {

@@ -48,6 +48,11 @@
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
     </dependency>
+    
+    <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-component-annotations</artifactId>
+    </dependency>
 
     <!--
      |		Maven Native Artifacts
@@ -91,15 +96,55 @@
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-archiver</artifactId>
     </dependency>
-
+    
    <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-plugin-testing-harness</artifactId>
       <scope>test</scope>
     </dependency>
-
+    
+    <dependency>
+        <groupId>org.apache.maven.plugin-tools</groupId>
+        <artifactId>maven-plugin-annotations</artifactId>
+        <scope>provided</scope>
+    </dependency>
+    
   </dependencies>
 
-
-
+  <build>
+      <plugins>
+          <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.5</version>
+                <configuration> 
+                    <!-- see http://jira.codehaus.org/browse/MNG-5346 --> 
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound> 
+                </configuration> 
+                <executions>
+                    <execution>
+                        <id>default-descriptor</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>descriptor</goal> 
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-component-metadata</artifactId>
+              <version>1.7.1</version>
+              <executions>
+                  <execution>
+                      <id>process-test-classes</id>
+                      <phase>process-test-classes</phase>
+                      <goals>
+                          <goal>generate-test-metadata</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
 </project>
