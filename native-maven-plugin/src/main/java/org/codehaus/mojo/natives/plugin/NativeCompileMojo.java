@@ -106,8 +106,6 @@ public class NativeCompileMojo
 
     /**
      * Array of NativeSources containing include directories and source files.
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
     @Parameter

@@ -1,5 +1,6 @@
 package org.codehaus.mojo.natives.mingw;
 
+import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.plexus.component.annotations.Component;
 
 /*

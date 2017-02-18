@@ -1,6 +1,7 @@
 package org.codehaus.mojo.natives.c;
 
 import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.mojo.natives.compiler.Compiler;
 
 /*
  * The MIT License
