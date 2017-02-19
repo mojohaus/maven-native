@@ -2,6 +2,7 @@ package org.codehaus.mojo.natives.c;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -48,8 +49,7 @@ public class CLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertTrue( cl.getExecutable().endsWith( "gcc" ) );
-
+        assertEquals("gcc", cl.getLiteralExecutable() );
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
     }
@@ -61,7 +61,7 @@ public class CLinkerTest
 
         Commandline cl = this.getCommandline();
 
-        assertTrue( cl.getExecutable().endsWith( "ld" ) );
+        assertEquals("ld", cl.getLiteralExecutable() );
 
     }
 
@@ -70,8 +70,9 @@ public class CLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertTrue( cl.toString().indexOf( "source1.o source2.o" ) != -1 );
-
+        int index = Arrays.asList(cl.getArguments()).indexOf("source1.o");
+        assertTrue(index >= 0);
+        assertEquals("source2.o", cl.getArguments()[index+1]);
     }
 
     public void testLinkerResponseFile()
@@ -80,7 +81,8 @@ public class CLinkerTest
         this.config.setUsingLinkerResponseFile( true );
         this.config.setWorkingDirectory( new File( getBasedir(), "target" ) );
         Commandline cl = this.getCommandline();
-        assertTrue( cl.toString().indexOf( "@objectsFile" ) != -1 );
+        
+        assertTrue( Arrays.asList(cl.getArguments()).indexOf("@objectsFile") >= 0 );
     }
 
     public void testRelativeObjectFileList()
@@ -92,16 +94,9 @@ public class CLinkerTest
 
         Commandline cl = this.getCommandline( objectFiles );
 
-        String cli = cl.toString();
-
-        if ( Os.isFamily( "windows" ) )
-        {
-            assertTrue( cli.indexOf( "target\\file1.o target\\file2.o" ) != -1 );
-        }
-        else
-        {
-            assertTrue( cli.indexOf( "target/file1.o target/file2.o" ) != -1 );
-        }
+        int index = Arrays.asList(cl.getArguments()).indexOf("target" + File.separator + "file1.o");
+        assertTrue(index >= 0);
+        assertEquals("target" + File.separator + "file2.o", cl.getArguments()[index+1]);
 
     }
 
@@ -111,9 +106,12 @@ public class CLinkerTest
         String[] options = { "-o1", "-o2", "-o3" };
         config.setStartOptions( options );
 
-        String cli = this.getCommandline().toString();
-
-        assertTrue( cli.indexOf( "-o1 -o2 -o3" ) != -1 );
+        Commandline cl = this.getCommandline( );
+        
+        int index = Arrays.asList(cl.getArguments()).indexOf("-o1");
+        assertTrue(index >= 0);
+        assertEquals("-o2", cl.getArguments()[index + 1]);
+        assertEquals("-o3", cl.getArguments()[index + 2]);
 
     }
 
@@ -138,11 +136,13 @@ public class CLinkerTest
 
         config.setExternalLibFileNames( externalLibFileNames );
 
-        String cli = this.getCommandline( new ArrayList( 0 ) ).toString();
+        Commandline cl = this.getCommandline( new ArrayList( 0 ) );
 
-        assertTrue( "Invalid external libraries settings: " + cli,
-                    cli.indexOf( "-LtheLib -lfile1 -lfile2 -lfile3" ) != -1 );
-
+        int index = Arrays.asList(cl.getArguments()).indexOf("-LtheLib");
+        assertTrue(index >= 0);
+        assertEquals("-lfile1", cl.getArguments()[index + 1]);
+        assertEquals("-lfile2", cl.getArguments()[index + 2]);
+        assertEquals("-lfile3", cl.getArguments()[index + 3]);
     }
 
     // ///////////////////////// HELPERS //////////////////////////////////////
