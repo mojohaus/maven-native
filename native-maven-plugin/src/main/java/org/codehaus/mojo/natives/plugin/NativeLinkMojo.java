@@ -141,7 +141,6 @@ public class NativeLinkMojo
      * artifact is used.
      *
      * @parameter default-value=""
-     * @required
      * @since 1.0-alpha-9
      */
     private String linkerFinalNameExt;

@@ -27,8 +27,7 @@ public class NativeLinkerMojoTest
         return mojo;
     }
 
-    public void testExecute()
-        throws Exception
+    public void testExecute() throws Exception
     {
         NativeLinkMojo mojo = getMojo();
 
@@ -41,9 +40,7 @@ public class NativeLinkerMojoTest
         // simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
 
-        Artifact artifact =
-            new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe",
-                                 null, artifactHandler );
+        Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler);
         mojo.getProject().setArtifact( artifact );
 
         // simulate artifacts
@@ -59,13 +56,13 @@ public class NativeLinkerMojoTest
         // "target is set in the stub
         assertEquals( new File( "target" ), conf.getOutputDirectory() );
         assertEquals( linkerFinalName, conf.getOutputFileName() );
+        assertNull(conf.getOutputFileExtension() );
         // current artifactHandler mocking return null extension name
         assertEquals( new File( "target/some-final-name.null" ), conf.getOutputFile() );
 
     }
 
-    public void testExecuteWithFinalNameExtension()
-            throws Exception
+    public void testExecuteWithFinalNameExtension() throws Exception
     {
         NativeLinkMojo mojo = getMojo();
 
@@ -78,9 +75,7 @@ public class NativeLinkerMojoTest
         // simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
 
-        Artifact artifact =
-                new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe",
-                        null, artifactHandler );
+        Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe", null, artifactHandler );
         mojo.getProject().setArtifact( artifact );
 
         // simulate artifacts
