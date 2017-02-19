@@ -30,37 +30,35 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 
 /**
  * Unpack any .inczip dependencies to be included as system include path
- *
- * @goal unzipinc
- * @phase generate-sources
- * @requiresDependencyResolution compile
  * @since 1.0-alpha-4
  */
+@Mojo(name = "unzipinc", defaultPhase = LifecyclePhase.GENERATE_SOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeUnZipIncMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Internal
-     *
-     * @parameter default-value="${project.build.directory}/native/markers"
-     * @required
      * @since 1.0-alpha-4
      */
+    @Parameter(defaultValue = "${project.build.directory}/native/markers", required = true)
     private File dependencyIncZipMarkerDirectory;
 
     /**
      * Internal component for archiving purposes
-     *
-     * @component
-     * @readonly
      * @since 1.0-alpha-4
      */
+    @Component
     private ArchiverManager archiverManager;
 
     public void execute()

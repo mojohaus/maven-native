@@ -27,6 +27,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.compiler.Compiler;
@@ -36,116 +40,93 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Compile source files into native object files
- *
- * @goal compile
- * @phase compile
- */
-
+  */
+@Mojo(name = "compile", defaultPhase = LifecyclePhase.COMPILE)
 public class NativeCompileMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Compiler Provider Type
-     *
-     * @parameter default-value="generic"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "generic", required = true)
     private String compilerProvider;
 
     /**
      * Use this field to override object file extension. The default extensions are .obj and .o on Windows and Unix
      * respectively
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private String objectFileExtension;
 
     /**
      * Use this field to override provider specific compiler executable
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private String compilerExecutable;
 
     /**
      * Compiler options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List compilerStartOptions;
 
     /**
      * Compiler options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List compilerMiddleOptions;
 
     /**
      * Compiler options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List compilerEndOptions;
 
     /**
      * Javah OS name. ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path when this field
      * is set
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
-
+    @Parameter
     private String javahOS;
 
     /**
      * JDK native include directory
-     *
-     * @parameter default-value="${java.home}/../include"
      * @since 1.0-alpha-2
      */
-
+    @Parameter(defaultValue="${java.home}/../include")
     private File jdkIncludePath;
 
     /**
      * Array of NativeSources containing include directories and source files.
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     protected NativeSources[] sources = new NativeSources[0];
 
     /**
      * Compiler output files ( .o, .obj, etc) location
-     *
-     * @parameter default-value="${project.build.directory}/objs"
-     * @required
      * @since 1.0-alpha-4
      */
+    @Parameter(defaultValue="${project.build.directory}/objs", required = true)
     protected File compilerOutputDirectory;
 
     /**
      * Number of parallel compilation threads
      *
-     * @parameter default-value="1"
      * @since 1.0-alpha-4
      */
+    @Parameter(defaultValue = "1")
     protected int numberOfConcurrentCompilation;
 
-    /**
-     * Internal
-     *
-     * @component
-     * @since 1.0-alpha-2
-     */
-
+    @Component
     private CompilerManager manager;
 
     public void execute()

@@ -30,6 +30,8 @@ import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -48,47 +50,29 @@ public abstract class AbstractNativeMojo
 
     protected static final List EMPTY_FILE_LIST = new ArrayList();
 
-    /**
-     * POM
-     *
-     * @parameter expression="${project}"
-     * @readonly
-     * @since 1.0-alpha-2
-     */
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
 
     /**
      * user directory when external tools( ie compiler/linker ) are invoked
-     *
-     * @parameter default-value="${basedir}"
-     * @required
-     * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "${basedir}", required = true)
     protected File workingDirectory;
 
     /**
      * Specifies a fully qualified class name implementing the org.codehaus.mojo.natives.EnvFactory interface. The class
      * creates a set environment variables to be used with the command line.
-     *
-     * @parameter
-     * @since 1.0-alpha-2
      */
+    @Parameter
     private String envFactoryName;
 
-    /**
-     * Internal
-     *
-     * @component
-     * @readonly
-     * @since 1.0-alpha-2
-     */
+    @Component
     protected EnvFactoryManager envFactoryManager;
 
     /**
      * Directory to unpack .inczip dependency files to be included as system include path
-     *
-     * @parameter default-value="${project.build.directory}/native/include"
      */
+    @Parameter(defaultValue = "${project.build.directory}/native/include")
     protected File dependencyIncludeDirectory;
 
     protected static String[] removeEmptyOptions( List args )

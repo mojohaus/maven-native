@@ -27,10 +27,13 @@ import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.AbstractResourceCompiler;
+import org.codehaus.mojo.natives.compiler.ResourceCompiler;
 import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.util.EnvUtil;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
+@Component(role = ResourceCompiler.class, hint = "mingw", instantiationStrategy = "per-lookup")
 public final class WindresResourceCompiler extends AbstractResourceCompiler {
 
     protected Commandline getCommandLine(ResourceCompilerConfiguration config, File source)

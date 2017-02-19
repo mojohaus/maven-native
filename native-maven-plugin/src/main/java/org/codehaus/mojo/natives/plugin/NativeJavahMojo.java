@@ -35,6 +35,11 @@ import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -49,66 +54,54 @@ import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Generate JNI include files based on a set of class names
- *
- * @goal javah
- * @phase generate-sources
- * @requiresDependencyResolution compile
  */
-
+@Mojo(name = "javah", defaultPhase = LifecyclePhase.GENERATE_SOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeJavahMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Javah Provider.
-     *
-     * @parameter default-value="default"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "default", required = true)
     private String javahProvider;
 
     /**
      * List of class names to generate native files. Additional JNI interface will automatically discovered from
      * project's dependencies of <i>jar</i> type, when <i>javahSearchJNIFromDependencies</i> is true
-     *
-     * @parameter
      * @since 1.0-alpha-4
      */
+    @Parameter
     private List javahClassNames = new ArrayList( 0 );
 
     /**
      * Enable the search from project dependencies for JNI interfaces, in addition to <i>javahClassNames</i>
-     *
-     * @parameter default-value="false"
      * @since 1.0-alpha-4
      */
+    @Parameter(defaultValue = "false")
     private boolean javahSearchJNIFromDependencies;
 
     /**
      * Path to javah executable, if present, it will override the default one which bases on architecture type. See
      * 'javahProvider' argument
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private File javahPath;
 
     /**
      * Where to place javah generated file
-     *
-     * @parameter default-value="${project.build.directory}/native/javah"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "${project.build.directory}/native/javah", required = true)
     protected File javahOutputDirectory;
 
     /**
      * if configured, this value will be combined with outputDirectory to pass into javah's -o option
-     *
-     * @parameter
      * @since 1.0-alpha-4
      */
+    @Parameter
     private String javahOutputFileName;
 
     /**
@@ -123,71 +116,58 @@ public class NativeJavahMojo
      *   &lt;javahInclude&gt;
      * &lt;/javahIncludes&gt;
      * </pre>
-     *
-     * @parameter
      * @since 1.0-alpha-8
      */
+    @Parameter
     private List javahIncludes = new ArrayList();
 
     /**
      * Enable javah verbose mode
-     *
-     * @parameter default-value="false"
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "false")
     private boolean javahVerbose;
 
     /**
      * Archive all generated include files and deploy as an inczip
-     *
-     * @parameter default-value="false"
-     * @since 1.0-alpha-8
      */
+    @Parameter(defaultValue = "false")
     private boolean attach;
 
     /**
      * Classifier name when install/deploy generated includes file. See ${attach} for details
-     *
-     * @parameter default-value="javah"
-     * @since 1.0-alpha-8
      */
+    @Parameter(defaultValue = "javah")
     private String classifier;
 
     /**
      * Archive file to bundle all generated include files if enable by ${attach}
-     *
-     * @parameter default-value="${project.build.directory}/${project.build.finalName}.inczip"
-     * @required
      * @since 1.0-alpha-8
      */
+    @Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}.inczip", required = true)
     private File incZipFile;
 
     /**
      * Set CLASSPATH env variable instead of using -classpath command-line argument. Use this option to allow large
      * number of jars in classpath due to command line size limit under Windows
-     *
-     * @parameter default-value="false"
      * @since 1.0-alpha-9
      */
+    @Parameter(defaultValue = "false")
     private boolean useEnvClasspath;
 
     /**
      * Internal: To look up javah implementation
-     *
-     * @component
-     * @readonly
      * @since 1.0-alpha-2
      */
 
+    @Component
     private JavahManager manager;
 
     /**
      * Maven ProjectHelper.
-     *
-     * @component
-     * @readonly
      * @since 1.0-alpha-8
      */
+    @Component
     private MavenProjectHelper projectHelper;
 
     /**

@@ -31,11 +31,15 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Requirement;
 
+@Component(role = JavahManager.class, hint = "native-javah-provider-manager")
 public class DefaultJavahManager
     extends AbstractLogEnabled
     implements JavahManager, Initializable
 {
+    @Requirement(role = Javah.class)
     private Map providers;
 
     // ----------------------------------------------------------------------

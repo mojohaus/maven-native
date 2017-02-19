@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.plexus.component.annotations.Component;
 
 /**
  * Construct EnvFactory
  */
+@Component(role = EnvFactoryManager.class)
 public class DefaultEnvFactoryManager
     implements EnvFactoryManager
 {

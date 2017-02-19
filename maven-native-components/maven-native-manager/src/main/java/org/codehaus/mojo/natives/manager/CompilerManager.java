@@ -28,8 +28,6 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 
 public interface CompilerManager
 {
-    String ROLE = CompilerManager.class.getName();
-
     Compiler getCompiler( String roleHint )
         throws NoSuchNativeProviderException;
 }

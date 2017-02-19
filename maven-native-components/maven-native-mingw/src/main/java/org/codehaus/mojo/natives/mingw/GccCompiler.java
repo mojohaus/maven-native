@@ -1,5 +1,8 @@
 package org.codehaus.mojo.natives.mingw;
 
+import org.codehaus.mojo.natives.compiler.Compiler;
+import org.codehaus.plexus.component.annotations.Component;
+
 /*
  * The MIT License
  *
@@ -26,6 +29,7 @@ package org.codehaus.mojo.natives.mingw;
 /**
  * Generic MinGW compiler with "-o " as its output option
  */
+@Component(role = Compiler.class, hint = "mingw", instantiationStrategy = "per-lookup")
 public class GccCompiler
         extends AbstractGccCompiler {
 

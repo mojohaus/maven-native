@@ -26,13 +26,16 @@ package org.codehaus.mojo.natives.msvc;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.AbstractCCompiler;
+import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
 import java.util.Map;
 import java.util.Properties;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = Compiler.class, hint = "msvc")
 public class MSVCCompiler
     extends AbstractCCompiler
 {

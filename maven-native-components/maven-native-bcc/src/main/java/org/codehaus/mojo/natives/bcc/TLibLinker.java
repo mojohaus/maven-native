@@ -31,7 +31,10 @@ import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
 import java.util.List;
+import org.codehaus.mojo.natives.linker.Linker;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = Linker.class, hint = "tlib", instantiationStrategy = "per-lookup")
 public class TLibLinker
     extends AbstractLinker
 {

@@ -31,7 +31,10 @@ import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.util.List;
+import org.codehaus.mojo.natives.linker.Linker;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = Linker.class, hint = "msvc")
 public class MSVCLinker
     extends CLinker
 {

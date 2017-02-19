@@ -1,5 +1,8 @@
 package org.codehaus.mojo.natives.c;
 
+import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.mojo.natives.compiler.Compiler;
+
 /*
  * The MIT License
  *
@@ -27,7 +30,7 @@ package org.codehaus.mojo.natives.c;
 /**
  * Generic C/CPP compiler with "-o " as its output option
  */
-
+@Component(role = Compiler.class, hint = "generic", instantiationStrategy = "per-lookup")
 public class CCompiler
     extends AbstractCCompiler
 {

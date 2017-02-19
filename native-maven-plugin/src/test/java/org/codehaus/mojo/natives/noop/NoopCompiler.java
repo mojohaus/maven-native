@@ -7,11 +7,13 @@ import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Helper class to test native-maven-plugin
  */
+@Component(role = Compiler.class, hint = "noop")
 public class NoopCompiler
     implements Compiler
 {

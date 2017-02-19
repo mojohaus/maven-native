@@ -30,67 +30,59 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 import java.io.File;
 import java.util.List;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Compile Windows message files
- *
- * @goal compile-message
- * @phase generate-sources
  */
-
+@Mojo(name = "compile-message", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class NativeMessageCompileMojo
     extends AbstractNativeMojo
 {
 
     /**
      * Compiler Provider Type
-     *
-     * @parameter default-value="msvc"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "msvc", required = true)
     private String provider;
 
     /**
      * Use this field to override provider specific message compiler executable
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private String messageCompilerExecutable;
 
     /**
      * Additional Compiler options
-     *
-     * @parameter
      * @since 1.0-alpha-2
      */
+    @Parameter
     private List messageCompilerOptions;
 
     /**
      * List of message files to compile
-     *
-     * @parameter
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(required = true)
     protected File[] messageFiles;
 
     /**
      * Where to place the compiler object files
-     *
-     * @parameter expression="${project.build.directory}"
-     * @required
      * @since 1.0-alpha-2
      */
+    @Parameter(defaultValue = "${project.build.directory}", required = true)
     protected File messageCompilerOutputDirectory;
 
     /**
      * Internal
-     *
-     * @component
      * @since 1.0-alpha-2
      */
+    @Component
     private MessageCompilerManager manager;
 
     public void execute()
