@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.codehaus.plexus.util.StringUtils;
 
 public class NativeMojoUtils

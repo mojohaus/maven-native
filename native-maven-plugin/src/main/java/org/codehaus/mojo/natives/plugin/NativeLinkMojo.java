@@ -127,6 +127,7 @@ public class NativeLinkMojo
     /**
      * The extension of the generated file. Unless specified, the extension of the main project
      * artifact is used.
+     * @parameter default-value=""
      * @since 1.0-alpha-9
      */
     @Parameter(defaultValue = "", required = true)
