@@ -237,7 +237,7 @@ public class NativeCompileMojo
         {
             NativeSources dependencyIncludeSource = new NativeSources();
             dependencyIncludeSource.setDependencyAnalysisParticipation( false );
-            dependencyIncludeSource.setDirectory( this.dependencyIncludeDirectory );
+            dependencyIncludeSource.setDirectory( ((NativeUnZipIncMojo) this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND )).getDependencyIncludeDirectory() );
 
             sourceArray.add( dependencyIncludeSource );
         }

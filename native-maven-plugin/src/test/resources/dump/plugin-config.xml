@@ -1,0 +1,19 @@
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub" />
+                    <workingDirectory>${basedir}</workingDirectory>
+                    <fileName>dump</fileName>
+                    <dumps>
+                        <file>src/main/native/dir1/file1.dat</file>
+                        <file>src/main/native/dir1/file2.dat</file>
+                    </dumps>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

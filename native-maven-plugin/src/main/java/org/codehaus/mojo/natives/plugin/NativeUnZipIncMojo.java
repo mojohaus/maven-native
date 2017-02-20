@@ -55,6 +55,12 @@ public class NativeUnZipIncMojo
     private File dependencyIncZipMarkerDirectory;
 
     /**
+     * Directory to unpack .inczip dependency files to be included as system include path
+     */
+    @Parameter(defaultValue = "${project.build.directory}/native/include")
+    private File dependencyIncludeDirectory;
+    
+    /**
      * Internal component for archiving purposes
      * @since 1.0-alpha-4
      */
@@ -166,4 +172,7 @@ public class NativeUnZipIncMojo
         return list;
     }
 
+    File getDependencyIncludeDirectory() {
+        return dependencyIncludeDirectory;
+    }
 }
