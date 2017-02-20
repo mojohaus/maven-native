@@ -39,7 +39,7 @@ public class DefaultResourceCompilerManager
     extends AbstractLogEnabled
     implements ResourceCompilerManager, Initializable
 {
-    @Requirement(role = ResourceCompilerManager.class)
+    @Requirement(role = ResourceCompiler.class)
     private Map providers;
 
     // ----------------------------------------------------------------------
