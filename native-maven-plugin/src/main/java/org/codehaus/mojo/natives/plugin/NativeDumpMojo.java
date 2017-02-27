@@ -42,7 +42,7 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
 @Mojo(name = "dump", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public final class DumpMojo extends AbstractNativeMojo {
+public final class NativeDumpMojo extends AbstractNativeMojo {
 
     private static final class HexadecimalFormatter implements AttributeRenderer {
 
@@ -61,7 +61,7 @@ public final class DumpMojo extends AbstractNativeMojo {
         }
 
         public String getFileName() {
-            return DumpMojo.this.ignoreFileName ? null : file.getName();
+            return NativeDumpMojo.this.ignoreFileName ? null : file.getName();
         }
 
         public String getIdentity() {
