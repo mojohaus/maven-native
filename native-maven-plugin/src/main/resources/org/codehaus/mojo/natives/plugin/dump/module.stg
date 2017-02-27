@@ -25,15 +25,15 @@ module(FILE, files) ::= <<
 typedef struct {
     const char *filename;
     const size_t size;
-    const unsigned char content[];
+    const unsigned char *content;
 } dump;
 
-static const dump[] REPOSITORY = {
+static const dump REPOSITORY[] = {
     <files: {file | <entry(file)>}; wrap, anchor, separator=",\n">
 };
 
 const char *dump_get_filename(const dump_entry index) {
-    char *result = NULL;
+    const char *result = NULL;
     if(index \< sizeof(REPOSITORY) / sizeof(dump)) {
         result = REPOSITORY[index].filename;
     }
@@ -49,7 +49,7 @@ const size_t dump_get_size(const dump_entry index) {
 }
 
 const unsigned char *dump_get_content(const dump_entry index) {
-    unsigned char *result = NULL;
+    const unsigned char *result = NULL;
     if(index \< sizeof(REPOSITORY) / sizeof(dump)) {
         result = REPOSITORY[index].content;
     }
@@ -58,9 +58,9 @@ const unsigned char *dump_get_content(const dump_entry index) {
 >>
 
 entry(dump) ::= <<
-{
-    "<dump.fileName>",
-    <length(dump.content)>,
-    {<dump.content; wrap, anchor, separator=",">}
+(dump const) {
+    .filename = "<dump.fileName>",
+    .size = <length(dump.content)>,
+    .content = (const unsigned char *) &(unsigned char[]) {<dump.content; wrap, anchor, separator=",">}
 }
 >>
