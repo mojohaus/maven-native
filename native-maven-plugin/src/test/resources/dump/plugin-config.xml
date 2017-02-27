@@ -7,10 +7,11 @@
                 <configuration>
                     <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub" />
                     <workingDirectory>${basedir}</workingDirectory>
+                    <dumpOutputDirectory>target</dumpOutputDirectory>
                     <fileName>dump</fileName>
                     <dumps>
-                        <file>src/main/native/dir1/file1.dat</file>
-                        <file>src/main/native/dir1/file2.dat</file>
+                        <file>src/test/resources/dump/file1.dat</file>
+                        <file>src/test/resources/dump/file2.dat</file>
                     </dumps>
                 </configuration>
             </plugin>

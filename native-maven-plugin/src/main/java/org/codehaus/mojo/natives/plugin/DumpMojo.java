@@ -23,23 +23,34 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.IOUtil;
+import org.stringtemplate.v4.AttributeRenderer;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
 @Mojo(name = "dump", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public final class DumpMojo extends AbstractNativeMojo {
+
+    private static final class HexadecimalFormatter implements AttributeRenderer {
+
+        @Override
+        public String toString(Object o, String formatString, Locale locale) {
+            return String.format("0x%02X", o);
+        }
+    };
 
     private final class DumpDescriptor implements Serializable {
 
@@ -91,12 +102,13 @@ public final class DumpMojo extends AbstractNativeMojo {
     private boolean ignoreFileName;
 
     /**
-     * Where to place the generated source (module and header in the same folder)
+     * Where to place the generated source (module and header in the same
+     * folder)
      *
      * @since 1.0-alpha-9
      */
     @Parameter(defaultValue = "${project.build.directory}/src/generated/c", required = true)
-    private File sourceOutputDirectory;
+    private File dumpOutputDirectory;
 
     /**
      * The module/header root name
@@ -111,27 +123,32 @@ public final class DumpMojo extends AbstractNativeMojo {
         try {
             final List<DumpDescriptor> descriptors = new ArrayList<>(dumps.length);
             for (File file : dumps) {
+                if (!file.exists()) {
+                    throw new FileNotFoundException(file.getAbsolutePath());
+                }
                 descriptors.add(new DumpDescriptor(file));
             }
 
             {
                 final STGroupFile group = new STGroupFile(new File(getClass().getResource("dump/header.stg").toURI()).getAbsolutePath());
+                group.registerRenderer(Byte.class, new HexadecimalFormatter());
                 final ST content = group.getInstanceOf("header");
                 content.add("FILE", fileName.toUpperCase());
                 content.add("files", descriptors);
 
-                final PrintWriter writer = new PrintWriter(new File(sourceOutputDirectory, fileName + ".h"));
+                final PrintWriter writer = new PrintWriter(new File(dumpOutputDirectory, fileName + ".h"));
                 writer.print(content.render());
                 writer.close();
                 group.unload();
             }
             {
                 final STGroupFile group = new STGroupFile(new File(getClass().getResource("dump/module.stg").toURI()).getAbsolutePath());
+                group.registerRenderer(Byte.class, new HexadecimalFormatter());
                 final ST content = group.getInstanceOf("module");
                 content.add("FILE", fileName);
                 content.add("files", descriptors);
 
-                final PrintWriter writer = new PrintWriter(new File(sourceOutputDirectory, fileName + ".c"));
+                final PrintWriter writer = new PrintWriter(new File(dumpOutputDirectory, fileName + ".c"));
                 writer.print(content.render());
                 writer.close();
                 group.unload();
