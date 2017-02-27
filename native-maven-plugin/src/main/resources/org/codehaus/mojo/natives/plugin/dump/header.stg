@@ -25,6 +25,10 @@ header(FILE, files) ::= <<
 
 #include \<stdlib.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum {
     <files: {file | <file.identity>}; wrap, anchor, separator=",\n">
 \} dump_entry;
@@ -32,6 +36,10 @@ typedef enum {
 extern const char *dump_get_filename(const dump_entry index);
 extern const size_t dump_get_size(const dump_entry index);
 extern const unsigned char *dump_get_content(const dump_entry index);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _<FILE>_H_INCLUDED_ */
 >>
