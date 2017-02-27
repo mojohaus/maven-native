@@ -120,6 +120,9 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if(!dumpOutputDirectory.exists())
+            dumpOutputDirectory.mkdirs();
+            
         try {
             final List<DumpDescriptor> descriptors = new ArrayList<>(dumps.length);
             for (File file : dumps) {
