@@ -127,10 +127,9 @@ public class NativeLinkMojo
     /**
      * The extension of the generated file. Unless specified, the extension of the main project
      * artifact is used.
-     * @parameter default-value=""
      * @since 1.0-alpha-9
      */
-    @Parameter(defaultValue = "", required = true)
+    @Parameter(defaultValue = "${project.artifact.artifactHandler.extension}", required = true)
     private String linkerFinalNameExt;
 
     /**
@@ -234,14 +233,7 @@ public class NativeLinkMojo
         config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
         config.setOutputDirectory( this.linkerOutputDirectory );
         config.setOutputFileName( this.linkerFinalName );
-        if ( StringUtils.isEmpty(this.linkerFinalNameExt) )
-        {
-            config.setOutputFileExtension( this.project.getArtifact().getArtifactHandler().getExtension() );
-        }
-        else
-        {
-            config.setOutputFileExtension( this.linkerFinalNameExt );
-        }
+        config.setOutputFileExtension( this.linkerFinalNameExt );
         config.setExternalLibDirectory( this.externalLibDirectory );
         config.setExternalLibFileNames( this.getLibFileNames() );
         config.setEnvFactory( this.getEnvFactory() );
@@ -324,7 +316,12 @@ public class NativeLinkMojo
 
     private void attachSecondaryArtifacts()
     {
-        String[] tokens = StringUtils.split( this.linkerSecondaryOutputExtensions, "," );
+        final String[] tokens;
+        if(this.linkerSecondaryOutputExtensions != null) {
+            tokens = StringUtils.split( this.linkerSecondaryOutputExtensions, "," );
+        } else {
+            tokens = new String[0];
+        }
 
         for ( int i = 0; i < tokens.length; ++i )
         {

@@ -10,7 +10,7 @@ import org.codehaus.plexus.component.annotations.Component;
 /**
  * Construct EnvFactory
  */
-@Component(role = EnvFactoryManager.class)
+@Component(role = EnvFactoryManager.class, hint = "default", instantiationStrategy = "singleton")
 public class DefaultEnvFactoryManager
     implements EnvFactoryManager
 {
