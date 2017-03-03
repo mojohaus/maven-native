@@ -61,6 +61,8 @@ entry(dump) ::= <<
 (dump const) {
     .filename = "<dump.fileName>",
     .size = <length(dump.content)>,
-    .content = (const unsigned char *) &(unsigned char[]) {<dump.content; wrap, anchor, separator=",">}
+    .content = (const unsigned char *) &(unsigned char[]) {
+        <dump.content; wrap, anchor, separator=",">
+    }
 }
 >>
