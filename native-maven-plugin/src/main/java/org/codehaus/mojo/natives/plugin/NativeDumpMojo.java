@@ -60,7 +60,7 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
         public String getIdentity() {
             String result = getFileName();
             if (result != null) {
-                result = result.toUpperCase().replace(".", "_");
+                result = result.toUpperCase().replaceAll("[^A-Za-z0-9 ]", "_");
             }
             return result;
         }
