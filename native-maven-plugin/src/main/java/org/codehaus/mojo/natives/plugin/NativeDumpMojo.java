@@ -95,38 +95,30 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
     private boolean ignoreFileName;
 
     /**
-     * Where to place the generated source (module and header in the same
-     * folder)
-     *
-     * @since 1.0-alpha-9
-     */
-    @Parameter(defaultValue = "${project.build.directory}/generated-sources/c", required = true)
-    private File dumpOutputDirectory;
-
-    /**
      * The module/header root name
      *
      * @since 1.0-alpha-9
      */
     @Parameter(defaultValue = "dump")
     private String fileName;
-
+    
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        final File dumpOutputDirectory = new File(project.getBuild().getDirectory(), "generated-sources/c");
         if(!dumpOutputDirectory.exists()) {
             dumpOutputDirectory.mkdirs();
         }
 
         try {
-            FileUtils.cleanDirectory(dumpOutputDirectory);
             final List<DumpDescriptor> descriptors = new ArrayList<>(dumps.length);
+            FileUtils.cleanDirectory(dumpOutputDirectory);
             for (File file : dumps) {
                 if (!file.exists()) {
                     throw new FileNotFoundException(file.getAbsolutePath());
                 }
                 descriptors.add(new DumpDescriptor(file));
             }
-
+            
             {
                 final STGroupFile group = new STGroupFile(new File(getClass().getResource("dump/header.stg").toURI()).getAbsolutePath());
                 final ST content = group.getInstanceOf("header");

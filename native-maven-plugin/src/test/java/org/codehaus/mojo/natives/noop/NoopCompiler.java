@@ -53,12 +53,10 @@ public class NoopCompiler
      */
     private File getObjectFile( File sourceFile, CompilerConfiguration config )
     {
-        String srcPath = sourceFile.getPath();
-
-        String destPath =
-            config.getOutputDirectory().getPath() + "/" + FileUtils.basename( srcPath ) + this.getObjectFileExtension();
-
-        return new File( destPath );
+        final String srcPath = sourceFile.getPath();
+        if(config.getOutputDirectory() == null)
+            config.setOutputDirectory(new File("target"));
+        return new File(config.getOutputDirectory().getPath(),  FileUtils.basename( srcPath ) + this.getObjectFileExtension() );
     }
 
 }
