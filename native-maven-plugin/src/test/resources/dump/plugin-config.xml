@@ -7,7 +7,7 @@
                 <configuration>
                     <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub" />
                     <workingDirectory>${basedir}</workingDirectory>
-                    <dumpOutputDirectory>target</dumpOutputDirectory>
+                    <dumpOutputDirectory>${basedir}/target/generated-sources/c</dumpOutputDirectory>
                     <fileName>dump</fileName>
                     <dumps>
                         <file>src/test/resources/dump/file1.dat</file>

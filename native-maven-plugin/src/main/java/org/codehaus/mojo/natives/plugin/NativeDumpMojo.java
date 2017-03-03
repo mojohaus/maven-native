@@ -36,6 +36,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.stringtemplate.v4.AttributeRenderer;
 import org.stringtemplate.v4.ST;
@@ -107,7 +108,7 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-9
      */
-    @Parameter(defaultValue = "${project.build.directory}/src/generated/c", required = true)
+    @Parameter(defaultValue = "${project.build.directory}/generated-sources/c", required = true)
     private File dumpOutputDirectory;
 
     /**
@@ -120,10 +121,12 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        if(!dumpOutputDirectory.exists())
+        if(!dumpOutputDirectory.exists()) {
             dumpOutputDirectory.mkdirs();
-            
+        }
+
         try {
+            FileUtils.cleanDirectory(dumpOutputDirectory);
             final List<DumpDescriptor> descriptors = new ArrayList<>(dumps.length);
             for (File file : dumps) {
                 if (!file.exists()) {
