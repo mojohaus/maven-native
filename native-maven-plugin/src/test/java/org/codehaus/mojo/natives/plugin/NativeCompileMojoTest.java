@@ -80,11 +80,12 @@ public class NativeCompileMojoTest
 
         // we have 4 source files, so in output directory, there must be 4 object files
         List objectFileList = mojo.getAllCompilersOutputFileList();
-        assertEquals( 4, objectFileList.size() );
+        assertEquals( 5, objectFileList.size() );
         assertEquals( new File( "target/file11.o" ), (File) objectFileList.get( 0 ) );
         assertEquals( new File( "target/file12.o" ), (File) objectFileList.get( 1 ) );
         assertEquals( new File( "target/file21.o" ), (File) objectFileList.get( 2 ) );
         assertEquals( new File( "target/file22.o" ), (File) objectFileList.get( 3 ) );
+        assertEquals( new File( "target/dump.o" ), (File) objectFileList.get( 4 ) );
 
     }
 

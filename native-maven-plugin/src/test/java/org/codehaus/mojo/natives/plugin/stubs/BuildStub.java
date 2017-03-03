@@ -5,9 +5,6 @@ import org.apache.maven.model.Build;
 public class BuildStub
     extends Build
 {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     private String finalName = "some-final-name";

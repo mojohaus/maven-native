@@ -22,8 +22,10 @@ package org.codehaus.mojo.natives.plugin;
  */
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -156,7 +158,22 @@ public class NativeCompileMojo
         List objectFiles;
         try
         {
-            objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
+            final List<File> files = new LinkedList<>();
+            files.addAll(Arrays.asList(NativeSources.getAllSourceFiles( this.sources )));
+            // Add addionnal generated c sources
+            final File generatedFiles = new File(project.getBuild().getDirectory(), "generated-sources/c");
+            if(generatedFiles.exists()) {
+                final NativeSources generated = new NativeSources();
+                generated.setDirectory(generatedFiles);
+                    generated.setFileNames(generatedFiles.list(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".c");
+                    }
+                }));
+                files.addAll(Arrays.asList(NativeSources.getAllSourceFiles(new NativeSources[] { generated })));
+            }
+            objectFiles = compiler.compile( config,  files.toArray(new File[0]));
         }
         catch ( NativeBuildException e )
         {
@@ -237,7 +254,7 @@ public class NativeCompileMojo
         {
             NativeSources dependencyIncludeSource = new NativeSources();
             dependencyIncludeSource.setDependencyAnalysisParticipation( false );
-            dependencyIncludeSource.setDirectory( this.dependencyIncludeDirectory );
+            dependencyIncludeSource.setDirectory( ((NativeUnZipIncMojo) this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND )).getDependencyIncludeDirectory() );
 
             sourceArray.add( dependencyIncludeSource );
         }

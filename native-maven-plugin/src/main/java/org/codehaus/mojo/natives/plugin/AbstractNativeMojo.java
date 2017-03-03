@@ -69,12 +69,6 @@ public abstract class AbstractNativeMojo
     @Component
     protected EnvFactoryManager envFactoryManager;
 
-    /**
-     * Directory to unpack .inczip dependency files to be included as system include path
-     */
-    @Parameter(defaultValue = "${project.build.directory}/native/include")
-    protected File dependencyIncludeDirectory;
-
     protected static String[] removeEmptyOptions( List args )
     {
         return NativeMojoUtils.trimParams( args );
