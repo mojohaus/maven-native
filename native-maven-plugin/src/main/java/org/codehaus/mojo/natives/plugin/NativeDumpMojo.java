@@ -45,14 +45,6 @@ import org.stringtemplate.v4.STGroupFile;
 @Mojo(name = "dump", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public final class NativeDumpMojo extends AbstractNativeMojo {
 
-    private static final class HexadecimalFormatter implements AttributeRenderer {
-
-        @Override
-        public String toString(Object o, String formatString, Locale locale) {
-            return String.format("0x%02X", o);
-        }
-    };
-
     private final class DumpDescriptor implements Serializable {
 
         private final File file;
@@ -137,7 +129,6 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
 
             {
                 final STGroupFile group = new STGroupFile(new File(getClass().getResource("dump/header.stg").toURI()).getAbsolutePath());
-                group.registerRenderer(Byte.class, new HexadecimalFormatter());
                 final ST content = group.getInstanceOf("header");
                 content.add("FILE", fileName.toUpperCase());
                 content.add("files", descriptors);
@@ -149,13 +140,18 @@ public final class NativeDumpMojo extends AbstractNativeMojo {
             }
             {
                 final STGroupFile group = new STGroupFile(new File(getClass().getResource("dump/module.stg").toURI()).getAbsolutePath());
-                group.registerRenderer(Byte.class, new HexadecimalFormatter());
+                group.registerRenderer(Byte.class, new AttributeRenderer() {
+                    @Override
+                    public String toString(Object o, String arg1, Locale arg2) {
+                        return String.format("0x%02X", o);
+                    }
+                });
                 final ST content = group.getInstanceOf("module");
                 content.add("FILE", fileName);
                 content.add("files", descriptors);
 
                 final PrintWriter writer = new PrintWriter(new File(dumpOutputDirectory, fileName + ".c"));
-                writer.print(content.render());
+                writer.print(content.render(128));
                 writer.close();
                 group.unload();
             }
