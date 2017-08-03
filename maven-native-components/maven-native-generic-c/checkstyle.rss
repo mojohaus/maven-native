@@ -23,10 +23,10 @@ under the License.
     <link>http://www.mojohaus.org/maven-native-generic-c/maven-native/maven-native-components/maven-native-generic-c</link>
     <description>Maven Native C/C++ - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2016 MojoHaus</copyright>
+    <copyright>&#169;2017 MojoHaus</copyright>
     <item>
       <title>File: 5,
-             Errors: 7,
+             Errors: 15,
              Warnings: 14,
              Infos: 0
       </title>
@@ -69,7 +69,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  3
                 </td>
               </tr>
                           <tr>
@@ -83,7 +83,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  3
                 </td>
               </tr>
                           <tr>
@@ -97,7 +97,7 @@ under the License.
                   4
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -111,7 +111,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  3
                 </td>
               </tr>
                       </tbody>

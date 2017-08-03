@@ -10,10 +10,10 @@
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.io.File;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.apache.commons.lang.StringUtils;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.codehaus.plexus.PlexusTestCase;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.cli.Commandline;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.codehaus.plexus.PlexusTestCase;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.cli.Commandline;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertArrayEquals;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/c/CCompilerClassicTest.html">CCompilerClassicTest</a>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">extends</strong> PlexusTestCase
@@ -30,11 +30,11 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>          CompilerConfiguration config = <strong class="jxr_keyword">new</strong> CompilerConfiguration();
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>          CCompilerClassic compiler = <strong class="jxr_keyword">new</strong> CCompilerClassic();
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>          Commandline cl = compiler.getCommandLine( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"source.c"</span> ), <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"object.o"</span> ), config );
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          assertTrue( StringUtils.contains( cl.toString(), <span class="jxr_string">"gcc -oobject.o -c source.c"</span> ) );
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          assertArrayEquals(<strong class="jxr_keyword">new</strong> String[] {<span class="jxr_string">"gcc"</span>, <span class="jxr_string">"-oobject.o"</span>, <span class="jxr_string">"-c"</span>, <span class="jxr_string">"source.c"</span>}, cl.getCommandline() );
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      }
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2017 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
 </body>
 </html>

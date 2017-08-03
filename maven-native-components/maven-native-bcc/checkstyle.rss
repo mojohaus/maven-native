@@ -23,10 +23,10 @@ under the License.
     <link>http://www.mojohaus.org/maven-native-bcc/maven-native/maven-native-components/maven-native-bcc</link>
     <description>Maven Native BCC - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2016 MojoHaus</copyright>
+    <copyright>&#169;2017 MojoHaus</copyright>
     <item>
       <title>File: 5,
-             Errors: 9,
+             Errors: 17,
              Warnings: 7,
              Infos: 2
       </title>
@@ -55,7 +55,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -69,7 +69,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -97,7 +97,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -111,7 +111,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                       </tbody>

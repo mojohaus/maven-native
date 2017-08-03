@@ -25,58 +25,89 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/plugin/NativeLinkerMojoTest.html">NativeLinkerMojoTest</a>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">extends</strong> AbstractMojoTestCase
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  {
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMojoLookup()
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          <strong class="jxr_keyword">throws</strong> Exception
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>      {
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          File pluginXml = <strong class="jxr_keyword">new</strong> File( getBasedir(), <span class="jxr_string">"src/test/resources/linker/plugin-config.xml"</span> );
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          NativeLinkMojo mojo = (NativeLinkMojo) lookupMojo( <span class="jxr_string">"link"</span>, pluginXml );
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          assertNotNull( mojo );
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      }
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExecute()
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">throws</strong> Exception
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      {
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          File pluginXml = <strong class="jxr_keyword">new</strong> File( getBasedir(), <span class="jxr_string">"src/test/resources/linker/plugin-config.xml"</span> );
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>          NativeLinkMojo mojo = (NativeLinkMojo) lookupMojo( <span class="jxr_string">"link"</span>, pluginXml );
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>          assertNotNull( mojo );
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <em class="jxr_comment">// must init this</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          mojo.setPluginContext( <strong class="jxr_keyword">new</strong> HashMap() );
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>          <em class="jxr_comment">// simulate object files</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>          List objectList = <strong class="jxr_keyword">new</strong> ArrayList();
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>          objectList.add( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"o1.o"</span> ) );
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          objectList.add( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"o2.o"</span> ) );
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          mojo.saveCompilerOutputFilePaths( objectList );
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <em class="jxr_comment">// simulate artifact</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          ArtifactHandler artifactHandler = <strong class="jxr_keyword">new</strong> DefaultArtifactHandler();
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          Artifact artifact =
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">new</strong> DefaultArtifact( <span class="jxr_string">"test"</span>, <span class="jxr_string">"test"</span>, VersionRange.createFromVersion( <span class="jxr_string">"1.0-SNAPSHOT"</span> ), <span class="jxr_string">"compile"</span>, <span class="jxr_string">"exe"</span>,
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>                                   <strong class="jxr_keyword">null</strong>, artifactHandler );
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          mojo.getProject().setArtifact( artifact );
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">private</strong> NativeLinkMojo getMojo() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>          File pluginXml = <strong class="jxr_keyword">new</strong> File( getBasedir(), <span class="jxr_string">"src/test/resources/linker/plugin-config.xml"</span> );
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          NativeLinkMojo mojo = (NativeLinkMojo) lookupMojo( <span class="jxr_string">"link"</span>, pluginXml );
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          assertNotNull( mojo );
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          <em class="jxr_comment">// must init this</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          mojo.setPluginContext( <strong class="jxr_keyword">new</strong> HashMap() );
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          <strong class="jxr_keyword">return</strong> mojo;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      }
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExecute() <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          NativeLinkMojo mojo = getMojo();
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          <em class="jxr_comment">// simulate object files</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          List objectList = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          objectList.add( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"o1.o"</span> ) );
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          objectList.add( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"o2.o"</span> ) );
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          mojo.saveCompilerOutputFilePaths( objectList );
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <em class="jxr_comment">// simulate artifact</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          ArtifactHandler artifactHandler = <strong class="jxr_keyword">new</strong> DefaultArtifactHandler();
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          Artifact artifact = <strong class="jxr_keyword">new</strong> DefaultArtifact( <span class="jxr_string">"test"</span>, <span class="jxr_string">"test"</span>, VersionRange.createFromVersion( <span class="jxr_string">"1.0-SNAPSHOT"</span> ), <span class="jxr_string">"compile"</span>, <span class="jxr_string">"exe"</span>, <strong class="jxr_keyword">null</strong>, artifactHandler);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          mojo.getProject().setArtifact( artifact );
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <em class="jxr_comment">// simulate artifacts</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          mojo.getProject().setArtifacts( <strong class="jxr_keyword">new</strong> HashSet() ); <em class="jxr_comment">// no extern libs for now</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          String linkerFinalName = <span class="jxr_string">"some-final-name"</span>;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          setVariableValueToObject( mojo, <span class="jxr_string">"linkerFinalName"</span>, linkerFinalName );
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <em class="jxr_comment">// simulate artifacts</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          mojo.getProject().setArtifacts( <strong class="jxr_keyword">new</strong> HashSet() ); <em class="jxr_comment">// no extern libs for now</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>          String linkerFinalName = <span class="jxr_string">"some-final-name"</span>;
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          setVariableValueToObject( mojo, <span class="jxr_string">"linkerFinalName"</span>, linkerFinalName );
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          mojo.execute();
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <em class="jxr_comment">// "target is set in the stub</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          assertEquals( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"target"</span> ), conf.getOutputDirectory() );
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertEquals( linkerFinalName, conf.getOutputFileName() );
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <em class="jxr_comment">// current artifactHandler mocking return null extension name</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          assertEquals( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"target/some-final-name.null"</span> ), conf.getOutputFile() );
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  }
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          mojo.execute();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <em class="jxr_comment">// "target is set in the stub</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          assertEquals( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"target"</span> ), conf.getOutputDirectory() );
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          assertEquals( linkerFinalName, conf.getOutputFileName() );
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          assertNull(conf.getOutputFileExtension() );
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <em class="jxr_comment">// current artifactHandler mocking return null extension name</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          assertEquals( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"target/some-final-name.null"</span> ), conf.getOutputFile() );
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      }
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testExecuteWithFinalNameExtension() <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      {
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          NativeLinkMojo mojo = getMojo();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_comment">// simulate object files</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          List objectList = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          objectList.add( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"o1.o"</span> ) );
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          objectList.add( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"o2.o"</span> ) );
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          mojo.saveCompilerOutputFilePaths( objectList );
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <em class="jxr_comment">// simulate artifact</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          ArtifactHandler artifactHandler = <strong class="jxr_keyword">new</strong> DefaultArtifactHandler();
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          Artifact artifact = <strong class="jxr_keyword">new</strong> DefaultArtifact( <span class="jxr_string">"test"</span>, <span class="jxr_string">"test"</span>, VersionRange.createFromVersion( <span class="jxr_string">"1.0-SNAPSHOT"</span> ), <span class="jxr_string">"compile"</span>, <span class="jxr_string">"exe"</span>, <strong class="jxr_keyword">null</strong>, artifactHandler );
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          mojo.getProject().setArtifact( artifact );
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <em class="jxr_comment">// simulate artifacts</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          mojo.getProject().setArtifacts( <strong class="jxr_keyword">new</strong> HashSet() ); <em class="jxr_comment">// no extern libs for now</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          String linkerFinalName = <span class="jxr_string">"some-final-name"</span>;
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          setVariableValueToObject( mojo, <span class="jxr_string">"linkerFinalName"</span>, linkerFinalName );
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          String linkerFinalNameExt = <span class="jxr_string">"some-extension"</span>;
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          setVariableValueToObject( mojo, <span class="jxr_string">"linkerFinalNameExt"</span>, linkerFinalNameExt );
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          mojo.execute();
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <em class="jxr_comment">// "target is set in the stub</em>
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          assertEquals( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"target"</span> ), conf.getOutputDirectory() );
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          assertEquals( linkerFinalName, conf.getOutputFileName() );
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          assertEquals( linkerFinalNameExt, conf.getOutputFileExtension() );
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          assertEquals( <strong class="jxr_keyword">new</strong> File( <span class="jxr_string">"target/some-final-name.some-extension"</span> ), conf.getOutputFile() );
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      }
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2005&#x2013;2016 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2005&#x2013;2017 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
 </body>
 </html>

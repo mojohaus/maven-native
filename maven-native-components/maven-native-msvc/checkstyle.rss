@@ -23,10 +23,10 @@ under the License.
     <link>http://www.mojohaus.org/maven-native-msvc/maven-native/maven-native-components/maven-native-msvc</link>
     <description>Maven Native MSVC - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2016 MojoHaus</copyright>
+    <copyright>&#169;2017 MojoHaus</copyright>
     <item>
       <title>File: 23,
-             Errors: 43,
+             Errors: 53,
              Warnings: 30,
              Infos: 3
       </title>
@@ -55,7 +55,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -69,7 +69,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -279,7 +279,7 @@ under the License.
                   4
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -335,7 +335,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                           <tr>
@@ -363,7 +363,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  4
                 </td>
               </tr>
                       </tbody>

@@ -23,10 +23,10 @@ under the License.
     <link>http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api</link>
     <description>Maven Native API - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2016 MojoHaus</copyright>
+    <copyright>&#169;2017 MojoHaus</copyright>
     <item>
       <title>File: 43,
-             Errors: 82,
+             Errors: 80,
              Warnings: 205,
              Infos: 8
       </title>
@@ -144,20 +144,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.Manifest.java">org/codehaus/mojo/natives/linker/Manifest.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.SourceDependencyAnalyzer.java">org/codehaus/mojo/natives/SourceDependencyAnalyzer.java</a>
                 </td>
                 <td>
@@ -172,16 +158,16 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.NativeSources.java">org/codehaus/mojo/natives/NativeSources.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  18
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.Manifest.java">org/codehaus/mojo/natives/linker/Manifest.java</a>
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
                 </td>
               </tr>
                           <tr>
@@ -195,7 +181,21 @@ under the License.
                   2
                 </td>
                 <td>
-                  4
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.NativeSources.java">org/codehaus/mojo/natives/NativeSources.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>

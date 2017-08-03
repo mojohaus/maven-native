@@ -23,12 +23,12 @@ under the License.
     <link>http://www.mojohaus.org/native-maven-plugin/maven-native/native-maven-plugin</link>
     <description>Native Maven Plugin - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2005 - 2016 MojoHaus</copyright>
+    <copyright>&#169;2005 - 2017 MojoHaus</copyright>
     <item>
       <title>File: 13,
-             Errors: 22,
+             Errors: 130,
              Warnings: 31,
-             Infos: 5
+             Infos: 8
       </title>
             <link>http://www.mojohaus.org/native-maven-plugin/maven-native/native-maven-plugin/checkstyle.html</link>
       <description>
@@ -55,7 +55,7 @@ under the License.
                   2
                 </td>
                 <td>
-                  2
+                  7
                 </td>
               </tr>
                           <tr>
@@ -69,7 +69,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  3
+                  11
                 </td>
               </tr>
                           <tr>
@@ -77,13 +77,13 @@ under the License.
                   <a href="http://www.mojohaus.org/native-maven-plugin/maven-native/native-maven-plugin/checkstyle.html#org.codehaus.mojo.natives.plugin.NativeInitializeMojo.java">org/codehaus/mojo/natives/plugin/NativeInitializeMojo.java</a>
                 </td>
                 <td>
-                  0
-                </td>
-                <td>
                   1
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  5
                 </td>
               </tr>
                           <tr>
@@ -97,7 +97,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  9
                 </td>
               </tr>
                           <tr>
@@ -111,7 +111,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  2
+                  8
                 </td>
               </tr>
                           <tr>
@@ -125,7 +125,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  7
                 </td>
               </tr>
                           <tr>
@@ -139,7 +139,7 @@ under the License.
                   5
                 </td>
                 <td>
-                  3
+                  22
                 </td>
               </tr>
                           <tr>
@@ -161,13 +161,13 @@ under the License.
                   <a href="http://www.mojohaus.org/native-maven-plugin/maven-native/native-maven-plugin/checkstyle.html#org.codehaus.mojo.natives.plugin.AbstractNativeMojo.java">org/codehaus/mojo/natives/plugin/AbstractNativeMojo.java</a>
                 </td>
                 <td>
-                  5
+                  7
                 </td>
                 <td>
                   5
                 </td>
                 <td>
-                  2
+                  8
                 </td>
               </tr>
                           <tr>
@@ -195,7 +195,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  7
                 </td>
               </tr>
                           <tr>
@@ -209,7 +209,7 @@ under the License.
                   4
                 </td>
                 <td>
-                  1
+                  15
                 </td>
               </tr>
                           <tr>
@@ -223,7 +223,7 @@ under the License.
                   3
                 </td>
                 <td>
-                  1
+                  27
                 </td>
               </tr>
                       </tbody>
