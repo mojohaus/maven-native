@@ -23,7 +23,7 @@ under the License.
     <link>http://www.mojohaus.org/maven-native-generic-c/maven-native/maven-native-components/maven-native-generic-c</link>
     <description>Maven Native C/C++ - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2017 MojoHaus</copyright>
+    <copyright>&#169;2018 MojoHaus</copyright>
     <item>
       <title>File: 5,
              Errors: 15,

@@ -23,7 +23,7 @@ under the License.
     <link>http://www.mojohaus.org/native-maven-plugin/maven-native/native-maven-plugin</link>
     <description>Native Maven Plugin - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2005 - 2017 MojoHaus</copyright>
+    <copyright>&#169;2005 - 2018 MojoHaus</copyright>
     <item>
       <title>File: 13,
              Errors: 130,
