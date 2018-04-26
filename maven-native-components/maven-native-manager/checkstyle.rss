@@ -46,20 +46,6 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.NoSuchNativeProviderException.java">org/codehaus/mojo/natives/manager/NoSuchNativeProviderException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.RanlibManager.java">org/codehaus/mojo/natives/manager/RanlibManager.java</a>
                 </td>
                 <td>
@@ -67,6 +53,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.NoSuchNativeProviderException.java">org/codehaus/mojo/natives/manager/NoSuchNativeProviderException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   2
@@ -214,16 +214,16 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.DefaultManifestManager.java">org/codehaus/mojo/natives/manager/DefaultManifestManager.java</a>
+                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.ResourceCompilerManager.java">org/codehaus/mojo/natives/manager/ResourceCompilerManager.java</a>
                 </td>
                 <td>
-                  0
+                  1
+                </td>
+                <td>
+                  1
                 </td>
                 <td>
                   2
-                </td>
-                <td>
-                  6
                 </td>
               </tr>
                           <tr>
@@ -242,21 +242,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.ResourceCompilerManager.java">org/codehaus/mojo/natives/manager/ResourceCompilerManager.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.DefaultResourceCompilerManager.java">org/codehaus/mojo/natives/manager/DefaultResourceCompilerManager.java</a>
+                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.DefaultManifestManager.java">org/codehaus/mojo/natives/manager/DefaultManifestManager.java</a>
                 </td>
                 <td>
                   0
@@ -271,6 +257,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.DefaultCompilerManager.java">org/codehaus/mojo/natives/manager/DefaultCompilerManager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-manager/maven-native/maven-native-components/maven-native-manager/checkstyle.html#org.codehaus.mojo.natives.manager.DefaultResourceCompilerManager.java">org/codehaus/mojo/natives/manager/DefaultResourceCompilerManager.java</a>
                 </td>
                 <td>
                   0

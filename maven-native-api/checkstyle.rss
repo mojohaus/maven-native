@@ -144,20 +144,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.SourceDependencyAnalyzer.java">org/codehaus/mojo/natives/SourceDependencyAnalyzer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.Manifest.java">org/codehaus/mojo/natives/linker/Manifest.java</a>
                 </td>
                 <td>
@@ -172,16 +158,16 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.ArchiveLinker.java">org/codehaus/mojo/natives/linker/ArchiveLinker.java</a>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.SourceDependencyAnalyzer.java">org/codehaus/mojo/natives/SourceDependencyAnalyzer.java</a>
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   1
                 </td>
                 <td>
-                  2
-                </td>
-                <td>
-                  2
+                  1
                 </td>
               </tr>
                           <tr>
@@ -196,6 +182,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mojohaus.org/maven-native-api/maven-native/maven-native-api/checkstyle.html#org.codehaus.mojo.natives.linker.ArchiveLinker.java">org/codehaus/mojo/natives/linker/ArchiveLinker.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
                 </td>
               </tr>
                           <tr>
