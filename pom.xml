@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
-  <version>1.0-alpha-9-SNAPSHOT</version>
+  <version>1.0-alpha-9</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
 
@@ -25,7 +25,7 @@
     <connection>scm:git:https://github.com/mojohaus/maven-native.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mojohaus/maven-native.git</developerConnection>
     <url>https://github.com/mojohaus/maven-native</url>
-    <tag>master</tag>
+    <tag>maven-native-1.0-alpha-9</tag>
   </scm>
 
   <developers>
