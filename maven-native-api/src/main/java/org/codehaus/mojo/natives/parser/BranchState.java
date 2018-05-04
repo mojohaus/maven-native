@@ -26,7 +26,7 @@ public class BranchState
     private AbstractParserState noMatchState;
 
     public BranchState( AbstractParser parser, char[] branchChars, AbstractParserState[] branchStates,
-                        AbstractParserState noMatchState )
+            AbstractParserState noMatchState )
     {
         super( parser );
         this.branchChars = (char[]) branchChars.clone();

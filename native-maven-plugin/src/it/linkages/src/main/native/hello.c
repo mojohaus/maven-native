@@ -6,5 +6,5 @@
 
 void main()
 {
-	printf( "%s\n", helloFunc() );
+    printf( "%s\n", helloFunc() );
 }

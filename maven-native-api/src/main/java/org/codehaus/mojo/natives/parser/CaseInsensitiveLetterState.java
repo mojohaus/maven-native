@@ -18,7 +18,7 @@ package org.codehaus.mojo.natives.parser;
 
 /**
  * This parser state checks consumed characters against a specific character (case insensitive).
- * 
+ *
  * @author Curt Arnold
  */
 public final class CaseInsensitiveLetterState
@@ -46,14 +46,14 @@ public final class CaseInsensitiveLetterState
 
     /**
      * Constructor.
-     * 
+     *
      * @param parser parser
      * @param matchLetter letter to match
      * @param nextStateArg next state if a match on the letter
      * @param noMatchStateArg state if no match on letter
      */
     public CaseInsensitiveLetterState( final AbstractParser parser, final char matchLetter,
-                                       final AbstractParserState nextStateArg, final AbstractParserState noMatchStateArg )
+            final AbstractParserState nextStateArg, final AbstractParserState noMatchStateArg )
     {
         super( parser );
         this.lowerLetter = Character.toLowerCase( matchLetter );
@@ -64,7 +64,7 @@ public final class CaseInsensitiveLetterState
 
     /**
      * Consumes a character and returns the next state for the parser.
-     * 
+     *
      * @param ch next character
      * @return the configured nextState if ch is the expected character or the configure noMatchState otherwise.
      */

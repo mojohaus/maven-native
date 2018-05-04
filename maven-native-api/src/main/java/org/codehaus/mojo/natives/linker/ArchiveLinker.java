@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.linker;
-
 /*
  * The MIT License
  *
@@ -20,12 +18,13 @@ package org.codehaus.mojo.natives.linker;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-import org.codehaus.plexus.util.StringUtils;
-import org.codehaus.plexus.util.cli.Commandline;
+package org.codehaus.mojo.natives.linker;
 
 import java.io.File;
 import java.util.List;
+
+import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.cli.Commandline;
 
 public class ArchiveLinker
     extends AbstractLinker
@@ -37,7 +36,8 @@ public class ArchiveLinker
     {
     }
 
-    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+    @Override
+    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
     {
         Commandline cl = new Commandline();
 
@@ -72,7 +72,7 @@ public class ArchiveLinker
 
         for ( int i = 0; i < objectFiles.size(); ++i )
         {
-            File objFile = (File) objectFiles.get( i );
+            File objFile = objectFiles.get( i );
 
             cl.createArg().setValue( objFile.getPath() );
         }

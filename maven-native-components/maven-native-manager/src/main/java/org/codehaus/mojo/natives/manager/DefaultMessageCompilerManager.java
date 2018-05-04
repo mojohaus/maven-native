@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.manager;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives.manager;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,16 +21,15 @@ package org.codehaus.mojo.natives.manager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-import org.codehaus.mojo.natives.compiler.MessageCompiler;
-
-import org.codehaus.plexus.logging.AbstractLogEnabled;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
+package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.codehaus.mojo.natives.compiler.MessageCompiler;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.AbstractLogEnabled;
+import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = MessageCompilerManager.class, hint = "native-message-compiler-provider-manager")
 public class DefaultMessageCompilerManager
@@ -40,17 +37,18 @@ public class DefaultMessageCompilerManager
     implements MessageCompilerManager, Initializable
 {
     @Requirement(role = MessageCompiler.class)
-    private Map providers;
+    private Map<String, MessageCompiler> providers;
 
     // ----------------------------------------------------------------------
     // Component Lifecycle
     // ----------------------------------------------------------------------
 
+    @Override
     public void initialize()
     {
         if ( providers == null )
         {
-            providers = new HashMap();
+            providers = new HashMap<>();
         }
 
         if ( providers.size() == 0 )
@@ -59,11 +57,12 @@ public class DefaultMessageCompilerManager
         }
     }
 
+    @Override
     public MessageCompiler getMessageCompiler( String providerType )
         throws NoSuchNativeProviderException
     {
 
-        MessageCompiler provider = (MessageCompiler) providers.get( providerType );
+        MessageCompiler provider = providers.get( providerType );
 
         if ( provider == null )
         {

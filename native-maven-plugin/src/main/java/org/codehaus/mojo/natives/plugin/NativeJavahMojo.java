@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,6 +18,7 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,9 +26,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
@@ -62,6 +61,7 @@ public class NativeJavahMojo
 
     /**
      * Javah Provider.
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "default", required = true)
@@ -70,13 +70,15 @@ public class NativeJavahMojo
     /**
      * List of class names to generate native files. Additional JNI interface will automatically discovered from
      * project's dependencies of <i>jar</i> type, when <i>javahSearchJNIFromDependencies</i> is true
+     *
      * @since 1.0-alpha-4
      */
     @Parameter
-    private List javahClassNames = new ArrayList( 0 );
+    private List<String> javahClassNames = new ArrayList<>( 0 );
 
     /**
      * Enable the search from project dependencies for JNI interfaces, in addition to <i>javahClassNames</i>
+     *
      * @since 1.0-alpha-4
      */
     @Parameter(defaultValue = "false")
@@ -85,6 +87,7 @@ public class NativeJavahMojo
     /**
      * Path to javah executable, if present, it will override the default one which bases on architecture type. See
      * 'javahProvider' argument
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -92,6 +95,7 @@ public class NativeJavahMojo
 
     /**
      * Where to place javah generated file
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "${project.build.directory}/native/javah", required = true)
@@ -99,6 +103,7 @@ public class NativeJavahMojo
 
     /**
      * if configured, this value will be combined with outputDirectory to pass into javah's -o option
+     *
      * @since 1.0-alpha-4
      */
     @Parameter
@@ -116,13 +121,15 @@ public class NativeJavahMojo
      *   &lt;javahInclude&gt;
      * &lt;/javahIncludes&gt;
      * </pre>
+     *
      * @since 1.0-alpha-8
      */
     @Parameter
-    private List javahIncludes = new ArrayList();
+    private List<JavahInclude> javahIncludes = new ArrayList<>();
 
     /**
      * Enable javah verbose mode
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "false")
@@ -142,6 +149,7 @@ public class NativeJavahMojo
 
     /**
      * Archive file to bundle all generated include files if enable by ${attach}
+     *
      * @since 1.0-alpha-8
      */
     @Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}.inczip", required = true)
@@ -150,6 +158,7 @@ public class NativeJavahMojo
     /**
      * Set CLASSPATH env variable instead of using -classpath command-line argument. Use this option to allow large
      * number of jars in classpath due to command line size limit under Windows
+     *
      * @since 1.0-alpha-9
      */
     @Parameter(defaultValue = "false")
@@ -157,6 +166,7 @@ public class NativeJavahMojo
 
     /**
      * Internal: To look up javah implementation
+     *
      * @since 1.0-alpha-2
      */
 
@@ -165,6 +175,7 @@ public class NativeJavahMojo
 
     /**
      * Maven ProjectHelper.
+     *
      * @since 1.0-alpha-8
      */
     @Component
@@ -175,6 +186,7 @@ public class NativeJavahMojo
      */
     private JavahConfiguration config;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {
@@ -190,18 +202,16 @@ public class NativeJavahMojo
         {
             if ( this.javahClassNames.size() != 0 )
             {
-                this.config =
-                    this.createProviderConfiguration( (String[]) javahClassNames.toArray( new String[javahClassNames.size()] ),
-                                                      this.javahOutputFileName );
+                this.config = this.createProviderConfiguration(
+                        javahClassNames.toArray( new String[javahClassNames.size()] ), this.javahOutputFileName );
                 this.getJavah().compile( config );
             }
 
             for ( int i = 0; i < this.javahIncludes.size(); ++i )
             {
-                JavahInclude javahInclude = (JavahInclude) this.javahIncludes.get( i );
-                this.config =
-                    this.createProviderConfiguration( new String[] { javahInclude.getClassName() },
-                                                      javahInclude.getHeaderName() );
+                JavahInclude javahInclude = this.javahIncludes.get( i );
+                this.config = this.createProviderConfiguration( new String[] { javahInclude.getClassName() },
+                        javahInclude.getHeaderName() );
                 this.getJavah().compile( config );
             }
 
@@ -270,37 +280,31 @@ public class NativeJavahMojo
      *
      * @return
      */
-    private List getJavahArtifacts()
+    private List<Artifact> getJavahArtifacts()
     {
-        List list = new ArrayList();
+        List<Artifact> list = new ArrayList<>();
 
-        List artifacts = this.project.getCompileArtifacts();
+        Set<Artifact> artifacts = this.project.getArtifacts();
 
         if ( artifacts != null )
         {
 
-            for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
+            for ( Artifact artifact : artifacts )
             {
-                Artifact artifact = (Artifact) iter.next();
 
-                // pick up only jar files
-                if ( !"jar".equals( artifact.getType() ) )
+                // pick up only jar files from class path for compile (and system) scope
+                if ( "jar".equals( artifact.getType() ) && artifact.getArtifactHandler().isAddedToClasspath()
+                        && ( Artifact.SCOPE_COMPILE.equals( artifact.getScope() )
+                                || Artifact.SCOPE_SYSTEM.equals( artifact.getScope() ) ) )
                 {
-                    continue;
+                    list.add( artifact );
                 }
-
-                // exclude some other scopes
-                if ( Artifact.SCOPE_PROVIDED.equals( artifact.getScope() ) )
-                {
-                    continue;
-                }
-
-                list.add( artifact );
-
             }
+
         }
 
         return list;
+
     }
 
     /**
@@ -310,17 +314,17 @@ public class NativeJavahMojo
      */
     private String[] getJavahClassPath()
     {
-        List artifacts = this.getJavahArtifacts();
+        List<Artifact> artifacts = this.getJavahArtifacts();
 
         String[] classPaths = new String[artifacts.size() + 1];
 
         classPaths[0] = this.project.getBuild().getOutputDirectory();
 
-        Iterator iter = artifacts.iterator();
+        Iterator<Artifact> iter = artifacts.iterator();
 
         for ( int i = 1; i < classPaths.length; ++i )
         {
-            Artifact artifact = (Artifact) iter.next();
+            Artifact artifact = iter.next();
 
             classPaths[i] = artifact.getFile().getPath();
         }
@@ -342,22 +346,22 @@ public class NativeJavahMojo
 
         // scan the immediate dependency list for jni classes
 
-        List artifacts = this.getJavahArtifacts();
+        List<Artifact> artifacts = this.getJavahArtifacts();
 
-        for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
+        for ( Iterator<Artifact> iter = artifacts.iterator(); iter.hasNext(); )
         {
-            Artifact artifact = (Artifact) iter.next();
+            Artifact artifact = iter.next();
 
             this.getLog().info( "Parsing " + artifact.getFile() + " for native classes." );
 
             try
             {
                 ZipFile zipFile = new ZipFile( artifact.getFile() );
-                Enumeration zipEntries = zipFile.entries();
+                Enumeration<? extends ZipEntry> zipEntries = zipFile.entries();
 
                 while ( zipEntries.hasMoreElements() )
                 {
-                    ZipEntry zipEntry = (ZipEntry) zipEntries.nextElement();
+                    ZipEntry zipEntry = zipEntries.nextElement();
 
                     if ( "class".equals( FileUtils.extension( zipEntry.getName() ) ) )
                     {
@@ -379,7 +383,7 @@ public class NativeJavahMojo
                             }
                         }
                     }
-                }// endwhile
+                } // endwhile
 
                 // not full proof
                 zipFile.close();
@@ -422,6 +426,7 @@ public class NativeJavahMojo
      * Internal for unit test only
      */
 
+    @Override
     protected MavenProject getProject()
     {
         return this.project;

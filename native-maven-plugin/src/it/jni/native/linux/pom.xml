@@ -48,9 +48,9 @@
           <sources>
             <source>
               <directory>../src/main/native</directory>
-	          <fileNames>
+              <fileNames>
                 <fileName>HelloWorld.c</fileName>
-	          </fileNames>
+              </fileNames>
             </source>
           </sources>
             

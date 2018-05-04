@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.linker;
-
 /*
  * The MIT License
  *
@@ -23,6 +21,7 @@ package org.codehaus.mojo.natives.linker;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.linker;
 
 import java.io.File;
 

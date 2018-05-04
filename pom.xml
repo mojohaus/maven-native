@@ -1,33 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>mojo-parent</artifactId>
-    <groupId>org.codehaus.mojo</groupId>
-    <version>38</version>
-  </parent>
-
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo-parent</artifactId>
+    <version>40</version>
+  </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
   <version>1.0-alpha-10-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
-
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/mojohaus/maven-native/issues/</url>
-  </issueManagement>
-  <ciManagement>
-    <system>Travis-CI</system>
-    <url>https://travis-ci.org/mojohaus/maven-native</url>
-  </ciManagement>
-
-  <scm>
-    <connection>scm:git:https://github.com/mojohaus/maven-native.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/mojohaus/maven-native.git</developerConnection>
-    <url>https://github.com/mojohaus/maven-native</url>
-    <tag>master</tag>
-  </scm>
-
   <developers>
     <developer>
       <id>dtran</id>
@@ -39,40 +22,143 @@
       </roles>
     </developer>
   </developers>
-
   <contributors>
     <contributor>
       <name>Justin Georgeson</name>
     </contributor>
     <contributor>
-        <name>Guillaume Chauvet</name>
+      <name>Guillaume Chauvet</name>
     </contributor>
   </contributors>
-
-  <prerequisites>
-    <maven>2.2.1</maven>
-  </prerequisites>
-
+  <modules>
+    <module>maven-native-api</module>
+    <module>maven-native-components</module>
+    <module>native-maven-plugin</module>
+  </modules>
+  <scm>
+    <connection>scm:git:https://github.com/mojohaus/maven-native.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/mojohaus/maven-native.git</developerConnection>
+    <tag>master</tag>
+    <url>https://github.com/mojohaus/maven-native</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/mojohaus/maven-native/issues/</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis-CI</system>
+    <url>https://travis-ci.org/mojohaus/maven-native</url>
+  </ciManagement>
   <properties>
-    <maven.api.version>2.2.1</maven.api.version>
+    <maven.api.version>3.2.5</maven.api.version>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
   </properties>
-
-
   <dependencyManagement>
-
     <dependencies>
-
+      <dependency>
+        <groupId>backport-util-concurrent</groupId>
+        <artifactId>backport-util-concurrent</artifactId>
+        <version>3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.bcel</groupId>
+        <artifactId>bcel</artifactId>
+        <version>6.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.7</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-aether-provider</artifactId>
+        <version>${maven.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-artifact</artifactId>
+        <version>${maven.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-compat</artifactId>
+        <version>${maven.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-core</artifactId>
+        <version>${maven.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-model</artifactId>
+        <version>${maven.api.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-plugin-api</artifactId>
         <version>${maven.api.version}</version>
       </dependency>
-      
+      <dependency>
+        <groupId>org.apache.maven.plugin-testing</groupId>
+        <artifactId>maven-plugin-testing-harness</artifactId>
+        <version>3.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-bcc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-generic-c</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-javah</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-manager</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-mingw</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-msvc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-archiver</artifactId>
+        <version>3.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-component-annotations</artifactId>
+        <version>1.7.1</version>
+      </dependency>
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-container-default</artifactId>
-        <version>1.0-alpha-9</version>
+        <version>1.7.1</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -80,116 +166,13 @@
           </exclusion>
         </exclusions>
       </dependency>
-      
-      <dependency>
-         <groupId>org.codehaus.plexus</groupId>
-         <artifactId>plexus-component-annotations</artifactId>
-         <version>1.7.1</version>
-         <scope>provided</scope>
-       </dependency>
-
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-utils</artifactId>
-        <version>3.0.24</version>
+        <version>3.1.0</version>
       </dependency>
-
-      <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
-      </dependency>
-
-      <dependency>
-        <groupId>bcel</groupId>
-        <artifactId>bcel</artifactId>
-        <version>5.1</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-project</artifactId>
-        <version>${maven.api.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-model</artifactId>
-        <version>${maven.api.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-artifact</artifactId>
-        <version>${maven.api.version}</version>
-      </dependency>
-
-
-      <dependency>
-        <groupId>org.codehaus.plexus</groupId>
-        <artifactId>plexus-archiver</artifactId>
-        <version>3.5</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.maven.shared</groupId>
-        <artifactId>maven-plugin-testing-harness</artifactId>
-        <version>1.1</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>backport-util-concurrent</groupId>
-        <artifactId>backport-util-concurrent</artifactId>
-        <version>3.1</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-api</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-javah</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-generic-c</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-msvc</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-bcc</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-mingw</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.codehaus.mojo.natives</groupId>
-        <artifactId>maven-native-manager</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
     </dependencies>
-
   </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -197,17 +180,99 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <modules>
-    <module>maven-native-api</module>
-    <module>maven-native-components</module>
-    <module>native-maven-plugin</module>
-  </modules>
-
-
   <build>
-    <defaultGoal>install</defaultGoal>
-
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>3.5.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-metadata</artifactId>
+          <version>1.7.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
-
+  <profiles>
+    <profile>
+      <id>jdk8</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.ekryd.sortpom</groupId>
+            <artifactId>sortpom-maven-plugin</artifactId>
+            <version>2.8.0</version>
+            <executions>
+              <execution>
+                <id>sort-pom</id>
+                <goals>
+                  <goal>sort</goal>
+                </goals>
+                <phase>process-sources</phase>
+                <configuration>
+                  <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+                  <createBackupFile>false</createBackupFile>
+                  <lineSeparator>\n</lineSeparator>
+                  <expandEmptyElements>false</expandEmptyElements>
+                  <nrOfIndentSpace>2</nrOfIndentSpace>
+                  <sortDependencies>scope,groupId,artifactId</sortDependencies>
+                  <sortProperties>true</sortProperties>
+                  <verifyFail>Stop</verifyFail>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>m2e</id>
+      <activation>
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <!--
+              This plugin's configuration is used to store Eclipse m2e
+              settings only. It has no influence on the Maven build itself.
+            -->
+            <plugin>
+              <groupId>org.eclipse.m2e</groupId>
+              <artifactId>lifecycle-mapping</artifactId>
+              <version>1.0.0</version>
+              <configuration>
+                <lifecycleMappingMetadata>
+                  <pluginExecutions>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>com.github.ekryd.sortpom</groupId>
+                        <artifactId>sortpom-maven-plugin</artifactId>
+                        <versionRange>[0,)</versionRange>
+                        <goals>
+                          <goal>sort</goal>
+                          <goal>verify</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore />
+                      </action>
+                    </pluginExecution>
+                  </pluginExecutions>
+                </lifecycleMappingMetadata>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
 </project>

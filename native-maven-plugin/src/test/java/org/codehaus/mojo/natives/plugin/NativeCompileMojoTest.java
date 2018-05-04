@@ -3,7 +3,6 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 
@@ -26,7 +25,7 @@ public class NativeCompileMojoTest
         assertNotNull( mojo );
 
         // must init this
-        mojo.setPluginContext( new HashMap() );
+        mojo.setPluginContext( new HashMap<>() );
 
         // simulate extra path to be added into includePath
         mojo.getProject().addCompileSourceRoot( "dummy" );
@@ -65,7 +64,8 @@ public class NativeCompileMojoTest
         assertEquals( "-e2", config.getEndOptions()[2] );
         assertEquals( "-e3", config.getEndOptions()[3] );
 
-        // there are 2 source element with dependencyAnalysisParticipation is set to false
+        // there are 2 source element with dependencyAnalysisParticipation is set to
+        // false
         assertEquals( 2, config.getSystemIncludePaths().length );
         assertEquals( new File( "src/main/native/dir4" ), config.getSystemIncludePaths()[0] );
         assertEquals( new File( "src/main/native/dir5" ), config.getSystemIncludePaths()[1] );
@@ -75,16 +75,17 @@ public class NativeCompileMojoTest
         assertEquals( new File( "src/main/native/dir1" ), config.getIncludePaths()[0] );
         assertEquals( new File( "src/main/native/dir2" ), config.getIncludePaths()[1] );
         assertEquals( new File( "src/main/native/dir3" ), config.getIncludePaths()[2] );
-        // until maven project stub is fixes were we can simulate more than 1 source root in the list
+        // until maven project stub is fixes were we can simulate more than 1 source
+        // root in the list
         // assertEquals( new File( "target/javah" ), config.getIncludePaths()[3] );
 
         // we have 4 source files, so in output directory, there must be 4 object files
-        List objectFileList = mojo.getAllCompilersOutputFileList();
+        List<File> objectFileList = mojo.getAllCompilersOutputFileList();
         assertEquals( 4, objectFileList.size() );
-        assertEquals( new File( "target/file11.o" ), (File) objectFileList.get( 0 ) );
-        assertEquals( new File( "target/file12.o" ), (File) objectFileList.get( 1 ) );
-        assertEquals( new File( "target/file21.o" ), (File) objectFileList.get( 2 ) );
-        assertEquals( new File( "target/file22.o" ), (File) objectFileList.get( 3 ) );
+        assertEquals( new File( "target/file11.o" ), objectFileList.get( 0 ) );
+        assertEquals( new File( "target/file12.o" ), objectFileList.get( 1 ) );
+        assertEquals( new File( "target/file21.o" ), objectFileList.get( 2 ) );
+        assertEquals( new File( "target/file22.o" ), objectFileList.get( 3 ) );
 
     }
 
@@ -95,7 +96,7 @@ public class NativeCompileMojoTest
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo( "compile", pluginXml );
         assertNotNull( mojo );
 
-        mojo.setPluginContext( new HashMap() );
+        mojo.setPluginContext( new HashMap<>() );
 
         mojo.execute();
 

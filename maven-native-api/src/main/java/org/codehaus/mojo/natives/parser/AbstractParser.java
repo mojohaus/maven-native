@@ -22,7 +22,7 @@ import java.io.Reader;
 
 /**
  * An abstract base class for simple parsers
- * 
+ *
  * @author Curt Arnold
  */
 public abstract class AbstractParser

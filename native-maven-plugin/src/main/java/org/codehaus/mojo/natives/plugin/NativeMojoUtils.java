@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -23,6 +21,7 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +35,18 @@ public class NativeMojoUtils
      * @param args
      * @return
      */
-    public static String[] trimParams( List args )
+    public static String[] trimParams( List<String> args )
     {
         if ( args == null )
         {
             return new String[0];
         }
 
-        List tokenArray = new ArrayList();
+        List<String> tokenArray = new ArrayList<>();
 
         for ( int i = 0; i < args.size(); ++i )
         {
-            String arg = (String) args.get( i );
+            String arg = args.get( i );
 
             if ( arg == null || arg.length() == 0 )
             {
@@ -67,7 +66,7 @@ public class NativeMojoUtils
             }
         }
 
-        return (String[]) tokenArray.toArray( new String[tokenArray.size()] );
+        return tokenArray.toArray( new String[tokenArray.size()] );
     }
 
 }

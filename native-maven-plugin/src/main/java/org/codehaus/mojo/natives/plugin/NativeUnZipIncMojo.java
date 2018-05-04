@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,6 +18,7 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -40,6 +38,7 @@ import org.codehaus.plexus.archiver.manager.ArchiverManager;
 
 /**
  * Unpack any .inczip dependencies to be included as system include path
+ *
  * @since 1.0-alpha-4
  */
 @Mojo(name = "unzipinc", defaultPhase = LifecyclePhase.GENERATE_SOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
@@ -49,6 +48,7 @@ public class NativeUnZipIncMojo
 
     /**
      * Internal
+     *
      * @since 1.0-alpha-4
      */
     @Parameter(defaultValue = "${project.build.directory}/native/markers", required = true)
@@ -56,34 +56,37 @@ public class NativeUnZipIncMojo
 
     /**
      * Internal component for archiving purposes
+     *
      * @since 1.0-alpha-4
      */
     @Component
     private ArchiverManager archiverManager;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {
         if ( unpackIncZipDepenedencies() )
         {
-            this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, new Boolean( "true" ) );
+            @SuppressWarnings({ "unused", "unchecked" })
+            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, new Boolean( "true" ) );
         }
     }
 
     private boolean unpackIncZipDepenedencies()
         throws MojoExecutionException
     {
-        List files = getIncZipDependencies();
+        List<Artifact> files = getIncZipDependencies();
 
-        Iterator iter = files.iterator();
+        Iterator<Artifact> iter = files.iterator();
 
         for ( int i = 0; i < files.size(); ++i )
         {
-            Artifact artifact = (Artifact) iter.next();
+            Artifact artifact = iter.next();
             File incZipFile = artifact.getFile();
 
-            File marker =
-                new File( this.dependencyIncZipMarkerDirectory, artifact.getGroupId() + "." + artifact.getArtifactId() );
+            File marker = new File( this.dependencyIncZipMarkerDirectory,
+                    artifact.getGroupId() + "." + artifact.getArtifactId() );
 
             if ( !marker.exists() || marker.lastModified() < incZipFile.lastModified() )
             {
@@ -141,17 +144,17 @@ public class NativeUnZipIncMojo
      *
      * @return
      */
-    private List getIncZipDependencies()
+    private List<Artifact> getIncZipDependencies()
     {
-        List list = new ArrayList();
+        List<Artifact> list = new ArrayList<>();
 
-        Set artifacts = this.project.getDependencyArtifacts();
+        Set<Artifact> artifacts = this.project.getDependencyArtifacts();
 
         if ( artifacts != null )
         {
-            for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
+            for ( Iterator<Artifact> iter = artifacts.iterator(); iter.hasNext(); )
             {
-                Artifact artifact = (Artifact) iter.next();
+                Artifact artifact = iter.next();
 
                 // pick up only native header archive
                 if ( !INCZIP_TYPE.equals( artifact.getType() ) )

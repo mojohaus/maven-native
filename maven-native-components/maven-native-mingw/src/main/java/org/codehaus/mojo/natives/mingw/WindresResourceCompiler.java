@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.mingw;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives.mingw;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,6 +21,8 @@ package org.codehaus.mojo.natives.mingw;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.mingw;
+
 import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -34,51 +34,58 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = ResourceCompiler.class, hint = "mingw", instantiationStrategy = "per-lookup")
-public final class WindresResourceCompiler extends AbstractResourceCompiler {
+public final class WindresResourceCompiler
+    extends AbstractResourceCompiler
+{
 
-    protected Commandline getCommandLine(ResourceCompilerConfiguration config, File source)
-            throws NativeBuildException {
+    protected Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
+        throws NativeBuildException
+    {
 
         Commandline cl = new Commandline();
 
-        EnvUtil.setupCommandlineEnv(cl, config.getEnvFactory());
+        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 
-        if (config.getWorkingDirectory() != null) {
-            cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
+        if ( config.getWorkingDirectory() != null )
+        {
+            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
         }
 
-        if (config.getExecutable() == null || config.getExecutable().trim().length() == 0) {
-            config.setExecutable("windres.exe");
+        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
+        {
+            config.setExecutable( "windres.exe" );
         }
-        cl.setExecutable(config.getExecutable().trim());
+        cl.setExecutable( config.getExecutable().trim() );
 
-        cl.addArguments(config.getOptions());
+        cl.addArguments( config.getOptions() );
 
-        for (int i = 0; i < config.getIncludePaths().length; ++i) {
+        for ( int i = 0; i < config.getIncludePaths().length; ++i )
+        {
             String includePath = config.getIncludePaths()[i].getPath();
 
-            cl.createArg().setValue("-I");
+            cl.createArg().setValue( "-I" );
 
-            cl.createArg().setValue(includePath);
+            cl.createArg().setValue( includePath );
         }
 
-        for (int i = 0; i < config.getSystemIncludePaths().length; ++i) {
+        for ( int i = 0; i < config.getSystemIncludePaths().length; ++i )
+        {
             String includePath = config.getSystemIncludePaths()[i].getPath();
 
-            cl.createArg().setValue("-I");
+            cl.createArg().setValue( "-I" );
 
-            cl.createArg().setValue(includePath);
+            cl.createArg().setValue( includePath );
         }
-        
-        cl.createArg().setValue("-O");
-        
-        cl.createArg().setValue("coff");
 
-        cl.createArg().setValue("-o");
+        cl.createArg().setValue( "-O" );
 
-        cl.createArg().setValue(config.getOutputFile(source).getPath());
+        cl.createArg().setValue( "coff" );
 
-        cl.createArg().setValue(source.getPath());
+        cl.createArg().setValue( "-o" );
+
+        cl.createArg().setValue( config.getOutputFile( source ).getPath() );
+
+        cl.createArg().setValue( source.getPath() );
 
         return cl;
     }

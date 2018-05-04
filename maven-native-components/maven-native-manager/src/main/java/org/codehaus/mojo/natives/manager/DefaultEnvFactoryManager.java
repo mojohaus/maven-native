@@ -2,7 +2,6 @@ package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.plexus.component.annotations.Component;
@@ -14,12 +13,13 @@ import org.codehaus.plexus.component.annotations.Component;
 public class DefaultEnvFactoryManager
     implements EnvFactoryManager
 {
-    private Map envFactoryCache = new HashMap();
+    private Map<String, EnvFactory> envFactoryCache = new HashMap<>();
 
+    @Override
     public EnvFactory getEnvFactory( String className )
         throws NativeBuildException
     {
-        EnvFactory envFactory = (EnvFactory) envFactoryCache.get( className );
+        EnvFactory envFactory = envFactoryCache.get( className );
 
         if ( envFactory == null )
         {

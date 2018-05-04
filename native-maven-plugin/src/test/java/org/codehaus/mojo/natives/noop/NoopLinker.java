@@ -2,7 +2,6 @@ package org.codehaus.mojo.natives.noop;
 
 import java.io.File;
 import java.util.List;
-
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
@@ -13,7 +12,8 @@ public class NoopLinker
     implements Linker
 {
 
-    public File link( LinkerConfiguration config, List compilerOutputFiles )
+    @Override
+    public File link( LinkerConfiguration config, List<File> compilerOutputFiles )
         throws NativeBuildException
     {
         String fileName = config.getOutputFileName();

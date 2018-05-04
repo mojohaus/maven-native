@@ -18,7 +18,7 @@ package org.codehaus.mojo.natives.parser;
 
 /**
  * An base class for objects that represent the state of an AbstractParser.
- * 
+ *
  * @author CurtArnold
  * @see AbstractParser
  */
@@ -37,7 +37,7 @@ public abstract class AbstractParserState
 
     /**
      * Consume a character
-     * 
+     *
      * @return new state, may be null to ignore the rest of the line
      */
     public abstract AbstractParserState consume( char ch );

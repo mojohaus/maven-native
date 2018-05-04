@@ -3,6 +3,6 @@
 
 char * helloFunc()
 {
-	return helloSubFunc();
+    return helloSubFunc();
 
 }

@@ -29,7 +29,7 @@ public final class CParserTest
 {
     /**
      * Constructor.
-     * 
+     *
      * @param name String test name
      */
     public CParserTest( final String name )
@@ -39,7 +39,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #include <foo.h>.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testImmediateImportBracket()
@@ -55,7 +55,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #import "foo.h".
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testImmediateImportQuote()
@@ -71,7 +71,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #include <foo.h>.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testImmediateIncludeBracket()
@@ -87,7 +87,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #include "foo.h".
-     * 
+     *
      * @throws IOException test fails on IOException.
      */
     public void testImmediateIncludeQuote()
@@ -103,7 +103,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #import <foo.h.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testIncompleteImmediateImportBracket()
@@ -118,7 +118,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #import "foo.h.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testIncompleteImmediateImportQuote()
@@ -133,7 +133,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #include <foo.h.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testIncompleteImmediateIncludeBracket()
@@ -148,7 +148,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #include "foo.h.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testIncompleteImmediateIncludeQuote()
@@ -163,7 +163,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of #include foo.h.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testNoQuoteOrBracket()
@@ -178,7 +178,7 @@ public final class CParserTest
 
     /**
      * Checks parsing of //#include "foo.h".
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testNotFirstWhitespace()

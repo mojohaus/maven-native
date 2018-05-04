@@ -10,8 +10,8 @@ public class RegQueryTest
     {
         if ( Os.isFamily( "windows" ) )
         {
-            String value =
-                RegQuery.getValue( "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion", "ProgramFilesDir" );
+            String value = RegQuery.getValue( "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion",
+                    "ProgramFilesDir" );
             assertNotNull( value );
         }
     }

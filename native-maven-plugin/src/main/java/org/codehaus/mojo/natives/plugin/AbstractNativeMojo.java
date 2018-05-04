@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -48,7 +46,7 @@ public abstract class AbstractNativeMojo
 
     public static final String INCZIP_TYPE = "inczip";
 
-    protected static final List EMPTY_FILE_LIST = new ArrayList();
+    protected static final List<File> EMPTY_FILE_LIST = new ArrayList<>();
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
@@ -75,34 +73,36 @@ public abstract class AbstractNativeMojo
     @Parameter(defaultValue = "${project.build.directory}/native/include")
     protected File dependencyIncludeDirectory;
 
-    protected static String[] removeEmptyOptions( List args )
+    protected static String[] removeEmptyOptions( List<String> args )
     {
         return NativeMojoUtils.trimParams( args );
     }
 
-    protected List getAllCompilersOutputFileList()
+    protected List<File> getAllCompilersOutputFileList()
     {
-        List list = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
+        @SuppressWarnings("unchecked")
+        List<File> list = (List<File>) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
 
         if ( list == null )
         {
-            list = new ArrayList();
+            list = new ArrayList<>();
 
-            this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list );
+            @SuppressWarnings({ "unchecked", "unused" })
+            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list );
         }
 
         return list;
 
     }
 
-    protected void saveCompilerOutputFilePaths( List filePaths )
+    protected void saveCompilerOutputFilePaths( List<File> filePaths )
         throws MojoExecutionException
     {
-        List allCompilerOutputFileList = getAllCompilersOutputFileList();
+        List<File> allCompilerOutputFileList = getAllCompilersOutputFileList();
 
         for ( int i = 0; i < filePaths.size(); ++i )
         {
-            File file = (File) filePaths.get( i );
+            File file = filePaths.get( i );
             allCompilerOutputFileList.add( file );
         }
     }

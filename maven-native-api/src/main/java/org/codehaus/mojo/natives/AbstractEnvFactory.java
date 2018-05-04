@@ -6,9 +6,10 @@ public abstract class AbstractEnvFactory
     implements EnvFactory
 {
 
-    private static Map envs;
+    private static Map<String, String> envs;
 
-    public synchronized Map getEnvironmentVariables()
+    @Override
+    public synchronized Map<String, String> getEnvironmentVariables()
         throws NativeBuildException
     {
         if ( envs == null )
@@ -19,7 +20,7 @@ public abstract class AbstractEnvFactory
         return envs;
     }
 
-    protected abstract Map createEnvs()
+    protected abstract Map<String, String> createEnvs()
         throws NativeBuildException;
 
 }

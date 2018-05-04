@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,21 +21,21 @@ package org.codehaus.mojo.natives;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-import org.codehaus.mojo.natives.parser.Parser;
-
-import java.util.Iterator;
-import java.util.ArrayList;
+package org.codehaus.mojo.natives;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.codehaus.mojo.natives.parser.Parser;
 
 /**
  * Dependency analizer of a native source file
- * 
+ *
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
@@ -57,7 +55,7 @@ public class Dependency
     /**
      * Field dependencies
      */
-    private java.util.List dependencies;
+    private java.util.List<Dependency> dependencies;
 
     private Parser parser;
 
@@ -116,7 +114,7 @@ public class Dependency
 
         for ( int i = 0; i < this.getDependencies().size(); ++i )
         {
-            Dependency depend = (Dependency) this.getDependencies().get( i );
+            Dependency depend = this.getDependencies().get( i );
             depend.analyze();
         }
 
@@ -143,11 +141,11 @@ public class Dependency
     {
         long currentLastModify = this.lastModified;
 
-        Iterator iterator = this.getDependencies().iterator();
+        Iterator<Dependency> iterator = this.getDependencies().iterator();
 
         while ( iterator.hasNext() )
         {
-            Dependency dependency = (Dependency) iterator.next();
+            Dependency dependency = iterator.next();
 
             long lastModified = dependency.getCompositeLastModified();
 
@@ -189,7 +187,7 @@ public class Dependency
     private File[] resolveIncludeNames( String[] includeNames )
         throws IOException
     {
-        ArrayList resolvedIncludeFiles = new ArrayList( includeNames.length );
+        ArrayList<File> resolvedIncludeFiles = new ArrayList<>( includeNames.length );
 
         for ( int i = 0; i < includeNames.length; ++i )
         {
@@ -205,7 +203,7 @@ public class Dependency
 
         for ( int j = 0; j < arrayResolvedIncludeFiles.length; ++j )
         {
-            arrayResolvedIncludeFiles[j] = (File) resolvedIncludeFiles.get( j );
+            arrayResolvedIncludeFiles[j] = resolvedIncludeFiles.get( j );
         }
 
         return arrayResolvedIncludeFiles;
@@ -213,7 +211,7 @@ public class Dependency
 
     /**
      * Search for file that matches an include name with all available include paths
-     * 
+     *
      * @param includeName
      * @return an file or null when it is not found in user include path
      * @throws IOException
@@ -240,7 +238,7 @@ public class Dependency
 
     /**
      * Translate an include file
-     * 
+     *
      * @param includeName
      * @param includePath
      * @return
@@ -269,7 +267,7 @@ public class Dependency
 
     /**
      * Method addDependency
-     * 
+     *
      * @param dependency
      */
     public void addDependency( Dependency dependency )
@@ -280,11 +278,11 @@ public class Dependency
     /**
      * Method getDependencies
      */
-    public java.util.List getDependencies()
+    public java.util.List<Dependency> getDependencies()
     {
         if ( this.dependencies == null )
         {
-            this.dependencies = new java.util.ArrayList();
+            this.dependencies = new java.util.ArrayList<>();
         }
 
         return this.dependencies;
@@ -316,7 +314,7 @@ public class Dependency
 
         for ( int i = 0; i < this.getDependencies().size(); ++i )
         {
-            Dependency node = (Dependency) this.getDependencies().get( i );
+            Dependency node = this.getDependencies().get( i );
             if ( node.contains( dependent ) )
             {
                 return true;
@@ -331,7 +329,7 @@ public class Dependency
         int ret = this.getDependencies().size();
         for ( int i = 0; i < this.getDependencies().size(); ++i )
         {
-            Dependency node = (Dependency) this.getDependencies().get( i );
+            Dependency node = this.getDependencies().get( i );
             ret += node.getDeepDependencyCount();
         }
 

@@ -37,7 +37,8 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
 
         assertEquals( "javah", cl.getLiteralExecutable() );
-        assertArrayEquals(new String[] {"-d", outputDir.getAbsolutePath(), "-classpath", "path1" + File.pathSeparator +"path2", "className1", "className2"}, cl.getArguments());
+        assertArrayEquals( new String[] { "-d", outputDir.getAbsolutePath(), "-classpath",
+                "path1" + File.pathSeparator + "path2", "className1", "className2" }, cl.getArguments() );
     }
 
     public void testConfiguredJavahExecutable()
@@ -52,7 +53,8 @@ public class JavahExecutableTest
         File outputDir = new File( getBasedir(), "target/native" );
 
         assertEquals( javaBin.getAbsolutePath(), cl.getLiteralExecutable() );
-        assertArrayEquals(new String[] {"-d", outputDir.getAbsolutePath(), "-classpath", "path1" + File.pathSeparator +"path2", "className1", "className2"}, cl.getArguments());
+        assertArrayEquals( new String[] { "-d", outputDir.getAbsolutePath(), "-classpath",
+                "path1" + File.pathSeparator + "path2", "className1", "className2" }, cl.getArguments() );
     }
 
     public void testJavahExecutableDashoOption()
@@ -63,7 +65,8 @@ public class JavahExecutableTest
         Commandline cl = javah.createJavahCommand( config );
 
         File outputFile = new File( getBasedir(), "target/native/" + "fileName" );
-        assertArrayEquals(new String[] {"-o", outputFile.getAbsolutePath(), "-classpath", "path1" + File.pathSeparator +"path2", "className1", "className2"}, cl.getArguments());
+        assertArrayEquals( new String[] { "-o", outputFile.getAbsolutePath(), "-classpath",
+                "path1" + File.pathSeparator + "path2", "className1", "className2" }, cl.getArguments() );
     }
 
     public void testWorkingDirectory()

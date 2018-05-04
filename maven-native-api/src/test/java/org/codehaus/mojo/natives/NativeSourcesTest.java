@@ -2,7 +2,6 @@ package org.codehaus.mojo.natives;
 
 import java.io.File;
 import java.util.List;
-
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.FileUtils;
 
@@ -11,6 +10,7 @@ public class NativeSourcesTest
 {
     File workDirectory;
 
+    @Override
     protected void setUp()
         throws Exception
     {
@@ -33,7 +33,7 @@ public class NativeSourcesTest
         String[] fileNames = { "file1.c", "file2.c" };
         source.setFileNames( fileNames );
 
-        List files = source.getFiles();
+        List<File> files = source.getFiles();
 
         assertEquals( 2, files.size() );
     }
@@ -50,7 +50,7 @@ public class NativeSourcesTest
 
         source.setIncludes( includes );
 
-        List files = source.getFiles();
+        List<File> files = source.getFiles();
 
         assertEquals( 2, files.size() );
     }
@@ -72,7 +72,7 @@ public class NativeSourcesTest
 
         source.setIncludes( includes );
 
-        List files = source.getFiles();
+        List<File> files = source.getFiles();
 
         assertEquals( 3, files.size() );
     }
@@ -92,7 +92,7 @@ public class NativeSourcesTest
 
         source.setIncludes( includes );
 
-        List files = source.getFiles();
+        List<File> files = source.getFiles();
 
         assertEquals( 2, files.size() );
     }
@@ -105,7 +105,7 @@ public class NativeSourcesTest
         String[] includes = { "*.*" };
         source.setIncludes( includes );
 
-        List files = source.getFiles();
+        List<File> files = source.getFiles();
 
         assertEquals( 0, files.size() );
     }
@@ -147,7 +147,7 @@ public class NativeSourcesTest
         File someFile = new File( this.workDirectory, "someFile.c" );
         someFile.createNewFile();
 
-        List files = source.getFiles();
+        List<File> files = source.getFiles();
 
         assertEquals( 1, files.size() );
 

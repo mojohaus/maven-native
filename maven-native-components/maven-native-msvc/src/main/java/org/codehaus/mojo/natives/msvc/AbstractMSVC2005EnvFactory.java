@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.msvc;
-
 /*
  * The MIT License
  *
@@ -23,6 +21,7 @@ package org.codehaus.mojo.natives.msvc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.msvc;
 
 /**
  * Equivalent of MSVC2005's vcvars32.bat

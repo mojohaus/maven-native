@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.bcc;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives.bcc;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,16 +21,18 @@ package org.codehaus.mojo.natives.bcc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.bcc;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertArrayEquals;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
 
-import java.io.File;
-import java.util.List;
-import java.util.ArrayList;
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 public class TLibLinkerTest
     extends TestCase
@@ -53,21 +53,16 @@ public class TLibLinkerTest
         config.setOutputFileExtension( "lib" );
         config.setOutputDirectory( new File( "target" ) );
 
-        List objectFiles = new ArrayList();
+        List<File> objectFiles = new ArrayList<>();
         objectFiles.add( new File( "target" + File.separator + "a.obj" ) );
         objectFiles.add( new File( "target" + File.separator + "b.obj" ) );
         objectFiles.add( new File( "target" + File.separator + "c.obj" ) );
 
         Commandline cl = linker.createLinkerCommandLine( objectFiles, config );
 
-        assertArrayEquals(new String[] {
-            "tlib",
-            "\"target" + File.separator + "tlib.lib\"",
-            "/C",
-            "+\"target" + File.separator + "a.obj\"",
-            "+\"target" + File.separator + "b.obj\"",
-            "+\"target" + File.separator + "c.obj\""
-        }, cl.getArguments());
+        assertArrayEquals( new String[] { "tlib", "\"target" + File.separator + "tlib.lib\"", "/C",
+                "+\"target" + File.separator + "a.obj\"", "+\"target" + File.separator + "b.obj\"",
+                "+\"target" + File.separator + "c.obj\"" }, cl.getArguments() );
 
     }
 

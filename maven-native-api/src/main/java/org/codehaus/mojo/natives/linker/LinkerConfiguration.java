@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.linker;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.linker;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.linker;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.codehaus.mojo.natives.ConfigurationBase;
 
 /*
@@ -68,7 +66,7 @@ public class LinkerConfiguration
     /**
      * Library file names in externalLibDirectory
      */
-    private List externalLibFileNames;
+    private List<String> externalLibFileNames;
 
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows command line length limit
@@ -77,7 +75,7 @@ public class LinkerConfiguration
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
-     * 
+     *
      * @since 1.0-alpha-8
      */
     private boolean checkStaleLinkage;
@@ -164,7 +162,7 @@ public class LinkerConfiguration
 
     /**
      * convenient method to get linker output file
-     * 
+     *
      * @return
      */
     public File getOutputFile()
@@ -174,17 +172,17 @@ public class LinkerConfiguration
         return out;
     }
 
-    public List getExternalLibFileNames()
+    public List<String> getExternalLibFileNames()
     {
         if ( this.externalLibFileNames == null )
         {
-            return new ArrayList( 0 );
+            return new ArrayList<>( 0 );
         }
 
         return this.externalLibFileNames;
     }
 
-    public void setExternalLibFileNames( List list )
+    public void setExternalLibFileNames( List<String> list )
     {
         this.externalLibFileNames = list;
     }

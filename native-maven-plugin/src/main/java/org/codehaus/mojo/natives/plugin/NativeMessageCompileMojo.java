@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,20 +18,20 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
+import java.io.File;
+import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
 import org.codehaus.mojo.natives.manager.MessageCompilerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
-
-import java.io.File;
-import java.util.List;
-import org.apache.maven.plugins.annotations.Component;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Compile Windows message files
@@ -45,6 +43,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Compiler Provider Type
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "msvc", required = true)
@@ -52,6 +51,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Use this field to override provider specific message compiler executable
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -59,13 +59,15 @@ public class NativeMessageCompileMojo
 
     /**
      * Additional Compiler options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List messageCompilerOptions;
+    private List<String> messageCompilerOptions;
 
     /**
      * List of message files to compile
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(required = true)
@@ -73,6 +75,7 @@ public class NativeMessageCompileMojo
 
     /**
      * Where to place the compiler object files
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "${project.build.directory}", required = true)
@@ -80,11 +83,13 @@ public class NativeMessageCompileMojo
 
     /**
      * Internal
+     *
      * @since 1.0-alpha-2
      */
     @Component
     private MessageCompilerManager manager;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {

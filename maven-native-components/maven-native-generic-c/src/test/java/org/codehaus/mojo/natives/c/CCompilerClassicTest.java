@@ -13,7 +13,7 @@ public class CCompilerClassicTest
 
     /**
      * Simple test, note: -o option has no space
-     * 
+     *
      * @throws Exception
      */
     public void testSimpleCompilation()
@@ -22,6 +22,6 @@ public class CCompilerClassicTest
         CompilerConfiguration config = new CompilerConfiguration();
         CCompilerClassic compiler = new CCompilerClassic();
         Commandline cl = compiler.getCommandLine( new File( "source.c" ), new File( "object.o" ), config );
-        assertArrayEquals(new String[] {"gcc", "-oobject.o", "-c", "source.c"}, cl.getCommandline() );
+        assertArrayEquals( new String[] { "gcc", "-oobject.o", "-c", "source.c" }, cl.getCommandline() );
     }
 }

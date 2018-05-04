@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,12 +18,12 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -40,7 +38,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Compile source files into native object files
-  */
+ */
 @Mojo(name = "compile", defaultPhase = LifecyclePhase.COMPILE)
 public class NativeCompileMojo
     extends AbstractNativeMojo
@@ -48,6 +46,7 @@ public class NativeCompileMojo
 
     /**
      * Compiler Provider Type
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "generic", required = true)
@@ -56,6 +55,7 @@ public class NativeCompileMojo
     /**
      * Use this field to override object file extension. The default extensions are .obj and .o on Windows and Unix
      * respectively
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -63,6 +63,7 @@ public class NativeCompileMojo
 
     /**
      * Use this field to override provider specific compiler executable
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -70,28 +71,32 @@ public class NativeCompileMojo
 
     /**
      * Compiler options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List compilerStartOptions;
+    private List<String> compilerStartOptions;
 
     /**
      * Compiler options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List compilerMiddleOptions;
+    private List<String> compilerMiddleOptions;
 
     /**
      * Compiler options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List compilerEndOptions;
+    private List<String> compilerEndOptions;
 
     /**
      * Javah OS name. ${jdkIncludePath} and ${jdkIncludePath}/${javaOS} are added to system include path when this field
      * is set
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -99,13 +104,15 @@ public class NativeCompileMojo
 
     /**
      * JDK native include directory
+     *
      * @since 1.0-alpha-2
      */
-    @Parameter(defaultValue="${java.home}/../include")
+    @Parameter(defaultValue = "${java.home}/../include")
     private File jdkIncludePath;
 
     /**
      * Array of NativeSources containing include directories and source files.
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -113,9 +120,10 @@ public class NativeCompileMojo
 
     /**
      * Compiler output files ( .o, .obj, etc) location
+     *
      * @since 1.0-alpha-4
      */
-    @Parameter(defaultValue="${project.build.directory}/objs", required = true)
+    @Parameter(defaultValue = "${project.build.directory}/objs", required = true)
     protected File compilerOutputDirectory;
 
     /**
@@ -129,6 +137,7 @@ public class NativeCompileMojo
     @Component
     private CompilerManager manager;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {
@@ -153,7 +162,7 @@ public class NativeCompileMojo
 
         CompilerConfiguration config = this.createProviderConfiguration();
 
-        List objectFiles;
+        List<File> objectFiles;
         try
         {
             objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
@@ -169,7 +178,7 @@ public class NativeCompileMojo
 
     private void addJavaHIncludePaths()
     {
-        List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
+        List<NativeSources> sourceArray = new ArrayList<>( Arrays.asList( this.sources ) );
 
         NativeSources jdkIncludeSource = new NativeSources();
 
@@ -189,7 +198,7 @@ public class NativeCompileMojo
 
         sourceArray.add( jdkIncludeOsSource );
 
-        this.sources = (NativeSources[]) sourceArray.toArray( new NativeSources[sourceArray.size()] );
+        this.sources = sourceArray.toArray( new NativeSources[sourceArray.size()] );
 
     }
 
@@ -200,7 +209,7 @@ public class NativeCompileMojo
     private void addAdditionalIncludePath()
         throws MojoExecutionException
     {
-        List additionalIncludePaths = project.getCompileSourceRoots();
+        List<?> additionalIncludePaths = project.getCompileSourceRoots();
 
         boolean includeDependencyFound = this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND ) != null;
 
@@ -217,7 +226,7 @@ public class NativeCompileMojo
             return;
         }
 
-        List sourceArray = new ArrayList( Arrays.asList( this.sources ) );
+        List<NativeSources> sourceArray = new ArrayList<>( Arrays.asList( this.sources ) );
 
         if ( additionalIncludePaths.size() > 1 )
         {
@@ -242,7 +251,7 @@ public class NativeCompileMojo
             sourceArray.add( dependencyIncludeSource );
         }
 
-        this.sources = (NativeSources[]) sourceArray.toArray( new NativeSources[sourceArray.size()] );
+        this.sources = sourceArray.toArray( new NativeSources[sourceArray.size()] );
 
     }
 
@@ -268,7 +277,8 @@ public class NativeCompileMojo
         return config;
     }
 
-    // //////////////////////////////////// UNIT TEST HELPERS ////////////////////////////////
+    // //////////////////////////////////// UNIT TEST HELPERS
+    // ////////////////////////////////
 
     /**
      * For unittest only
