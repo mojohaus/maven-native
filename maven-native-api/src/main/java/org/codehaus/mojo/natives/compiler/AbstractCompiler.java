@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.compiler;
-
 /*
  * The MIT License
  *
@@ -20,6 +18,7 @@ package org.codehaus.mojo.natives.compiler;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.compiler;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +51,8 @@ public abstract class AbstractCompiler
     protected abstract Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
         throws NativeBuildException;
 
-    public List compile( CompilerConfiguration config, File[] sourceFiles )
+    @Override
+    public List<File> compile( CompilerConfiguration config, File[] sourceFiles )
         throws NativeBuildException
     {
         if ( !config.getOutputDirectory().exists() )
@@ -60,7 +60,7 @@ public abstract class AbstractCompiler
             config.getOutputDirectory().mkdirs();
         }
 
-        List compilerOutputFiles = new ArrayList( sourceFiles.length );
+        List<File> compilerOutputFiles = new ArrayList<>( sourceFiles.length );
 
         CompilerThreadPoolExecutor compilerThreadPoolExecutor = null;
 
@@ -138,7 +138,7 @@ public abstract class AbstractCompiler
 
     /**
      * return "obj" or "o" when file extension is not given based on current platform
-     * 
+     *
      * @return
      */
     protected static String getObjectFileExtension( String fileExtension )
@@ -162,7 +162,7 @@ public abstract class AbstractCompiler
 
     /**
      * Figure out the object file relative path from a given source file
-     * 
+     *
      * @param sourceFile
      * @param workingDirectory
      * @param outputDirectory
@@ -194,8 +194,8 @@ public abstract class AbstractCompiler
         }
         catch ( IOException e )
         {
-            throw new NativeBuildException( "Failed to figure out object file name for " + sourceFile + ": "
-                + e.getMessage(), e );
+            throw new NativeBuildException(
+                    "Failed to figure out object file name for " + sourceFile + ": " + e.getMessage(), e );
         }
 
         File objectFile = new File( outputDirectory, objectFileName );
@@ -224,6 +224,7 @@ public abstract class AbstractCompiler
             super( corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, new ArrayBlockingQueue( corePoolSize * 2 ) );
         }
 
+        @Override
         protected void afterExecute( Runnable r, Throwable t )
         {
             super.afterExecute( r, t );
@@ -236,6 +237,7 @@ public abstract class AbstractCompiler
             }
         }
 
+        @Override
         protected void beforeExecute( Thread t, Runnable r )
         {
             super.beforeExecute( t, r );
@@ -268,6 +270,7 @@ public abstract class AbstractCompiler
             this.logger = logger;
         }
 
+        @Override
         public void run()
             throws NativeBuildException
         {

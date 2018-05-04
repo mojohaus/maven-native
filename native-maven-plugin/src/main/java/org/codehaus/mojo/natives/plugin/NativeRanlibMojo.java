@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -23,6 +21,7 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 
@@ -46,6 +45,7 @@ public class NativeRanlibMojo
 
     /**
      * Where to place the final packaging
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "${project.build.directory}", required = true)
@@ -53,6 +53,7 @@ public class NativeRanlibMojo
 
     /**
      * Ranlib Provider.
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "default", required = true)
@@ -60,6 +61,7 @@ public class NativeRanlibMojo
 
     /**
      * To look up ranlib implementation
+     *
      * @since 1.0-alpha-2
      */
     @Component
@@ -75,7 +77,8 @@ public class NativeRanlibMojo
 
             String fileExt = this.project.getArtifact().getArtifactHandler().getExtension();
 
-            File outputFile = new File( this.ranlibOutputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
+            File outputFile =
+                    new File( this.ranlibOutputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
 
             Ranlib ranlib = this.getRanlib();
 

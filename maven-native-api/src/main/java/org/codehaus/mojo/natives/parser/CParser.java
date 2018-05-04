@@ -22,7 +22,7 @@ import java.util.Vector;
 
 /**
  * A parser that extracts #include statements from a Reader.
- * 
+ *
  * @author Adam Murdoch
  * @author Curt Arnold
  */
@@ -30,7 +30,7 @@ public final class CParser
     extends AbstractParser
     implements Parser
 {
-    private final Vector includes = new Vector();
+    private final Vector<String> includes = new Vector<>();
 
     private AbstractParserState newLineState;
 
@@ -60,16 +60,18 @@ public final class CParser
         // switch between
         //
         AbstractParserState n_m =
-            new BranchState( this, new char[] { 'n', 'm' }, new AbstractParserState[] { n, m }, null );
+                new BranchState( this, new char[] { 'n', 'm' }, new AbstractParserState[] { n, m }, null );
         AbstractParserState i = new WhitespaceOrLetterState( this, 'i', n_m );
         newLineState = new LetterState( this, '#', i, null );
     }
 
+    @Override
     public void addFilename( String include )
     {
         includes.addElement( include );
     }
 
+    @Override
     public String[] getIncludes()
     {
         String[] retval = new String[includes.size()];
@@ -79,11 +81,13 @@ public final class CParser
         return retval;
     }
 
+    @Override
     public AbstractParserState getNewLineState()
     {
         return newLineState;
     }
 
+    @Override
     public void parse( Reader reader )
         throws IOException
     {

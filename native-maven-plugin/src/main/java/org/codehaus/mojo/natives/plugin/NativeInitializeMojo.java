@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -23,10 +21,10 @@ package org.codehaus.mojo.natives.plugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.List;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -45,6 +43,7 @@ public class NativeInitializeMojo
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {
@@ -57,14 +56,18 @@ public class NativeInitializeMojo
 
         // strip version from finalName since and
         // disallow user from changing the final name since many
-        // final linker output depending heavily on the name without any associated version
+        // final linker output depending heavily on the name without any associated
+        // version
         String finalName = project.getArtifactId();
 
         project.getBuild().setFinalName( finalName );
 
-        // we need to clear out object files list since it possible that compile phase gets called mulitple times
+        // we need to clear out object files list since it possible that compile phase
+        // gets called
+        // mulitple times
         // and produce duplicate objects, and therefore will fail at link phase
-        List objList = (List) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
+        @SuppressWarnings("unchecked")
+        List<File> objList = (List<File>) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
         if ( objList != null )
         {
             objList.clear();

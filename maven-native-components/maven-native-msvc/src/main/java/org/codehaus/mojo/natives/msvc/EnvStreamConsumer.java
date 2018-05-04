@@ -2,7 +2,6 @@ package org.codehaus.mojo.natives.msvc;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
@@ -11,12 +10,13 @@ public class EnvStreamConsumer
 {
 
     public static final String START_PARSING_INDICATOR =
-        "================================This is the beginning of env parsing================================";
+            "================================This is the beginning of env parsing================================";
 
-    private Map envs = new HashMap();
+    private Map<String, String> envs = new HashMap<>();
 
     private boolean startParsing = false;
 
+    @Override
     public void consumeLine( String line )
     {
 
@@ -41,7 +41,7 @@ public class EnvStreamConsumer
 
     }
 
-    public Map getParsedEnv()
+    public Map<String, String> getParsedEnv()
     {
         return this.envs;
     }

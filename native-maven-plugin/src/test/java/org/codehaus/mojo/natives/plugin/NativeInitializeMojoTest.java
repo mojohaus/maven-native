@@ -2,7 +2,6 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.HashMap;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
@@ -22,11 +21,10 @@ public class NativeInitializeMojoTest
 
         // simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
-        Artifact artifact =
-            new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe",
-                                 null, artifactHandler );
+        Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ),
+                "compile", "exe", null, artifactHandler );
         mojo.project.setArtifact( artifact );
-        mojo.setPluginContext( new HashMap() );
+        mojo.setPluginContext( new HashMap<>() );
 
         mojo.execute();
 

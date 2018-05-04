@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.msvc;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.msvc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
@@ -39,18 +37,19 @@ public class MSVC2005x86AMD64EnvFactory
     extends AbstractMSVC2005EnvFactory
 {
 
-    protected Map createEnvs()
+    @Override
+    protected Map<String, String> createEnvs()
         throws NativeBuildException
     {
-        File vsInstallDir =
-            new File( EnvUtil.getEnv( MSVS2005_INSTALL_ENV_KEY, MSVS2005_INSTALL_ENV_KEY, DEFAULT_MSVS2005_INSTALL_DIR ) );
+        File vsInstallDir = new File(
+                EnvUtil.getEnv( MSVS2005_INSTALL_ENV_KEY, MSVS2005_INSTALL_ENV_KEY, DEFAULT_MSVS2005_INSTALL_DIR ) );
 
         if ( !vsInstallDir.isDirectory() )
         {
             throw new NativeBuildException( vsInstallDir.getPath() + " is not a directory." );
         }
 
-        Map envs = new HashMap();
+        Map<String, String> envs = new HashMap<>();
 
         envs.put( "VSINSTALLDIR", vsInstallDir.getPath() );
 
@@ -75,20 +74,18 @@ public class MSVC2005x86AMD64EnvFactory
         // setup new PATH
         String currentPath = System.getProperty( "java.library.path" );
 
-        String newPath =
-            devEnvDir.getPath() + ";" + vcInstallDir.getPath() + "\\BIN\\x86_amd64;" + vcInstallDir.getPath()
-                + "\\BIN;" + vcInstallDir.getPath() + "\\Common7\\Tools;" + vcInstallDir.getPath()
-                + "\\Common7\\Tools\\bin;" + platformSDKDir.getPath() + "\\BIN;" + frameworkSDKDir.getPath() + "\\BIN;"
-                + frameworkDir.getPath() + "\\" + frameworkVersion + ";" + vcInstallDir.getPath() + "\\VCPackages;"
-                + currentPath;
+        String newPath = devEnvDir.getPath() + ";" + vcInstallDir.getPath() + "\\BIN\\x86_amd64;"
+                + vcInstallDir.getPath() + "\\BIN;" + vcInstallDir.getPath() + "\\Common7\\Tools;"
+                + vcInstallDir.getPath() + "\\Common7\\Tools\\bin;" + platformSDKDir.getPath() + "\\BIN;"
+                + frameworkSDKDir.getPath() + "\\BIN;" + frameworkDir.getPath() + "\\" + frameworkVersion + ";"
+                + vcInstallDir.getPath() + "\\VCPackages;" + currentPath;
 
         envs.put( "PATH", newPath );
 
         // setup new INCLUDE PATH
         String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludePath =
-            vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + vcInstallDir.getPath() + "\\INCLUDE;"
+        String newIncludePath = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + vcInstallDir.getPath() + "\\INCLUDE;"
                 + platformSDKDir.getPath() + "\\INCLUDE;" + frameworkSDKDir.getPath() + "\\INCLUDE;"
                 + currentIncludePath;
 
@@ -99,8 +96,7 @@ public class MSVC2005x86AMD64EnvFactory
         //
         String currentLibPath = EnvUtil.getEnv( "LIB" );
 
-        String newLibPath =
-            vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64;" + vcInstallDir.getPath() + "\\LIB\\AMD64;"
+        String newLibPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB\\AMD64;" + vcInstallDir.getPath() + "\\LIB\\AMD64;"
                 + platformSDKDir.getPath() + "\\LIB\\AMD64;" + frameworkSDKDir.getPath() + "\\LIB\\AMD64;"
                 + currentLibPath;
 

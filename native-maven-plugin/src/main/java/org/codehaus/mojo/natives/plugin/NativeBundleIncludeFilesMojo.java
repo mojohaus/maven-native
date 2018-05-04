@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,6 +18,7 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 
@@ -35,6 +34,7 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
 
 /**
  * Prepare include file bundle to be attached to maven for deployment purpose
+ *
  * @since 1.0-alpha-4
  */
 @Mojo(name = "inczip", defaultPhase = LifecyclePhase.PACKAGE)
@@ -44,6 +44,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Array of NativeSources containing include directories and source files.
+     *
      * @since 1.0-alpha-4
      */
     @Parameter
@@ -51,6 +52,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Archive file to bundle all enable NativeSources
+     *
      * @since 1.0-alpha-4
      */
     @Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}.inczip", required = true)
@@ -58,6 +60,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Option to skip include source bundle deployment
+     *
      * @since 1.0-alpha-4
      */
     @Parameter(defaultValue = "false")
@@ -65,6 +68,7 @@ public class NativeBundleIncludeFilesMojo
 
     /**
      * Maven ProjectHelper.
+     *
      * @since 1.0-alpha-4
      */
     @Component

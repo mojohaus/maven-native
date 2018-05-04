@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,6 +18,7 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -55,6 +53,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by compilerProvider
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "generic", required = true)
@@ -62,6 +61,7 @@ public class NativeLinkMojo
 
     /**
      * Default value is ${compilerProvider}
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -69,6 +69,7 @@ public class NativeLinkMojo
 
     /**
      * Override this property if permitted by linkerProvider. Default to compilerType if not provided
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -76,35 +77,40 @@ public class NativeLinkMojo
 
     /**
      * Additional linker command options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List linkerStartOptions;
+    private List<String> linkerStartOptions;
 
     /**
      * Additional linker command options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List linkerMiddleOptions;
+    private List<String> linkerMiddleOptions;
 
     /**
      * Additional linker command options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List linkerEndOptions;
+    private List<String> linkerEndOptions;
 
     /**
      * Option to reorder dependency list, each item has the format of ${groupId}:${artifactId}
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List linkingOrderLibs;
+    private List<String> linkingOrderLibs;
 
     /**
      * Comma separated extension type to be installed/deployed. Use this option to deploy library file produced by dll
      * build on windows
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "")
@@ -112,6 +118,7 @@ public class NativeLinkMojo
 
     /**
      * Where to place the final packaging
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "${project.build.directory}", required = true)
@@ -119,14 +126,15 @@ public class NativeLinkMojo
 
     /**
      * The name of the generated file
+     *
      * @since 1.0-alpha-8
      */
     @Parameter(defaultValue = "${project.build.finalName}", required = true)
     private String linkerFinalName;
 
     /**
-     * The extension of the generated file. Unless specified, the extension of the main project
-     * artifact is used.
+     * The extension of the generated file. Unless specified, the extension of the main project artifact is used.
+     *
      * @since 1.0-alpha-9
      */
     @Parameter(defaultValue = "${project.artifact.artifactHandler.extension}", required = true)
@@ -134,6 +142,7 @@ public class NativeLinkMojo
 
     /**
      * Internal
+     *
      * @since 1.0-alpha-2
      */
     @Component
@@ -141,6 +150,7 @@ public class NativeLinkMojo
 
     /**
      * Internal
+     *
      * @since 1.0-alpha-2
      */
     @Component
@@ -155,6 +165,7 @@ public class NativeLinkMojo
 
     /**
      * Option to install primary artifact as a classifier, useful to install/deploy debug artifacts
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -163,6 +174,7 @@ public class NativeLinkMojo
     /**
      * Attach the linker's outputs to maven project be installed/deployed. Turn this off if you have other mean of
      * deployment, for example using maven-assembly-plugin to deploy your own bundle
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "true")
@@ -170,6 +182,7 @@ public class NativeLinkMojo
 
     /**
      * For project with lots of object files on windows, turn this flag to resolve Windows commandline length limit
+     *
      * @since 1.0-alpha-7
      */
     @Parameter(defaultValue = "false")
@@ -177,11 +190,13 @@ public class NativeLinkMojo
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
+     *
      * @since 1.0-alpha-8
      */
     @Parameter(defaultValue = "false")
     private boolean checkStaleLinkage;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {
@@ -197,12 +212,13 @@ public class NativeLinkMojo
 
         try
         {
-            List allCompilerOuputFiles = this.getAllCompilersOutputFileList();
+            List<File> allCompilerOuputFiles = this.getAllCompilersOutputFileList();
 
             File outputFile = linker.link( config, allCompilerOuputFiles );
 
             // to be used by post linker mojo like native:manifest
-            this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
+            @SuppressWarnings({ "unused", "unchecked" })
+            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
 
         }
         catch ( IOException ioe )
@@ -275,16 +291,15 @@ public class NativeLinkMojo
         if ( null == this.classifier )
         {
             artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                + this.project.getArtifact().getArtifactHandler().getExtension() ) );
+                    + this.project.getArtifact().getArtifactHandler().getExtension() ) );
         }
         else
         {
             // install primary artifact as a classifier
 
-            DefaultArtifact clone =
-                new DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(),
-                                     artifact.getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(),
-                                     classifier, artifact.getArtifactHandler(), artifact.isOptional() );
+            DefaultArtifact clone = new DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(),
+                    artifact.getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(), classifier,
+                    artifact.getArtifactHandler(), artifact.isOptional() );
 
             clone.setRelease( artifact.isRelease() );
             clone.setResolvedVersion( artifact.getVersion() );
@@ -293,7 +308,7 @@ public class NativeLinkMojo
 
             if ( artifact.getAvailableVersions() != null )
             {
-                clone.setAvailableVersions( new ArrayList( artifact.getAvailableVersions() ) );
+                clone.setAvailableVersions( new ArrayList<>( artifact.getAvailableVersions() ) );
             }
 
             clone.setBaseVersion( artifact.getBaseVersion() );
@@ -301,14 +316,14 @@ public class NativeLinkMojo
 
             if ( artifact.getDependencyTrail() != null )
             {
-                clone.setDependencyTrail( new ArrayList( artifact.getDependencyTrail() ) );
+                clone.setDependencyTrail( new ArrayList<>( artifact.getDependencyTrail() ) );
             }
 
             clone.setDownloadUrl( artifact.getDownloadUrl() );
             clone.setRepository( artifact.getRepository() );
 
             clone.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                + this.project.getArtifact().getArtifactHandler().getExtension() ) );
+                    + this.project.getArtifact().getArtifactHandler().getExtension() ) );
 
             project.setArtifact( clone );
         }
@@ -317,36 +332,38 @@ public class NativeLinkMojo
     private void attachSecondaryArtifacts()
     {
         final String[] tokens;
-        if(this.linkerSecondaryOutputExtensions != null) {
+        if ( this.linkerSecondaryOutputExtensions != null )
+        {
             tokens = StringUtils.split( this.linkerSecondaryOutputExtensions, "," );
-        } else {
+        }
+        else
+        {
             tokens = new String[0];
         }
 
         for ( int i = 0; i < tokens.length; ++i )
         {
             // TODO: shouldn't need classifier
-            Artifact artifact =
-                artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(), project.getVersion(),
-                                                this.classifier, tokens[i].trim() );
+            Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(),
+                    project.getVersion(), this.classifier, tokens[i].trim() );
             artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                + tokens[i].trim() ) );
+                    + tokens[i].trim() ) );
 
             project.addAttachedArtifact( artifact );
         }
 
     }
 
-    private List getLibFileNames()
+    private List<String> getLibFileNames()
         throws MojoExecutionException
     {
-        List libList = new ArrayList();
+        List<String> libList = new ArrayList<>();
 
-        Set artifacts = this.project.getArtifacts();
+        Set<Artifact> artifacts = this.project.getArtifacts();
 
-        for ( Iterator iter = artifacts.iterator(); iter.hasNext(); )
+        for ( Iterator<Artifact> iter = artifacts.iterator(); iter.hasNext(); )
         {
-            Artifact artifact = (Artifact) iter.next();
+            Artifact artifact = iter.next();
 
             if ( INCZIP_TYPE.equals( artifact.getType() ) )
             {
@@ -368,16 +385,16 @@ public class NativeLinkMojo
      *
      * @return
      */
-    private List getDependenciesFileOrderList()
+    private List<String> getDependenciesFileOrderList()
         throws MojoExecutionException
     {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         if ( this.linkingOrderLibs != null )
         {
-            for ( Iterator i = linkingOrderLibs.iterator(); i.hasNext(); )
+            for ( Iterator<String> i = linkingOrderLibs.iterator(); i.hasNext(); )
             {
-                String element = i.next().toString();
+                String element = i.next();
 
                 Artifact artifact = lookupDependencyUsingGroupArtifactIdPair( element );
 
@@ -416,11 +433,11 @@ public class NativeLinkMojo
             throw new MojoExecutionException( "Invalid groupId and artifactId pair: " + groupArtifactIdPair );
         }
 
-        Set allDependencyArtifacts = project.getDependencyArtifacts();
+        Set<Artifact> allDependencyArtifacts = project.getDependencyArtifacts();
 
-        for ( Iterator iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
+        for ( Iterator<Artifact> iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
         {
-            Artifact artifact = (Artifact) iter.next();
+            Artifact artifact = iter.next();
             if ( INCZIP_TYPE.equals( artifact.getType() ) )
             {
                 continue;
@@ -436,20 +453,20 @@ public class NativeLinkMojo
 
     }
 
-    private List reorderLibDependencies( List libs )
+    private List<String> reorderLibDependencies( List<String> libs )
         throws MojoExecutionException
     {
-        List requestedOrderList = getDependenciesFileOrderList();
+        List<String> requestedOrderList = getDependenciesFileOrderList();
 
         if ( requestedOrderList.size() != 0 )
         {
             // remove from original list first
-            for ( Iterator i = requestedOrderList.iterator(); i.hasNext(); )
+            for ( Iterator<String> i = requestedOrderList.iterator(); i.hasNext(); )
             {
                 libs.remove( i.next() );
             }
 
-            for ( Iterator i = libs.iterator(); i.hasNext(); )
+            for ( Iterator<String> i = libs.iterator(); i.hasNext(); )
             {
                 requestedOrderList.add( i.next() );
             }
@@ -466,14 +483,13 @@ public class NativeLinkMojo
         throws MojoExecutionException
     {
 
-        File newLocation =
-            new File( this.externalLibDirectory, artifact.getArtifactId() + "."
-                + artifact.getArtifactHandler().getExtension() );
+        File newLocation = new File( this.externalLibDirectory,
+                artifact.getArtifactId() + "." + artifact.getArtifactHandler().getExtension() );
 
         try
         {
             if ( doCopy && !artifact.getFile().isDirectory()
-                && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
+                    && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
             {
                 FileUtils.copyFile( artifact.getFile(), newLocation );
             }
@@ -481,13 +497,14 @@ public class NativeLinkMojo
         catch ( IOException ioe )
         {
             throw new MojoExecutionException( "Unable to copy dependency to staging area.  Could not copy "
-                + artifact.getFile() + " to " + newLocation, ioe );
+                    + artifact.getFile() + " to " + newLocation, ioe );
         }
 
         return newLocation;
     }
 
-    // //////////////////////////////////// UNIT TEST HELPERS //////////////////////////////////
+    // //////////////////////////////////// UNIT TEST HELPERS
+    // //////////////////////////////////
 
     /**
      * For unit test only

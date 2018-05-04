@@ -18,7 +18,7 @@ public class MSVCCompilerTest
 
     private static File objectFile = new File( "object.obj" );
 
-    private static String[] simpleArgv = {"/Foobject.obj", "-c", "source.c"};
+    private static String[] simpleArgv = { "/Foobject.obj", "-c", "source.c" };
 
     public void setUp()
         throws Exception
@@ -33,6 +33,7 @@ public class MSVCCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertArrayEquals(new String[] {"cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2]}, cl.getCommandline() );
+        assertArrayEquals( new String[] { "cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2] },
+                cl.getCommandline() );
     }
 }

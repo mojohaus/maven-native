@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.c;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives.c;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,6 +21,7 @@ package org.codehaus.mojo.natives.c;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.c;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -50,7 +49,8 @@ public class CLinker
     /**
      * @return Commandline of a linker base on its configuration and object files
      */
-    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+    @Override
+    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
         throws NativeBuildException
     {
         if ( config.getExecutable() == null )
@@ -86,10 +86,10 @@ public class CLinker
             try
             {
                 File linkerFile = new File( config.getWorkingDirectory(), "objectsFile" );
-                FileWriter linkerFileWriter = new FileWriter( linkerFile, false /* Don't append */);
+                FileWriter linkerFileWriter = new FileWriter( linkerFile, false /* Don't append */ );
                 for ( int i = 0; i < objectFiles.size(); ++i )
                 {
-                    File objFile = (File) objectFiles.get( i );
+                    File objFile = objectFiles.get( i );
                     linkerFileWriter.write( objFile.getPath() + "\n" );
                 }
                 linkerFileWriter.close();
@@ -106,7 +106,7 @@ public class CLinker
 
             for ( int i = 0; i < objectFiles.size(); ++i )
             {
-                File objFile = (File) objectFiles.get( i );
+                File objFile = objectFiles.get( i );
 
                 // we need to shorten the command line since windows has limited command line length
                 String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
@@ -141,7 +141,7 @@ public class CLinker
 
     /**
      * Setup Commandline to handle external library depending on extention type
-     * 
+     *
      * @param cl Commandline
      * @param config LinkerConfiguration
      * @throws NativeBuildException
@@ -156,9 +156,9 @@ public class CLinker
 
         boolean hasUnixLinkage = false;
 
-        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
-            String libFileName = (String) iter.next();
+            String libFileName = iter.next();
 
             String ext = FileUtils.getExtension( libFileName );
 
@@ -166,7 +166,7 @@ public class CLinker
             {
                 File libFile = new File( config.getExternalLibDirectory(), libFileName );
                 String relativeLibFile =
-                    FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
+                        FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
                 cl.createArg().setValue( relativeLibFile );
             }
             else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
@@ -180,9 +180,9 @@ public class CLinker
             cl.createArg().setValue( "-L" + config.getExternalLibDirectory() );
         }
 
-        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
-            String libFileName = (String) iter.next();
+            String libFileName = iter.next();
 
             String ext = FileUtils.getExtension( libFileName );
 

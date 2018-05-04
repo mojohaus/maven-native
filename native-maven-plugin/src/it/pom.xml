@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo-parent</artifactId>
-    <version>30</version>
+    <version>40</version>
   </parent>
 
   <groupId>org.codehaus.mojo.natives.it</groupId>
@@ -39,12 +39,12 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>native-maven-plugin</artifactId>
-          <version>1.0-alpha-8-SNAPSHOT</version>
+          <version>1.0-alpha-10-SNAPSHOT</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
-          <version>1.7</version>
+          <version>3.0.0</version>
         </plugin>
 
         <plugin>
@@ -58,7 +58,7 @@
                   <pluginExecutionFilter>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>native-maven-plugin</artifactId>
-                    <versionRange>[1.0-alpha-7,)</versionRange>
+                    <versionRange>[0,)</versionRange>
                     <goals>
                       <goal>initialize</goal>
                       <goal>javah</goal>

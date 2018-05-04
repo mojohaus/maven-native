@@ -26,7 +26,7 @@ public final class FortranParserTest
 {
     /**
      * Constructor.
-     * 
+     *
      * @param name String test name
      */
     public FortranParserTest( final String name )
@@ -36,7 +36,7 @@ public final class FortranParserTest
 
     /**
      * Checks parsing of INCLUDE 'foo.inc'.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testINCLUDE()
@@ -52,7 +52,7 @@ public final class FortranParserTest
 
     /**
      * Checks parsing of InClUdE 'foo.inc'.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testInClUdE()
@@ -68,7 +68,7 @@ public final class FortranParserTest
 
     /**
      * Checks parsing of InClUdE 'foo.inc'.
-     * 
+     *
      * @throws IOException test fails on IOException
      */
     public void testMultipleInClUdE()

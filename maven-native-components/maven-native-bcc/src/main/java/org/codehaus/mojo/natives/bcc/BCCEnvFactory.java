@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.bcc;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives.bcc;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.bcc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.bcc;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
@@ -43,9 +41,10 @@ public class BCCEnvFactory
 
     private static final String DEFAULT_BCC_INSTALL_DIR = "C:/Borland/BCC";
 
-    private static Map envs;
+    private static Map<String, String> envs;
 
-    public synchronized Map getEnvironmentVariables()
+    @Override
+    public synchronized Map<String, String> getEnvironmentVariables()
         throws NativeBuildException
     {
         if ( envs == null )
@@ -56,7 +55,7 @@ public class BCCEnvFactory
         return envs;
     }
 
-    private Map createEnvs()
+    private Map<String, String> createEnvs()
         throws NativeBuildException
     {
         File bccDir = new File( EnvUtil.getEnv( BCC_INSTALL_ENV_KEY, BCC_INSTALL_ENV_KEY, DEFAULT_BCC_INSTALL_DIR ) );
@@ -66,12 +65,7 @@ public class BCCEnvFactory
             throw new NativeBuildException( bccDir.getPath() + " is not a directory." );
         }
 
-        Map envs = new HashMap();
-
-        if ( bccDir == null )
-        {
-            return envs;
-        }
+        Map<String, String> envs = new HashMap<>();
 
         // setup new PATH
         String currentPath = System.getProperty( "java.library.path" );

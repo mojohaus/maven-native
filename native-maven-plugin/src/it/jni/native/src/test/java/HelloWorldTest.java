@@ -25,7 +25,7 @@ public class HelloWorldTest
         throws Exception
     {
         HelloWorld app = new HelloWorld();
-        
+
         this.assertEquals( "Hello Native World!", app.sayHello() );
     }
 

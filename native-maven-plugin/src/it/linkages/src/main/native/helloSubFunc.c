@@ -6,5 +6,5 @@ char * helloVar = "Hello";
 
 char * helloSubFunc()
 {
-	return "Hello From helloSubFunc";
+    return "Hello From helloSubFunc";
 }

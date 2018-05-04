@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.msvc;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.msvc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
@@ -42,18 +40,19 @@ public class MSVC2003EnvFactory
 
     private static final String DEFAULT_MSVS2003_INSTALL_DIR = getProgramFiles() + "/Microsoft Visual Studio .NET 2003";
 
-    protected Map createEnvs()
+    @Override
+    protected Map<String, String> createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir =
-            new File( EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
+        File vcInstallDir = new File(
+                EnvUtil.getEnv( MSVS2003_INSTALL_ENV_KEY, MSVS2003_INSTALL_ENV_KEY, DEFAULT_MSVS2003_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {
             throw new NativeBuildException( vcInstallDir.getPath() + " is not a directory." );
         }
 
-        Map envs = new HashMap();
+        Map<String, String> envs = new HashMap<>();
 
         File vsInstallDir = new File( vcInstallDir.getPath() + "/Common7/IDE" );
 
@@ -74,21 +73,19 @@ public class MSVC2003EnvFactory
         // setup new PATH
         String currentPath = System.getProperty( "java.library.path" );
 
-        String newPath =
-            devEnvDir.getPath() + ";" + msvcDir.getPath() + "\\BIN;" + vcInstallDir.getPath() + "\\Common7\\Tools;"
-                + vcInstallDir.getPath() + "\\Common7\\Tools\\bin\\prerelease;" + vcInstallDir.getPath()
-                + "\\Common7\\Tools\\bin;" + frameworkSDKDir.getPath() + "\\bin;" + frameworkDir.getPath() + "\\"
-                + frameworkVersion + ";" + currentPath;
+        String newPath = devEnvDir.getPath() + ";" + msvcDir.getPath() + "\\BIN;" + vcInstallDir.getPath()
+                + "\\Common7\\Tools;" + vcInstallDir.getPath() + "\\Common7\\Tools\\bin\\prerelease;"
+                + vcInstallDir.getPath() + "\\Common7\\Tools\\bin;" + frameworkSDKDir.getPath() + "\\bin;"
+                + frameworkDir.getPath() + "\\" + frameworkVersion + ";" + currentPath;
 
         envs.put( "PATH", newPath );
 
         // setup new INCLUDE PATH
         String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
 
-        String newIncludePath =
-            msvcDir.getPath() + "\\ATLMFC\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;" + msvcDir.getPath()
-                + "\\PlatformSDK\\include\\prerelease;" + msvcDir.getPath() + "\\PlatformSDK\\include;"
-                + frameworkSDKDir.getPath() + "\\include;" + currentIncludePath;
+        String newIncludePath = msvcDir.getPath() + "\\ATLMFC\\INCLUDE;" + msvcDir.getPath() + "\\INCLUDE;"
+                + msvcDir.getPath() + "\\PlatformSDK\\include\\prerelease;" + msvcDir.getPath()
+                + "\\PlatformSDK\\include;" + frameworkSDKDir.getPath() + "\\include;" + currentIncludePath;
 
         envs.put( "INCLUDE", newIncludePath );
 
@@ -97,8 +94,7 @@ public class MSVC2003EnvFactory
         //
         String currentLibPath = EnvUtil.getEnv( "LIB" );
 
-        String newLibPath =
-            msvcDir.getPath() + "\\ATLMFC\\LIB;" + msvcDir.getPath() + "\\LIB;" + msvcDir.getPath()
+        String newLibPath = msvcDir.getPath() + "\\ATLMFC\\LIB;" + msvcDir.getPath() + "\\LIB;" + msvcDir.getPath()
                 + "\\PlatformSDK\\lib\\prerelease;" + msvcDir.getPath() + "\\PlatformSDK\\lib;" + currentLibPath;
 
         envs.put( "LIB", newLibPath );

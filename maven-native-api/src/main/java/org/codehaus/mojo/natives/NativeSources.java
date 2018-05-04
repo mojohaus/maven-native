@@ -1,35 +1,33 @@
-package org.codehaus.mojo.natives;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.codehaus.plexus.util.DirectoryScanner;
-
 /*
  * The MIT License
- * 
+ *
  * Copyright (c) 2004, The Codehaus
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
  * Compilable list of source file in a directory
- * 
+ *
  * @author dantran@gmail.com
  * @description
  * @version $Id$
@@ -159,7 +157,7 @@ public class NativeSources
 
     // //////////////////////////////////////////////////////////////////////////
 
-    public List getFiles()
+    public List<File> getFiles()
     {
         String[] filePaths = new String[0];
 
@@ -176,7 +174,7 @@ public class NativeSources
             filePaths = scanner.getIncludedFiles();
         }
 
-        List files = new ArrayList( filePaths.length + this.fileNames.length );
+        List<File> files = new ArrayList<>( filePaths.length + this.fileNames.length );
         for ( int i = 0; i < filePaths.length; ++i )
         {
             files.add( new File( this.directory, filePaths[i] ) );
@@ -214,7 +212,7 @@ public class NativeSources
 
     /**
      * Helper to get all source files in a Array of NativeSources
-     * 
+     *
      * @param sources
      * @return
      */
@@ -225,14 +223,14 @@ public class NativeSources
             return new File[0];
         }
 
-        List sourceFiles = new ArrayList();
+        List<File> sourceFiles = new ArrayList<>();
 
         for ( int i = 0; i < sources.length; ++i )
         {
             sourceFiles.addAll( sources[i].getFiles() );
         }
 
-        return (File[]) sourceFiles.toArray( new File[sourceFiles.size()] );
+        return sourceFiles.toArray( new File[sourceFiles.size()] );
     }
 
     public static File[] getIncludePaths( NativeSources[] sources )
@@ -242,7 +240,7 @@ public class NativeSources
             return new File[0];
         }
 
-        List list = new ArrayList();
+        List<File> list = new ArrayList<>();
 
         for ( int i = 0; i < sources.length; ++i )
         {
@@ -252,7 +250,7 @@ public class NativeSources
             }
         }
 
-        return (File[]) list.toArray( new File[0] );
+        return list.toArray( new File[0] );
     }
 
     public static File[] getSystemIncludePaths( NativeSources[] sources )
@@ -262,7 +260,7 @@ public class NativeSources
             return new File[0];
         }
 
-        List list = new ArrayList();
+        List<File> list = new ArrayList<>();
 
         for ( int i = 0; i < sources.length; ++i )
         {
@@ -272,7 +270,7 @@ public class NativeSources
             }
         }
 
-        return (File[]) list.toArray( new File[0] );
+        return list.toArray( new File[0] );
     }
 
 }

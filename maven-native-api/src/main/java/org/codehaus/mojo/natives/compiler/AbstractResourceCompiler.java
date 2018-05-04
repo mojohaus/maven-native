@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.compiler;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.compiler;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.compiler;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
@@ -47,7 +45,8 @@ public abstract class AbstractResourceCompiler
     protected abstract Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
         throws NativeBuildException;
 
-    public List compile( ResourceCompilerConfiguration config, NativeSources[] sources )
+    @Override
+    public List<File> compile( ResourceCompilerConfiguration config, NativeSources[] sources )
         throws NativeBuildException
     {
         File[] sourceFiles = NativeSources.getAllSourceFiles( sources );
@@ -56,7 +55,7 @@ public abstract class AbstractResourceCompiler
 
         config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( sources ) );
 
-        List compilerOutputFiles = new ArrayList( sourceFiles.length );
+        List<File> compilerOutputFiles = new ArrayList<>( sourceFiles.length );
 
         for ( int i = 0; i < sourceFiles.length; ++i )
         {

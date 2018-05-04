@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,6 +18,7 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 
@@ -36,6 +35,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
  * Embeds a Visual Studio manifest file into a generated executable
+ *
  * @since 1.0-alpha4
  */
 @Mojo(name = "manifest", defaultPhase = LifecyclePhase.PACKAGE)
@@ -44,6 +44,7 @@ public class NativeManifestMojo
 {
     /**
      * Manifest Provider.
+     *
      * @since 1.0-alpha4
      */
     @Parameter(defaultValue = "msvc", required = true)
@@ -51,6 +52,7 @@ public class NativeManifestMojo
 
     /**
      * Manifest extension
+     *
      * @since 1.0-alpha-4
      */
     @Parameter(defaultValue = "manifest", required = true)
@@ -58,6 +60,7 @@ public class NativeManifestMojo
 
     /**
      * Enable this option to speed up linkage for large project with no dependencies changes
+     *
      * @since 1.0-alpha-8
      */
     @Parameter(defaultValue = "false")
@@ -65,6 +68,7 @@ public class NativeManifestMojo
 
     /**
      * Internal - To look up manifest implementation
+     *
      * @since 1.0-alpha-4
      */
     @Component

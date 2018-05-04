@@ -10,7 +10,7 @@ public class FileUtil
 
     /**
      * Returns a relative path for the targetFile relative to the base directory.
-     * 
+     *
      * @param canonicalBase base directory as returned by File.getCanonicalPath()
      * @param targetFile target file
      * @return relative path of target file. Returns targetFile if there were no commonalities between the base and the

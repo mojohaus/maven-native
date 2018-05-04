@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.plugin;
-
 /*
  * The MIT License
  *
@@ -20,8 +18,15 @@ package org.codehaus.mojo.natives.plugin;
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package org.codehaus.mojo.natives.plugin;
 
+import java.io.File;
+import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.compiler.ResourceCompiler;
@@ -29,13 +34,6 @@ import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
-
-import java.io.File;
-import java.util.List;
-import org.apache.maven.plugins.annotations.Component;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Compile Windows resource files
@@ -47,6 +45,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Compiler Provider Type
+     *
      * @since 1.0-alpha-2
      */
     @Parameter(defaultValue = "msvc", required = true)
@@ -54,6 +53,7 @@ public class NativeResourceCompileMojo
 
     /**
      * Use this field to override provider specific resource compiler executable
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
@@ -61,13 +61,15 @@ public class NativeResourceCompileMojo
 
     /**
      * Resource compiler options
+     *
      * @since 1.0-alpha-2
      */
     @Parameter
-    private List resourceCompilerOptions;
+    private List<String> resourceCompilerOptions;
 
     /**
      * Array of NativeSources containing include directories and source files
+     *
      * @since 1.0-alpha-8
      */
     @Parameter
@@ -81,11 +83,13 @@ public class NativeResourceCompileMojo
 
     /**
      * Internal
+     *
      * @since 1.0-alpha-2
      */
     @Component
     private ResourceCompilerManager manager;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {
@@ -108,7 +112,7 @@ public class NativeResourceCompileMojo
 
         try
         {
-            List resourceOutputFiles;
+            List<File> resourceOutputFiles;
             resourceOutputFiles = compiler.compile( config, this.resources );
 
             this.saveCompilerOutputFilePaths( resourceOutputFiles );

@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.linker;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.linker;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.linker;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
@@ -39,10 +37,11 @@ public abstract class AbstractLinker
     implements Linker
 {
 
-    protected abstract Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+    protected abstract Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
         throws NativeBuildException;
 
-    public File link( LinkerConfiguration config, List compilerOutputFiles )
+    @Override
+    public File link( LinkerConfiguration config, List<File> compilerOutputFiles )
         throws NativeBuildException, IOException
     {
         if ( isStaled( config, compilerOutputFiles ) )
@@ -56,7 +55,7 @@ public abstract class AbstractLinker
         return config.getOutputFile();
     }
 
-    private boolean isStaled( LinkerConfiguration config, List compilerOutputFiles )
+    private boolean isStaled( LinkerConfiguration config, List<File> compilerOutputFiles )
     {
         if ( !config.isCheckStaleLinkage() )
         {
@@ -75,12 +74,12 @@ public abstract class AbstractLinker
         {
             for ( int i = 0; i < compilerOutputFiles.size(); ++i )
             {
-                if ( previousDestination.lastModified() < ( (File) compilerOutputFiles.get( i ) ).lastModified() )
+                if ( previousDestination.lastModified() < compilerOutputFiles.get( i ).lastModified() )
                 {
                     if ( this.getLogger().isDebugEnabled() )
                     {
                         getLogger().debug( "Stale relative to compilerOutputFiles: "
-                                               + ( (File) compilerOutputFiles.get( i ) ).getAbsolutePath() );
+                                + compilerOutputFiles.get( i ).getAbsolutePath() );
                     }
 
                     return true;
@@ -89,8 +88,8 @@ public abstract class AbstractLinker
 
             for ( int i = 0; i < config.getExternalLibFileNames().size(); ++i )
             {
-                File extLib =
-                    new File( config.getExternalLibDirectory(), (String) config.getExternalLibFileNames().get( i ) );
+                File extLib = new File( config.getExternalLibDirectory(),
+                        (String) config.getExternalLibFileNames().get( i ) );
 
                 if ( previousDestination.lastModified() < extLib.lastModified() )
                 {

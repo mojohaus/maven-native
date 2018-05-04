@@ -22,9 +22,8 @@ public class NativeRanlibMojoTest
         // simulate artifact
         ArtifactHandler artifactHandler = new DefaultArtifactHandler();
 
-        Artifact artifact =
-            new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ), "compile", "exe",
-                                 null, artifactHandler );
+        Artifact artifact = new DefaultArtifact( "test", "test", VersionRange.createFromVersion( "1.0-SNAPSHOT" ),
+                "compile", "exe", null, artifactHandler );
         mojo.getProject().setArtifact( artifact );
 
         mojo.execute();

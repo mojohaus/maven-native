@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.manager;
-
 /*
  * The MIT License
  *
@@ -23,16 +21,15 @@ package org.codehaus.mojo.natives.manager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-import org.codehaus.mojo.natives.linker.Manifest;
-
-import org.codehaus.plexus.logging.AbstractLogEnabled;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
+package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.codehaus.mojo.natives.linker.Manifest;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.AbstractLogEnabled;
+import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = ManifestManager.class, hint = "native-manifest-provider-manager")
 public class DefaultManifestManager
@@ -40,17 +37,18 @@ public class DefaultManifestManager
     implements ManifestManager, Initializable
 {
     @Requirement(role = Manifest.class)
-    private Map providers;
+    private Map<String, Manifest> providers;
 
     // ----------------------------------------------------------------------
     // Component Lifecycle
     // ----------------------------------------------------------------------
 
+    @Override
     public void initialize()
     {
         if ( providers == null )
         {
-            providers = new HashMap();
+            providers = new HashMap<>();
         }
 
         if ( providers.size() == 0 )
@@ -59,10 +57,11 @@ public class DefaultManifestManager
         }
     }
 
+    @Override
     public Manifest getManifest( String providerType )
         throws NoSuchNativeProviderException
     {
-        Manifest provider = (Manifest) providers.get( providerType );
+        Manifest provider = providers.get( providerType );
 
         if ( provider == null )
         {

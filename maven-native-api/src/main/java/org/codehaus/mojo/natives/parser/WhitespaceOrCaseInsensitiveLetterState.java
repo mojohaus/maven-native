@@ -18,7 +18,7 @@ package org.codehaus.mojo.natives.parser;
 
 /**
  * This parser state checks consumed characters against a specific character (case insensitive) or whitespace.
- * 
+ *
  * @author Curt Arnold
  */
 public final class WhitespaceOrCaseInsensitiveLetterState
@@ -41,13 +41,13 @@ public final class WhitespaceOrCaseInsensitiveLetterState
 
     /**
      * Constructor.
-     * 
+     *
      * @param parser parser
      * @param matchLetter letter to match
      * @param nextStateArg next state if a match on the letter
      */
     public WhitespaceOrCaseInsensitiveLetterState( final AbstractParser parser, final char matchLetter,
-                                                   final AbstractParserState nextStateArg )
+            final AbstractParserState nextStateArg )
     {
         super( parser );
         this.lowerLetter = Character.toLowerCase( matchLetter );
@@ -57,7 +57,7 @@ public final class WhitespaceOrCaseInsensitiveLetterState
 
     /**
      * Consumes a character and returns the next state for the parser.
-     * 
+     *
      * @param ch next character
      * @return the configured nextState if ch is the expected character or the configure noMatchState otherwise.
      */

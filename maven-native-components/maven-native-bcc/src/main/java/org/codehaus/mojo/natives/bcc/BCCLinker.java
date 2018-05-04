@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.bcc;
-
 /*
  * The MIT License
  *
@@ -11,10 +9,10 @@ package org.codehaus.mojo.natives.bcc;
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do
  * so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,19 +21,18 @@ package org.codehaus.mojo.natives.bcc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.c.CLinker;
-import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.cli.Commandline;
+package org.codehaus.mojo.natives.bcc;
 
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import org.codehaus.mojo.natives.NativeBuildException;
+import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.linker.Linker;
+import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Linker.class, hint = "bcc", instantiationStrategy = "per-lookup")
 public class BCCLinker
@@ -44,7 +41,8 @@ public class BCCLinker
 
     public static final String DEFAULT_EXECUTABLE = "ilink32";
 
-    protected Commandline createLinkerCommandLine( List objectFiles, LinkerConfiguration config )
+    @Override
+    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
         throws NativeBuildException
     {
         Commandline cl = new Commandline();
@@ -69,14 +67,14 @@ public class BCCLinker
         // objfiles
         for ( int i = 0; i < objectFiles.size(); ++i )
         {
-            File objFile = (File) objectFiles.get( i );
+            File objFile = objectFiles.get( i );
 
             cl.createArg().setValue( objFile.getPath() );
         }
 
-        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
-            String fileName = (String) iter.next();
+            String fileName = iter.next();
 
             if ( !FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
             {
@@ -94,9 +92,9 @@ public class BCCLinker
 
         // res file
         cl.createArg().setValue( "," );
-        for ( Iterator iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
         {
-            String fileName = (String) iter.next();
+            String fileName = iter.next();
 
             if ( FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
             {

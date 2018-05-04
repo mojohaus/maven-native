@@ -22,7 +22,7 @@ import java.io.Reader;
 
 /**
  * A parser that extracts #include statements from a Reader.
- * 
+ *
  * @author Curt Arnold
  */
 public interface Parser

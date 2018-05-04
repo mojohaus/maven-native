@@ -1,5 +1,3 @@
-package org.codehaus.mojo.natives.msvc;
-
 /*
  * The MIT License
  *
@@ -23,11 +21,11 @@ package org.codehaus.mojo.natives.msvc;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
@@ -40,22 +38,22 @@ public class MSVC2003ToolkitEnvFactory
 {
     private static final String MSVC2003_TOOLKIT_INSTALL_ENV_KEY = "MSVC2003_TOOLKIT_INSTALL_DIR";
 
-    private static final String DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR = getProgramFiles()
-        + "/Microsoft Visual C++ Toolkit 2003";
+    private static final String DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR =
+            getProgramFiles() + "/Microsoft Visual C++ Toolkit 2003";
 
-    protected Map createEnvs()
+    @Override
+    protected Map<String, String> createEnvs()
         throws NativeBuildException
     {
-        File vcInstallDir =
-            new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY, MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
-                                      DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
+        File vcInstallDir = new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
+                MSVC2003_TOOLKIT_INSTALL_ENV_KEY, DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
 
         if ( !vcInstallDir.isDirectory() )
         {
             throw new NativeBuildException( vcInstallDir.getPath() + " is not a directory." );
         }
 
-        Map envs = new HashMap();
+        Map<String, String> envs = new HashMap<>();
 
         // setup new PATH
         String currentPath = System.getProperty( "java.library.path" );

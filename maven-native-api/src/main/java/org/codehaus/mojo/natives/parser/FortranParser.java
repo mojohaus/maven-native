@@ -22,7 +22,7 @@ import java.util.Vector;
 
 /**
  * A parser that extracts INCLUDE statements from a Reader.
- * 
+ *
  * @author Curt Arnold
  */
 public final class FortranParser
@@ -32,7 +32,7 @@ public final class FortranParser
     /**
      * List of included filenames.
      */
-    private final Vector includes = new Vector();
+    private final Vector<String> includes = new Vector<>();
 
     /**
      * State that starts consuming content at the beginning of a line.
@@ -58,9 +58,10 @@ public final class FortranParser
 
     /**
      * Called by FilenameState at completion of file name production.
-     * 
+     *
      * @param include include file name
      */
+    @Override
     public void addFilename( final String include )
     {
         includes.addElement( include );
@@ -68,9 +69,10 @@ public final class FortranParser
 
     /**
      * Gets collection of include file names encountered in parse.
-     * 
+     *
      * @return include file names
      */
+    @Override
     public String[] getIncludes()
     {
         String[] retval = new String[includes.size()];
@@ -80,9 +82,10 @@ public final class FortranParser
 
     /**
      * Get the state for the beginning of a new line.
-     * 
+     *
      * @return start of line state
      */
+    @Override
     public AbstractParserState getNewLineState()
     {
         return newLineState;
@@ -90,10 +93,11 @@ public final class FortranParser
 
     /**
      * Collects all included files from the content of the reader.
-     * 
+     *
      * @param reader character reader containing a FORTRAN source module
      * @throws IOException throw if I/O error during parse
      */
+    @Override
     public void parse( final Reader reader )
         throws IOException
     {
