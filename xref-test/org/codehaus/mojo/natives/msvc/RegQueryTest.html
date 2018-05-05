@@ -18,8 +18,8 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>      {
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>          <strong class="jxr_keyword">if</strong> ( Os.isFamily( <span class="jxr_string">"windows"</span> ) )
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>          {
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>              String value =
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>                  RegQuery.getValue( <span class="jxr_string">"REG_SZ"</span>, <span class="jxr_string">"HKLM&#92;&#92;SOFTWARE&#92;&#92;Microsoft&#92;&#92;Windows&#92;&#92;CurrentVersion"</span>, <span class="jxr_string">"ProgramFilesDir"</span> );
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>              String value = RegQuery.getValue( <span class="jxr_string">"REG_SZ"</span>, <span class="jxr_string">"HKLM&#92;&#92;SOFTWARE&#92;&#92;Microsoft&#92;&#92;Windows&#92;&#92;CurrentVersion"</span>,
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>                      <span class="jxr_string">"ProgramFilesDir"</span> );
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>              assertNotNull( value );
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>          }
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      }

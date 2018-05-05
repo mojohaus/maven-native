@@ -9,14 +9,14 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.codehaus.mojo.natives.msvc;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.NativeBuildException;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/msvc/MSVC2013x86EnvFactory.html">MSVC2013x86EnvFactory</a>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>       <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/codehaus/mojo/natives/msvc/AbstractMSVCEnvFactory.html">AbstractMSVCEnvFactory</a>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   {
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">protected</strong> Map createEnvs()
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.NativeBuildException;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/msvc/MSVC2013x86EnvFactory.html">MSVC2013x86EnvFactory</a>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>       <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/codehaus/mojo/natives/msvc/AbstractMSVCEnvFactory.html">AbstractMSVCEnvFactory</a>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   {
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>      @Override
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">protected</strong> Map&lt;String, String&gt; createEnvs()
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>          <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/codehaus/mojo/natives/NativeBuildException.html">NativeBuildException</a>
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>      {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.createEnvs( <span class="jxr_string">"VS120COMNTOOLS"</span>, <span class="jxr_string">"x86"</span> );

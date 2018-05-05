@@ -6,61 +6,61 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../../apidocs/org/codehaus/mojo/natives/compiler/AbstractCompiler.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.codehaus.mojo.natives.compiler;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * The MIT License</em>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * The MIT License</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2004, The Codehaus</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Copyright (c) 2004, The Codehaus</em>
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and</em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> * associated documentation files (the "Software"), to deal in the Software without restriction,</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * including without limitation the rights to use, copy, modify, merge, publish, distribute,</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * furnished to do so, subject to the following conditions:</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> * The above copyright notice and this permission notice shall be included in all copies or</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> * substantial portions of the Software.</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_comment"> * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_comment"> * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment"> * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_comment"> * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_comment"> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_comment"> */</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> java.io.File;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.NativeBuildException;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.SourceDependencyAnalyzer;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.parser.Parser;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.util.CommandLineUtil;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.util.EnvUtil;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.logging.AbstractLogEnabled;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.logging.Logger;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.FileUtils;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.Os;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.cli.Commandline;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.RejectedExecutionException;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">AbstractCompiler</a>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">extends</strong> AbstractLogEnabled
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">implements</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/Compiler.html">Compiler</a>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> <a href="../../../../../org/codehaus/mojo/natives/parser/Parser.html">Parser</a> getParser();
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">throws</strong> NativeBuildException;
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> List compile( CompilerConfiguration config, File[] sourceFiles )
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * associated documentation files (the "Software"), to deal in the Software without restriction,</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> * including without limitation the rights to use, copy, modify, merge, publish, distribute,</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * furnished to do so, subject to the following conditions:</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * The above copyright notice and this permission notice shall be included in all copies or</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> * substantial portions of the Software.</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_comment"> * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_comment"> * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment"> * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">package</strong> org.codehaus.mojo.natives.compiler;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.io.File;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.NativeBuildException;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.SourceDependencyAnalyzer;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.parser.Parser;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.util.CommandLineUtil;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.codehaus.mojo.natives.util.EnvUtil;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.logging.AbstractLogEnabled;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.logging.Logger;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.FileUtils;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.Os;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.cli.Commandline;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.RejectedExecutionException;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">AbstractCompiler</a>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">extends</strong> AbstractLogEnabled
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">implements</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/Compiler.html">Compiler</a>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> <a href="../../../../../org/codehaus/mojo/natives/parser/Parser.html">Parser</a> getParser();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">throws</strong> NativeBuildException;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      @Override
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> List&lt;File&gt; compile( CompilerConfiguration config, File[] sourceFiles )
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/codehaus/mojo/natives/NativeBuildException.html">NativeBuildException</a>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">if</strong> ( !config.getOutputDirectory().exists() )
@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>              config.getOutputDirectory().mkdirs();
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          List compilerOutputFiles = <strong class="jxr_keyword">new</strong> ArrayList( sourceFiles.length );
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          List&lt;File&gt; compilerOutputFiles = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;( sourceFiles.length );
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerThreadPoolExecutor</a> compilerThreadPoolExecutor = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">     * return "obj" or "o" when file extension is not given based on current platform</em>
-<a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * @return</em>
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> String getObjectFileExtension( String fileExtension )
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">     * Figure out the object file relative path from a given source file</em>
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> <em class="jxr_javadoccomment">     * @param sourceFile</em>
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> <em class="jxr_javadoccomment">     * @param workingDirectory</em>
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> <em class="jxr_javadoccomment">     * @param outputDirectory</em>
@@ -202,8 +202,8 @@
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         }
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">catch</strong> ( IOException e )
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         {
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/codehaus/mojo/natives/NativeBuildException.html">NativeBuildException</a>( <span class="jxr_string">"Failed to figure out object file name for "</span> + sourceFile + <span class="jxr_string">": "</span>
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>                 + e.getMessage(), e );
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/codehaus/mojo/natives/NativeBuildException.html">NativeBuildException</a>(
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>                     <span class="jxr_string">"Failed to figure out object file name for "</span> + sourceFile + <span class="jxr_string">": "</span> + e.getMessage(), e );
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         }
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         File objectFile = <strong class="jxr_keyword">new</strong> File( outputDirectory, objectFileName );
@@ -232,64 +232,67 @@
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>             <strong class="jxr_keyword">super</strong>( corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, <strong class="jxr_keyword">new</strong> ArrayBlockingQueue( corePoolSize * 2 ) );
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>         }
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> 
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> afterExecute( Runnable r, Throwable t )
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>         {
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>             <strong class="jxr_keyword">super</strong>.afterExecute( r, t );
-<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>             <strong class="jxr_keyword">if</strong> ( t != <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>             {
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>                 <strong class="jxr_keyword">this</strong>.setErrorFound( <strong class="jxr_keyword">true</strong> );
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>                 <strong class="jxr_keyword">this</strong>.shutdown();
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>             }
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         }
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> 
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> beforeExecute( Thread t, Runnable r )
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>         {
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>             <strong class="jxr_keyword">super</strong>.beforeExecute( t, r );
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> 
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>             <em class="jxr_comment">// fail fast</em>
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>             <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.isErrorFound() )
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>             {
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>                 ( (<a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerRunnable</a>) r ).setSkip( <strong class="jxr_keyword">true</strong> );
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>             }
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>         }
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     }
-<a class="jxr_linenumber" name="L250" href="#L250">250</a> 
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerRunnable</a>
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">implements</strong> Runnable
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     {
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         <strong class="jxr_keyword">private</strong> Commandline cl;
-<a class="jxr_linenumber" name="L255" href="#L255">255</a> 
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">private</strong> Logger logger;
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>         @Override
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> afterExecute( Runnable r, Throwable t )
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>         {
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>             <strong class="jxr_keyword">super</strong>.afterExecute( r, t );
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> 
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>             <strong class="jxr_keyword">if</strong> ( t != <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>             {
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                 <strong class="jxr_keyword">this</strong>.setErrorFound( <strong class="jxr_keyword">true</strong> );
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 <strong class="jxr_keyword">this</strong>.shutdown();
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>             }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         }
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> 
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>         @Override
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> beforeExecute( Thread t, Runnable r )
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         {
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>             <strong class="jxr_keyword">super</strong>.beforeExecute( t, r );
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>             <em class="jxr_comment">// fail fast</em>
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>             <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.isErrorFound() )
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>             {
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>                 ( (<a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerRunnable</a>) r ).setSkip( <strong class="jxr_keyword">true</strong> );
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             }
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         }
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     }
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> 
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerRunnable</a>
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         <strong class="jxr_keyword">implements</strong> Runnable
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>     {
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">private</strong> Commandline cl;
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> 
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> skip = false;
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <strong class="jxr_keyword">private</strong> Logger logger;
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> 
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSkip( <strong class="jxr_keyword">boolean</strong> skip )
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>         {
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>             <strong class="jxr_keyword">this</strong>.skip = skip;
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         }
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> 
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerRunnable</a>( Commandline cl, Logger logger )
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         {
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>             <strong class="jxr_keyword">this</strong>.cl = cl;
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>             <strong class="jxr_keyword">this</strong>.logger = logger;
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>         }
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> 
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run()
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/codehaus/mojo/natives/NativeBuildException.html">NativeBuildException</a>
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>         {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>             <strong class="jxr_keyword">if</strong> ( skip )
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>             {
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>                 <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>             }
-<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>             CommandLineUtil.execute( cl, logger );
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         }
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> skip = false;
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> 
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSkip( <strong class="jxr_keyword">boolean</strong> skip )
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>         {
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>             <strong class="jxr_keyword">this</strong>.skip = skip;
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>         }
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> 
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../../org/codehaus/mojo/natives/compiler/AbstractCompiler.html">CompilerRunnable</a>( Commandline cl, Logger logger )
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>         {
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>             <strong class="jxr_keyword">this</strong>.cl = cl;
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             <strong class="jxr_keyword">this</strong>.logger = logger;
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         }
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> 
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         @Override
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run()
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/codehaus/mojo/natives/NativeBuildException.html">NativeBuildException</a>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>         {
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>             <strong class="jxr_keyword">if</strong> ( skip )
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>             {
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>                 <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>             }
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> 
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     }
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> }
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>             CommandLineUtil.execute( cl, logger );
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>         }
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>     }
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> 
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2018 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
