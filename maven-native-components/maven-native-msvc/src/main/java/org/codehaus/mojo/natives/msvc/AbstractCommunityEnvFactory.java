@@ -7,6 +7,7 @@ import java.util.Map;
 import org.codehaus.mojo.natives.AbstractEnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
@@ -17,17 +18,14 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory {
         throws NativeBuildException {
         File tmpEnvExecFile = null;
         try {
-            String vsCommunityPath = RegQuery.getValue(
-                "REG_SZ",
-                "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\SxS\\VS7",
-                version
-            );
+            String vsCommunityPath = queryVSInstallPath(version);
+
             if (vsCommunityPath == null) {
                 throw new NativeBuildException(
                     String.format("Can not find VS Community version '%s'", version)
                 );
             }
-            if (!vsCommunityPath.endsWith("Community\\")) {
+            if (!vsCommunityPath.endsWith("Community\\") && !vsCommunityPath.endsWith("Community")) {
                 throw new NativeBuildException(
                     String.format("Directory '%s' is not a VS Community directory", vsCommunityPath)
                 );
@@ -44,20 +42,39 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory {
             Commandline cl = new Commandline();
             cl.setExecutable(tmpEnvExecFile.getAbsolutePath());
 
-            EnvStreamConsumer stdout = new EnvStreamConsumer();
-            StreamConsumer stderr = new DefaultConsumer();
+            return executeCommandLine(cl);
 
-            CommandLineUtils.executeCommandLine(cl, stdout, stderr);
-
-            return stdout.getParsedEnv();
-        } catch (Exception e) {
+        } catch(NativeBuildException e) {
+            throw e;
+        }
+        catch (Exception e) {
             throw new NativeBuildException("Unable to retrieve env", e);
         } finally {
             if (tmpEnvExecFile != null) {
                 tmpEnvExecFile.delete();
             }
         }
+    }
 
+    protected String queryVSInstallPath(String version) {
+        return RegQuery.getValue(
+          "REG_SZ",
+          "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\SxS\\VS7",
+          version
+        );
+    }
+
+    protected Map<String, String> executeCommandLine(Commandline command) throws NativeBuildException {
+        EnvStreamConsumer stdout = new EnvStreamConsumer();
+        StreamConsumer stderr = new DefaultConsumer();
+
+        try {
+            CommandLineUtils.executeCommandLine(command, stdout, stderr);
+        } catch (CommandLineException e) {
+            throw new NativeBuildException("Failed to execute vcvarsall.bat");
+        }
+
+        return stdout.getParsedEnv();
     }
 
     private File createEnvWrapperFile(File vsInstallDir, String platform)
@@ -68,9 +85,9 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory {
         StringBuffer buffer = new StringBuffer();
         buffer.append("@echo off\r\n");
         buffer.append("call \"").append(vsInstallDir).append("\"")
-            .append("\\VC\\Auxiliary\\Build\\vcvarsall.bat " + platform + "\n\r");
+            .append("\\VC\\Auxiliary\\Build\\vcvarsall.bat " + platform + "\r\n");
         buffer.append("echo " + EnvStreamConsumer.START_PARSING_INDICATOR).append("\r\n");
-        buffer.append("set\n\r");
+        buffer.append("set\r\n");
         FileUtils.fileWrite(tmpFile.getAbsolutePath(), buffer.toString());
 
         return tmpFile;
