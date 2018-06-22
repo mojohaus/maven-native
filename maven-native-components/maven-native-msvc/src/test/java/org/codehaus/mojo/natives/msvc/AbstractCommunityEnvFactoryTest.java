@@ -2,10 +2,10 @@ package org.codehaus.mojo.natives.msvc;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.plexus.PlexusTestCase;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,8 @@ public class AbstractCommunityEnvFactoryTest
             mock.setVsInstallPathMock( "C:\\Program Files\\VS 2017\\Ultimate" );
             mock.createEnvs( "17.0", "x86" );
             fail( "Path validation must fail" );
-        } catch ( NativeBuildException e )
+        }
+        catch ( NativeBuildException e )
         {
             assertEquals(
                     e.getMessage(),
@@ -36,7 +37,8 @@ public class AbstractCommunityEnvFactoryTest
             mock.setVsInstallPathMock( null );
             mock.createEnvs( "17.0", "x86" );
             fail( "Path validation must fail" );
-        } catch ( NativeBuildException e )
+        }
+        catch ( NativeBuildException e )
         {
             assertEquals(
                     e.getMessage(),
@@ -44,28 +46,19 @@ public class AbstractCommunityEnvFactoryTest
             );
         }
 
-        File tempDir = new File(
-                System.getProperty( "java.io.tmpdir" ),
-                "AbstractCommunityEnvFactoryTest\\Community"
-        );
-        if ( !tempDir.createNewFile() )
-        {
-            fail( "Failed to create temporary directory" );
-        }
+        File tempDir = createCommunityDir( true );
         try
         {
             mock.setVsInstallPathMock( tempDir.getAbsolutePath() );
             mock.createEnvs( "17.0", "x86" );
             fail( "Path validation must fail" );
-        } catch ( NativeBuildException e )
+        }
+        catch ( NativeBuildException e )
         {
             assertEquals(
                     e.getMessage(),
                     String.format( "Path '%s' is not a directory", tempDir.getAbsolutePath() )
             );
-        } finally
-        {
-            tempDir.delete();
         }
     }
 
@@ -73,26 +66,47 @@ public class AbstractCommunityEnvFactoryTest
     {
         CommunityEnvFactoryMock mock = new CommunityEnvFactoryMock();
 
-        File tempDir = new File(
-                System.getProperty( "java.io.tmpdir" ),
-                "AbstractCommunityEnvFactoryTest\\Community"
-        );
-        if ( !tempDir.mkdir() )
-        {
-            fail( "Failed to create temporary directory" );
-        }
+        File tempDir = createCommunityDir( false );
         try
         {
             mock.setVsInstallPathMock( tempDir.getAbsolutePath() );
             mock.createEnvs( "17.0", "x64" );
             assertTrue( mock.getRecordedCommandFileContent().contains( tempDir.getAbsolutePath() ) );
-        } catch ( NativeBuildException e )
+        }
+        catch ( NativeBuildException e )
         {
             fail( "Must not fail" );
-        } finally
-        {
-            tempDir.delete();
         }
+    }
+
+    private File createCommunityDir(boolean isFile) throws IOException
+    {
+        File tempDir = FileUtils.createTempFile( "test", "dir", null );
+        if ( !tempDir.mkdir() )
+        {
+            fail( "Failed to create temporary directory" );
+        }
+        File tempCommunityFile = new File(
+                tempDir,
+                "Community"
+        );
+        if ( isFile )
+        {
+            if ( !tempCommunityFile.createNewFile() )
+            {
+                fail( "Failed to create Community file" );
+            }
+        }
+        else
+        {
+            if ( !tempCommunityFile.mkdir() )
+            {
+                fail( "Failed to create Community directory" );
+            }
+        }
+        FileUtils.forceDeleteOnExit( tempDir );
+        FileUtils.forceDeleteOnExit( tempCommunityFile );
+        return tempCommunityFile;
     }
 }
 
@@ -122,10 +136,9 @@ class CommunityEnvFactoryMock extends AbstractCommunityEnvFactory
     {
         try
         {
-            byte[] buffer = new byte[2048];
-            int size = new FileInputStream( new File( command.getLiteralExecutable() ) ).read( buffer );
-            recordedCommandFile = new String( buffer, 0, size );
-        } catch ( IOException e )
+            recordedCommandFile = FileUtils.fileRead( command.getLiteralExecutable() );
+        }
+        catch ( IOException e )
         {
             throw new NativeBuildException( "Failed to capture file output" );
         }

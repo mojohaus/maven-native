@@ -51,13 +51,16 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory
 
             return executeCommandLine( cl );
 
-        } catch ( NativeBuildException e )
+        }
+        catch ( NativeBuildException e )
         {
             throw e;
-        } catch ( Exception e )
+        }
+        catch ( Exception e )
         {
             throw new NativeBuildException( "Unable to retrieve env", e );
-        } finally
+        }
+        finally
         {
             if ( tmpEnvExecFile != null )
             {
@@ -83,7 +86,8 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory
         try
         {
             CommandLineUtils.executeCommandLine( command, stdout, stderr );
-        } catch ( CommandLineException e )
+        }
+        catch ( CommandLineException e )
         {
             throw new NativeBuildException( "Failed to execute vcvarsall.bat" );
         }
