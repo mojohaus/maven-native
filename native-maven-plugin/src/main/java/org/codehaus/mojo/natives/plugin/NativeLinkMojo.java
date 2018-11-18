@@ -215,6 +215,7 @@ public class NativeLinkMojo
             List<File> allCompilerOuputFiles = this.getAllCompilersOutputFileList();
 
             File outputFile = linker.link( config, allCompilerOuputFiles );
+            allCompilerOuputFiles.clear();
 
             // to be used by post linker mojo like native:manifest
             @SuppressWarnings({ "unused", "unchecked" })
