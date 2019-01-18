@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.codehaus.mojo.natives</groupId>
     <artifactId>maven-native</artifactId>
-    <version>1.0-alpha-10-SNAPSHOT</version>
+    <version>1.0-alpha-10</version>
   </parent>
   <artifactId>maven-native-api</artifactId>
   <name>Maven Native API</name>
