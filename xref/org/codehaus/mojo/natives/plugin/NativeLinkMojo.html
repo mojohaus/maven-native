@@ -223,310 +223,311 @@
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>             List&lt;File&gt; allCompilerOuputFiles = <strong class="jxr_keyword">this</strong>.getAllCompilersOutputFileList();
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> 
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>             File outputFile = linker.link( config, allCompilerOuputFiles );
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> 
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>             <em class="jxr_comment">// to be used by post linker mojo like native:manifest</em>
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>             @SuppressWarnings({ <span class="jxr_string">"unused"</span>, <span class="jxr_string">"unchecked"</span> })
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>             Object unchecked = <strong class="jxr_keyword">this</strong>.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
-<a class="jxr_linenumber" name="L222" href="#L222">222</a> 
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>         }
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">catch</strong> ( IOException ioe )
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>         {
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( ioe.getMessage(), ioe );
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>         }
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">catch</strong> ( NativeBuildException nbe )
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         {
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( nbe.getMessage(), nbe );
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>         }
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.attach )
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>         {
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>             <strong class="jxr_keyword">this</strong>.attachPrimaryArtifact();
-<a class="jxr_linenumber" name="L236" href="#L236">236</a> 
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>             <strong class="jxr_keyword">this</strong>.attachSecondaryArtifacts();
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         }
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>     }
-<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> createLinkerConfiguration()
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>     {
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>         <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> config = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a>();
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>         config.setWorkingDirectory( <strong class="jxr_keyword">this</strong>.workingDirectory );
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>         config.setExecutable( <strong class="jxr_keyword">this</strong>.linkerExecutable );
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>         config.setStartOptions( removeEmptyOptions( <strong class="jxr_keyword">this</strong>.linkerStartOptions ) );
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>         config.setMiddleOptions( removeEmptyOptions( <strong class="jxr_keyword">this</strong>.linkerMiddleOptions ) );
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>         config.setEndOptions( removeEmptyOptions( <strong class="jxr_keyword">this</strong>.linkerEndOptions ) );
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>         config.setOutputDirectory( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory );
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         config.setOutputFileName( <strong class="jxr_keyword">this</strong>.linkerFinalName );
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>         config.setOutputFileExtension( <strong class="jxr_keyword">this</strong>.linkerFinalNameExt );
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         config.setExternalLibDirectory( <strong class="jxr_keyword">this</strong>.externalLibDirectory );
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         config.setExternalLibFileNames( <strong class="jxr_keyword">this</strong>.getLibFileNames() );
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         config.setEnvFactory( <strong class="jxr_keyword">this</strong>.getEnvFactory() );
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         config.setUsingLinkerResponseFile( usingLinkerResponseFile );
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>         config.setCheckStaleLinkage( <strong class="jxr_keyword">this</strong>.checkStaleLinkage );
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         <strong class="jxr_keyword">return</strong> config;
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>     }
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> 
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/Linker.html">Linker</a> getLinker()
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     {
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>         <a href="../../../../../org/codehaus/mojo/natives/linker/Linker.html">Linker</a> linker;
-<a class="jxr_linenumber" name="L266" href="#L266">266</a> 
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>         <strong class="jxr_keyword">try</strong>
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>         {
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>             <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.linkerProvider == <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>             {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>                 <strong class="jxr_keyword">this</strong>.linkerProvider = <strong class="jxr_keyword">this</strong>.compilerProvider;
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>             }
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> 
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>             linker = <strong class="jxr_keyword">this</strong>.manager.getLinker( <strong class="jxr_keyword">this</strong>.linkerProvider );
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>         }
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         <strong class="jxr_keyword">catch</strong> ( NoSuchNativeProviderException pe )
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         {
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( pe.getMessage() );
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         }
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> 
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>         <strong class="jxr_keyword">return</strong> linker;
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     }
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> attachPrimaryArtifact()
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>     {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>         Artifact artifact = <strong class="jxr_keyword">this</strong>.project.getArtifact();
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> 
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">null</strong> == <strong class="jxr_keyword">this</strong>.classifier )
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>         {
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>             artifact.setFile( <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory + <span class="jxr_string">"/"</span> + <strong class="jxr_keyword">this</strong>.project.getBuild().getFinalName() + <span class="jxr_string">"."</span>
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>                     + <strong class="jxr_keyword">this</strong>.project.getArtifact().getArtifactHandler().getExtension() ) );
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>         }
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         <strong class="jxr_keyword">else</strong>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         {
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>             <em class="jxr_comment">// install primary artifact as a classifier</em>
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> 
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>             DefaultArtifact clone = <strong class="jxr_keyword">new</strong> DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(),
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>                     artifact.getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(), classifier,
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>                     artifact.getArtifactHandler(), artifact.isOptional() );
-<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>             clone.setRelease( artifact.isRelease() );
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>             clone.setResolvedVersion( artifact.getVersion() );
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>             clone.setResolved( artifact.isResolved() );
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>             clone.setFile( artifact.getFile() );
-<a class="jxr_linenumber" name="L308" href="#L308">308</a> 
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>             <strong class="jxr_keyword">if</strong> ( artifact.getAvailableVersions() != <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>             {
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 clone.setAvailableVersions( <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;( artifact.getAvailableVersions() ) );
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>             }
-<a class="jxr_linenumber" name="L313" href="#L313">313</a> 
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>             clone.setBaseVersion( artifact.getBaseVersion() );
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>             clone.setDependencyFilter( artifact.getDependencyFilter() );
-<a class="jxr_linenumber" name="L316" href="#L316">316</a> 
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>             <strong class="jxr_keyword">if</strong> ( artifact.getDependencyTrail() != <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>             {
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>                 clone.setDependencyTrail( <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;( artifact.getDependencyTrail() ) );
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>             }
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> 
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>             clone.setDownloadUrl( artifact.getDownloadUrl() );
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>             clone.setRepository( artifact.getRepository() );
-<a class="jxr_linenumber" name="L324" href="#L324">324</a> 
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>             clone.setFile( <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory + <span class="jxr_string">"/"</span> + <strong class="jxr_keyword">this</strong>.project.getBuild().getFinalName() + <span class="jxr_string">"."</span>
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>                     + <strong class="jxr_keyword">this</strong>.project.getArtifact().getArtifactHandler().getExtension() ) );
-<a class="jxr_linenumber" name="L327" href="#L327">327</a> 
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>             project.setArtifact( clone );
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>         }
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>     }
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> attachSecondaryArtifacts()
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>     {
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         <strong class="jxr_keyword">final</strong> String[] tokens;
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.linkerSecondaryOutputExtensions != <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>             tokens = StringUtils.split( <strong class="jxr_keyword">this</strong>.linkerSecondaryOutputExtensions, <span class="jxr_string">","</span> );
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>         }
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>         <strong class="jxr_keyword">else</strong>
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>         {
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>             tokens = <strong class="jxr_keyword">new</strong> String[0];
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>         }
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>         <strong class="jxr_keyword">for</strong> ( <strong class="jxr_keyword">int</strong> i = 0; i &lt; tokens.length; ++i )
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>         {
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>             <em class="jxr_comment">// TODO: shouldn't need classifier</em>
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>             Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(),
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>                     project.getVersion(), <strong class="jxr_keyword">this</strong>.classifier, tokens[i].trim() );
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>             artifact.setFile( <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory + <span class="jxr_string">"/"</span> + <strong class="jxr_keyword">this</strong>.project.getBuild().getFinalName() + <span class="jxr_string">"."</span>
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>                     + tokens[i].trim() ) );
-<a class="jxr_linenumber" name="L351" href="#L351">351</a> 
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>             project.addAttachedArtifact( artifact );
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>         }
-<a class="jxr_linenumber" name="L354" href="#L354">354</a> 
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>     }
-<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; getLibFileNames()
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>     {
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>         List&lt;String&gt; libList = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
-<a class="jxr_linenumber" name="L361" href="#L361">361</a> 
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>         Set&lt;Artifact&gt; artifacts = <strong class="jxr_keyword">this</strong>.project.getArtifacts();
-<a class="jxr_linenumber" name="L363" href="#L363">363</a> 
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>         <strong class="jxr_keyword">for</strong> ( Iterator&lt;Artifact&gt; iter = artifacts.iterator(); iter.hasNext(); )
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>         {
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>             Artifact artifact = iter.next();
-<a class="jxr_linenumber" name="L367" href="#L367">367</a> 
-<a class="jxr_linenumber" name="L368" href="#L368">368</a>             <strong class="jxr_keyword">if</strong> ( INCZIP_TYPE.equals( artifact.getType() ) )
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>             {
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>                 <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>             }
-<a class="jxr_linenumber" name="L372" href="#L372">372</a> 
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>             String libFileName = FileUtils.filename( <strong class="jxr_keyword">this</strong>.getDependencyFile( artifact, <strong class="jxr_keyword">true</strong> ).getPath() );
-<a class="jxr_linenumber" name="L374" href="#L374">374</a> 
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>             libList.add( libFileName );
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>         }
-<a class="jxr_linenumber" name="L377" href="#L377">377</a> 
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>         libList = <strong class="jxr_keyword">this</strong>.reorderLibDependencies( libList );
-<a class="jxr_linenumber" name="L379" href="#L379">379</a> 
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>         <strong class="jxr_keyword">return</strong> libList;
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>     }
-<a class="jxr_linenumber" name="L382" href="#L382">382</a> 
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L384" href="#L384">384</a> <em class="jxr_javadoccomment">     * convert dependencyLinkingOrders to a file list</em>
-<a class="jxr_linenumber" name="L385" href="#L385">385</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L386" href="#L386">386</a> <em class="jxr_javadoccomment">     * @return</em>
-<a class="jxr_linenumber" name="L387" href="#L387">387</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; getDependenciesFileOrderList()
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>     {
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>         List&lt;String&gt; list = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
-<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.linkingOrderLibs != <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         {
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>             <strong class="jxr_keyword">for</strong> ( Iterator&lt;String&gt; i = linkingOrderLibs.iterator(); i.hasNext(); )
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>             {
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>                 String element = i.next();
-<a class="jxr_linenumber" name="L398" href="#L398">398</a> 
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>                 Artifact artifact = lookupDependencyUsingGroupArtifactIdPair( element );
-<a class="jxr_linenumber" name="L400" href="#L400">400</a> 
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>                 <strong class="jxr_keyword">if</strong> ( artifact != <strong class="jxr_keyword">null</strong> )
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>                 {
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>                     String libFileName = FileUtils.filename( <strong class="jxr_keyword">this</strong>.getDependencyFile( artifact, false ).getPath() );
-<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>                     list.add( libFileName );
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>                 }
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>                 <strong class="jxr_keyword">else</strong>
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>                 {
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( element + <span class="jxr_string">" not found on project dependencies."</span> );
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>                 }
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>             }
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         }
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>         <strong class="jxr_keyword">return</strong> list;
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>     }
-<a class="jxr_linenumber" name="L416" href="#L416">416</a> 
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     * Look up library in dependency list using groupId:artifactId key Note: we can not use project.artifactMap due the</em>
-<a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     * introduction of inczip dependency where 2 dependency with the same artifactId and groupId, but differs by</em>
-<a class="jxr_linenumber" name="L420" href="#L420">420</a> <em class="jxr_javadoccomment">     * extension type make the map not suitable for lookup</em>
-<a class="jxr_linenumber" name="L421" href="#L421">421</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L422" href="#L422">422</a> <em class="jxr_javadoccomment">     * @param groupArtifactIdPair</em>
-<a class="jxr_linenumber" name="L423" href="#L423">423</a> <em class="jxr_javadoccomment">     * @return</em>
-<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     * @throws MojoExecutionException</em>
-<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>     <strong class="jxr_keyword">private</strong> Artifact lookupDependencyUsingGroupArtifactIdPair( String groupArtifactIdPair )
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>     {
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>         String[] tokens = StringUtils.split( groupArtifactIdPair, <span class="jxr_string">":"</span> );
-<a class="jxr_linenumber" name="L430" href="#L430">430</a> 
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>         <strong class="jxr_keyword">if</strong> ( tokens.length != 2 )
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>         {
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( <span class="jxr_string">"Invalid groupId and artifactId pair: "</span> + groupArtifactIdPair );
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>         }
-<a class="jxr_linenumber" name="L435" href="#L435">435</a> 
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>         Set&lt;Artifact&gt; allDependencyArtifacts = project.getDependencyArtifacts();
-<a class="jxr_linenumber" name="L437" href="#L437">437</a> 
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         <strong class="jxr_keyword">for</strong> ( Iterator&lt;Artifact&gt; iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>         {
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>             Artifact artifact = iter.next();
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>             <strong class="jxr_keyword">if</strong> ( INCZIP_TYPE.equals( artifact.getType() ) )
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>             {
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>                 <strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>             }
-<a class="jxr_linenumber" name="L445" href="#L445">445</a> 
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>             <strong class="jxr_keyword">if</strong> ( tokens[0].equals( artifact.getGroupId() ) &amp;&amp; tokens[1].equals( artifact.getArtifactId() ) )
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>             {
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>                 <strong class="jxr_keyword">return</strong> artifact;
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>             }
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         }
-<a class="jxr_linenumber" name="L451" href="#L451">451</a> 
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L453" href="#L453">453</a> 
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>     }
-<a class="jxr_linenumber" name="L455" href="#L455">455</a> 
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; reorderLibDependencies( List&lt;String&gt; libs )
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>     {
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>         List&lt;String&gt; requestedOrderList = getDependenciesFileOrderList();
-<a class="jxr_linenumber" name="L460" href="#L460">460</a> 
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>         <strong class="jxr_keyword">if</strong> ( requestedOrderList.size() != 0 )
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>         {
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>             <em class="jxr_comment">// remove from original list first</em>
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <strong class="jxr_keyword">for</strong> ( Iterator&lt;String&gt; i = requestedOrderList.iterator(); i.hasNext(); )
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>             {
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>                 libs.remove( i.next() );
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>             }
-<a class="jxr_linenumber" name="L468" href="#L468">468</a> 
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>             <strong class="jxr_keyword">for</strong> ( Iterator&lt;String&gt; i = libs.iterator(); i.hasNext(); )
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>             {
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>                 requestedOrderList.add( i.next() );
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>             }
-<a class="jxr_linenumber" name="L473" href="#L473">473</a> 
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>             <strong class="jxr_keyword">return</strong> requestedOrderList;
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>         }
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>         <strong class="jxr_keyword">else</strong>
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         {
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>             <strong class="jxr_keyword">return</strong> libs;
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>         }
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>     }
-<a class="jxr_linenumber" name="L481" href="#L481">481</a> 
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>     <strong class="jxr_keyword">private</strong> File getDependencyFile( Artifact artifact, <strong class="jxr_keyword">boolean</strong> doCopy )
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>     {
-<a class="jxr_linenumber" name="L485" href="#L485">485</a> 
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>         File newLocation = <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.externalLibDirectory,
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>                 artifact.getArtifactId() + <span class="jxr_string">"."</span> + artifact.getArtifactHandler().getExtension() );
-<a class="jxr_linenumber" name="L488" href="#L488">488</a> 
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>         <strong class="jxr_keyword">try</strong>
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>         {
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>             <strong class="jxr_keyword">if</strong> ( doCopy &amp;&amp; !artifact.getFile().isDirectory()
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>                     &amp;&amp; ( !newLocation.exists() || newLocation.lastModified() &lt;= artifact.getFile().lastModified() ) )
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>             {
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>                 FileUtils.copyFile( artifact.getFile(), newLocation );
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>             }
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>         }
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>         <strong class="jxr_keyword">catch</strong> ( IOException ioe )
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>         {
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( <span class="jxr_string">"Unable to copy dependency to staging area.  Could not copy "</span>
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>                     + artifact.getFile() + <span class="jxr_string">" to "</span> + newLocation, ioe );
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>         }
-<a class="jxr_linenumber" name="L502" href="#L502">502</a> 
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>         <strong class="jxr_keyword">return</strong> newLocation;
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>     }
-<a class="jxr_linenumber" name="L505" href="#L505">505</a> 
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>     <em class="jxr_comment">// //////////////////////////////////// UNIT TEST HELPERS</em>
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>     <em class="jxr_comment">// //////////////////////////////////</em>
-<a class="jxr_linenumber" name="L508" href="#L508">508</a> 
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L510" href="#L510">510</a> <em class="jxr_javadoccomment">     * For unit test only</em>
-<a class="jxr_linenumber" name="L511" href="#L511">511</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> config;
-<a class="jxr_linenumber" name="L513" href="#L513">513</a> 
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> getLgetLinkerConfiguration()
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>     {
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.config;
-<a class="jxr_linenumber" name="L517" href="#L517">517</a>     }
-<a class="jxr_linenumber" name="L518" href="#L518">518</a> 
-<a class="jxr_linenumber" name="L519" href="#L519">519</a> }
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>             allCompilerOuputFiles.clear();
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> 
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>             <em class="jxr_comment">// to be used by post linker mojo like native:manifest</em>
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>             @SuppressWarnings({ <span class="jxr_string">"unused"</span>, <span class="jxr_string">"unchecked"</span> })
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>             Object unchecked = <strong class="jxr_keyword">this</strong>.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>         }
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>         <strong class="jxr_keyword">catch</strong> ( IOException ioe )
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>         {
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( ioe.getMessage(), ioe );
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>         }
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>         <strong class="jxr_keyword">catch</strong> ( NativeBuildException nbe )
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>         {
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( nbe.getMessage(), nbe );
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>         }
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.attach )
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>         {
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>             <strong class="jxr_keyword">this</strong>.attachPrimaryArtifact();
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>             <strong class="jxr_keyword">this</strong>.attachSecondaryArtifacts();
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         }
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>     }
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> 
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> createLinkerConfiguration()
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>     {
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> config = <strong class="jxr_keyword">new</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a>();
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         config.setWorkingDirectory( <strong class="jxr_keyword">this</strong>.workingDirectory );
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         config.setExecutable( <strong class="jxr_keyword">this</strong>.linkerExecutable );
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>         config.setStartOptions( removeEmptyOptions( <strong class="jxr_keyword">this</strong>.linkerStartOptions ) );
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         config.setMiddleOptions( removeEmptyOptions( <strong class="jxr_keyword">this</strong>.linkerMiddleOptions ) );
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         config.setEndOptions( removeEmptyOptions( <strong class="jxr_keyword">this</strong>.linkerEndOptions ) );
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>         config.setOutputDirectory( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory );
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         config.setOutputFileName( <strong class="jxr_keyword">this</strong>.linkerFinalName );
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>         config.setOutputFileExtension( <strong class="jxr_keyword">this</strong>.linkerFinalNameExt );
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         config.setExternalLibDirectory( <strong class="jxr_keyword">this</strong>.externalLibDirectory );
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>         config.setExternalLibFileNames( <strong class="jxr_keyword">this</strong>.getLibFileNames() );
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         config.setEnvFactory( <strong class="jxr_keyword">this</strong>.getEnvFactory() );
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         config.setUsingLinkerResponseFile( usingLinkerResponseFile );
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         config.setCheckStaleLinkage( <strong class="jxr_keyword">this</strong>.checkStaleLinkage );
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> 
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>         <strong class="jxr_keyword">return</strong> config;
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     }
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> 
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/Linker.html">Linker</a> getLinker()
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>     {
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         <a href="../../../../../org/codehaus/mojo/natives/linker/Linker.html">Linker</a> linker;
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> 
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>         <strong class="jxr_keyword">try</strong>
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>         {
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.linkerProvider == <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>             {
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>                 <strong class="jxr_keyword">this</strong>.linkerProvider = <strong class="jxr_keyword">this</strong>.compilerProvider;
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>             }
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> 
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>             linker = <strong class="jxr_keyword">this</strong>.manager.getLinker( <strong class="jxr_keyword">this</strong>.linkerProvider );
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>         }
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         <strong class="jxr_keyword">catch</strong> ( NoSuchNativeProviderException pe )
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         {
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( pe.getMessage() );
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         }
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         <strong class="jxr_keyword">return</strong> linker;
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>     }
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> attachPrimaryArtifact()
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     {
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         Artifact artifact = <strong class="jxr_keyword">this</strong>.project.getArtifact();
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> 
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">null</strong> == <strong class="jxr_keyword">this</strong>.classifier )
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         {
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>             artifact.setFile( <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory + <span class="jxr_string">"/"</span> + <strong class="jxr_keyword">this</strong>.project.getBuild().getFinalName() + <span class="jxr_string">"."</span>
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>                     + <strong class="jxr_keyword">this</strong>.project.getArtifact().getArtifactHandler().getExtension() ) );
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         }
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         <strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         {
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>             <em class="jxr_comment">// install primary artifact as a classifier</em>
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> 
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>             DefaultArtifact clone = <strong class="jxr_keyword">new</strong> DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(),
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>                     artifact.getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(), classifier,
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>                     artifact.getArtifactHandler(), artifact.isOptional() );
+<a class="jxr_linenumber" name="L304" href="#L304">304</a> 
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>             clone.setRelease( artifact.isRelease() );
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>             clone.setResolvedVersion( artifact.getVersion() );
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>             clone.setResolved( artifact.isResolved() );
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>             clone.setFile( artifact.getFile() );
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> 
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>             <strong class="jxr_keyword">if</strong> ( artifact.getAvailableVersions() != <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>             {
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>                 clone.setAvailableVersions( <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;( artifact.getAvailableVersions() ) );
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>             }
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> 
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>             clone.setBaseVersion( artifact.getBaseVersion() );
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>             clone.setDependencyFilter( artifact.getDependencyFilter() );
+<a class="jxr_linenumber" name="L317" href="#L317">317</a> 
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>             <strong class="jxr_keyword">if</strong> ( artifact.getDependencyTrail() != <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>             {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 clone.setDependencyTrail( <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;( artifact.getDependencyTrail() ) );
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>             }
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> 
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>             clone.setDownloadUrl( artifact.getDownloadUrl() );
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>             clone.setRepository( artifact.getRepository() );
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>             clone.setFile( <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory + <span class="jxr_string">"/"</span> + <strong class="jxr_keyword">this</strong>.project.getBuild().getFinalName() + <span class="jxr_string">"."</span>
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>                     + <strong class="jxr_keyword">this</strong>.project.getArtifact().getArtifactHandler().getExtension() ) );
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> 
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>             project.setArtifact( clone );
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>         }
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>     }
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> 
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> attachSecondaryArtifacts()
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>     {
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>         <strong class="jxr_keyword">final</strong> String[] tokens;
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.linkerSecondaryOutputExtensions != <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>         {
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>             tokens = StringUtils.split( <strong class="jxr_keyword">this</strong>.linkerSecondaryOutputExtensions, <span class="jxr_string">","</span> );
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>         }
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>         <strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         {
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>             tokens = <strong class="jxr_keyword">new</strong> String[0];
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>         }
+<a class="jxr_linenumber" name="L344" href="#L344">344</a> 
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>         <strong class="jxr_keyword">for</strong> ( <strong class="jxr_keyword">int</strong> i = 0; i &lt; tokens.length; ++i )
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>         {
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>             <em class="jxr_comment">// TODO: shouldn't need classifier</em>
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>             Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(),
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>                     project.getVersion(), <strong class="jxr_keyword">this</strong>.classifier, tokens[i].trim() );
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>             artifact.setFile( <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.linkerOutputDirectory + <span class="jxr_string">"/"</span> + <strong class="jxr_keyword">this</strong>.project.getBuild().getFinalName() + <span class="jxr_string">"."</span>
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>                     + tokens[i].trim() ) );
+<a class="jxr_linenumber" name="L352" href="#L352">352</a> 
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>             project.addAttachedArtifact( artifact );
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>         }
+<a class="jxr_linenumber" name="L355" href="#L355">355</a> 
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>     }
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> 
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; getLibFileNames()
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>     {
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>         List&lt;String&gt; libList = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L362" href="#L362">362</a> 
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>         Set&lt;Artifact&gt; artifacts = <strong class="jxr_keyword">this</strong>.project.getArtifacts();
+<a class="jxr_linenumber" name="L364" href="#L364">364</a> 
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">for</strong> ( Iterator&lt;Artifact&gt; iter = artifacts.iterator(); iter.hasNext(); )
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>         {
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>             Artifact artifact = iter.next();
+<a class="jxr_linenumber" name="L368" href="#L368">368</a> 
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>             <strong class="jxr_keyword">if</strong> ( INCZIP_TYPE.equals( artifact.getType() ) )
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>             {
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>                 <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>             }
+<a class="jxr_linenumber" name="L373" href="#L373">373</a> 
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>             String libFileName = FileUtils.filename( <strong class="jxr_keyword">this</strong>.getDependencyFile( artifact, <strong class="jxr_keyword">true</strong> ).getPath() );
+<a class="jxr_linenumber" name="L375" href="#L375">375</a> 
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>             libList.add( libFileName );
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>         }
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> 
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>         libList = <strong class="jxr_keyword">this</strong>.reorderLibDependencies( libList );
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> 
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>         <strong class="jxr_keyword">return</strong> libList;
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>     }
+<a class="jxr_linenumber" name="L383" href="#L383">383</a> 
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L385" href="#L385">385</a> <em class="jxr_javadoccomment">     * convert dependencyLinkingOrders to a file list</em>
+<a class="jxr_linenumber" name="L386" href="#L386">386</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L387" href="#L387">387</a> <em class="jxr_javadoccomment">     * @return</em>
+<a class="jxr_linenumber" name="L388" href="#L388">388</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; getDependenciesFileOrderList()
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>     {
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>         List&lt;String&gt; list = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L393" href="#L393">393</a> 
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.linkingOrderLibs != <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>         {
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>             <strong class="jxr_keyword">for</strong> ( Iterator&lt;String&gt; i = linkingOrderLibs.iterator(); i.hasNext(); )
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>             {
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>                 String element = i.next();
+<a class="jxr_linenumber" name="L399" href="#L399">399</a> 
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>                 Artifact artifact = lookupDependencyUsingGroupArtifactIdPair( element );
+<a class="jxr_linenumber" name="L401" href="#L401">401</a> 
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>                 <strong class="jxr_keyword">if</strong> ( artifact != <strong class="jxr_keyword">null</strong> )
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>                 {
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>                     String libFileName = FileUtils.filename( <strong class="jxr_keyword">this</strong>.getDependencyFile( artifact, false ).getPath() );
+<a class="jxr_linenumber" name="L405" href="#L405">405</a> 
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>                     list.add( libFileName );
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>                 }
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>                 <strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>                 {
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( element + <span class="jxr_string">" not found on project dependencies."</span> );
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>                 }
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>             }
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>         }
+<a class="jxr_linenumber" name="L414" href="#L414">414</a> 
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         <strong class="jxr_keyword">return</strong> list;
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     }
+<a class="jxr_linenumber" name="L417" href="#L417">417</a> 
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     * Look up library in dependency list using groupId:artifactId key Note: we can not use project.artifactMap due the</em>
+<a class="jxr_linenumber" name="L420" href="#L420">420</a> <em class="jxr_javadoccomment">     * introduction of inczip dependency where 2 dependency with the same artifactId and groupId, but differs by</em>
+<a class="jxr_linenumber" name="L421" href="#L421">421</a> <em class="jxr_javadoccomment">     * extension type make the map not suitable for lookup</em>
+<a class="jxr_linenumber" name="L422" href="#L422">422</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L423" href="#L423">423</a> <em class="jxr_javadoccomment">     * @param groupArtifactIdPair</em>
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     * @return</em>
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     * @throws MojoExecutionException</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>     <strong class="jxr_keyword">private</strong> Artifact lookupDependencyUsingGroupArtifactIdPair( String groupArtifactIdPair )
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>     {
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         String[] tokens = StringUtils.split( groupArtifactIdPair, <span class="jxr_string">":"</span> );
+<a class="jxr_linenumber" name="L431" href="#L431">431</a> 
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>         <strong class="jxr_keyword">if</strong> ( tokens.length != 2 )
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         {
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( <span class="jxr_string">"Invalid groupId and artifactId pair: "</span> + groupArtifactIdPair );
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         }
+<a class="jxr_linenumber" name="L436" href="#L436">436</a> 
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         Set&lt;Artifact&gt; allDependencyArtifacts = project.getDependencyArtifacts();
+<a class="jxr_linenumber" name="L438" href="#L438">438</a> 
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         <strong class="jxr_keyword">for</strong> ( Iterator&lt;Artifact&gt; iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         {
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>             Artifact artifact = iter.next();
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>             <strong class="jxr_keyword">if</strong> ( INCZIP_TYPE.equals( artifact.getType() ) )
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>             {
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>                 <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>             }
+<a class="jxr_linenumber" name="L446" href="#L446">446</a> 
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>             <strong class="jxr_keyword">if</strong> ( tokens[0].equals( artifact.getGroupId() ) &amp;&amp; tokens[1].equals( artifact.getArtifactId() ) )
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>             {
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>                 <strong class="jxr_keyword">return</strong> artifact;
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>             }
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         }
+<a class="jxr_linenumber" name="L452" href="#L452">452</a> 
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L454" href="#L454">454</a> 
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>     }
+<a class="jxr_linenumber" name="L456" href="#L456">456</a> 
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>     <strong class="jxr_keyword">private</strong> List&lt;String&gt; reorderLibDependencies( List&lt;String&gt; libs )
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>     {
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>         List&lt;String&gt; requestedOrderList = getDependenciesFileOrderList();
+<a class="jxr_linenumber" name="L461" href="#L461">461</a> 
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>         <strong class="jxr_keyword">if</strong> ( requestedOrderList.size() != 0 )
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         {
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>             <em class="jxr_comment">// remove from original list first</em>
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>             <strong class="jxr_keyword">for</strong> ( Iterator&lt;String&gt; i = requestedOrderList.iterator(); i.hasNext(); )
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>             {
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>                 libs.remove( i.next() );
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>             }
+<a class="jxr_linenumber" name="L469" href="#L469">469</a> 
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>             <strong class="jxr_keyword">for</strong> ( Iterator&lt;String&gt; i = libs.iterator(); i.hasNext(); )
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>             {
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>                 requestedOrderList.add( i.next() );
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>             }
+<a class="jxr_linenumber" name="L474" href="#L474">474</a> 
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>             <strong class="jxr_keyword">return</strong> requestedOrderList;
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>         }
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>         <strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>         {
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>             <strong class="jxr_keyword">return</strong> libs;
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>         }
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>     }
+<a class="jxr_linenumber" name="L482" href="#L482">482</a> 
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>     <strong class="jxr_keyword">private</strong> File getDependencyFile( Artifact artifact, <strong class="jxr_keyword">boolean</strong> doCopy )
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">throws</strong> MojoExecutionException
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>     {
+<a class="jxr_linenumber" name="L486" href="#L486">486</a> 
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>         File newLocation = <strong class="jxr_keyword">new</strong> File( <strong class="jxr_keyword">this</strong>.externalLibDirectory,
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>                 artifact.getArtifactId() + <span class="jxr_string">"."</span> + artifact.getArtifactHandler().getExtension() );
+<a class="jxr_linenumber" name="L489" href="#L489">489</a> 
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>         <strong class="jxr_keyword">try</strong>
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>         {
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>             <strong class="jxr_keyword">if</strong> ( doCopy &amp;&amp; !artifact.getFile().isDirectory()
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>                     &amp;&amp; ( !newLocation.exists() || newLocation.lastModified() &lt;= artifact.getFile().lastModified() ) )
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>             {
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>                 FileUtils.copyFile( artifact.getFile(), newLocation );
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>             }
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>         }
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>         <strong class="jxr_keyword">catch</strong> ( IOException ioe )
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>         {
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException( <span class="jxr_string">"Unable to copy dependency to staging area.  Could not copy "</span>
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>                     + artifact.getFile() + <span class="jxr_string">" to "</span> + newLocation, ioe );
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>         }
+<a class="jxr_linenumber" name="L503" href="#L503">503</a> 
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>         <strong class="jxr_keyword">return</strong> newLocation;
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>     }
+<a class="jxr_linenumber" name="L506" href="#L506">506</a> 
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>     <em class="jxr_comment">// //////////////////////////////////// UNIT TEST HELPERS</em>
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>     <em class="jxr_comment">// //////////////////////////////////</em>
+<a class="jxr_linenumber" name="L509" href="#L509">509</a> 
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L511" href="#L511">511</a> <em class="jxr_javadoccomment">     * For unit test only</em>
+<a class="jxr_linenumber" name="L512" href="#L512">512</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> config;
+<a class="jxr_linenumber" name="L514" href="#L514">514</a> 
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../../../org/codehaus/mojo/natives/linker/LinkerConfiguration.html">LinkerConfiguration</a> getLgetLinkerConfiguration()
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>     {
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.config;
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>     }
+<a class="jxr_linenumber" name="L519" href="#L519">519</a> 
+<a class="jxr_linenumber" name="L520" href="#L520">520</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2018 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2019 <a href="http://www.mojohaus.org">MojoHaus</a>. All rights reserved.</div>
 </body>
 </html>
