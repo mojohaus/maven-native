@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.codehaus.mojo.natives</groupId>
     <artifactId>maven-native-components</artifactId>
-    <version>1.0-alpha-11-SNAPSHOT</version>
+    <version>1.0-alpha-11</version>
   </parent>
   <artifactId>maven-native-javah</artifactId>
   <name>Maven Native Javah</name>
