@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.codehaus.mojo.natives</groupId>
     <artifactId>maven-native-components</artifactId>
-    <version>1.0-alpha-11</version>
+    <version>1.0-alpha-12-SNAPSHOT</version>
   </parent>
   <artifactId>maven-native-manager</artifactId>
   <name>Maven Native Components Manager</name>
