@@ -21,3 +21,5 @@ Thumbs.db
 # Maven
 log/
 target/
+/.metadata/
+/.recommenders/
