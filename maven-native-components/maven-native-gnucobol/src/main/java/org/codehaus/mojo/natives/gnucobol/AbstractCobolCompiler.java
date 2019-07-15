@@ -24,22 +24,22 @@
 package org.codehaus.mojo.natives.gnucobol;
 
 import java.io.File;
-import org.codehaus.plexus.util.cli.Commandline;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.AbstractCompiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import org.codehaus.mojo.natives.parser.CobolParser;
 import org.codehaus.mojo.natives.parser.Parser;
-import org.codehaus.mojo.natives.parser.CParser;
+import org.codehaus.plexus.util.cli.Commandline;
 
-public abstract class AbstractCCompiler
+public abstract class AbstractCobolCompiler
     extends AbstractCompiler
 {
     /**
      * resuable parser in one Compilation session
      */
 
-    private Parser parser = new CParser();
+    private Parser parser = new CobolParser();
 
     protected abstract String getOutputFileOption();
 

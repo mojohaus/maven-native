@@ -1,14 +1,14 @@
 package org.codehaus.mojo.natives.gnucobol;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.io.File;
 
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.mojo.natives.gnucobol.GNUCOBOLCompiler;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
-import static org.junit.Assert.*;
 
-public class CCompilerTest
+public class CobolCompilerTest
     extends PlexusTestCase
 {
     private GNUCOBOLCompiler compiler;

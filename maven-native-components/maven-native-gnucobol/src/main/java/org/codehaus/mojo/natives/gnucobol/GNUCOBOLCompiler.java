@@ -31,7 +31,7 @@ import org.codehaus.plexus.component.annotations.Component;
  */
 @Component(role = Compiler.class, hint = "gnucobol", instantiationStrategy = "per-lookup", description="GNU Cobol compiler")
 public class GNUCOBOLCompiler
-    extends AbstractCCompiler
+    extends AbstractCobolCompiler
 {
 
     protected String getOutputFileOption()
