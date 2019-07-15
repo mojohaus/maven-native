@@ -23,3 +23,6 @@ Thumbs.db
 # Maven
 log/
 target/
+
+# Vim
+*~
