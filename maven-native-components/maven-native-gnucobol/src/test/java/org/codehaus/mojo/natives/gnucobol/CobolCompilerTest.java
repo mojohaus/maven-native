@@ -19,7 +19,7 @@ public class CobolCompilerTest
 
     private static File objectFile = new File( "object.o" );
 
-    private static String[] simpleArgv = { "-o", "object.o", "-c", "source.c" };
+    private static String[] simpleArgv = { "-o", "object.o", "-c", "source.cob" };
 
     public void setUp()
         throws Exception
@@ -35,16 +35,16 @@ public class CobolCompilerTest
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
         assertArrayEquals( new String[] { "cobc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testNonDefaultExecutable()
         throws Exception
     {
-        this.config.setExecutable( "cc" );
+        this.config.setExecutable( "cobol" );
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertArrayEquals( new String[] { "cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+        assertArrayEquals( new String[] { "cobol", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
+                cl.getRawCommandline() );
     }
 
     public void testStartOptions()
@@ -57,7 +57,7 @@ public class CobolCompilerTest
 
         assertArrayEquals(
                 new String[] { "cobc", "-s1", "-s2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testIncludePaths()
@@ -71,7 +71,7 @@ public class CobolCompilerTest
 
         assertArrayEquals(
                 new String[] { "cobc", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testSystemIncludePaths()
@@ -88,7 +88,7 @@ public class CobolCompilerTest
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
         assertArrayEquals( new String[] { "cobc", "-Ip1", "-Ip2", "-Isp1", "-Isp2", simpleArgv[0], simpleArgv[1],
-                simpleArgv[2], simpleArgv[3] }, cl.getCommandline() );
+                simpleArgv[2], simpleArgv[3] }, cl.getRawCommandline() );
     }
 
     public void testMiddleOptions()
@@ -105,7 +105,7 @@ public class CobolCompilerTest
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
         assertArrayEquals( new String[] { "cobc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
-                simpleArgv[1], simpleArgv[2], simpleArgv[3] }, cl.getCommandline() );
+                simpleArgv[1], simpleArgv[2], simpleArgv[3] }, cl.getRawCommandline() );
     }
 
     public void testEndOptions()
@@ -124,6 +124,6 @@ public class CobolCompilerTest
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
         assertArrayEquals( new String[] { "cobc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
-                simpleArgv[1], simpleArgv[2], simpleArgv[3], "-e1", "-e2" }, cl.getCommandline() );
+                simpleArgv[1], simpleArgv[2], simpleArgv[3], "-e1", "-e2" }, cl.getRawCommandline() );
     }
 }

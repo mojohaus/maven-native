@@ -49,7 +49,7 @@ public class CLinkerTest
     {
         Commandline cl = this.getCommandline();
 
-        assertEquals( "gcc", cl.getLiteralExecutable() );
+        assertEquals( "cobc", cl.getLiteralExecutable() );
         assertEquals( basedir, cl.getWorkingDirectory().getPath() );
 
     }
