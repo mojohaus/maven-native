@@ -127,6 +127,11 @@
       </dependency>
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-gnucobol</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-javah</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -169,7 +174,7 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-utils</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.2-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
