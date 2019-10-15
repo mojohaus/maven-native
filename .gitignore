@@ -2,6 +2,8 @@
 .classpath
 .project
 .settings/
+.metadata/
+.recommenders/
 
 # Intellij
 .idea/
@@ -21,3 +23,6 @@ Thumbs.db
 # Maven
 log/
 target/
+
+# Vim
+*~

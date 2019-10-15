@@ -35,7 +35,7 @@ public class GccCompilerTest
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
         assertArrayEquals( new String[] { "gcc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testNonDefaultExecutable()
@@ -44,7 +44,7 @@ public class GccCompilerTest
         this.config.setExecutable( "cc" );
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
         assertArrayEquals( new String[] { "cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testStartOptions()
@@ -57,7 +57,7 @@ public class GccCompilerTest
 
         assertArrayEquals(
                 new String[] { "gcc", "-s1", "-s2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testIncludePaths()
@@ -71,7 +71,7 @@ public class GccCompilerTest
 
         assertArrayEquals(
                 new String[] { "gcc", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 
     public void testSystemIncludePaths()
@@ -88,7 +88,7 @@ public class GccCompilerTest
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
         assertArrayEquals( new String[] { "gcc", "-Ip1", "-Ip2", "-Isp1", "-Isp2", simpleArgv[0], simpleArgv[1],
-                simpleArgv[2], simpleArgv[3] }, cl.getCommandline() );
+                simpleArgv[2], simpleArgv[3] }, cl.getRawCommandline() );
     }
 
     public void testMiddleOptions()
@@ -105,7 +105,7 @@ public class GccCompilerTest
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
         assertArrayEquals( new String[] { "gcc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
-                simpleArgv[1], simpleArgv[2], simpleArgv[3] }, cl.getCommandline() );
+                simpleArgv[1], simpleArgv[2], simpleArgv[3] }, cl.getRawCommandline() );
     }
 
     public void testEndOptions()
@@ -124,6 +124,6 @@ public class GccCompilerTest
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
         assertArrayEquals( new String[] { "gcc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
-                simpleArgv[1], simpleArgv[2], simpleArgv[3], "-e1", "-e2" }, cl.getCommandline() );
+                simpleArgv[1], simpleArgv[2], simpleArgv[3], "-e1", "-e2" }, cl.getRawCommandline() );
     }
 }

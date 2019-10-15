@@ -16,6 +16,7 @@
     <module>maven-native-bcc</module>
     <module>maven-native-msvc</module>
     <module>maven-native-mingw</module>
+    <module>maven-native-gnucobol</module>
   </modules>
   <dependencies>
     <dependency>
