@@ -26,5 +26,12 @@
       <artifactId>plexus-component-annotations</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.codehaus.mojo.natives</groupId>
+      <artifactId>maven-native-test</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>

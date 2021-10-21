@@ -2,9 +2,11 @@ package org.codehaus.mojo.natives.c;
 
 import java.io.File;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import static org.codehaus.mojo.natives.test.TestUtils.*;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
 import static org.junit.Assert.*;
+
 
 public class CCompilerTest
     extends PlexusTestCase
@@ -32,8 +34,10 @@ public class CCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertArrayEquals( new String[] { "gcc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+
+        String[] expected = new String[] { "gcc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
+
     }
 
     public void testNonDefaultExecutable()
@@ -41,8 +45,8 @@ public class CCompilerTest
     {
         this.config.setExecutable( "cc" );
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertArrayEquals( new String[] { "cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+        String[] expected = new String[] { "cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 
     public void testStartOptions()
@@ -53,9 +57,8 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertArrayEquals(
-                new String[] { "gcc", "-s1", "-s2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+        String[] expected = new String[] { "gcc", "-s1", "-s2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 
     public void testIncludePaths()
@@ -67,9 +70,8 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertArrayEquals(
-                new String[] { "gcc", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] },
-                cl.getCommandline() );
+        String[] expected = new String[] { "gcc", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3] };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 
     public void testSystemIncludePaths()
@@ -85,8 +87,9 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertArrayEquals( new String[] { "gcc", "-Ip1", "-Ip2", "-Isp1", "-Isp2", simpleArgv[0], simpleArgv[1],
-                simpleArgv[2], simpleArgv[3] }, cl.getCommandline() );
+        String[] expected = new String[] { "gcc", "-Ip1", "-Ip2", "-Isp1", "-Isp2", simpleArgv[0], simpleArgv[1],
+                simpleArgv[2], simpleArgv[3] } ;
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 
     public void testMiddleOptions()
@@ -102,8 +105,10 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertArrayEquals( new String[] { "gcc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
-                simpleArgv[1], simpleArgv[2], simpleArgv[3] }, cl.getCommandline() );
+        String[] expected = new String[] { "gcc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
+            simpleArgv[1], simpleArgv[2], simpleArgv[3] };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
+
     }
 
     public void testEndOptions()
@@ -121,7 +126,8 @@ public class CCompilerTest
 
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
-        assertArrayEquals( new String[] { "gcc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
-                simpleArgv[1], simpleArgv[2], simpleArgv[3], "-e1", "-e2" }, cl.getCommandline() );
+        String[] expected = new String[] { "gcc", "-s1", "-s2", "-Ip1", "-Ip2", "-m1", "-m2", simpleArgv[0],
+                simpleArgv[1], simpleArgv[2], simpleArgv[3], "-e1", "-e2" };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 }

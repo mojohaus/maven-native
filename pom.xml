@@ -31,6 +31,7 @@
     </contributor>
   </contributors>
   <modules>
+    <module>maven-native-test</module>
     <module>maven-native-api</module>
     <module>maven-native-components</module>
     <module>native-maven-plugin</module>

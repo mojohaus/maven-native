@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
 
@@ -55,8 +56,8 @@ public class MSVCLinkerTest
         throws Exception
     {
         Commandline cl = this.getCommandline();
-        assertArrayEquals( new String[] { "link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj" },
-                cl.getCommandline() );
+        String[] expected = new String[] { "link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj" };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 
     // ///////////////////////// HELPERS //////////////////////////////////////
