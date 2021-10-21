@@ -3,8 +3,10 @@ package org.codehaus.mojo.natives.msvc;
 import java.io.File;
 
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+
 import static org.junit.Assert.*;
 
 public class MSVCCompilerTest
@@ -33,7 +35,7 @@ public class MSVCCompilerTest
         throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
-        assertArrayEquals( new String[] { "cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2] },
-                cl.getCommandline() );
+        String[] expected = new String[] { "cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2] };
+        assertArrayEquals( formPlatformCommandline( expected ), cl.getCommandline() );
     }
 }
