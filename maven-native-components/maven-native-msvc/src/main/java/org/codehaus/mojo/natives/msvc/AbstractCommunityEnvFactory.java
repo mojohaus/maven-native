@@ -2,19 +2,15 @@ package org.codehaus.mojo.natives.msvc;
 
 import org.codehaus.mojo.natives.AbstractEnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.cli.CommandLineException;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
-import org.codehaus.plexus.util.cli.DefaultConsumer;
-import org.codehaus.plexus.util.cli.StreamConsumer;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory
 {
+    private AbstractMSVC2017CircaEnvFactoryHelper helper = new AbstractMSVC2017CircaEnvFactoryHelper();
+
 
     protected Map<String, String> createEnvs(String version, String platform)
             throws NativeBuildException
@@ -44,7 +40,7 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory
                 );
             }
 
-            tmpEnvExecFile = this.createEnvWrapperFile( communityDir, platform );
+            tmpEnvExecFile = this.helper.createEnvWrapperFile( communityDir, platform );
 
             Commandline cl = new Commandline();
             cl.setExecutable( tmpEnvExecFile.getAbsolutePath() );
@@ -71,44 +67,11 @@ public abstract class AbstractCommunityEnvFactory extends AbstractEnvFactory
 
     protected String queryVSInstallPath(String version)
     {
-        return RegQuery.getValue(
-                "REG_SZ",
-                "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\SxS\\VS7",
-                version
-        );
+        return helper.queryVSInstallPath(version);
     }
 
     protected Map<String, String> executeCommandLine(Commandline command) throws NativeBuildException
     {
-        EnvStreamConsumer stdout = new EnvStreamConsumer();
-        StreamConsumer stderr = new DefaultConsumer();
-
-        try
-        {
-            CommandLineUtils.executeCommandLine( command, stdout, stderr );
-        }
-        catch ( CommandLineException e )
-        {
-            throw new NativeBuildException( "Failed to execute vcvarsall.bat" );
-        }
-
-        return stdout.getParsedEnv();
-    }
-
-    private File createEnvWrapperFile(File vsInstallDir, String platform)
-            throws IOException
-    {
-
-        File tmpFile = File.createTempFile( "msenv", ".bat" );
-
-        StringBuffer buffer = new StringBuffer();
-        buffer.append( "@echo off\r\n" );
-        buffer.append( "call \"" ).append( vsInstallDir ).append( "\"" )
-                .append( "\\VC\\Auxiliary\\Build\\vcvarsall.bat " + platform + "\r\n" );
-        buffer.append( "echo " + EnvStreamConsumer.START_PARSING_INDICATOR ).append( "\r\n" );
-        buffer.append( "set\r\n" );
-        FileUtils.fileWrite( tmpFile.getAbsolutePath(), buffer.toString() );
-
-        return tmpFile;
+        return helper.executeCommandLine(command);
     }
 }
