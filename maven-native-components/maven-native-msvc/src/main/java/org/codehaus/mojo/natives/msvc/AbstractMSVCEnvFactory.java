@@ -99,7 +99,7 @@ public abstract class AbstractMSVCEnvFactory
         }
     }
 
-    private File createEnvWrapperFile( File vsInstallDir, String platform )
+    protected File createEnvWrapperFile( File vsInstallDir, String platform )
         throws IOException
     {
 
