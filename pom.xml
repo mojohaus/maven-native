@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo-parent</artifactId>
-    <version>50</version>
+    <version>65</version>
   </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
@@ -52,6 +52,7 @@
   <properties>
     <maven.api.version>3.2.5</maven.api.version>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
+    <project.build.outputTimestamp>2022-01-18T09:14:02Z</project.build.outputTimestamp>
   </properties>
   <dependencyManagement>
     <dependencies>
