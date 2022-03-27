@@ -30,7 +30,13 @@ public class PostE
         this.quote = quote;
     }
 
-    public AbstractParserState consume( char ch )
+    public PostE(CobolParser parser, AbstractParserState bracket, AbstractParserState quote) {
+        super( parser );
+        this.bracket = bracket;
+        this.quote = quote;
+	}
+
+	public AbstractParserState consume( char ch )
     {
         switch ( ch )
         {

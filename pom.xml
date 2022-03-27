@@ -50,6 +50,7 @@
     <url>https://travis-ci.org/mojohaus/maven-native</url>
   </ciManagement>
   <properties>
+    <doclint>none</doclint>
     <maven.api.version>3.2.5</maven.api.version>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
     <project.build.outputTimestamp>2022-01-18T09:14:02Z</project.build.outputTimestamp>
@@ -128,6 +129,11 @@
       </dependency>
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-gnucobol</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-javah</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -170,7 +176,7 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-utils</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -184,6 +190,14 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.1.1</version>
+          <configuration>
+            <doclint>none</doclint>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
@@ -205,6 +219,13 @@
       </activation>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <doclint>none</doclint>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>com.github.ekryd.sortpom</groupId>
             <artifactId>sortpom-maven-plugin</artifactId>
@@ -231,6 +252,18 @@
           </plugin>
         </plugins>
       </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+              <doclint>none</doclint>
+            </configuration>
+          </plugin>
+        </plugins>
+      </reporting>
     </profile>
     <profile>
       <id>m2e</id>

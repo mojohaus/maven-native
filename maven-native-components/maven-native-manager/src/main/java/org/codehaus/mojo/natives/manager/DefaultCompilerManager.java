@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.plexus.component.annotations.Component;

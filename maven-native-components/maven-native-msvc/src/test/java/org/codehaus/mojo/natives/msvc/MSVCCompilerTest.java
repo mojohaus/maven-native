@@ -34,6 +34,6 @@ public class MSVCCompilerTest
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
         assertArrayEquals( new String[] { "cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2] },
-                cl.getCommandline() );
+                cl.getRawCommandline() );
     }
 }
