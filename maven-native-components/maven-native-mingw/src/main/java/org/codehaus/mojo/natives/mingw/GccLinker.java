@@ -26,7 +26,6 @@ package org.codehaus.mojo.natives.mingw;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
@@ -87,9 +86,8 @@ public final class GccLinker
             {
                 File linkerFile = new File( config.getWorkingDirectory(), "objectsFile" );
                 FileWriter linkerFileWriter = new FileWriter( linkerFile, false /* Don't append */ );
-                for ( int i = 0; i < objectFiles.size(); ++i )
+                for ( File objFile : objectFiles )
                 {
-                    File objFile = objectFiles.get( i );
                     linkerFileWriter.write( objFile.getPath() + "\n" );
                 }
                 linkerFileWriter.close();
@@ -104,10 +102,8 @@ public final class GccLinker
         else
         { // Normal behavior.
 
-            for ( int i = 0; i < objectFiles.size(); ++i )
+            for ( File objFile : objectFiles )
             {
-                File objFile = objectFiles.get( i );
-
                 // we need to shorten the command line since windows has limited command line
                 // length
                 String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
@@ -157,10 +153,8 @@ public final class GccLinker
 
         boolean hasUnixLinkage = false;
 
-        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( String libFileName : config.getExternalLibFileNames() )
         {
-            String libFileName = iter.next();
-
             String ext = FileUtils.getExtension( libFileName );
 
             if ( "o".equals( ext ) || "obj".equals( ext ) || "lib".equals( ext ) || "dylib".equals( ext ) )
@@ -181,10 +175,8 @@ public final class GccLinker
             cl.createArg().setValue( "-L" + config.getExternalLibDirectory() );
         }
 
-        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( String libFileName : config.getExternalLibFileNames() )
         {
-            String libFileName = iter.next();
-
             String ext = FileUtils.getExtension( libFileName );
 
             if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )

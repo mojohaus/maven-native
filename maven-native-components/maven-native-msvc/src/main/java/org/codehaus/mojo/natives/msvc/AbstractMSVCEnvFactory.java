@@ -105,14 +105,13 @@ public abstract class AbstractMSVCEnvFactory
 
         File tmpFile = File.createTempFile( "msenv", ".bat" );
 
-        StringBuffer buffer = new StringBuffer();
-        buffer.append( "@echo off\r\n" );
-        buffer.append( "call \"" ).append( vsInstallDir ).append( "\"" )
-                .append( "\\VC\\vcvarsall.bat " + platform + "\n\r" );
-        buffer.append( "echo " + EnvStreamConsumer.START_PARSING_INDICATOR ).append( "\r\n" );
-        buffer.append( "set\n\r" );
+        String buffer = "@echo off\r\n"
+                + "call \"" + vsInstallDir + "\"" + "\\VC\\vcvarsall.bat "
+                + platform + "\n\r"
+                + "echo " + EnvStreamConsumer.START_PARSING_INDICATOR + "\r\n"
+                + "set\n\r";
 
-        FileUtils.fileWrite( tmpFile.getAbsolutePath(), buffer.toString() );
+        FileUtils.fileWrite( tmpFile.getAbsolutePath(), buffer );
 
         return tmpFile;
     }

@@ -23,9 +23,9 @@ public class NoopCompiler
     {
         List<File> compilerOutputFiles = new ArrayList<>( sourceFiles.length );
 
-        for ( int i = 0; i < sourceFiles.length; ++i )
+        for ( File sourceFile : sourceFiles )
         {
-            File source = new File( sourceFiles[i].toString() );
+            File source = new File( sourceFile.toString() );
 
             File objectFile = this.getObjectFile( source, config );
 

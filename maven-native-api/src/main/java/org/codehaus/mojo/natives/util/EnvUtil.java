@@ -1,6 +1,5 @@
 package org.codehaus.mojo.natives.util;
 
-import java.util.Iterator;
 import java.util.Map;
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
@@ -66,11 +65,8 @@ public class EnvUtil
         {
             Map<String, String> envs = envFactory.getEnvironmentVariables();
 
-            Iterator<String> iter = envs.keySet().iterator();
-
-            while ( iter.hasNext() )
+            for ( String key : envs.keySet() )
             {
-                String key = iter.next();
                 cl.addEnvironment( key, envs.get( key ) );
             }
         }

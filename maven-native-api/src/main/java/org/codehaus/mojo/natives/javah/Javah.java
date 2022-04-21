@@ -30,7 +30,7 @@ import org.codehaus.mojo.natives.NativeBuildException;
  */
 public interface Javah
 {
-    static String ROLE = Javah.class.getName();
+    String ROLE = Javah.class.getName();
 
     void compile( JavahConfiguration configuration )
         throws NativeBuildException;

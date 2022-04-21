@@ -25,7 +25,7 @@ public class MSVC2019EnvFactoryTest
     {
         super.setUp();
 
-        LoggerManager loggerManager = (LoggerManager) lookup( LoggerManager.ROLE );
+        LoggerManager loggerManager = lookup( LoggerManager.class );
 
         logger = loggerManager.getLoggerForComponent( this.getClass().toString() );
     }

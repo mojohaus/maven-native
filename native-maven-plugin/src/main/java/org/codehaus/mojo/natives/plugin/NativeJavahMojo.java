@@ -207,10 +207,9 @@ public class NativeJavahMojo
                 this.getJavah().compile( config );
             }
 
-            for ( int i = 0; i < this.javahIncludes.size(); ++i )
+            for ( JavahInclude javahInclude : this.javahIncludes )
             {
-                JavahInclude javahInclude = this.javahIncludes.get( i );
-                this.config = this.createProviderConfiguration( new String[] { javahInclude.getClassName() },
+                this.config = this.createProviderConfiguration( new String[] {javahInclude.getClassName()},
                         javahInclude.getHeaderName() );
                 this.getJavah().compile( config );
             }
@@ -348,10 +347,8 @@ public class NativeJavahMojo
 
         List<Artifact> artifacts = this.getJavahArtifacts();
 
-        for ( Iterator<Artifact> iter = artifacts.iterator(); iter.hasNext(); )
+        for ( Artifact artifact : artifacts )
         {
-            Artifact artifact = iter.next();
-
             this.getLog().info( "Parsing " + artifact.getFile() + " for native classes." );
 
             try
@@ -371,9 +368,9 @@ public class NativeJavahMojo
 
                         Method[] methods = clazz.getMethods();
 
-                        for ( int j = 0; j < methods.length; ++j )
+                        for ( Method method : methods )
                         {
-                            if ( methods[j].isNative() )
+                            if ( method.isNative() )
                             {
                                 javahClassNames.add( clazz.getClassName() );
 
@@ -397,7 +394,6 @@ public class NativeJavahMojo
     }
 
     private JavahConfiguration createProviderConfiguration( String[] classNames, String javahOutputFileName )
-        throws MojoExecutionException
     {
         JavahConfiguration config = new JavahConfiguration();
         config.setWorkingDirectory( this.workingDirectory );

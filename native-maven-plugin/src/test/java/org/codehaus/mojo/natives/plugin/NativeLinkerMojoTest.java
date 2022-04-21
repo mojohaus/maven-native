@@ -47,7 +47,7 @@ public class NativeLinkerMojoTest
         mojo.getProject().setArtifact( artifact );
 
         // simulate artifacts
-        mojo.getProject().setArtifacts( new HashSet<Artifact>() ); // no extern libs for now
+        mojo.getProject().setArtifacts( new HashSet<>() ); // no extern libs for now
 
         String linkerFinalName = "some-final-name";
         setVariableValueToObject( mojo, "linkerFinalName", linkerFinalName );
@@ -84,7 +84,7 @@ public class NativeLinkerMojoTest
         mojo.getProject().setArtifact( artifact );
 
         // simulate artifacts
-        mojo.getProject().setArtifacts( new HashSet<Artifact>() ); // no extern libs for now
+        mojo.getProject().setArtifacts( new HashSet<>() ); // no extern libs for now
 
         String linkerFinalName = "some-final-name";
         setVariableValueToObject( mojo, "linkerFinalName", linkerFinalName );

@@ -24,7 +24,6 @@
 package org.codehaus.mojo.natives.bcc;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
@@ -65,18 +64,14 @@ public class BCCLinker
         cl.addArguments( config.getStartOptions() );
 
         // objfiles
-        for ( int i = 0; i < objectFiles.size(); ++i )
+        for ( File objFile : objectFiles )
         {
-            File objFile = objectFiles.get( i );
-
             cl.createArg().setValue( objFile.getPath() );
         }
 
-        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( String fileName : config.getExternalLibFileNames() )
         {
-            String fileName = iter.next();
-
-            if ( !FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
+            if ( !FileUtils.getExtension( fileName ).equalsIgnoreCase( "res" ) )
             {
                 cl.createArg().setFile( new File( config.getExternalLibDirectory(), fileName ) );
             }
@@ -92,11 +87,9 @@ public class BCCLinker
 
         // res file
         cl.createArg().setValue( "," );
-        for ( Iterator<String> iter = config.getExternalLibFileNames().iterator(); iter.hasNext(); )
+        for ( String fileName : config.getExternalLibFileNames() )
         {
-            String fileName = iter.next();
-
-            if ( FileUtils.getExtension( fileName ).toLowerCase().equals( "res" ) )
+            if ( FileUtils.getExtension( fileName ).equalsIgnoreCase( "res" ) )
             {
                 cl.createArg().setFile( new File( config.getExternalLibDirectory(), fileName ) );
             }

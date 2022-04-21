@@ -23,14 +23,13 @@ class AbstractMSVC2017CircaEnvFactoryHelper {
     {
     
         File tmpFile = File.createTempFile( "msenv", ".bat" );
-    
-        StringBuffer buffer = new StringBuffer();
-        buffer.append( "@echo off\r\n" );
-        buffer.append( "call \"" ).append( vsInstallDir ).append( "\"" )
-                .append( "\\VC\\Auxiliary\\Build\\vcvarsall.bat " + platform + "\r\n" );
-        buffer.append( "echo " + EnvStreamConsumer.START_PARSING_INDICATOR ).append( "\r\n" );
-        buffer.append( "set\r\n" );
-        FileUtils.fileWrite( tmpFile.getAbsolutePath(), buffer.toString() );
+
+        String buffer = "@echo off\r\n"
+                + "call \"" + vsInstallDir + "\""
+                + "\\VC\\Auxiliary\\Build\\vcvarsall.bat " + platform + "\r\n"
+                + "echo " + EnvStreamConsumer.START_PARSING_INDICATOR + "\r\n"
+                + "set\r\n";
+        FileUtils.fileWrite( tmpFile.getAbsolutePath(), buffer );
     
         return tmpFile;
     }

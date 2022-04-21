@@ -89,15 +89,15 @@ public class NativeBundleIncludeFilesMojo
                 ZipArchiver archiver = new ZipArchiver();
 
                 boolean zipIt = false;
-                for ( int i = 0; i < sources.length; ++i )
+                for ( NativeSources source : sources )
                 {
-                    if ( sources[i].isDeployable() )
+                    if ( source.isDeployable() )
                     {
                         DefaultFileSet fileSet = new DefaultFileSet();
                         fileSet.setUsingDefaultExcludes( true );
-                        fileSet.setDirectory( sources[i].getDirectory() );
-                        fileSet.setIncludes( sources[i].getIncludes() );
-                        fileSet.setExcludes( sources[i].getExcludes() );
+                        fileSet.setDirectory( source.getDirectory() );
+                        fileSet.setIncludes( source.getIncludes() );
+                        fileSet.setExcludes( source.getExcludes() );
                         archiver.addFileSet( fileSet );
                         zipIt = true;
                     }

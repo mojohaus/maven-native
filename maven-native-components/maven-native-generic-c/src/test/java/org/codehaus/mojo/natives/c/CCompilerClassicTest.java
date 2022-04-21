@@ -16,10 +16,8 @@ public class CCompilerClassicTest
     /**
      * Simple test, note: -o option has no space
      *
-     * @throws Exception
      */
     public void testSimpleCompilation()
-        throws Exception
     {
         CompilerConfiguration config = new CompilerConfiguration();
         CCompilerClassic compiler = new CCompilerClassic();

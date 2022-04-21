@@ -26,14 +26,14 @@ public class FilenameState
     public FilenameState( AbstractParser parser, char[] terminators )
     {
         super( parser );
-        this.terminators = (char[]) terminators.clone();
+        this.terminators = terminators.clone();
     }
 
     public AbstractParserState consume( char ch )
     {
-        for ( int i = 0; i < terminators.length; i++ )
+        for ( char terminator : terminators )
         {
-            if ( ch == terminators[i] )
+            if ( ch == terminator )
             {
                 getParser().addFilename( buf.toString() );
                 buf.setLength( 0 );

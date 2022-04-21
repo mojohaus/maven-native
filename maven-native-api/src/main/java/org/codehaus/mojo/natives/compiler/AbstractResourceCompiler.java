@@ -57,10 +57,8 @@ public abstract class AbstractResourceCompiler
 
         List<File> compilerOutputFiles = new ArrayList<>( sourceFiles.length );
 
-        for ( int i = 0; i < sourceFiles.length; ++i )
+        for ( File src : sourceFiles )
         {
-            File src = sourceFiles[i];
-
             if ( !"rc".equals( FileUtils.getExtension( src.getPath() ) ) )
             {
                 continue;
