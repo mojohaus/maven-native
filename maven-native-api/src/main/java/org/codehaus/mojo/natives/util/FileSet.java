@@ -51,7 +51,7 @@ public class FileSet
 
         includes = this.trimCommaSeparateString( includes );
 
-        files = (File[]) FileUtils.getFiles( basedir, includes, excludes ).toArray( EMPTY_FILE_ARRAY );
+        files = FileUtils.getFiles( basedir, includes, excludes ).toArray( EMPTY_FILE_ARRAY );
     }
 
     public FileSet( File basedir, File[] files )
@@ -94,7 +94,7 @@ public class FileSet
             return "";
         }
 
-        StringBuffer out = new StringBuffer();
+        StringBuilder out = new StringBuilder();
 
         String[] tokens = StringUtils.split( in, "," );
         for ( int i = 0; i < tokens.length; ++i )

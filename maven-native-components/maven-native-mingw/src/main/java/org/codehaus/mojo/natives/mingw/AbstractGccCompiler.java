@@ -91,9 +91,9 @@ public abstract class AbstractGccCompiler
     {
         if ( options != null )
         {
-            for ( int i = 0; i < options.length; ++i )
+            for ( String option : options )
             {
-                cl.createArg().setValue( options[i] );
+                cl.createArg().setValue( option );
             }
         }
     }
@@ -117,9 +117,9 @@ public abstract class AbstractGccCompiler
     {
         if ( includePaths != null )
         {
-            for ( int i = 0; i < includePaths.length; ++i )
+            for ( File includePath : includePaths )
             {
-                cl.createArg().setValue( "-I" + includePaths[i].getPath() );
+                cl.createArg().setValue( "-I" + includePath.getPath() );
             }
         }
     }

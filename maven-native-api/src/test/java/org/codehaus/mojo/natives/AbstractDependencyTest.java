@@ -71,7 +71,6 @@ public abstract class AbstractDependencyTest
     }
 
     protected void removeFile( String filePath )
-        throws IOException
     {
         new File( filePath ).delete();
     }

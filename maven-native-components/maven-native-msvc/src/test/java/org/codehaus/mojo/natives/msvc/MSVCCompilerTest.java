@@ -32,7 +32,6 @@ public class MSVCCompilerTest
     }
 
     public void testSimpleCompilation()
-        throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
         String[] expected = new String[] { "cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2] };

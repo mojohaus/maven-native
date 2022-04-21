@@ -31,7 +31,6 @@ public class CCompilerTest
     }
 
     public void testSimpleCompilation()
-        throws Exception
     {
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
 
@@ -41,7 +40,6 @@ public class CCompilerTest
     }
 
     public void testNonDefaultExecutable()
-        throws Exception
     {
         this.config.setExecutable( "cc" );
         Commandline cl = compiler.getCommandLine( sourceFile, objectFile, config );
@@ -50,7 +48,6 @@ public class CCompilerTest
     }
 
     public void testStartOptions()
-        throws Exception
     {
         String[] startOptions = { "-s1", "-s2" };
         config.setStartOptions( startOptions );
@@ -62,7 +59,6 @@ public class CCompilerTest
     }
 
     public void testIncludePaths()
-        throws Exception
     {
         File[] includePaths = { new File( "p1" ), new File( "p2" ) };
 
@@ -75,7 +71,6 @@ public class CCompilerTest
     }
 
     public void testSystemIncludePaths()
-        throws Exception
     {
         File[] includePaths = { new File( "p1" ), new File( "p2" ) };
 
@@ -93,7 +88,6 @@ public class CCompilerTest
     }
 
     public void testMiddleOptions()
-        throws Exception
     {
         File[] includePaths = { new File( "p1" ), new File( "p2" ) };
         config.setIncludePaths( includePaths );
@@ -112,7 +106,6 @@ public class CCompilerTest
     }
 
     public void testEndOptions()
-        throws Exception
     {
         File[] includePaths = { new File( "p1" ), new File( "p2" ) };
         config.setIncludePaths( includePaths );

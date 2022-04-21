@@ -59,7 +59,7 @@ public class FileUtil
             //
             // see if the prefixes are the same
             //
-            if ( canonicalBase.substring( 0, 2 ).equals( "\\\\" ) )
+            if ( canonicalBase.startsWith( "\\\\" ) )
             {
                 //
                 // UNC file name, if target file doesn't also start with same
@@ -74,7 +74,7 @@ public class FileUtil
             }
             else
             {
-                if ( canonicalBase.substring( 1, 3 ).equals( ":\\" ) )
+                if ( canonicalBase.startsWith( ":\\", 1 ) )
                 {
                     int endPrefix = 2;
                     String prefix1 = canonicalBase.substring( 0, endPrefix );
@@ -126,7 +126,7 @@ public class FileUtil
                 }
             }
 
-            StringBuffer relativePath = new StringBuffer( 50 );
+            StringBuilder relativePath = new StringBuilder( 50 );
 
             //
             // walk from the first difference to the end of the base
@@ -192,7 +192,7 @@ public class FileUtil
      */
     public static String truncatePath( String path, String baseDirectory )
     {
-        if ( path.indexOf( baseDirectory ) >= 0 )
+        if ( path.contains( baseDirectory ) )
         {
             path = path.substring( path.indexOf( baseDirectory ) + baseDirectory.length() );
             if ( path.startsWith( File.separator ) )

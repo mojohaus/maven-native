@@ -24,6 +24,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.SourceDependencyAnalyzer;
@@ -35,11 +39,6 @@ import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
-
-import edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
-import edu.emory.mathcs.backport.java.util.concurrent.RejectedExecutionException;
-import edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor;
-import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
 
 public abstract class AbstractCompiler
     extends AbstractLogEnabled
@@ -69,10 +68,8 @@ public abstract class AbstractCompiler
             compilerThreadPoolExecutor = new CompilerThreadPoolExecutor( config.getNumberOfConcurrentCompilation() );
         }
 
-        for ( int i = 0; i < sourceFiles.length; ++i )
+        for ( File source : sourceFiles )
         {
-            File source = sourceFiles[i];
-
             File objectFile = getObjectFile( source, config.getOutputDirectory(), config.getObjectFileExtension() );
 
             compilerOutputFiles.add( objectFile );
@@ -205,7 +202,7 @@ public abstract class AbstractCompiler
     }
 
     private class CompilerThreadPoolExecutor
-        extends ThreadPoolExecutor
+            extends ThreadPoolExecutor
     {
         private boolean errorFound = false;
 
@@ -221,7 +218,7 @@ public abstract class AbstractCompiler
 
         public CompilerThreadPoolExecutor( int corePoolSize )
         {
-            super( corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, new ArrayBlockingQueue( corePoolSize * 2 ) );
+            super( corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>( corePoolSize * 2 ) );
         }
 
         @Override

@@ -23,7 +23,6 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.apache.maven.artifact.Artifact;
@@ -222,13 +221,9 @@ public class NativeLinkMojo
             Object unchecked = this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
 
         }
-        catch ( IOException ioe )
+        catch ( IOException | NativeBuildException ioe )
         {
             throw new MojoExecutionException( ioe.getMessage(), ioe );
-        }
-        catch ( NativeBuildException nbe )
-        {
-            throw new MojoExecutionException( nbe.getMessage(), nbe );
         }
 
         if ( this.attach )
@@ -342,13 +337,13 @@ public class NativeLinkMojo
             tokens = new String[0];
         }
 
-        for ( int i = 0; i < tokens.length; ++i )
+        for ( String token : tokens )
         {
             // TODO: shouldn't need classifier
             Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(),
-                    project.getVersion(), this.classifier, tokens[i].trim() );
+                    project.getVersion(), this.classifier, token.trim() );
             artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                    + tokens[i].trim() ) );
+                    + token.trim() ) );
 
             project.addAttachedArtifact( artifact );
         }
@@ -362,10 +357,8 @@ public class NativeLinkMojo
 
         Set<Artifact> artifacts = this.project.getArtifacts();
 
-        for ( Iterator<Artifact> iter = artifacts.iterator(); iter.hasNext(); )
+        for ( Artifact artifact : artifacts )
         {
-            Artifact artifact = iter.next();
-
             if ( INCZIP_TYPE.equals( artifact.getType() ) )
             {
                 continue;
@@ -393,10 +386,8 @@ public class NativeLinkMojo
 
         if ( this.linkingOrderLibs != null )
         {
-            for ( Iterator<String> i = linkingOrderLibs.iterator(); i.hasNext(); )
+            for ( String element : linkingOrderLibs )
             {
-                String element = i.next();
-
                 Artifact artifact = lookupDependencyUsingGroupArtifactIdPair( element );
 
                 if ( artifact != null )
@@ -436,9 +427,8 @@ public class NativeLinkMojo
 
         Set<Artifact> allDependencyArtifacts = project.getDependencyArtifacts();
 
-        for ( Iterator<Artifact> iter = allDependencyArtifacts.iterator(); iter.hasNext(); )
+        for ( Artifact artifact : allDependencyArtifacts )
         {
-            Artifact artifact = iter.next();
             if ( INCZIP_TYPE.equals( artifact.getType() ) )
             {
                 continue;
@@ -462,15 +452,12 @@ public class NativeLinkMojo
         if ( requestedOrderList.size() != 0 )
         {
             // remove from original list first
-            for ( Iterator<String> i = requestedOrderList.iterator(); i.hasNext(); )
+            for ( String s : requestedOrderList )
             {
-                libs.remove( i.next() );
+                libs.remove( s );
             }
 
-            for ( Iterator<String> i = libs.iterator(); i.hasNext(); )
-            {
-                requestedOrderList.add( i.next() );
-            }
+            requestedOrderList.addAll( libs );
 
             return requestedOrderList;
         }

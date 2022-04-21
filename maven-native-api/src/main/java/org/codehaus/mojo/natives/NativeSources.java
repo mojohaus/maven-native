@@ -175,15 +175,15 @@ public class NativeSources
         }
 
         List<File> files = new ArrayList<>( filePaths.length + this.fileNames.length );
-        for ( int i = 0; i < filePaths.length; ++i )
+        for ( String filePath : filePaths )
         {
-            files.add( new File( this.directory, filePaths[i] ) );
+            files.add( new File( this.directory, filePath ) );
         }
 
         // remove duplicate files
-        for ( int i = 0; i < this.fileNames.length; ++i )
+        for ( String fileName : this.fileNames )
         {
-            File file = new File( this.directory, this.fileNames[i] );
+            File file = new File( this.directory, fileName );
 
             boolean found = false;
 
@@ -225,9 +225,9 @@ public class NativeSources
 
         List<File> sourceFiles = new ArrayList<>();
 
-        for ( int i = 0; i < sources.length; ++i )
+        for ( NativeSources source : sources )
         {
-            sourceFiles.addAll( sources[i].getFiles() );
+            sourceFiles.addAll( source.getFiles() );
         }
 
         return sourceFiles.toArray( new File[sourceFiles.size()] );
@@ -242,11 +242,11 @@ public class NativeSources
 
         List<File> list = new ArrayList<>();
 
-        for ( int i = 0; i < sources.length; ++i )
+        for ( NativeSources source : sources )
         {
-            if ( sources[i].getDependencyAnalysisParticipation() )
+            if ( source.getDependencyAnalysisParticipation() )
             {
-                list.add( sources[i].getDirectory() );
+                list.add( source.getDirectory() );
             }
         }
 
@@ -262,11 +262,11 @@ public class NativeSources
 
         List<File> list = new ArrayList<>();
 
-        for ( int i = 0; i < sources.length; ++i )
+        for ( NativeSources source : sources )
         {
-            if ( !sources[i].getDependencyAnalysisParticipation() )
+            if ( !source.getDependencyAnalysisParticipation() )
             {
-                list.add( sources[i].getDirectory() );
+                list.add( source.getDirectory() );
             }
         }
 

@@ -29,7 +29,6 @@ public class JavahExecutableTest
     }
 
     public void testDefaultJavahExecutable()
-        throws Exception
     {
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand( config );
@@ -42,7 +41,6 @@ public class JavahExecutableTest
     }
 
     public void testConfiguredJavahExecutable()
-        throws Exception
     {
         File javaBin = new File( "/java/home/bin" );
 
@@ -58,7 +56,6 @@ public class JavahExecutableTest
     }
 
     public void testJavahExecutableDashoOption()
-        throws Exception
     {
         config.setFileName( "fileName" );
         JavahExecutable javah = new JavahExecutable();
@@ -70,7 +67,6 @@ public class JavahExecutableTest
     }
 
     public void testWorkingDirectory()
-        throws Exception
     {
         JavahExecutable javah = new JavahExecutable();
 

@@ -76,7 +76,7 @@ public class JavahExecutable
 
         String[] classPaths = config.getClassPaths();
 
-        StringBuffer classPathBuffer = new StringBuffer();
+        StringBuilder classPathBuffer = new StringBuilder();
 
         for ( int i = 0; i < classPaths.length; ++i )
         {

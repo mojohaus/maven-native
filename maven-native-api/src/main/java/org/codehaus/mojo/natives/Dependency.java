@@ -29,7 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.codehaus.mojo.natives.parser.Parser;
 
@@ -100,10 +99,8 @@ public class Dependency
 
         File[] resolvedIncludeFiles = resolveIncludeNames( includeNames );
 
-        for ( int i = 0; i < resolvedIncludeFiles.length; ++i )
+        for ( File fileName : resolvedIncludeFiles )
         {
-            File fileName = resolvedIncludeFiles[i];
-
             Dependency depend = new Dependency( this, fileName, this.parser, this.includePaths );
 
             if ( !this.getRoot().contains( depend ) )
@@ -141,12 +138,8 @@ public class Dependency
     {
         long currentLastModify = this.lastModified;
 
-        Iterator<Dependency> iterator = this.getDependencies().iterator();
-
-        while ( iterator.hasNext() )
+        for ( Dependency dependency : this.getDependencies() )
         {
-            Dependency dependency = iterator.next();
-
             long lastModified = dependency.getCompositeLastModified();
 
             if ( lastModified > currentLastModify )
@@ -161,21 +154,10 @@ public class Dependency
     private String[] getIncludeNames()
         throws IOException
     {
-        Reader reader = null;
-
-        try
+        try ( Reader reader = new BufferedReader( new FileReader( this.source ) ) )
         {
-            reader = new BufferedReader( new FileReader( this.source ) );
             parser.parse( reader );
-
             return parser.getIncludes();
-        }
-        finally
-        {
-            if ( reader != null )
-            {
-                reader.close();
-            }
         }
     }
 
@@ -189,9 +171,9 @@ public class Dependency
     {
         ArrayList<File> resolvedIncludeFiles = new ArrayList<>( includeNames.length );
 
-        for ( int i = 0; i < includeNames.length; ++i )
+        for ( String includeName : includeNames )
         {
-            File resolvedFile = resolveSingleIncludeName( includeNames[i] );
+            File resolvedFile = resolveSingleIncludeName( includeName );
 
             if ( resolvedFile != null )
             {
@@ -242,16 +224,14 @@ public class Dependency
      * @param includeName
      * @param includePath
      * @return
-     * @throws IOException
      */
     private File resolveSingleIncludeNameFromPaths( String includeName, File[] includePath )
-        throws IOException
     {
         File includeFile = null;
 
-        for ( int i = 0; i < includePath.length; i++ )
+        for ( File file : includePath )
         {
-            File tmpFile = new File( includePath[i], includeName );
+            File tmpFile = new File( file, includeName );
 
             // make sure we dont pickup directory like STL which has no extension
             if ( tmpFile.exists() && tmpFile.isFile() )

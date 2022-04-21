@@ -39,7 +39,6 @@ public class TLibLinkerTest
 {
 
     public void testCommandLine()
-        throws Exception
     {
         TLibLinker linker = new TLibLinker();
 

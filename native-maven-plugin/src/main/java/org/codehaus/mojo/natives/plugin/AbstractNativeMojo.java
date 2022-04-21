@@ -99,12 +99,7 @@ public abstract class AbstractNativeMojo
         throws MojoExecutionException
     {
         List<File> allCompilerOutputFileList = getAllCompilersOutputFileList();
-
-        for ( int i = 0; i < filePaths.size(); ++i )
-        {
-            File file = filePaths.get( i );
-            allCompilerOutputFileList.add( file );
-        }
+        allCompilerOutputFileList.addAll( filePaths );
     }
 
     /**

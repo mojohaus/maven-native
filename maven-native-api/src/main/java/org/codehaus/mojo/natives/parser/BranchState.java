@@ -29,8 +29,8 @@ public class BranchState
             AbstractParserState noMatchState )
     {
         super( parser );
-        this.branchChars = (char[]) branchChars.clone();
-        this.branchStates = (AbstractParserState[]) branchStates.clone();
+        this.branchChars = branchChars.clone();
+        this.branchStates = branchStates.clone();
         this.noMatchState = noMatchState;
     }
 

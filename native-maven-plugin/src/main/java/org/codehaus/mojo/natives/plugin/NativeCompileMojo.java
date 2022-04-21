@@ -207,7 +207,6 @@ public class NativeCompileMojo
      * item of source root ( ie ${project.build.directory}/classes since this plugin never use it.
      */
     private void addAdditionalIncludePath()
-        throws MojoExecutionException
     {
         List<?> additionalIncludePaths = project.getCompileSourceRoots();
 

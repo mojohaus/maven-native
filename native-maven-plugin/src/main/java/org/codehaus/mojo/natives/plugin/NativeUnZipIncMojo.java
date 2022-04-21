@@ -69,7 +69,7 @@ public class NativeUnZipIncMojo
         if ( unpackIncZipDepenedencies() )
         {
             @SuppressWarnings({ "unused", "unchecked" })
-            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, new Boolean( "true" ) );
+            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, Boolean.TRUE );
         }
     }
 
@@ -152,10 +152,8 @@ public class NativeUnZipIncMojo
 
         if ( artifacts != null )
         {
-            for ( Iterator<Artifact> iter = artifacts.iterator(); iter.hasNext(); )
+            for ( Artifact artifact : artifacts )
             {
-                Artifact artifact = iter.next();
-
                 // pick up only native header archive
                 if ( !INCZIP_TYPE.equals( artifact.getType() ) )
                 {

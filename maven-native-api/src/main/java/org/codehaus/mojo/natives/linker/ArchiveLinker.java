@@ -70,10 +70,8 @@ public class ArchiveLinker
 
         cl.createArg().setFile( config.getOutputFile() );
 
-        for ( int i = 0; i < objectFiles.size(); ++i )
+        for ( File objFile : objectFiles )
         {
-            File objFile = objectFiles.get( i );
-
             cl.createArg().setValue( objFile.getPath() );
         }
 

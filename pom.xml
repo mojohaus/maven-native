@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo-parent</artifactId>
-    <version>50</version>
+    <version>67</version>
   </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
@@ -52,19 +52,15 @@
   </ciManagement>
   <properties>
     <maven.api.version>3.2.5</maven.api.version>
+    <project.build.outputTimestamp>2022-01-18T09:14:02Z</project.build.outputTimestamp>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>backport-util-concurrent</groupId>
-        <artifactId>backport-util-concurrent</artifactId>
-        <version>3.1</version>
-      </dependency>
-      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.12</version>
+        <version>4.13.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.bcel</groupId>
@@ -74,7 +70,7 @@
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
-        <version>3.7</version>
+        <version>3.12.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
@@ -149,7 +145,7 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-archiver</artifactId>
-        <version>3.5</version>
+        <version>4.2.7</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
@@ -159,7 +155,7 @@
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-container-default</artifactId>
-        <version>1.7.1</version>
+        <version>2.1.1</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -192,46 +188,38 @@
         <plugin>
           <groupId>org.codehaus.plexus</groupId>
           <artifactId>plexus-component-metadata</artifactId>
-          <version>1.7.1</version>
+          <version>2.1.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>sort-pom</id>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+            <phase>process-sources</phase>
+            <configuration>
+              <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+              <createBackupFile>false</createBackupFile>
+              <lineSeparator>\n</lineSeparator>
+              <expandEmptyElements>false</expandEmptyElements>
+              <nrOfIndentSpace>2</nrOfIndentSpace>
+              <sortDependencies>scope,groupId,artifactId</sortDependencies>
+              <sortProperties>true</sortProperties>
+              <verifyFail>Stop</verifyFail>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <profiles>
-    <profile>
-      <id>jdk8</id>
-      <activation>
-        <jdk>[1.8,)</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.ekryd.sortpom</groupId>
-            <artifactId>sortpom-maven-plugin</artifactId>
-            <version>2.8.0</version>
-            <executions>
-              <execution>
-                <id>sort-pom</id>
-                <goals>
-                  <goal>sort</goal>
-                </goals>
-                <phase>process-sources</phase>
-                <configuration>
-                  <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
-                  <createBackupFile>false</createBackupFile>
-                  <lineSeparator>\n</lineSeparator>
-                  <expandEmptyElements>false</expandEmptyElements>
-                  <nrOfIndentSpace>2</nrOfIndentSpace>
-                  <sortDependencies>scope,groupId,artifactId</sortDependencies>
-                  <sortProperties>true</sortProperties>
-                  <verifyFail>Stop</verifyFail>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>m2e</id>
       <activation>

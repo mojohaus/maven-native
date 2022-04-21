@@ -44,10 +44,8 @@ public class NativeMojoUtils
 
         List<String> tokenArray = new ArrayList<>();
 
-        for ( int i = 0; i < args.size(); ++i )
+        for ( String arg : args )
         {
-            String arg = args.get( i );
-
             if ( arg == null || arg.length() == 0 )
             {
                 continue;
@@ -55,14 +53,14 @@ public class NativeMojoUtils
 
             String[] tokens = StringUtils.split( arg );
 
-            for ( int k = 0; k < tokens.length; ++k )
+            for ( String token : tokens )
             {
-                if ( tokens[k] == null || tokens[k].trim().length() == 0 )
+                if ( token == null || token.trim().length() == 0 )
                 {
                     continue;
                 }
 
-                tokenArray.add( tokens[k].trim() );
+                tokenArray.add( token.trim() );
             }
         }
 

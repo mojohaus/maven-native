@@ -43,7 +43,7 @@ public class DependencyTest
      * Source has includes, but include path is not given
      **/
     public void testNoneParticipateDepedencyAnalysisInclude()
-        throws IOException, InterruptedException
+        throws IOException
     {
         String testSrcDir = "target/test/testNoneParticipateDepedencyAnalysisInclude/c/";
         String testSource = testSrcDir + "test1.c";
@@ -68,7 +68,7 @@ public class DependencyTest
     }
 
     public void testCyclicOnTheSameSource()
-        throws IOException, InterruptedException
+        throws IOException
     {
         String testIncDir = "target/test/testCyclicOnTheSameSource/h/";
         String testSource = testIncDir + "test1.h";
@@ -137,7 +137,7 @@ public class DependencyTest
 
         assertEquals( 3, dependency.getDeepDependencyCount() );
 
-        assertTrue( srcFile.lastModified() == dependency.getCompositeLastModified() );
+        assertEquals( srcFile.lastModified(), dependency.getCompositeLastModified() );
 
     }
 

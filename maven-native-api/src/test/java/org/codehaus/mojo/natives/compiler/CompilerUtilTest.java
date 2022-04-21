@@ -10,7 +10,6 @@ public class CompilerUtilTest
 {
 
     public void testGetObjectFileFromSourceWithNoExtension()
-        throws Exception
     {
         File source;
 
@@ -32,7 +31,6 @@ public class CompilerUtilTest
     }
 
     public void testGetObjectFileWithKnownExtension()
-        throws Exception
     {
 
         File source = new File( "target/somefile.c" );

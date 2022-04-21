@@ -44,7 +44,6 @@ public class GccLinkerTest
     }
 
     public void testDefaultLinkerExecutable()
-        throws Exception
     {
         Commandline cl = this.getCommandline();
 
@@ -54,7 +53,6 @@ public class GccLinkerTest
     }
 
     public void testOverrideLinkerExecutable()
-        throws Exception
     {
         config.setExecutable( "ld" );
 
@@ -63,7 +61,6 @@ public class GccLinkerTest
     }
 
     public void testObjectFileList()
-        throws Exception
     {
         Commandline cl = this.getCommandline();
 
@@ -74,16 +71,14 @@ public class GccLinkerTest
     }
 
     public void testLinkerResponseFile()
-        throws Exception
     {
         this.config.setUsingLinkerResponseFile( true );
         this.config.setWorkingDirectory( new File( getBasedir(), "target" ) );
         Commandline cl = this.getCommandline();
-        assertTrue( cl.toString().indexOf( "@objectsFile" ) != -1 );
+        assertTrue( cl.toString().contains( "@objectsFile" ) );
     }
 
     public void testRelativeObjectFileList()
-        throws Exception
     {
         ArrayList<File> objectFiles = new ArrayList<>( 2 );
         objectFiles.add( new File( config.getOutputDirectory(), "file1.o" ) );
@@ -98,7 +93,6 @@ public class GccLinkerTest
     }
 
     public void testOptions()
-        throws Exception
     {
         String[] options = { "-o1", "-o2", "-o3" };
         config.setStartOptions( options );
@@ -113,7 +107,6 @@ public class GccLinkerTest
     }
 
     public void testExternalUnixLibraries()
-        throws Exception
     {
         config.setExternalLibDirectory( new File( "theLib" ) );
 
@@ -133,7 +126,7 @@ public class GccLinkerTest
 
         config.setExternalLibFileNames( externalLibFileNames );
 
-        Commandline cl = this.getCommandline( new ArrayList<File>( 0 ) );
+        Commandline cl = this.getCommandline( new ArrayList<>( 0 ) );
 
         int index = Arrays.asList( cl.getArguments() ).indexOf( "-LtheLib" );
         assertTrue( index >= 0 );

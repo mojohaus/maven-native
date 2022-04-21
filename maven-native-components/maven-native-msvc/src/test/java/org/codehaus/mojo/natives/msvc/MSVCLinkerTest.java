@@ -45,7 +45,6 @@ public class MSVCLinkerTest
     }
 
     public void testDefaultLinkerExecutable()
-        throws Exception
     {
         Commandline cl = this.getCommandline();
         assertEquals( "link.exe", cl.getLiteralExecutable() );
@@ -53,7 +52,6 @@ public class MSVCLinkerTest
     }
 
     public void testSimpleLinkerCommand()
-        throws Exception
     {
         Commandline cl = this.getCommandline();
         String[] expected = new String[] { "link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj" };

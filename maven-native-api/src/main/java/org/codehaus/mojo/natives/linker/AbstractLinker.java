@@ -72,14 +72,14 @@ public abstract class AbstractLinker
 
         if ( previousDestination.exists() )
         {
-            for ( int i = 0; i < compilerOutputFiles.size(); ++i )
+            for ( File compilerOutputFile : compilerOutputFiles )
             {
-                if ( previousDestination.lastModified() < compilerOutputFiles.get( i ).lastModified() )
+                if ( previousDestination.lastModified() < compilerOutputFile.lastModified() )
                 {
                     if ( this.getLogger().isDebugEnabled() )
                     {
                         getLogger().debug( "Stale relative to compilerOutputFiles: "
-                                + compilerOutputFiles.get( i ).getAbsolutePath() );
+                                + compilerOutputFile.getAbsolutePath() );
                     }
 
                     return true;
@@ -89,7 +89,7 @@ public abstract class AbstractLinker
             for ( int i = 0; i < config.getExternalLibFileNames().size(); ++i )
             {
                 File extLib = new File( config.getExternalLibDirectory(),
-                        (String) config.getExternalLibFileNames().get( i ) );
+                        config.getExternalLibFileNames().get( i ) );
 
                 if ( previousDestination.lastModified() < extLib.lastModified() )
                 {

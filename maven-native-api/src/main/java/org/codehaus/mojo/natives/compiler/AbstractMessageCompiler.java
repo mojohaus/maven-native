@@ -44,9 +44,9 @@ public abstract class AbstractMessageCompiler
         throws NativeBuildException
     {
 
-        for ( int i = 0; i < sourceFiles.length; ++i )
+        for ( File sourceFile : sourceFiles )
         {
-            Commandline cl = getCommandLine( config, sourceFiles[i] );
+            Commandline cl = getCommandLine( config, sourceFile );
 
             EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
 

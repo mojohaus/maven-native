@@ -26,7 +26,6 @@ public class NativeSourcesTest
     }
 
     public void testFileNamesOnly()
-        throws Exception
     {
         NativeSources source = new NativeSources();
         source.setDirectory( this.workDirectory );
@@ -39,7 +38,6 @@ public class NativeSourcesTest
     }
 
     public void testEmptyIncludes()
-        throws Exception
     {
         NativeSources source = new NativeSources();
         source.setDirectory( this.workDirectory );
@@ -98,7 +96,6 @@ public class NativeSourcesTest
     }
 
     public void testEmpty()
-        throws Exception
     {
         NativeSources source = new NativeSources();
         source.setDirectory( this.workDirectory );
