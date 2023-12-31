@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
-  <version>1.0-M1</version>
+  <version>1.0-M2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
   <developers>
@@ -16,7 +16,7 @@
       <id>dtran</id>
       <name>Dan T. Tran</name>
       <email>dantran@gmail.com</email>
-      <organization/>
+      <organization />
       <roles>
         <role>Lead Developer</role>
       </roles>
@@ -52,7 +52,7 @@
   </ciManagement>
   <properties>
     <maven.api.version>3.2.5</maven.api.version>
-    <project.build.outputTimestamp>2023-12-31T19:20:55Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2023-12-31T19:21:49Z</project.build.outputTimestamp>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
   </properties>
   <dependencyManagement>
@@ -257,7 +257,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore/>
+                        <ignore />
                       </action>
                     </pluginExecution>
                   </pluginExecutions>
