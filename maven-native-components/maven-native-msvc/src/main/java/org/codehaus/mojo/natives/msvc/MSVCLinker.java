@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.linker.Linker;
@@ -33,27 +34,21 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Linker.class, hint = "msvc")
-public class MSVCLinker
-    extends CLinker
-{
+public class MSVCLinker extends CLinker {
 
-    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
-        throws NativeBuildException
-    {
-        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-        {
-            config.setExecutable( "link.exe" );
+    protected Commandline createLinkerCommandLine(List<File> objectFiles, LinkerConfiguration config)
+            throws NativeBuildException {
+        if (config.getExecutable() == null || config.getExecutable().trim().length() == 0) {
+            config.setExecutable("link.exe");
         }
 
-        Commandline cl = super.createLinkerCommandLine( objectFiles, config );
+        Commandline cl = super.createLinkerCommandLine(objectFiles, config);
 
         return cl;
     }
 
     @Override
-    protected String getLinkerOutputOption()
-    {
+    protected String getLinkerOutputOption() {
         return "/out:";
     }
-
 }

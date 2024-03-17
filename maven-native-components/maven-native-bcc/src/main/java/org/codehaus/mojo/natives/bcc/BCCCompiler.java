@@ -23,36 +23,30 @@
  */
 package org.codehaus.mojo.natives.bcc;
 
+import java.io.File;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CCompiler;
-import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.mojo.natives.compiler.Compiler;
-
-import java.io.File;
+import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Compiler.class, hint = "bcc", instantiationStrategy = "per-lookup")
-public class BCCCompiler
-    extends CCompiler
-{
+public class BCCCompiler extends CCompiler {
 
-    protected Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
-        throws NativeBuildException
-    {
-        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-        {
-            config.setExecutable( "bcc32" );
+    protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config)
+            throws NativeBuildException {
+        if (config.getExecutable() == null || config.getExecutable().trim().length() == 0) {
+            config.setExecutable("bcc32");
         }
 
-        Commandline cl = super.getCommandLine( src, dest, config );
+        Commandline cl = super.getCommandLine(src, dest, config);
 
         return cl;
     }
 
-    protected String getOutputFileOption()
-    {
+    protected String getOutputFileOption() {
         return "-o";
     }
-
 }

@@ -26,6 +26,7 @@ package org.codehaus.mojo.natives.bcc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
@@ -33,10 +34,7 @@ import org.codehaus.mojo.natives.util.EnvUtil;
 /**
  * BCC Environment Setup
  */
-
-public class BCCEnvFactory
-    implements EnvFactory
-{
+public class BCCEnvFactory implements EnvFactory {
     private static final String BCC_INSTALL_ENV_KEY = "BCC_INSTALL_DIR";
 
     private static final String DEFAULT_BCC_INSTALL_DIR = "C:/Borland/BCC";
@@ -44,38 +42,30 @@ public class BCCEnvFactory
     private static Map<String, String> envs;
 
     @Override
-    public synchronized Map<String, String> getEnvironmentVariables()
-        throws NativeBuildException
-    {
-        if ( envs == null )
-        {
+    public synchronized Map<String, String> getEnvironmentVariables() throws NativeBuildException {
+        if (envs == null) {
             envs = createEnvs();
         }
 
         return envs;
     }
 
-    private Map<String, String> createEnvs()
-        throws NativeBuildException
-    {
-        File bccDir = new File( EnvUtil.getEnv( BCC_INSTALL_ENV_KEY, BCC_INSTALL_ENV_KEY, DEFAULT_BCC_INSTALL_DIR ) );
+    private Map<String, String> createEnvs() throws NativeBuildException {
+        File bccDir = new File(EnvUtil.getEnv(BCC_INSTALL_ENV_KEY, BCC_INSTALL_ENV_KEY, DEFAULT_BCC_INSTALL_DIR));
 
-        if ( !bccDir.isDirectory() )
-        {
-            throw new NativeBuildException( bccDir.getPath() + " is not a directory." );
+        if (!bccDir.isDirectory()) {
+            throw new NativeBuildException(bccDir.getPath() + " is not a directory.");
         }
 
         Map<String, String> envs = new HashMap<>();
 
         // setup new PATH
-        String currentPath = System.getProperty( "java.library.path" );
+        String currentPath = System.getProperty("java.library.path");
 
         String newPath = bccDir.getPath() + "\\BIN;" + currentPath;
 
-        envs.put( "PATH", newPath );
+        envs.put("PATH", newPath);
 
         return envs;
-
     }
-
 }

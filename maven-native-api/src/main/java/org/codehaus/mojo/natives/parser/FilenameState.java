@@ -16,38 +16,29 @@
  */
 package org.codehaus.mojo.natives.parser;
 
-public class FilenameState
-    extends AbstractParserState
-{
+public class FilenameState extends AbstractParserState {
     private final StringBuffer buf = new StringBuffer();
 
     private final char[] terminators;
 
-    public FilenameState( AbstractParser parser, char[] terminators )
-    {
-        super( parser );
+    public FilenameState(AbstractParser parser, char[] terminators) {
+        super(parser);
         this.terminators = terminators.clone();
     }
 
-    public AbstractParserState consume( char ch )
-    {
-        for ( char terminator : terminators )
-        {
-            if ( ch == terminator )
-            {
-                getParser().addFilename( buf.toString() );
-                buf.setLength( 0 );
+    public AbstractParserState consume(char ch) {
+        for (char terminator : terminators) {
+            if (ch == terminator) {
+                getParser().addFilename(buf.toString());
+                buf.setLength(0);
                 return null;
             }
         }
-        if ( ch == '\n' )
-        {
-            buf.setLength( 0 );
+        if (ch == '\n') {
+            buf.setLength(0);
             return getParser().getNewLineState();
-        }
-        else
-        {
-            buf.append( ch );
+        } else {
+            buf.append(ch);
         }
         return this;
     }

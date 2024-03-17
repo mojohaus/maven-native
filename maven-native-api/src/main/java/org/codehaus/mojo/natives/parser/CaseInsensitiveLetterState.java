@@ -21,9 +21,7 @@ package org.codehaus.mojo.natives.parser;
  *
  * @author Curt Arnold
  */
-public final class CaseInsensitiveLetterState
-    extends AbstractParserState
-{
+public final class CaseInsensitiveLetterState extends AbstractParserState {
     /**
      * Next state if a match is found.
      */
@@ -52,12 +50,14 @@ public final class CaseInsensitiveLetterState
      * @param nextStateArg next state if a match on the letter
      * @param noMatchStateArg state if no match on letter
      */
-    public CaseInsensitiveLetterState( final AbstractParser parser, final char matchLetter,
-            final AbstractParserState nextStateArg, final AbstractParserState noMatchStateArg )
-    {
-        super( parser );
-        this.lowerLetter = Character.toLowerCase( matchLetter );
-        this.upperLetter = Character.toUpperCase( matchLetter );
+    public CaseInsensitiveLetterState(
+            final AbstractParser parser,
+            final char matchLetter,
+            final AbstractParserState nextStateArg,
+            final AbstractParserState noMatchStateArg) {
+        super(parser);
+        this.lowerLetter = Character.toLowerCase(matchLetter);
+        this.upperLetter = Character.toUpperCase(matchLetter);
         this.nextState = nextStateArg;
         this.noMatchState = noMatchStateArg;
     }
@@ -68,14 +68,11 @@ public final class CaseInsensitiveLetterState
      * @param ch next character
      * @return the configured nextState if ch is the expected character or the configure noMatchState otherwise.
      */
-    public AbstractParserState consume( final char ch )
-    {
-        if ( ch == lowerLetter || ch == upperLetter )
-        {
+    public AbstractParserState consume(final char ch) {
+        if (ch == lowerLetter || ch == upperLetter) {
             return nextState;
         }
-        if ( ch == '\n' )
-        {
+        if (ch == '\n') {
             getParser().getNewLineState();
         }
         return noMatchState;

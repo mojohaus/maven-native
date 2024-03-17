@@ -40,93 +40,69 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Commandline;
 
-public abstract class AbstractCompiler
-    extends AbstractLogEnabled
-    implements Compiler
-{
+public abstract class AbstractCompiler extends AbstractLogEnabled implements Compiler {
 
     protected abstract Parser getParser();
 
-    protected abstract Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
-        throws NativeBuildException;
+    protected abstract Commandline getCommandLine(File src, File dest, CompilerConfiguration config)
+            throws NativeBuildException;
 
     @Override
-    public List<File> compile( CompilerConfiguration config, File[] sourceFiles )
-        throws NativeBuildException
-    {
-        if ( !config.getOutputDirectory().exists() )
-        {
+    public List<File> compile(CompilerConfiguration config, File[] sourceFiles) throws NativeBuildException {
+        if (!config.getOutputDirectory().exists()) {
             config.getOutputDirectory().mkdirs();
         }
 
-        List<File> compilerOutputFiles = new ArrayList<>( sourceFiles.length );
+        List<File> compilerOutputFiles = new ArrayList<>(sourceFiles.length);
 
         CompilerThreadPoolExecutor compilerThreadPoolExecutor = null;
 
-        if ( config.getNumberOfConcurrentCompilation() > 1 )
-        {
-            compilerThreadPoolExecutor = new CompilerThreadPoolExecutor( config.getNumberOfConcurrentCompilation() );
+        if (config.getNumberOfConcurrentCompilation() > 1) {
+            compilerThreadPoolExecutor = new CompilerThreadPoolExecutor(config.getNumberOfConcurrentCompilation());
         }
 
-        for ( File source : sourceFiles )
-        {
-            File objectFile = getObjectFile( source, config.getOutputDirectory(), config.getObjectFileExtension() );
+        for (File source : sourceFiles) {
+            File objectFile = getObjectFile(source, config.getOutputDirectory(), config.getObjectFileExtension());
 
-            compilerOutputFiles.add( objectFile );
+            compilerOutputFiles.add(objectFile);
 
             Parser parser = this.getParser();
 
-            if ( SourceDependencyAnalyzer.isStaled( source, objectFile, parser, config.getIncludePaths() ) )
-            {
-                if ( compilerThreadPoolExecutor != null && compilerThreadPoolExecutor.isErrorFound() )
-                {
+            if (SourceDependencyAnalyzer.isStaled(source, objectFile, parser, config.getIncludePaths())) {
+                if (compilerThreadPoolExecutor != null && compilerThreadPoolExecutor.isErrorFound()) {
                     break;
                 }
 
-                Commandline cl = getCommandLine( source, objectFile, config );
-                EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
+                Commandline cl = getCommandLine(source, objectFile, config);
+                EnvUtil.setupCommandlineEnv(cl, config.getEnvFactory());
 
-                if ( compilerThreadPoolExecutor != null )
-                {
-                    try
-                    {
-                        compilerThreadPoolExecutor.execute( new CompilerRunnable( cl, this.getLogger() ) );
+                if (compilerThreadPoolExecutor != null) {
+                    try {
+                        compilerThreadPoolExecutor.execute(new CompilerRunnable(cl, this.getLogger()));
+                    } catch (RejectedExecutionException e) {
+                        CommandLineUtil.execute(cl, this.getLogger());
                     }
-                    catch ( RejectedExecutionException e )
-                    {
-                        CommandLineUtil.execute( cl, this.getLogger() );
-                    }
-                }
-                else
-                {
-                    CommandLineUtil.execute( cl, this.getLogger() );
+                } else {
+                    CommandLineUtil.execute(cl, this.getLogger());
                 }
 
-            }
-            else
-            {
-                this.getLogger().debug( ( objectFile + " is up to date." ) );
+            } else {
+                this.getLogger().debug((objectFile + " is up to date."));
             }
         }
 
-        if ( compilerThreadPoolExecutor != null )
-        {
-            if ( !compilerThreadPoolExecutor.isErrorFound() )
-            {
+        if (compilerThreadPoolExecutor != null) {
+            if (!compilerThreadPoolExecutor.isErrorFound()) {
                 compilerThreadPoolExecutor.shutdown();
             }
 
-            try
-            {
-                compilerThreadPoolExecutor.awaitTermination( Integer.MAX_VALUE, TimeUnit.SECONDS );
-            }
-            catch ( InterruptedException e )
-            {
+            try {
+                compilerThreadPoolExecutor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
             }
 
-            if ( compilerThreadPoolExecutor.isErrorFound() )
-            {
-                throw new NativeBuildException( "Compilation failure detected." );
+            if (compilerThreadPoolExecutor.isErrorFound()) {
+                throw new NativeBuildException("Compilation failure detected.");
             }
         }
 
@@ -138,20 +114,13 @@ public abstract class AbstractCompiler
      *
      * @return
      */
-    protected static String getObjectFileExtension( String fileExtension )
-    {
-        if ( fileExtension != null )
-        {
+    protected static String getObjectFileExtension(String fileExtension) {
+        if (fileExtension != null) {
             return fileExtension;
-        }
-        else
-        {
-            if ( Os.isFamily( "windows" ) )
-            {
+        } else {
+            if (Os.isFamily("windows")) {
                 return "obj";
-            }
-            else
-            {
+            } else {
                 return "o";
             }
         }
@@ -166,119 +135,93 @@ public abstract class AbstractCompiler
      * @param config
      * @return
      */
-    protected static File getObjectFile( File sourceFile, File outputDirectory, String objectFileExtension )
-        throws NativeBuildException
-    {
+    protected static File getObjectFile(File sourceFile, File outputDirectory, String objectFileExtension)
+            throws NativeBuildException {
         String objectFileName;
 
-        try
-        {
-            objectFileExtension = AbstractCompiler.getObjectFileExtension( objectFileExtension );
+        try {
+            objectFileExtension = AbstractCompiler.getObjectFileExtension(objectFileExtension);
 
             // plexus-util requires that we remove all ".." in the the file source, so getCanonicalPath is required
             // other filename with .. and no extension will throw StringIndexOutOfBoundsException
 
-            objectFileName = FileUtils.basename( sourceFile.getCanonicalPath() );
+            objectFileName = FileUtils.basename(sourceFile.getCanonicalPath());
 
-            if ( objectFileName.charAt( objectFileName.length() - 1 ) != '.' )
-            {
+            if (objectFileName.charAt(objectFileName.length() - 1) != '.') {
                 objectFileName += "." + objectFileExtension;
-            }
-            else
-            {
+            } else {
                 objectFileName += objectFileExtension;
             }
-        }
-        catch ( IOException e )
-        {
+        } catch (IOException e) {
             throw new NativeBuildException(
-                    "Failed to figure out object file name for " + sourceFile + ": " + e.getMessage(), e );
+                    "Failed to figure out object file name for " + sourceFile + ": " + e.getMessage(), e);
         }
 
-        File objectFile = new File( outputDirectory, objectFileName );
+        File objectFile = new File(outputDirectory, objectFileName);
 
         return objectFile;
-
     }
 
-    private class CompilerThreadPoolExecutor
-            extends ThreadPoolExecutor
-    {
+    private class CompilerThreadPoolExecutor extends ThreadPoolExecutor {
         private boolean errorFound = false;
 
-        public synchronized void setErrorFound( boolean errorFound )
-        {
+        public synchronized void setErrorFound(boolean errorFound) {
             this.errorFound = errorFound;
         }
 
-        public synchronized boolean isErrorFound()
-        {
+        public synchronized boolean isErrorFound() {
             return errorFound;
         }
 
-        public CompilerThreadPoolExecutor( int corePoolSize )
-        {
-            super( corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>( corePoolSize * 2 ) );
+        public CompilerThreadPoolExecutor(int corePoolSize) {
+            super(corePoolSize, corePoolSize, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(corePoolSize * 2));
         }
 
         @Override
-        protected void afterExecute( Runnable r, Throwable t )
-        {
-            super.afterExecute( r, t );
+        protected void afterExecute(Runnable r, Throwable t) {
+            super.afterExecute(r, t);
 
-            if ( t != null )
-            {
-                this.setErrorFound( true );
+            if (t != null) {
+                this.setErrorFound(true);
 
                 this.shutdown();
             }
         }
 
         @Override
-        protected void beforeExecute( Thread t, Runnable r )
-        {
-            super.beforeExecute( t, r );
+        protected void beforeExecute(Thread t, Runnable r) {
+            super.beforeExecute(t, r);
 
             // fail fast
-            if ( this.isErrorFound() )
-            {
-                ( (CompilerRunnable) r ).setSkip( true );
+            if (this.isErrorFound()) {
+                ((CompilerRunnable) r).setSkip(true);
             }
         }
     }
 
-    public class CompilerRunnable
-        implements Runnable
-    {
+    public class CompilerRunnable implements Runnable {
         private Commandline cl;
 
         private Logger logger;
 
         private boolean skip = false;
 
-        public void setSkip( boolean skip )
-        {
+        public void setSkip(boolean skip) {
             this.skip = skip;
         }
 
-        public CompilerRunnable( Commandline cl, Logger logger )
-        {
+        public CompilerRunnable(Commandline cl, Logger logger) {
             this.cl = cl;
             this.logger = logger;
         }
 
         @Override
-        public void run()
-            throws NativeBuildException
-        {
-            if ( skip )
-            {
+        public void run() throws NativeBuildException {
+            if (skip) {
                 return;
             }
 
-            CommandLineUtil.execute( cl, logger );
+            CommandLineUtil.execute(cl, logger);
         }
-
     }
-
 }

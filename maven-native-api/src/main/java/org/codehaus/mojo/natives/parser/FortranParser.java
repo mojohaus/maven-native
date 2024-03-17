@@ -25,10 +25,7 @@ import java.util.Vector;
  *
  * @author Curt Arnold
  */
-public final class FortranParser
-    extends AbstractParser
-    implements Parser
-{
+public final class FortranParser extends AbstractParser implements Parser {
     /**
      * List of included filenames.
      */
@@ -42,18 +39,17 @@ public final class FortranParser
     /**
      * Default constructor.
      */
-    public FortranParser()
-    {
-        AbstractParserState filename = new FilenameState( this, new char[] { '\'', '/' } );
-        AbstractParserState apos = new WhitespaceOrLetterState( this, '\'', filename );
-        AbstractParserState blank = new LetterState( this, ' ', apos, null );
-        AbstractParserState e = new CaseInsensitiveLetterState( this, 'E', blank, null );
-        AbstractParserState d = new CaseInsensitiveLetterState( this, 'D', e, null );
-        AbstractParserState u = new CaseInsensitiveLetterState( this, 'U', d, null );
-        AbstractParserState l = new CaseInsensitiveLetterState( this, 'L', u, null );
-        AbstractParserState c = new CaseInsensitiveLetterState( this, 'C', l, null );
-        AbstractParserState n = new CaseInsensitiveLetterState( this, 'N', c, null );
-        newLineState = new WhitespaceOrCaseInsensitiveLetterState( this, 'I', n );
+    public FortranParser() {
+        AbstractParserState filename = new FilenameState(this, new char[] {'\'', '/'});
+        AbstractParserState apos = new WhitespaceOrLetterState(this, '\'', filename);
+        AbstractParserState blank = new LetterState(this, ' ', apos, null);
+        AbstractParserState e = new CaseInsensitiveLetterState(this, 'E', blank, null);
+        AbstractParserState d = new CaseInsensitiveLetterState(this, 'D', e, null);
+        AbstractParserState u = new CaseInsensitiveLetterState(this, 'U', d, null);
+        AbstractParserState l = new CaseInsensitiveLetterState(this, 'L', u, null);
+        AbstractParserState c = new CaseInsensitiveLetterState(this, 'C', l, null);
+        AbstractParserState n = new CaseInsensitiveLetterState(this, 'N', c, null);
+        newLineState = new WhitespaceOrCaseInsensitiveLetterState(this, 'I', n);
     }
 
     /**
@@ -62,9 +58,8 @@ public final class FortranParser
      * @param include include file name
      */
     @Override
-    public void addFilename( final String include )
-    {
-        includes.addElement( include );
+    public void addFilename(final String include) {
+        includes.addElement(include);
     }
 
     /**
@@ -73,10 +68,9 @@ public final class FortranParser
      * @return include file names
      */
     @Override
-    public String[] getIncludes()
-    {
+    public String[] getIncludes() {
         String[] retval = new String[includes.size()];
-        includes.copyInto( retval );
+        includes.copyInto(retval);
         return retval;
     }
 
@@ -86,8 +80,7 @@ public final class FortranParser
      * @return start of line state
      */
     @Override
-    public AbstractParserState getNewLineState()
-    {
+    public AbstractParserState getNewLineState() {
         return newLineState;
     }
 
@@ -98,10 +91,8 @@ public final class FortranParser
      * @throws IOException throw if I/O error during parse
      */
     @Override
-    public void parse( final Reader reader )
-        throws IOException
-    {
-        includes.setSize( 0 );
-        super.parse( reader );
+    public void parse(final Reader reader) throws IOException {
+        includes.setSize(0);
+        super.parse(reader);
     }
 }

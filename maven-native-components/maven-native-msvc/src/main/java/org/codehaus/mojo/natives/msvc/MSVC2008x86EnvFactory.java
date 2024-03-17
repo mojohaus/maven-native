@@ -24,62 +24,55 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Microsoft Visual Studio 9.0\Common7\Tools\vsvars32.bat environment
  */
-
-public class MSVC2008x86EnvFactory
-    extends AbstractMSVCEnvFactory
-{
+public class MSVC2008x86EnvFactory extends AbstractMSVCEnvFactory {
     private static final String VS90COMNTOOLS_ENV_KEY = "VS90COMNTOOLS";
 
     @Override
-    protected Map<String, String> createEnvs()
-        throws NativeBuildException
-    {
+    protected Map<String, String> createEnvs() throws NativeBuildException {
         Map<String, String> envs = new HashMap<>();
 
         File vsCommonToolDir = this.getCommonToolDirectory();
 
-        File vsInstallDir = this.getVisualStudioInstallDirectory( vsCommonToolDir );
+        File vsInstallDir = this.getVisualStudioInstallDirectory(vsCommonToolDir);
 
-        if ( !vsInstallDir.isDirectory() )
-        {
-            throw new NativeBuildException( vsInstallDir.getPath() + " is not a directory." );
+        if (!vsInstallDir.isDirectory()) {
+            throw new NativeBuildException(vsInstallDir.getPath() + " is not a directory.");
         }
-        envs.put( "VSINSTALLDIR", vsInstallDir.getPath() );
+        envs.put("VSINSTALLDIR", vsInstallDir.getPath());
 
-        File vcInstallDir = new File( vsInstallDir.getPath() + "\\VC" );
-        if ( !vcInstallDir.isDirectory() )
-        {
-            throw new NativeBuildException( vcInstallDir.getPath() + " is not a directory." );
+        File vcInstallDir = new File(vsInstallDir.getPath() + "\\VC");
+        if (!vcInstallDir.isDirectory()) {
+            throw new NativeBuildException(vcInstallDir.getPath() + " is not a directory.");
         }
-        envs.put( "VCINSTALLDIR", vcInstallDir.getPath() );
+        envs.put("VCINSTALLDIR", vcInstallDir.getPath());
 
-        File frameworkDir = new File( getSystemRoot() + "\\Microsoft.NET\\Framework" );
-        envs.put( "FrameworkDir", frameworkDir.getPath() );
+        File frameworkDir = new File(getSystemRoot() + "\\Microsoft.NET\\Framework");
+        envs.put("FrameworkDir", frameworkDir.getPath());
 
-        File windowsSDKDir = new File( "C:\\Program Files" + "\\Microsoft SDKs\\Windows\\v6.0A" );
-        String value = RegQuery.getValue( "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Microsoft SDKs\\Windows",
-                "CurrentInstallFolder" );
-        if ( value != null )
-        {
-            windowsSDKDir = new File( value );
+        File windowsSDKDir = new File("C:\\Program Files" + "\\Microsoft SDKs\\Windows\\v6.0A");
+        String value = RegQuery.getValue(
+                "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Microsoft SDKs\\Windows", "CurrentInstallFolder");
+        if (value != null) {
+            windowsSDKDir = new File(value);
         }
 
-        envs.put( "WindowsSdkDir", windowsSDKDir.getPath() );
+        envs.put("WindowsSdkDir", windowsSDKDir.getPath());
 
         String frameworkVersion = "v2.0.50727";
-        envs.put( "FrameworkVersion", frameworkVersion );
+        envs.put("FrameworkVersion", frameworkVersion);
 
         String framework35Version = "v3.5";
-        envs.put( "Framework35Version", framework35Version );
+        envs.put("Framework35Version", framework35Version);
 
         String devEnvDir = vsCommonToolDir + "\\..\\IDE";
-        envs.put( "DevEnvDir", devEnvDir );
+        envs.put("DevEnvDir", devEnvDir);
 
         // set "PATH=%WindowsSdkDir%bin;%PATH%"
         // @set PATH=C:\Program Files (x86)\Microsoft Visual Studio
@@ -90,13 +83,13 @@ public class MSVC2008x86EnvFactory
         // Files (x86)\Microsoft Visual Studio 9.0\VC\VCPackages;%PATH%
 
         // setup new PATH
-        String currentPathEnv = System.getProperty( "java.library.path" );
+        String currentPathEnv = System.getProperty("java.library.path");
 
         String newPathEnv = devEnvDir + ";" + vcInstallDir.getPath() + "\\bin" + ";" + vsCommonToolDir + ";"
                 + frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion + ";"
                 + vcInstallDir.getPath() + "\\VCPackages" + ";" + windowsSDKDir.getPath() + "\\bin;" + currentPathEnv;
 
-        envs.put( "PATH", newPathEnv );
+        envs.put("PATH", newPathEnv);
 
         // setup new INCLUDE PATH
         // @set INCLUDE=C:\Program Files (x86)\Microsoft Visual Studio
@@ -104,12 +97,12 @@ public class MSVC2008x86EnvFactory
         // Files
         // (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE;%INCLUDE%
 
-        String currentIncludeEnv = EnvUtil.getEnv( "INCLUDE" );
+        String currentIncludeEnv = EnvUtil.getEnv("INCLUDE");
 
         String newIncludeEnv = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + vcInstallDir.getPath() + "\\INCLUDE;"
                 + windowsSDKDir.getPath() + "\\include;" + currentIncludeEnv;
 
-        envs.put( "INCLUDE", newIncludeEnv );
+        envs.put("INCLUDE", newIncludeEnv);
 
         //
         // setup new LIB PATH
@@ -118,12 +111,12 @@ public class MSVC2008x86EnvFactory
         // (x86)\Microsoft
         // Visual Studio 9.0\VC\LIB;%LIB%
         //
-        String currentLibEnv = EnvUtil.getEnv( "LIB" );
+        String currentLibEnv = EnvUtil.getEnv("LIB");
 
         String newLibEnv = vcInstallDir.getPath() + "\\ATLMFC\\LIB;" + vcInstallDir.getPath() + "\\LIB;"
                 + windowsSDKDir.getPath() + "\\LIB;" + currentLibEnv;
 
-        envs.put( "LIB", newLibEnv );
+        envs.put("LIB", newLibEnv);
 
         // @set
         // LIBPATH=C:\Windows\Microsoft.NET\Framework\v3.5;C:\Windows\Microsoft.NET\Framework\v2.0.50727;C:\Program
@@ -132,42 +125,32 @@ public class MSVC2008x86EnvFactory
         // Studio
         // 9.0\VC\LIB;%LIBPATH%
 
-        String currentLibPathEnv = EnvUtil.getEnv( "LIBPATH" );
+        String currentLibPathEnv = EnvUtil.getEnv("LIBPATH");
 
         String newLibPathEnv = frameworkDir + "\\" + framework35Version + ";" + frameworkDir + "\\" + frameworkVersion
                 + ";" + vcInstallDir.getPath() + "\\ATLMFC\\LIB;" + vcInstallDir.getPath() + "\\LIB;"
                 + currentLibPathEnv;
 
-        envs.put( "LIBPATH", newLibPathEnv );
+        envs.put("LIBPATH", newLibPathEnv);
 
         return envs;
-
     }
 
-    private File getCommonToolDirectory()
-        throws NativeBuildException
-    {
-        String envValue = System.getenv( VS90COMNTOOLS_ENV_KEY );
-        if ( envValue == null )
-        {
-            throw new NativeBuildException( "Environment variable: " + VS90COMNTOOLS_ENV_KEY + " not available." );
+    private File getCommonToolDirectory() throws NativeBuildException {
+        String envValue = System.getenv(VS90COMNTOOLS_ENV_KEY);
+        if (envValue == null) {
+            throw new NativeBuildException("Environment variable: " + VS90COMNTOOLS_ENV_KEY + " not available.");
         }
 
-        return new File( envValue );
+        return new File(envValue);
     }
 
-    private File getVisualStudioInstallDirectory( File commonToolDir )
-        throws NativeBuildException
-    {
-        try
-        {
-            return new File( commonToolDir, "../.." ).getCanonicalFile();
-        }
-        catch ( IOException e )
-        {
+    private File getVisualStudioInstallDirectory(File commonToolDir) throws NativeBuildException {
+        try {
+            return new File(commonToolDir, "../..").getCanonicalFile();
+        } catch (IOException e) {
             throw new NativeBuildException(
-                    "Unable to contruct Visual Studio install directory using: " + commonToolDir, e );
+                    "Unable to contruct Visual Studio install directory using: " + commonToolDir, e);
         }
     }
-
 }

@@ -28,10 +28,8 @@ import org.codehaus.mojo.natives.NativeBuildException;
 /**
  * Generates JNI header files using javah
  */
-public interface Javah
-{
+public interface Javah {
     String ROLE = Javah.class.getName();
 
-    void compile( JavahConfiguration configuration )
-        throws NativeBuildException;
+    void compile(JavahConfiguration configuration) throws NativeBuildException;
 }

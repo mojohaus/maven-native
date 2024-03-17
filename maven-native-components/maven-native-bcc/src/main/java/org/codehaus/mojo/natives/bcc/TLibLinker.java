@@ -34,43 +34,35 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Linker.class, hint = "tlib", instantiationStrategy = "per-lookup")
-public class TLibLinker
-    extends AbstractLinker
-{
+public class TLibLinker extends AbstractLinker {
 
     public static final String EXECUTABLE = "tlib";
 
     @Override
-    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
-        throws NativeBuildException
-    {
+    protected Commandline createLinkerCommandLine(List<File> objectFiles, LinkerConfiguration config)
+            throws NativeBuildException {
         Commandline cl = new Commandline();
 
-        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
 
         String executable = EXECUTABLE;
 
-        if ( config.getExecutable() != null && config.getExecutable().trim().length() != 0 )
-        {
+        if (config.getExecutable() != null && config.getExecutable().trim().length() != 0) {
             executable = config.getExecutable();
         }
 
-        cl.createArg().setValue( executable );
+        cl.createArg().setValue(executable);
 
-        cl.createArg().setValue( "\"" + config.getOutputFile() + "\"" );
+        cl.createArg().setValue("\"" + config.getOutputFile() + "\"");
 
-        for ( int i = 0; i < config.getStartOptions().length; ++i )
-        {
-            cl.createArg().setValue( config.getStartOptions()[i] );
+        for (int i = 0; i < config.getStartOptions().length; ++i) {
+            cl.createArg().setValue(config.getStartOptions()[i]);
         }
 
-        for ( File objFile : objectFiles )
-        {
-            cl.createArg().setValue( "+\"" + objFile.getPath() + "\"" );
+        for (File objFile : objectFiles) {
+            cl.createArg().setValue("+\"" + objFile.getPath() + "\"");
         }
 
         return cl;
-
     }
-
 }

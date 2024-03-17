@@ -27,11 +27,8 @@ import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
-public interface MessageCompiler
-{
+public interface MessageCompiler {
     String ROLE = MessageCompiler.class.getName();
 
-    void compile( MessageCompilerConfiguration config, File[] sourceFiles )
-        throws NativeBuildException;
-
+    void compile(MessageCompilerConfiguration config, File[] sourceFiles) throws NativeBuildException;
 }

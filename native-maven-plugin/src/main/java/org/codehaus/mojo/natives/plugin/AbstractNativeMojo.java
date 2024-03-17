@@ -26,6 +26,7 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -35,9 +36,7 @@ import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 
-public abstract class AbstractNativeMojo
-    extends AbstractMojo
-{
+public abstract class AbstractNativeMojo extends AbstractMojo {
     public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
 
     public static final String LINKER_OUTPUT_PATH = "NativeLinkerOutputPath";
@@ -73,62 +72,47 @@ public abstract class AbstractNativeMojo
     @Parameter(defaultValue = "${project.build.directory}/native/include")
     protected File dependencyIncludeDirectory;
 
-    protected static String[] removeEmptyOptions( List<String> args )
-    {
-        return NativeMojoUtils.trimParams( args );
+    protected static String[] removeEmptyOptions(List<String> args) {
+        return NativeMojoUtils.trimParams(args);
     }
 
-    protected List<File> getAllCompilersOutputFileList()
-    {
+    protected List<File> getAllCompilersOutputFileList() {
         @SuppressWarnings("unchecked")
-        List<File> list = (List<File>) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
+        List<File> list = (List<File>) this.getPluginContext().get(AbstractNativeMojo.LINKER_INPUT_LIST_NAME);
 
-        if ( list == null )
-        {
+        if (list == null) {
             list = new ArrayList<>();
 
-            @SuppressWarnings({ "unchecked", "unused" })
-            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list );
+            @SuppressWarnings({"unchecked", "unused"})
+            Object unchecked = this.getPluginContext().put(AbstractNativeMojo.LINKER_INPUT_LIST_NAME, list);
         }
 
         return list;
-
     }
 
-    protected void saveCompilerOutputFilePaths( List<File> filePaths )
-        throws MojoExecutionException
-    {
+    protected void saveCompilerOutputFilePaths(List<File> filePaths) throws MojoExecutionException {
         List<File> allCompilerOutputFileList = getAllCompilersOutputFileList();
-        allCompilerOutputFileList.addAll( filePaths );
+        allCompilerOutputFileList.addAll(filePaths);
     }
 
     /**
      * Internal for unit test only
      */
-
-    protected MavenProject getProject()
-    {
+    protected MavenProject getProject() {
         return this.project;
     }
 
     private EnvFactory envFactory = null;
 
-    protected EnvFactory getEnvFactory()
-        throws MojoExecutionException
-    {
-        if ( envFactory == null && envFactoryName != null )
-        {
-            try
-            {
-                envFactory = this.envFactoryManager.getEnvFactory( this.envFactoryName );
-            }
-            catch ( NativeBuildException e )
-            {
-                throw new MojoExecutionException( e.getMessage(), e );
+    protected EnvFactory getEnvFactory() throws MojoExecutionException {
+        if (envFactory == null && envFactoryName != null) {
+            try {
+                envFactory = this.envFactoryManager.getEnvFactory(this.envFactoryName);
+            } catch (NativeBuildException e) {
+                throw new MojoExecutionException(e.getMessage(), e);
             }
         }
 
         return envFactory;
     }
-
 }

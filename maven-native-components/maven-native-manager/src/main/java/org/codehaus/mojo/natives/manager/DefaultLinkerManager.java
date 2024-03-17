@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -32,10 +33,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = LinkerManager.class, hint = "native-linker-provider-manager")
-public class DefaultLinkerManager
-    extends AbstractLogEnabled
-    implements LinkerManager, Initializable
-{
+public class DefaultLinkerManager extends AbstractLogEnabled implements LinkerManager, Initializable {
     @Requirement(role = Linker.class)
     private Map<String, Linker> providers;
 
@@ -44,28 +42,22 @@ public class DefaultLinkerManager
     // ----------------------------------------------------------------------
 
     @Override
-    public void initialize()
-    {
-        if ( providers == null )
-        {
+    public void initialize() {
+        if (providers == null) {
             providers = new HashMap<>();
         }
 
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No linker providers configured." );
+        if (providers.size() == 0) {
+            getLogger().warn("No linker providers configured.");
         }
     }
 
     @Override
-    public Linker getLinker( String providerType )
-        throws NoSuchNativeProviderException
-    {
-        Linker provider = providers.get( providerType );
+    public Linker getLinker(String providerType) throws NoSuchNativeProviderException {
+        Linker provider = providers.get(providerType);
 
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
+        if (provider == null) {
+            throw new NoSuchNativeProviderException(providerType);
         }
 
         return provider;

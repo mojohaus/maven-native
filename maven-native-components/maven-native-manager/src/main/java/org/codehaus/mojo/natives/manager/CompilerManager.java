@@ -25,8 +25,6 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.compiler.Compiler;
 
-public interface CompilerManager
-{
-    Compiler getCompiler( String roleHint )
-        throws NoSuchNativeProviderException;
+public interface CompilerManager {
+    Compiler getCompiler(String roleHint) throws NoSuchNativeProviderException;
 }

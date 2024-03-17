@@ -26,60 +26,55 @@ package org.codehaus.mojo.natives.msvc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Equivalent of Microsoft Visual C++ Toolkit 2003's vcvars32.bat
  */
-
-public class MSVC2003ToolkitEnvFactory
-    extends AbstractMSVCEnvFactory
-{
+public class MSVC2003ToolkitEnvFactory extends AbstractMSVCEnvFactory {
     private static final String MSVC2003_TOOLKIT_INSTALL_ENV_KEY = "MSVC2003_TOOLKIT_INSTALL_DIR";
 
     private static final String DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR =
             getProgramFiles() + "/Microsoft Visual C++ Toolkit 2003";
 
     @Override
-    protected Map<String, String> createEnvs()
-        throws NativeBuildException
-    {
-        File vcInstallDir = new File( EnvUtil.getEnv( MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
-                MSVC2003_TOOLKIT_INSTALL_ENV_KEY, DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR ) );
+    protected Map<String, String> createEnvs() throws NativeBuildException {
+        File vcInstallDir = new File(EnvUtil.getEnv(
+                MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
+                MSVC2003_TOOLKIT_INSTALL_ENV_KEY,
+                DEFAULT_MSVC2003_TOOLKT_INSTALL_DIR));
 
-        if ( !vcInstallDir.isDirectory() )
-        {
-            throw new NativeBuildException( vcInstallDir.getPath() + " is not a directory." );
+        if (!vcInstallDir.isDirectory()) {
+            throw new NativeBuildException(vcInstallDir.getPath() + " is not a directory.");
         }
 
         Map<String, String> envs = new HashMap<>();
 
         // setup new PATH
-        String currentPath = System.getProperty( "java.library.path" );
+        String currentPath = System.getProperty("java.library.path");
 
         String newPath = vcInstallDir.getPath() + "\\BIN;" + currentPath;
 
-        envs.put( "PATH", newPath );
+        envs.put("PATH", newPath);
 
         // setup new INCLUDE PATH
-        String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
+        String currentIncludePath = EnvUtil.getEnv("INCLUDE");
 
         String newIncludePath = vcInstallDir.getPath() + "\\INCLUDE;" + currentIncludePath;
 
-        envs.put( "INCLUDE", newIncludePath );
+        envs.put("INCLUDE", newIncludePath);
 
         //
         // setup new LIB PATH
         //
-        String currentLibPath = EnvUtil.getEnv( "LIB" );
+        String currentLibPath = EnvUtil.getEnv("LIB");
 
         String newLibPath = vcInstallDir.getPath() + "\\LIB;" + currentLibPath;
 
-        envs.put( "LIB", newLibPath );
+        envs.put("LIB", newLibPath);
 
         return envs;
-
     }
-
 }

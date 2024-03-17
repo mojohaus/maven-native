@@ -22,15 +22,12 @@ package org.codehaus.mojo.natives.parser;
  * @author CurtArnold
  * @see AbstractParser
  */
-public abstract class AbstractParserState
-{
+public abstract class AbstractParserState {
     private AbstractParser parser;
 
-    protected AbstractParserState( AbstractParser parser )
-    {
-        if ( parser == null )
-        {
-            throw new NullPointerException( "parser" );
+    protected AbstractParserState(AbstractParser parser) {
+        if (parser == null) {
+            throw new NullPointerException("parser");
         }
         this.parser = parser;
     }
@@ -40,10 +37,9 @@ public abstract class AbstractParserState
      *
      * @return new state, may be null to ignore the rest of the line
      */
-    public abstract AbstractParserState consume( char ch );
+    public abstract AbstractParserState consume(char ch);
 
-    protected AbstractParser getParser()
-    {
+    protected AbstractParser getParser() {
         return parser;
     }
 }

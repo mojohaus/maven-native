@@ -26,74 +26,63 @@ import java.util.Vector;
  * @author Adam Murdoch
  * @author Curt Arnold
  */
-public final class CParser
-    extends AbstractParser
-    implements Parser
-{
+public final class CParser extends AbstractParser implements Parser {
     private final Vector<String> includes = new Vector<>();
 
     private AbstractParserState newLineState;
 
-    public CParser()
-    {
-        AbstractParserState quote = new FilenameState( this, new char[] { '"' } );
-        AbstractParserState bracket = new FilenameState( this, new char[] { '>' } );
-        AbstractParserState postE = new PostE( this, bracket, quote );
+    public CParser() {
+        AbstractParserState quote = new FilenameState(this, new char[] {'"'});
+        AbstractParserState bracket = new FilenameState(this, new char[] {'>'});
+        AbstractParserState postE = new PostE(this, bracket, quote);
         //
         // nclude
         //
-        AbstractParserState e = new LetterState( this, 'e', postE, null );
-        AbstractParserState d = new LetterState( this, 'd', e, null );
-        AbstractParserState u = new LetterState( this, 'u', d, null );
-        AbstractParserState l = new LetterState( this, 'l', u, null );
-        AbstractParserState c = new LetterState( this, 'c', l, null );
-        AbstractParserState n = new LetterState( this, 'n', c, null );
+        AbstractParserState e = new LetterState(this, 'e', postE, null);
+        AbstractParserState d = new LetterState(this, 'd', e, null);
+        AbstractParserState u = new LetterState(this, 'u', d, null);
+        AbstractParserState l = new LetterState(this, 'l', u, null);
+        AbstractParserState c = new LetterState(this, 'c', l, null);
+        AbstractParserState n = new LetterState(this, 'n', c, null);
         //
         // mport is equivalent to nclude
         //
-        AbstractParserState t = new LetterState( this, 't', postE, null );
-        AbstractParserState r = new LetterState( this, 'r', t, null );
-        AbstractParserState o = new LetterState( this, 'o', r, null );
-        AbstractParserState p = new LetterState( this, 'p', o, null );
-        AbstractParserState m = new LetterState( this, 'm', p, null );
+        AbstractParserState t = new LetterState(this, 't', postE, null);
+        AbstractParserState r = new LetterState(this, 'r', t, null);
+        AbstractParserState o = new LetterState(this, 'o', r, null);
+        AbstractParserState p = new LetterState(this, 'p', o, null);
+        AbstractParserState m = new LetterState(this, 'm', p, null);
         //
         // switch between
         //
-        AbstractParserState n_m =
-                new BranchState( this, new char[] { 'n', 'm' }, new AbstractParserState[] { n, m }, null );
-        AbstractParserState i = new WhitespaceOrLetterState( this, 'i', n_m );
-        newLineState = new LetterState( this, '#', i, null );
+        AbstractParserState n_m = new BranchState(this, new char[] {'n', 'm'}, new AbstractParserState[] {n, m}, null);
+        AbstractParserState i = new WhitespaceOrLetterState(this, 'i', n_m);
+        newLineState = new LetterState(this, '#', i, null);
     }
 
     @Override
-    public void addFilename( String include )
-    {
-        includes.addElement( include );
+    public void addFilename(String include) {
+        includes.addElement(include);
     }
 
     @Override
-    public String[] getIncludes()
-    {
+    public String[] getIncludes() {
         String[] retval = new String[includes.size()];
 
-        includes.copyInto( retval );
+        includes.copyInto(retval);
 
         return retval;
     }
 
     @Override
-    public AbstractParserState getNewLineState()
-    {
+    public AbstractParserState getNewLineState() {
         return newLineState;
     }
 
     @Override
-    public void parse( Reader reader )
-        throws IOException
-    {
-        includes.setSize( 0 );
+    public void parse(Reader reader) throws IOException {
+        includes.setSize(0);
 
-        super.parse( reader );
+        super.parse(reader);
     }
-
 }

@@ -23,6 +23,7 @@ package org.codehaus.mojo.natives;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
@@ -32,8 +33,7 @@ import org.codehaus.plexus.util.DirectoryScanner;
  * @description
  * @version $Id$
  */
-public class NativeSources
-{
+public class NativeSources {
     private File directory;
 
     private String[] fileNames = new String[0];
@@ -55,42 +55,34 @@ public class NativeSources
      */
     private String[] excludes;
 
-    public NativeSources()
-    {
-
-    }
+    public NativeSources() {}
 
     /**
      * @return
      */
-    public File getDirectory()
-    {
+    public File getDirectory() {
         return this.directory;
     }
 
     /**
      * @param directory
      */
-    public void setDirectory( File directory )
-    {
+    public void setDirectory(File directory) {
         this.directory = directory;
     }
 
     /**
      * @return
      */
-    public String[] getFileNames()
-    {
+    public String[] getFileNames() {
         return this.fileNames;
     }
 
     /**
      * @param fileNames
      */
-    public void setFileNames( String[] fileNames )
-    {
-        if ( fileNames == null )
-        {
+    public void setFileNames(String[] fileNames) {
+        if (fileNames == null) {
             this.fileNames = new String[0];
         }
 
@@ -100,73 +92,63 @@ public class NativeSources
     /**
      * @return
      */
-    public String[] getIncludes()
-    {
+    public String[] getIncludes() {
         return this.includes;
     }
 
     /**
      * @param includes
      */
-    public void setIncludes( String[] includes )
-    {
+    public void setIncludes(String[] includes) {
         this.includes = includes;
     }
 
     /**
      * @return
      */
-    public String[] getExcludes()
-    {
+    public String[] getExcludes() {
         return this.excludes;
     }
 
     /**
      * @param excludes
      */
-    public void setExcludes( String[] excludes )
-    {
+    public void setExcludes(String[] excludes) {
         this.excludes = excludes;
     }
 
     /**
      * @return
      */
-    public boolean getDependencyAnalysisParticipation()
-    {
+    public boolean getDependencyAnalysisParticipation() {
         return this.dependencyAnalysisParticipation;
     }
 
     /**
      * @param flag
      */
-    public void setDependencyAnalysisParticipation( boolean flag )
-    {
+    public void setDependencyAnalysisParticipation(boolean flag) {
         this.dependencyAnalysisParticipation = flag;
     }
 
-    public boolean isDeployable()
-    {
+    public boolean isDeployable() {
         return deployable;
     }
 
-    public void setDeployable( boolean deployable )
-    {
+    public void setDeployable(boolean deployable) {
         this.deployable = deployable;
     }
 
     // //////////////////////////////////////////////////////////////////////////
 
-    public List<File> getFiles()
-    {
+    public List<File> getFiles() {
         String[] filePaths = new String[0];
 
-        if ( includes != null || excludes != null )
-        {
+        if (includes != null || excludes != null) {
             DirectoryScanner scanner = new DirectoryScanner();
-            scanner.setBasedir( this.directory );
-            scanner.setIncludes( includes );
-            scanner.setExcludes( excludes );
+            scanner.setBasedir(this.directory);
+            scanner.setIncludes(includes);
+            scanner.setExcludes(excludes);
             scanner.addDefaultExcludes();
 
             scanner.scan();
@@ -174,36 +156,30 @@ public class NativeSources
             filePaths = scanner.getIncludedFiles();
         }
 
-        List<File> files = new ArrayList<>( filePaths.length + this.fileNames.length );
-        for ( String filePath : filePaths )
-        {
-            files.add( new File( this.directory, filePath ) );
+        List<File> files = new ArrayList<>(filePaths.length + this.fileNames.length);
+        for (String filePath : filePaths) {
+            files.add(new File(this.directory, filePath));
         }
 
         // remove duplicate files
-        for ( String fileName : this.fileNames )
-        {
-            File file = new File( this.directory, fileName );
+        for (String fileName : this.fileNames) {
+            File file = new File(this.directory, fileName);
 
             boolean found = false;
 
-            for ( int k = 0; k < filePaths.length; ++k )
-            {
-                if ( files.get( k ).equals( file ) )
-                {
+            for (int k = 0; k < filePaths.length; ++k) {
+                if (files.get(k).equals(file)) {
                     found = true;
                     break;
                 }
             }
 
-            if ( !found )
-            {
-                files.add( file );
+            if (!found) {
+                files.add(file);
             }
         }
 
         return files;
-
     }
 
     // ///////////////////////////////////////////////////////////////////////
@@ -216,61 +192,49 @@ public class NativeSources
      * @param sources
      * @return
      */
-    public static File[] getAllSourceFiles( NativeSources[] sources )
-    {
-        if ( sources == null )
-        {
+    public static File[] getAllSourceFiles(NativeSources[] sources) {
+        if (sources == null) {
             return new File[0];
         }
 
         List<File> sourceFiles = new ArrayList<>();
 
-        for ( NativeSources source : sources )
-        {
-            sourceFiles.addAll( source.getFiles() );
+        for (NativeSources source : sources) {
+            sourceFiles.addAll(source.getFiles());
         }
 
-        return sourceFiles.toArray( new File[sourceFiles.size()] );
+        return sourceFiles.toArray(new File[sourceFiles.size()]);
     }
 
-    public static File[] getIncludePaths( NativeSources[] sources )
-    {
-        if ( sources == null )
-        {
+    public static File[] getIncludePaths(NativeSources[] sources) {
+        if (sources == null) {
             return new File[0];
         }
 
         List<File> list = new ArrayList<>();
 
-        for ( NativeSources source : sources )
-        {
-            if ( source.getDependencyAnalysisParticipation() )
-            {
-                list.add( source.getDirectory() );
+        for (NativeSources source : sources) {
+            if (source.getDependencyAnalysisParticipation()) {
+                list.add(source.getDirectory());
             }
         }
 
-        return list.toArray( new File[0] );
+        return list.toArray(new File[0]);
     }
 
-    public static File[] getSystemIncludePaths( NativeSources[] sources )
-    {
-        if ( sources == null )
-        {
+    public static File[] getSystemIncludePaths(NativeSources[] sources) {
+        if (sources == null) {
             return new File[0];
         }
 
         List<File> list = new ArrayList<>();
 
-        for ( NativeSources source : sources )
-        {
-            if ( !source.getDependencyAnalysisParticipation() )
-            {
-                list.add( source.getDirectory() );
+        for (NativeSources source : sources) {
+            if (!source.getDependencyAnalysisParticipation()) {
+                list.add(source.getDirectory());
             }
         }
 
-        return list.toArray( new File[0] );
+        return list.toArray(new File[0]);
     }
-
 }

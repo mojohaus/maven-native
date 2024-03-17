@@ -28,13 +28,10 @@ import java.util.Map;
 /**
  * @author dtran
  */
-public interface EnvFactory
-{
+public interface EnvFactory {
     /**
      * @return a map of environment variable/value pairs
      * @throws NativeBuildException
      */
-    Map<String, String> getEnvironmentVariables()
-        throws NativeBuildException;
-
+    Map<String, String> getEnvironmentVariables() throws NativeBuildException;
 }

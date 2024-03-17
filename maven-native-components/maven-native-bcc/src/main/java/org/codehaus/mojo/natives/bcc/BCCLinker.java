@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.bcc;
 
 import java.io.File;
 import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
 import org.codehaus.mojo.natives.linker.Linker;
@@ -34,19 +35,16 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Linker.class, hint = "bcc", instantiationStrategy = "per-lookup")
-public class BCCLinker
-    extends CLinker
-{
+public class BCCLinker extends CLinker {
 
     public static final String DEFAULT_EXECUTABLE = "ilink32";
 
     @Override
-    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
-        throws NativeBuildException
-    {
+    protected Commandline createLinkerCommandLine(List<File> objectFiles, LinkerConfiguration config)
+            throws NativeBuildException {
         Commandline cl = new Commandline();
 
-        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
 
         String executable = DEFAULT_EXECUTABLE;
 
@@ -54,44 +52,38 @@ public class BCCLinker
          * Turbo Incremental Link 5.68 Copyright (c) 1997-2005 Borland Syntax: ILINK32 options objfiles, exefile,
          * mapfile, libfiles, deffile, resfiles
          */
-        if ( config.getExecutable() != null && config.getExecutable().trim().length() != 0 )
-        {
+        if (config.getExecutable() != null && config.getExecutable().trim().length() != 0) {
             executable = config.getExecutable();
         }
 
-        cl.createArg().setValue( executable );
+        cl.createArg().setValue(executable);
 
-        cl.addArguments( config.getStartOptions() );
+        cl.addArguments(config.getStartOptions());
 
         // objfiles
-        for ( File objFile : objectFiles )
-        {
-            cl.createArg().setValue( objFile.getPath() );
+        for (File objFile : objectFiles) {
+            cl.createArg().setValue(objFile.getPath());
         }
 
-        for ( String fileName : config.getExternalLibFileNames() )
-        {
-            if ( !FileUtils.getExtension( fileName ).equalsIgnoreCase( "res" ) )
-            {
-                cl.createArg().setFile( new File( config.getExternalLibDirectory(), fileName ) );
+        for (String fileName : config.getExternalLibFileNames()) {
+            if (!FileUtils.getExtension(fileName).equalsIgnoreCase("res")) {
+                cl.createArg().setFile(new File(config.getExternalLibDirectory(), fileName));
             }
         }
 
         // ouput file
-        cl.createArg().setValue( "," + config.getOutputFile() );
+        cl.createArg().setValue("," + config.getOutputFile());
 
         // map files + system lib, and def file to be given by user in middle options
         // a comma is required between map, lib, and def
-        cl.createArg().setValue( "," );
-        cl.addArguments( config.getMiddleOptions() );
+        cl.createArg().setValue(",");
+        cl.addArguments(config.getMiddleOptions());
 
         // res file
-        cl.createArg().setValue( "," );
-        for ( String fileName : config.getExternalLibFileNames() )
-        {
-            if ( FileUtils.getExtension( fileName ).equalsIgnoreCase( "res" ) )
-            {
-                cl.createArg().setFile( new File( config.getExternalLibDirectory(), fileName ) );
+        cl.createArg().setValue(",");
+        for (String fileName : config.getExternalLibFileNames()) {
+            if (FileUtils.getExtension(fileName).equalsIgnoreCase("res")) {
+                cl.createArg().setFile(new File(config.getExternalLibDirectory(), fileName));
             }
         }
 

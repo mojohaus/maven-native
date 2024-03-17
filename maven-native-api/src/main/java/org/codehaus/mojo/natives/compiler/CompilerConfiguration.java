@@ -30,9 +30,7 @@ import org.codehaus.mojo.natives.ConfigurationBase;
 /**
  * CompilerConfiguration contains inputs by the user + DependencyMangement for dependencies analysis
  */
-public class CompilerConfiguration
-    extends ConfigurationBase
-{
+public class CompilerConfiguration extends ConfigurationBase {
 
     private File workingDirectory;
 
@@ -63,122 +61,96 @@ public class CompilerConfiguration
 
     private int numberOfConcurrentCompilation = 4;
 
-    public CompilerConfiguration()
-    {
-    }
+    public CompilerConfiguration() {}
 
-    public File getWorkingDirectory()
-    {
+    public File getWorkingDirectory() {
         return this.workingDirectory;
     }
 
-    public void setWorkingDirectory( File dir )
-    {
+    public void setWorkingDirectory(File dir) {
         this.workingDirectory = dir;
     }
 
-    public String getExecutable()
-    {
+    public String getExecutable() {
         return this.executable;
     }
 
-    public void setExecutable( String executable )
-    {
+    public void setExecutable(String executable) {
         this.executable = executable;
     }
 
-    public String getObjectFileExtension()
-    {
+    public String getObjectFileExtension() {
         return this.objectFileExtension;
     }
 
-    public void setObjectFileExtension( String ofe )
-    {
+    public void setObjectFileExtension(String ofe) {
         this.objectFileExtension = ofe;
     }
 
-    public void setSystemIncludePaths( File[] paths )
-    {
+    public void setSystemIncludePaths(File[] paths) {
         this.systemIncludePaths = paths;
     }
 
-    public File[] getSystemIncludePaths()
-    {
-        if ( this.systemIncludePaths == null )
-        {
+    public File[] getSystemIncludePaths() {
+        if (this.systemIncludePaths == null) {
             return new File[0];
         }
 
         return this.systemIncludePaths;
     }
 
-    public void setIncludePaths( File[] paths )
-    {
+    public void setIncludePaths(File[] paths) {
         this.includePaths = paths;
     }
 
-    public File[] getIncludePaths()
-    {
-        if ( this.includePaths == null )
-        {
+    public File[] getIncludePaths() {
+        if (this.includePaths == null) {
             return new File[0];
         }
 
         return this.includePaths;
     }
 
-    public File getOutputDirectory()
-    {
+    public File getOutputDirectory() {
         return this.outputDirectory;
     }
 
-    public void setOutputDirectory( File dir )
-    {
+    public void setOutputDirectory(File dir) {
         this.outputDirectory = dir;
     }
 
-    public String[] getStartOptions()
-    {
-        if ( this.startOptions == null )
-        {
+    public String[] getStartOptions() {
+        if (this.startOptions == null) {
             return new String[0];
         }
         return this.startOptions;
     }
 
-    public void setStartOptions( String[] options )
-    {
+    public void setStartOptions(String[] options) {
         this.startOptions = options;
     }
 
-    public String[] getMiddleOptions()
-    {
+    public String[] getMiddleOptions() {
         return this.middleOptions;
     }
 
-    public void setMiddleOptions( String[] options )
-    {
+    public void setMiddleOptions(String[] options) {
         this.middleOptions = options;
     }
 
-    public String[] getEndOptions()
-    {
+    public String[] getEndOptions() {
         return this.endOptions;
     }
 
-    public void setEndOptions( String[] options )
-    {
+    public void setEndOptions(String[] options) {
         this.endOptions = options;
     }
 
-    public int getNumberOfConcurrentCompilation()
-    {
+    public int getNumberOfConcurrentCompilation() {
         return numberOfConcurrentCompilation;
     }
 
-    public void setNumberOfConcurrentCompilation( int numberOfConcurrentCompilation )
-    {
+    public void setNumberOfConcurrentCompilation(int numberOfConcurrentCompilation) {
         this.numberOfConcurrentCompilation = numberOfConcurrentCompilation;
     }
-
 }

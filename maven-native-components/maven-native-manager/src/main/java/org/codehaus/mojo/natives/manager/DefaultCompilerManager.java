@@ -33,10 +33,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = CompilerManager.class, hint = "native-compiler-provider-manager")
-public class DefaultCompilerManager
-    extends AbstractLogEnabled
-    implements CompilerManager, Initializable
-{
+public class DefaultCompilerManager extends AbstractLogEnabled implements CompilerManager, Initializable {
     @Requirement(role = Compiler.class)
     private Map<String, Compiler> providers;
 
@@ -45,28 +42,22 @@ public class DefaultCompilerManager
     // ----------------------------------------------------------------------
 
     @Override
-    public void initialize()
-    {
-        if ( providers == null )
-        {
+    public void initialize() {
+        if (providers == null) {
             providers = new HashMap<>();
         }
 
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No compiler providers configured." );
+        if (providers.size() == 0) {
+            getLogger().warn("No compiler providers configured.");
         }
     }
 
     @Override
-    public Compiler getCompiler( String providerType )
-        throws NoSuchNativeProviderException
-    {
-        Compiler provider = providers.get( providerType );
+    public Compiler getCompiler(String providerType) throws NoSuchNativeProviderException {
+        Compiler provider = providers.get(providerType);
 
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
+        if (provider == null) {
+            throw new NoSuchNativeProviderException(providerType);
         }
 
         return provider;

@@ -20,57 +20,43 @@
  */
 package org.codehaus.mojo.natives.javah;
 
+import java.io.File;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.plexus.util.cli.Commandline;
 
-import java.io.File;
-
 /**
  * Sun's javah compatible implementation
  */
+public class JavahExecutable extends AbstractJavah {
+    public JavahExecutable() {}
 
-public class JavahExecutable
-    extends AbstractJavah
-{
-    public JavahExecutable()
-    {
+    public void compile(JavahConfiguration config) throws NativeBuildException {
+        Commandline cl = this.createJavahCommand(config);
+
+        CommandLineUtil.execute(cl, this.getLogger());
     }
 
-    public void compile( JavahConfiguration config )
-        throws NativeBuildException
-    {
-        Commandline cl = this.createJavahCommand( config );
-
-        CommandLineUtil.execute( cl, this.getLogger() );
-    }
-
-    protected Commandline createJavahCommand( JavahConfiguration config )
-        throws NativeBuildException
-    {
-        this.validateConfiguration( config );
+    protected Commandline createJavahCommand(JavahConfiguration config) throws NativeBuildException {
+        this.validateConfiguration(config);
 
         Commandline cl = new Commandline();
 
-        if ( config.getWorkingDirectory() != null )
-        {
-            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        if (config.getWorkingDirectory() != null) {
+            cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
         }
 
-        cl.setExecutable( this.getJavaHExecutable( config ) );
+        cl.setExecutable(this.getJavaHExecutable(config));
 
-        if ( config.getFileName() != null && config.getFileName().length() > 0 )
-        {
-            File outputFile = new File( config.getOutputDirectory(), config.getFileName() );
-            cl.createArg().setValue( "-o" );
-            cl.createArg().setFile( outputFile );
-        }
-        else
-        {
-            if ( config.getOutputDirectory() != null )
-            {
-                cl.createArg().setValue( "-d" );
-                cl.createArg().setFile( config.getOutputDirectory() );
+        if (config.getFileName() != null && config.getFileName().length() > 0) {
+            File outputFile = new File(config.getOutputDirectory(), config.getFileName());
+            cl.createArg().setValue("-o");
+            cl.createArg().setFile(outputFile);
+        } else {
+            if (config.getOutputDirectory() != null) {
+                cl.createArg().setValue("-d");
+                cl.createArg().setFile(config.getOutputDirectory());
             }
         }
 
@@ -78,74 +64,58 @@ public class JavahExecutable
 
         StringBuilder classPathBuffer = new StringBuilder();
 
-        for ( int i = 0; i < classPaths.length; ++i )
-        {
-            classPathBuffer.append( classPaths[i] );
-            if ( i != classPaths.length - 1 )
-            {
-                classPathBuffer.append( File.pathSeparatorChar );
+        for (int i = 0; i < classPaths.length; ++i) {
+            classPathBuffer.append(classPaths[i]);
+            if (i != classPaths.length - 1) {
+                classPathBuffer.append(File.pathSeparatorChar);
             }
         }
 
-        if ( config.getUseEnvClasspath() )
-        {
-            cl.addEnvironment( "CLASSPATH", classPathBuffer.toString() );
-        }
-        else
-        {
-            cl.createArg().setValue( "-classpath" );
+        if (config.getUseEnvClasspath()) {
+            cl.addEnvironment("CLASSPATH", classPathBuffer.toString());
+        } else {
+            cl.createArg().setValue("-classpath");
 
-            cl.createArg().setValue( classPathBuffer.toString() );
+            cl.createArg().setValue(classPathBuffer.toString());
         }
 
-        if ( config.getVerbose() )
-        {
-            cl.createArg().setValue( "-verbose" );
+        if (config.getVerbose()) {
+            cl.createArg().setValue("-verbose");
         }
 
-        cl.addArguments( config.getClassNames() );
+        cl.addArguments(config.getClassNames());
 
         return cl;
     }
 
-    private void validateConfiguration( JavahConfiguration config )
-        throws NativeBuildException
-    {
-        if ( config.getClassPaths() == null || config.getClassPaths().length == 0 )
-        {
-            throw new NativeBuildException( "javah classpaths can not be empty." );
+    private void validateConfiguration(JavahConfiguration config) throws NativeBuildException {
+        if (config.getClassPaths() == null || config.getClassPaths().length == 0) {
+            throw new NativeBuildException("javah classpaths can not be empty.");
         }
 
-        if ( config.getOutputDirectory() == null )
-        {
-            throw new NativeBuildException( "javah destDir can not be empty." );
+        if (config.getOutputDirectory() == null) {
+            throw new NativeBuildException("javah destDir can not be empty.");
         }
 
-        if ( !config.getOutputDirectory().exists() )
-        {
+        if (!config.getOutputDirectory().exists()) {
             config.getOutputDirectory().mkdirs();
         }
 
-        if ( config.getClassNames() == null || config.getClassNames().length == 0 )
-        {
-            throw new NativeBuildException( "javah: java classes can not be empty." );
+        if (config.getClassNames() == null || config.getClassNames().length == 0) {
+            throw new NativeBuildException("javah: java classes can not be empty.");
         }
-
     }
 
     /**
      * @return
      */
-    protected String getJavaHExecutable( JavahConfiguration config )
-    {
+    protected String getJavaHExecutable(JavahConfiguration config) {
         String path = "javah";
 
-        if ( config.getJavahPath() != null )
-        {
+        if (config.getJavahPath() != null) {
             path = config.getJavahPath().getAbsolutePath();
         }
 
         return path;
     }
-
 }

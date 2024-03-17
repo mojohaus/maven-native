@@ -23,62 +23,53 @@
  */
 package org.codehaus.mojo.natives.msvc;
 
+import java.io.File;
+
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
 import org.codehaus.mojo.natives.compiler.AbstractMessageCompiler;
+import org.codehaus.mojo.natives.compiler.MessageCompiler;
+import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
 import org.codehaus.mojo.natives.util.EnvUtil;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
-import java.io.File;
-import org.codehaus.mojo.natives.compiler.MessageCompiler;
-import org.codehaus.plexus.component.annotations.Component;
-
 @Component(role = MessageCompiler.class, hint = "msvc")
-public class MSVCMessageCompiler
-    extends AbstractMessageCompiler
-{
+public class MSVCMessageCompiler extends AbstractMessageCompiler {
 
-    protected Commandline getCommandLine( MessageCompilerConfiguration config, File source )
-        throws NativeBuildException
-    {
+    protected Commandline getCommandLine(MessageCompilerConfiguration config, File source) throws NativeBuildException {
 
         Commandline cl = new Commandline();
 
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
+        EnvUtil.setupCommandlineEnv(cl, config.getEnvFactory());
 
-        if ( config.getWorkingDirectory() != null )
-        {
-            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        if (config.getWorkingDirectory() != null) {
+            cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
         }
 
-        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-        {
-            config.setExecutable( "mc.exe" );
+        if (config.getExecutable() == null || config.getExecutable().trim().length() == 0) {
+            config.setExecutable("mc.exe");
         }
-        cl.setExecutable( config.getExecutable().trim() );
+        cl.setExecutable(config.getExecutable().trim());
 
-        cl.addArguments( config.getOptions() );
+        cl.addArguments(config.getOptions());
 
-        if ( config.getOutputDirectory() != null && config.getOutputDirectory().getPath().trim().length() != 0 )
-        {
-            cl.createArg().setValue( "-r" );
-            cl.createArg().setValue( config.getOutputDirectory().getPath() );
+        if (config.getOutputDirectory() != null
+                && config.getOutputDirectory().getPath().trim().length() != 0) {
+            cl.createArg().setValue("-r");
+            cl.createArg().setValue(config.getOutputDirectory().getPath());
 
-            cl.createArg().setValue( "-h" );
-            cl.createArg().setValue( config.getOutputDirectory().getPath() );
-
+            cl.createArg().setValue("-h");
+            cl.createArg().setValue(config.getOutputDirectory().getPath());
         }
 
-        if ( config.getDebugOutputDirectory() != null
-                && config.getDebugOutputDirectory().getPath().trim().length() != 0 )
-        {
-            cl.createArg().setValue( "-x" );
-            cl.createArg().setValue( config.getDebugOutputDirectory().getPath() );
+        if (config.getDebugOutputDirectory() != null
+                && config.getDebugOutputDirectory().getPath().trim().length() != 0) {
+            cl.createArg().setValue("-x");
+            cl.createArg().setValue(config.getDebugOutputDirectory().getPath());
         }
 
-        cl.createArg().setValue( source.getPath() );
+        cl.createArg().setValue(source.getPath());
 
         return cl;
     }
-
 }

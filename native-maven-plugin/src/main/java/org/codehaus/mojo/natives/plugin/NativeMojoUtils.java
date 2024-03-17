@@ -25,46 +25,39 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.codehaus.plexus.util.StringUtils;
 
-public class NativeMojoUtils
-{
+public class NativeMojoUtils {
     /**
      * Remove/trim empty or null member of a string array
      *
      * @param args
      * @return
      */
-    public static String[] trimParams( List<String> args )
-    {
-        if ( args == null )
-        {
+    public static String[] trimParams(List<String> args) {
+        if (args == null) {
             return new String[0];
         }
 
         List<String> tokenArray = new ArrayList<>();
 
-        for ( String arg : args )
-        {
-            if ( arg == null || arg.length() == 0 )
-            {
+        for (String arg : args) {
+            if (arg == null || arg.length() == 0) {
                 continue;
             }
 
-            String[] tokens = StringUtils.split( arg );
+            String[] tokens = StringUtils.split(arg);
 
-            for ( String token : tokens )
-            {
-                if ( token == null || token.trim().length() == 0 )
-                {
+            for (String token : tokens) {
+                if (token == null || token.trim().length() == 0) {
                     continue;
                 }
 
-                tokenArray.add( token.trim() );
+                tokenArray.add(token.trim());
             }
         }
 
-        return tokenArray.toArray( new String[tokenArray.size()] );
+        return tokenArray.toArray(new String[tokenArray.size()]);
     }
-
 }

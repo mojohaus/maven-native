@@ -22,8 +22,7 @@ package org.codehaus.mojo.natives.javah;
 
 import java.io.File;
 
-public class JavahConfiguration
-{
+public class JavahConfiguration {
     /**
      * Working directory where javah command will run
      */
@@ -59,83 +58,67 @@ public class JavahConfiguration
 
     private boolean verbose = false;
 
-    public void setOutputDirectory( File dir )
-    {
+    public void setOutputDirectory(File dir) {
         this.outputDirectory = dir;
     }
 
-    public File getOutputDirectory()
-    {
+    public File getOutputDirectory() {
         return this.outputDirectory;
     }
 
-    public String[] getClassPaths()
-    {
+    public String[] getClassPaths() {
         return this.classPaths;
     }
 
-    public void setJavahPath( File javahPath )
-    {
+    public void setJavahPath(File javahPath) {
         this.javahPath = javahPath;
     }
 
-    public void setClassPaths( String[] paths )
-    {
+    public void setClassPaths(String[] paths) {
         this.classPaths = paths;
     }
 
-    public void setUseEnvClasspath( boolean flag )
-    {
+    public void setUseEnvClasspath(boolean flag) {
         this.useEnvClasspath = flag;
     }
 
-    public boolean getUseEnvClasspath()
-    {
+    public boolean getUseEnvClasspath() {
         return this.useEnvClasspath;
     }
 
-    public void setVerbose( boolean flag )
-    {
+    public void setVerbose(boolean flag) {
         this.verbose = flag;
     }
 
-    public File getJavahPath()
-    {
+    public File getJavahPath() {
         return this.javahPath;
     }
 
-    public boolean getVerbose()
-    {
+    public boolean getVerbose() {
         return this.verbose;
     }
 
-    public void setClassNames( String[] names )
-    {
+    public void setClassNames(String[] names) {
         this.classNames = names;
     }
 
-    public String[] getClassNames()
-    {
+    public String[] getClassNames() {
         return this.classNames;
     }
 
-    public void setFileName( String name )
-    {
+    public void setFileName(String name) {
         this.fileName = name;
     }
 
-    public String getFileName()
-    {
+    public String getFileName() {
         return this.fileName;
     }
 
-    public File getWorkingDirectory()
-    {
+    public File getWorkingDirectory() {
         return this.workingDirectory;
     }
 
-    public void setWorkingDirectory( File dir )
-    {
+    public void setWorkingDirectory(File dir) {
         this.workingDirectory = dir;
     }
 }

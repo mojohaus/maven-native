@@ -26,78 +26,73 @@ package org.codehaus.mojo.natives.msvc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
 
 /**
  * Equivalent of MSVC2005's vcvars32.bat
  */
-
-public class MSVC2005x86EnvFactory
-    extends AbstractMSVC2005EnvFactory
-{
+public class MSVC2005x86EnvFactory extends AbstractMSVC2005EnvFactory {
 
     @Override
-    protected Map<String, String> createEnvs()
-        throws NativeBuildException
-    {
+    protected Map<String, String> createEnvs() throws NativeBuildException {
         File vsInstallDir = new File(
-                EnvUtil.getEnv( MSVS2005_INSTALL_ENV_KEY, MSVS2005_INSTALL_ENV_KEY, DEFAULT_MSVS2005_INSTALL_DIR ) );
+                EnvUtil.getEnv(MSVS2005_INSTALL_ENV_KEY, MSVS2005_INSTALL_ENV_KEY, DEFAULT_MSVS2005_INSTALL_DIR));
 
-        if ( !vsInstallDir.isDirectory() )
-        {
-            throw new NativeBuildException( vsInstallDir.getPath() + " is not a directory." );
+        if (!vsInstallDir.isDirectory()) {
+            throw new NativeBuildException(vsInstallDir.getPath() + " is not a directory.");
         }
 
         Map<String, String> envs = new HashMap<>();
 
-        envs.put( "VSINSTALLDIR", vsInstallDir.getPath() );
+        envs.put("VSINSTALLDIR", vsInstallDir.getPath());
 
-        File vcInstallDir = new File( vsInstallDir.getPath() + "/VC" );
-        envs.put( "VCINSTALLDIR", vcInstallDir.getPath() );
+        File vcInstallDir = new File(vsInstallDir.getPath() + "/VC");
+        envs.put("VCINSTALLDIR", vcInstallDir.getPath());
 
-        File frameworkDir = new File( getSystemRoot() + "/Microsoft.NET/Framework" );
-        envs.put( "FrameworkDir", frameworkDir.getPath() );
+        File frameworkDir = new File(getSystemRoot() + "/Microsoft.NET/Framework");
+        envs.put("FrameworkDir", frameworkDir.getPath());
 
         String frameworkVersion = "v2.0.50727";
-        envs.put( "FrameworkVersion", frameworkVersion );
+        envs.put("FrameworkVersion", frameworkVersion);
 
-        File frameworkSDKDir = new File( vsInstallDir.getPath() + "/SDK/v2.0" );
-        envs.put( "FrameworkSDKDir", frameworkSDKDir.getPath() );
+        File frameworkSDKDir = new File(vsInstallDir.getPath() + "/SDK/v2.0");
+        envs.put("FrameworkSDKDir", frameworkSDKDir.getPath());
 
-        File devEnvDir = new File( vsInstallDir.getPath() + "/Common7/IDE" );
-        envs.put( "DevEnvDir", devEnvDir.getPath() );
+        File devEnvDir = new File(vsInstallDir.getPath() + "/Common7/IDE");
+        envs.put("DevEnvDir", devEnvDir.getPath());
 
-        File platformSDKDir = new File( vcInstallDir.getPath() + "/PlatformSDK" );
+        File platformSDKDir = new File(vcInstallDir.getPath() + "/PlatformSDK");
 
         // setup new PATH
-        String currentPath = System.getProperty( "java.library.path" );
+        String currentPath = System.getProperty("java.library.path");
 
         String newPath = devEnvDir.getPath() + ";" + vcInstallDir.getPath() + "\\BIN;" + vcInstallDir.getPath()
                 + "\\Common7\\Tools;" + vcInstallDir.getPath() + "\\Common7\\Tools\\bin;" + platformSDKDir.getPath()
                 + "\\BIN;" + frameworkSDKDir.getPath() + "\\BIN;" + frameworkDir.getPath() + "\\" + frameworkVersion
                 + ";" + vcInstallDir.getPath() + "\\VCPackages;" + currentPath;
 
-        envs.put( "PATH", newPath );
+        envs.put("PATH", newPath);
 
         // setup new INCLUDE PATH
-        String currentIncludePath = EnvUtil.getEnv( "INCLUDE" );
+        String currentIncludePath = EnvUtil.getEnv("INCLUDE");
 
         String newIncludePath = vcInstallDir.getPath() + "\\ATLMFC\\INCLUDE;" + vcInstallDir.getPath() + "\\INCLUDE;"
                 + platformSDKDir.getPath() + "\\INCLUDE;" + frameworkSDKDir.getPath() + "\\INCLUDE;"
                 + currentIncludePath;
 
-        envs.put( "INCLUDE", newIncludePath );
+        envs.put("INCLUDE", newIncludePath);
 
         //
         // setup new LIB PATH
         //
-        String currentLibPath = EnvUtil.getEnv( "LIB" );
+        String currentLibPath = EnvUtil.getEnv("LIB");
 
         String newLibPath = vcInstallDir.getPath() + "\\ATLMFC\\LIB;" + vcInstallDir.getPath() + "\\LIB;"
                 + platformSDKDir.getPath() + "\\LIB;" + frameworkSDKDir.getPath() + "\\LIB;" + currentLibPath;
 
-        envs.put( "LIB", newLibPath );
+        envs.put("LIB", newLibPath);
 
         //
         // setup new LIBPATH
@@ -106,13 +101,11 @@ public class MSVC2005x86EnvFactory
         String currentLibPathPath =
                 frameworkDir.getPath() + "\\" + frameworkVersion + ";" + vcInstallDir.getPath() + "\\ATLMFC\\LIB";
 
-        envs.put( "LIBPATH", currentLibPathPath );
+        envs.put("LIBPATH", currentLibPathPath);
 
         // http://forums.microsoft.com/MSDN/ShowPost.aspx?PostID=473294&SiteID=1
-        envs.put( "SystemRoot", getSystemRoot() );
+        envs.put("SystemRoot", getSystemRoot());
 
         return envs;
-
     }
-
 }

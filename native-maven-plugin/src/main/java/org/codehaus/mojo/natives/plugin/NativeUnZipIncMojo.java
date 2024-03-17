@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -41,10 +42,11 @@ import org.codehaus.plexus.archiver.manager.ArchiverManager;
  *
  * @since 1.0-alpha-4
  */
-@Mojo(name = "unzipinc", defaultPhase = LifecyclePhase.GENERATE_SOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class NativeUnZipIncMojo
-    extends AbstractNativeMojo
-{
+@Mojo(
+        name = "unzipinc",
+        defaultPhase = LifecyclePhase.GENERATE_SOURCES,
+        requiresDependencyResolution = ResolutionScope.COMPILE)
+public class NativeUnZipIncMojo extends AbstractNativeMojo {
 
     /**
      * Internal
@@ -63,80 +65,61 @@ public class NativeUnZipIncMojo
     private ArchiverManager archiverManager;
 
     @Override
-    public void execute()
-        throws MojoExecutionException
-    {
-        if ( unpackIncZipDepenedencies() )
-        {
-            @SuppressWarnings({ "unused", "unchecked" })
-            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.INCZIP_FOUND, Boolean.TRUE );
+    public void execute() throws MojoExecutionException {
+        if (unpackIncZipDepenedencies()) {
+            @SuppressWarnings({"unused", "unchecked"})
+            Object unchecked = this.getPluginContext().put(AbstractNativeMojo.INCZIP_FOUND, Boolean.TRUE);
         }
     }
 
-    private boolean unpackIncZipDepenedencies()
-        throws MojoExecutionException
-    {
+    private boolean unpackIncZipDepenedencies() throws MojoExecutionException {
         List<Artifact> files = getIncZipDependencies();
 
         Iterator<Artifact> iter = files.iterator();
 
-        for ( int i = 0; i < files.size(); ++i )
-        {
+        for (int i = 0; i < files.size(); ++i) {
             Artifact artifact = iter.next();
             File incZipFile = artifact.getFile();
 
-            File marker = new File( this.dependencyIncZipMarkerDirectory,
-                    artifact.getGroupId() + "." + artifact.getArtifactId() );
+            File marker = new File(
+                    this.dependencyIncZipMarkerDirectory, artifact.getGroupId() + "." + artifact.getArtifactId());
 
-            if ( !marker.exists() || marker.lastModified() < incZipFile.lastModified() )
-            {
-                try
-                {
-                    unpackZipFile( incZipFile );
+            if (!marker.exists() || marker.lastModified() < incZipFile.lastModified()) {
+                try {
+                    unpackZipFile(incZipFile);
 
                     marker.delete();
 
-                    if ( !dependencyIncZipMarkerDirectory.exists() )
-                    {
+                    if (!dependencyIncZipMarkerDirectory.exists()) {
                         dependencyIncZipMarkerDirectory.mkdirs();
                     }
 
                     marker.createNewFile();
-                }
-                catch ( IOException e )
-                {
-                    throw new MojoExecutionException( e.getMessage(), e );
+                } catch (IOException e) {
+                    throw new MojoExecutionException(e.getMessage(), e);
                 }
             }
         }
 
         return files.size() != 0;
-
     }
 
-    protected void unpackZipFile( File zipFile )
-        throws MojoExecutionException
-    {
-        this.getLog().info( "Unpacking: " + zipFile );
+    protected void unpackZipFile(File zipFile) throws MojoExecutionException {
+        this.getLog().info("Unpacking: " + zipFile);
 
-        try
-        {
-            if ( !dependencyIncludeDirectory.exists() )
-            {
+        try {
+            if (!dependencyIncludeDirectory.exists()) {
                 dependencyIncludeDirectory.mkdirs();
             }
 
-            UnArchiver archiver = this.archiverManager.getUnArchiver( "zip" );
-            archiver.setOverwrite( true );
-            archiver.setDestDirectory( this.dependencyIncludeDirectory );
-            archiver.setSourceFile( zipFile );
+            UnArchiver archiver = this.archiverManager.getUnArchiver("zip");
+            archiver.setOverwrite(true);
+            archiver.setDestDirectory(this.dependencyIncludeDirectory);
+            archiver.setSourceFile(zipFile);
             archiver.extract();
+        } catch (Exception e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         }
-        catch ( Exception e )
-        {
-            throw new MojoExecutionException( e.getMessage(), e );
-        }
-
     }
 
     /**
@@ -144,27 +127,22 @@ public class NativeUnZipIncMojo
      *
      * @return
      */
-    private List<Artifact> getIncZipDependencies()
-    {
+    private List<Artifact> getIncZipDependencies() {
         List<Artifact> list = new ArrayList<>();
 
         Set<Artifact> artifacts = this.project.getDependencyArtifacts();
 
-        if ( artifacts != null )
-        {
-            for ( Artifact artifact : artifacts )
-            {
+        if (artifacts != null) {
+            for (Artifact artifact : artifacts) {
                 // pick up only native header archive
-                if ( !INCZIP_TYPE.equals( artifact.getType() ) )
-                {
+                if (!INCZIP_TYPE.equals(artifact.getType())) {
                     continue;
                 }
 
-                list.add( artifact );
+                list.add(artifact);
             }
         }
 
         return list;
     }
-
 }

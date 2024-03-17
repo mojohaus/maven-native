@@ -22,6 +22,7 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -37,9 +38,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  * Compile Windows message files
  */
 @Mojo(name = "compile-message", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public class NativeMessageCompileMojo
-    extends AbstractNativeMojo
-{
+public class NativeMessageCompileMojo extends AbstractNativeMojo {
 
     /**
      * Compiler Provider Type
@@ -90,50 +89,38 @@ public class NativeMessageCompileMojo
     private MessageCompilerManager manager;
 
     @Override
-    public void execute()
-        throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
 
-        if ( !this.messageCompilerOutputDirectory.exists() )
-        {
+        if (!this.messageCompilerOutputDirectory.exists()) {
             this.messageCompilerOutputDirectory.mkdirs();
         }
 
         MessageCompiler compiler = this.getMessageCompiler();
         MessageCompilerConfiguration config = new MessageCompilerConfiguration();
 
-        config.setExecutable( this.messageCompilerExecutable );
-        config.setWorkingDirectory( this.workingDirectory );
-        config.setOutputDirectory( this.messageCompilerOutputDirectory );
-        config.setOptions( NativeMojoUtils.trimParams( this.messageCompilerOptions ) );
-        config.setEnvFactory( this.getEnvFactory() );
+        config.setExecutable(this.messageCompilerExecutable);
+        config.setWorkingDirectory(this.workingDirectory);
+        config.setOutputDirectory(this.messageCompilerOutputDirectory);
+        config.setOptions(NativeMojoUtils.trimParams(this.messageCompilerOptions));
+        config.setEnvFactory(this.getEnvFactory());
 
-        try
-        {
-            compiler.compile( config, this.messageFiles );
-        }
-        catch ( NativeBuildException e )
-        {
-            throw new MojoExecutionException( e.getMessage(), e );
+        try {
+            compiler.compile(config, this.messageFiles);
+        } catch (NativeBuildException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         }
 
-        this.project.addCompileSourceRoot( this.messageCompilerOutputDirectory.getAbsolutePath() );
-
+        this.project.addCompileSourceRoot(this.messageCompilerOutputDirectory.getAbsolutePath());
     }
 
-    private MessageCompiler getMessageCompiler()
-        throws MojoExecutionException
-    {
+    private MessageCompiler getMessageCompiler() throws MojoExecutionException {
         MessageCompiler mc;
 
-        try
-        {
-            mc = this.manager.getMessageCompiler( this.provider );
+        try {
+            mc = this.manager.getMessageCompiler(this.provider);
 
-        }
-        catch ( NoSuchNativeProviderException pe )
-        {
-            throw new MojoExecutionException( pe.getMessage() );
+        } catch (NoSuchNativeProviderException pe) {
+            throw new MojoExecutionException(pe.getMessage());
         }
 
         return mc;

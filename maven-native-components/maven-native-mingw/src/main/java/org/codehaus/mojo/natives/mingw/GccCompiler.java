@@ -30,13 +30,9 @@ import org.codehaus.plexus.component.annotations.Component;
  * Generic MinGW compiler with "-o " as its output option
  */
 @Component(role = Compiler.class, hint = "mingw", instantiationStrategy = "per-lookup")
-public class GccCompiler
-    extends AbstractGccCompiler
-{
+public class GccCompiler extends AbstractGccCompiler {
 
-    protected String getOutputFileOption()
-    {
+    protected String getOutputFileOption() {
         return "-o ";
     }
-
 }

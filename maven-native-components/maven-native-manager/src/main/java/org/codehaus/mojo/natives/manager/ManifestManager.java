@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.linker.Manifest;
 
-public interface ManifestManager
-{
+public interface ManifestManager {
     String ROLE = ManifestManager.class.getName();
 
-    Manifest getManifest( String roleHint )
-        throws NoSuchNativeProviderException;
+    Manifest getManifest(String roleHint) throws NoSuchNativeProviderException;
 }

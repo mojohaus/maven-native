@@ -29,8 +29,7 @@ import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 
-public interface ResourceCompiler
-{
+public interface ResourceCompiler {
     String ROLE = ResourceCompiler.class.getName();
 
     /**
@@ -39,7 +38,5 @@ public interface ResourceCompiler
      * @return List of resource ouput files
      * @throws NativeBuildException
      */
-    List<File> compile( ResourceCompilerConfiguration config, NativeSources[] sources )
-        throws NativeBuildException;
-
+    List<File> compile(ResourceCompilerConfiguration config, NativeSources[] sources) throws NativeBuildException;
 }

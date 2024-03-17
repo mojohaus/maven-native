@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.javah.Javah;
 
-public interface JavahManager
-{
+public interface JavahManager {
     String ROLE = JavahManager.class.getName();
 
-    Javah getJavah( String roleHint )
-        throws NoSuchNativeProviderException;
+    Javah getJavah(String roleHint) throws NoSuchNativeProviderException;
 }

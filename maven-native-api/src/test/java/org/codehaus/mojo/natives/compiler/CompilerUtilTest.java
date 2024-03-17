@@ -5,40 +5,32 @@ import java.io.File;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.Os;
 
-public class CompilerUtilTest
-    extends PlexusTestCase
-{
+public class CompilerUtilTest extends PlexusTestCase {
 
-    public void testGetObjectFileFromSourceWithNoExtension()
-    {
+    public void testGetObjectFileFromSourceWithNoExtension() {
         File source;
 
-        if ( Os.isFamily( "windows" ) )
-        {
-            source = new File( "..\\dir1\\dir2\\fileWithoutExtenstion" );
-        }
-        else
-        {
-            source = new File( "../dir1/dir2/fileWithoutExtenstion" );
+        if (Os.isFamily("windows")) {
+            source = new File("..\\dir1\\dir2\\fileWithoutExtenstion");
+        } else {
+            source = new File("../dir1/dir2/fileWithoutExtenstion");
         }
 
-        File outputDirectory = new File( "outputDirectory" );
-        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, null );
+        File outputDirectory = new File("outputDirectory");
+        File objectFile = AbstractCompiler.getObjectFile(source, outputDirectory, null);
 
         assertEquals(
-                new File( outputDirectory, "fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension( null ) ),
-                objectFile );
+                new File(outputDirectory, "fileWithoutExtenstion." + AbstractCompiler.getObjectFileExtension(null)),
+                objectFile);
     }
 
-    public void testGetObjectFileWithKnownExtension()
-    {
+    public void testGetObjectFileWithKnownExtension() {
 
-        File source = new File( "target/somefile.c" );
+        File source = new File("target/somefile.c");
 
-        File outputDirectory = new File( "outputDirectory" );
-        File objectFile = AbstractCompiler.getObjectFile( source, outputDirectory, "someext" );
+        File outputDirectory = new File("outputDirectory");
+        File objectFile = AbstractCompiler.getObjectFile(source, outputDirectory, "someext");
 
-        assertEquals( new File( outputDirectory, "somefile." + "someext" ), objectFile );
+        assertEquals(new File(outputDirectory, "somefile." + "someext"), objectFile);
     }
-
 }

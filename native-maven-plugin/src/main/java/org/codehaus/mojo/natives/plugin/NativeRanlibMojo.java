@@ -39,9 +39,7 @@ import org.codehaus.mojo.natives.manager.RanlibManager;
  * ranlib a Unix linker output file
  */
 @Mojo(name = "ranlib", defaultPhase = LifecyclePhase.PACKAGE)
-public class NativeRanlibMojo
-    extends AbstractNativeMojo
-{
+public class NativeRanlibMojo extends AbstractNativeMojo {
 
     /**
      * Where to place the final packaging
@@ -67,45 +65,33 @@ public class NativeRanlibMojo
     @Component
     private RanlibManager manager;
 
-    public void execute()
-        throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
 
-        try
-        {
+        try {
             String finalName = this.project.getBuild().getFinalName();
 
             String fileExt = this.project.getArtifact().getArtifactHandler().getExtension();
 
-            File outputFile =
-                    new File( this.ranlibOutputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt );
+            File outputFile = new File(this.ranlibOutputDirectory.getAbsolutePath() + "/" + finalName + "." + fileExt);
 
             Ranlib ranlib = this.getRanlib();
 
-            ranlib.run( outputFile );
-        }
-        catch ( NativeBuildException e )
-        {
-            throw new MojoExecutionException( "Error executing ranlib.", e );
+            ranlib.run(outputFile);
+        } catch (NativeBuildException e) {
+            throw new MojoExecutionException("Error executing ranlib.", e);
         }
     }
 
-    private Ranlib getRanlib()
-        throws MojoExecutionException
-    {
+    private Ranlib getRanlib() throws MojoExecutionException {
         Ranlib ranlib;
 
-        try
-        {
-            ranlib = this.manager.getRanlib( this.provider );
+        try {
+            ranlib = this.manager.getRanlib(this.provider);
 
-        }
-        catch ( NoSuchNativeProviderException pe )
-        {
-            throw new MojoExecutionException( pe.getMessage() );
+        } catch (NoSuchNativeProviderException pe) {
+            throw new MojoExecutionException(pe.getMessage());
         }
 
         return ranlib;
     }
-
 }

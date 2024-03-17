@@ -16,45 +16,40 @@
  */
 package org.codehaus.mojo.natives.parser;
 
-public class BranchState
-    extends AbstractParserState
-{
+public class BranchState extends AbstractParserState {
     private char[] branchChars;
 
     private AbstractParserState[] branchStates;
 
     private AbstractParserState noMatchState;
 
-    public BranchState( AbstractParser parser, char[] branchChars, AbstractParserState[] branchStates,
-            AbstractParserState noMatchState )
-    {
-        super( parser );
+    public BranchState(
+            AbstractParser parser,
+            char[] branchChars,
+            AbstractParserState[] branchStates,
+            AbstractParserState noMatchState) {
+        super(parser);
         this.branchChars = branchChars.clone();
         this.branchStates = branchStates.clone();
         this.noMatchState = noMatchState;
     }
 
-    public AbstractParserState consume( char ch )
-    {
+    public AbstractParserState consume(char ch) {
         AbstractParserState state;
-        for ( int i = 0; i < branchChars.length; i++ )
-        {
-            if ( ch == branchChars[i] )
-            {
+        for (int i = 0; i < branchChars.length; i++) {
+            if (ch == branchChars[i]) {
                 state = branchStates[i];
-                return state.consume( ch );
+                return state.consume(ch);
             }
         }
         state = getNoMatchState();
-        if ( state != null )
-        {
-            return state.consume( ch );
+        if (state != null) {
+            return state.consume(ch);
         }
         return state;
     }
 
-    protected AbstractParserState getNoMatchState()
-    {
+    protected AbstractParserState getNoMatchState() {
         return noMatchState;
     }
 }

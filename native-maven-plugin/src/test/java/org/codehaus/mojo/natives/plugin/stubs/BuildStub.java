@@ -2,9 +2,7 @@ package org.codehaus.mojo.natives.plugin.stubs;
 
 import org.apache.maven.model.Build;
 
-public class BuildStub
-    extends Build
-{
+public class BuildStub extends Build {
     /**
      *
      */
@@ -12,23 +10,19 @@ public class BuildStub
 
     private String finalName = "some-final-name";
 
-    public String getOutputDirectory()
-    {
+    public String getOutputDirectory() {
         return "fake-output-directory";
     }
 
-    public String getFinalName()
-    {
+    public String getFinalName() {
         return this.finalName;
     }
 
-    public void setFinalName( String name )
-    {
+    public void setFinalName(String name) {
         this.finalName = name;
     }
 
-    public String getDirectory()
-    {
+    public String getDirectory() {
         return "target";
     }
 }

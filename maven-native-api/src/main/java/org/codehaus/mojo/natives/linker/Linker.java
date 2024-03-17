@@ -26,13 +26,11 @@ package org.codehaus.mojo.natives.linker;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 
-public interface Linker
-{
+public interface Linker {
     String ROLE = Linker.class.getName();
 
-    File link( LinkerConfiguration config, List<File> compilerOutputFiles )
-        throws NativeBuildException, IOException;
-
+    File link(LinkerConfiguration config, List<File> compilerOutputFiles) throws NativeBuildException, IOException;
 }

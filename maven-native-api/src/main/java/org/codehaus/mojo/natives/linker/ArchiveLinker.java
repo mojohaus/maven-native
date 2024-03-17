@@ -26,56 +26,45 @@ import java.util.List;
 import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
-public class ArchiveLinker
-    extends AbstractLinker
-{
+public class ArchiveLinker extends AbstractLinker {
 
     public static final String EXECUTABLE = "ar";
 
-    public ArchiveLinker()
-    {
-    }
+    public ArchiveLinker() {}
 
     @Override
-    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
-    {
+    protected Commandline createLinkerCommandLine(List<File> objectFiles, LinkerConfiguration config) {
         Commandline cl = new Commandline();
 
-        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
 
         String executable = EXECUTABLE;
 
-        if ( !StringUtils.isBlank( config.getExecutable() ) )
-        {
+        if (!StringUtils.isBlank(config.getExecutable())) {
             executable = config.getExecutable();
         }
 
-        cl.setExecutable( executable );
+        cl.setExecutable(executable);
 
-        for ( int i = 0; i < config.getStartOptions().length; ++i )
-        {
-            cl.createArg().setValue( config.getStartOptions()[i] );
+        for (int i = 0; i < config.getStartOptions().length; ++i) {
+            cl.createArg().setValue(config.getStartOptions()[i]);
         }
 
         // the next 2 are for completeness, the start options should be good enough
-        for ( int i = 0; i < config.getMiddleOptions().length; ++i )
-        {
-            cl.createArg().setValue( config.getMiddleOptions()[i] );
+        for (int i = 0; i < config.getMiddleOptions().length; ++i) {
+            cl.createArg().setValue(config.getMiddleOptions()[i]);
         }
 
-        for ( int i = 0; i < config.getEndOptions().length; ++i )
-        {
-            cl.createArg().setValue( config.getEndOptions()[i] );
+        for (int i = 0; i < config.getEndOptions().length; ++i) {
+            cl.createArg().setValue(config.getEndOptions()[i]);
         }
 
-        cl.createArg().setFile( config.getOutputFile() );
+        cl.createArg().setFile(config.getOutputFile());
 
-        for ( File objFile : objectFiles )
-        {
-            cl.createArg().setValue( objFile.getPath() );
+        for (File objFile : objectFiles) {
+            cl.createArg().setValue(objFile.getPath());
         }
 
         return cl;
-
     }
 }

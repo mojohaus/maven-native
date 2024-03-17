@@ -5,8 +5,7 @@ import java.io.IOException;
 
 import org.codehaus.plexus.util.StringUtils;
 
-public class FileUtil
-{
+public class FileUtil {
 
     /**
      * Returns a relative path for the targetFile relative to the base directory.
@@ -17,18 +16,15 @@ public class FileUtil
      *         target
      * @author Curt Arnold
      */
-    public static File getRelativeFile( File workingDirectory, File targetFile )
-    {
-        try
-        {
+    public static File getRelativeFile(File workingDirectory, File targetFile) {
+        try {
             //
             // remove trailing file separator
             //
             String canonicalBase = workingDirectory.getCanonicalFile().getAbsolutePath();
 
-            if ( canonicalBase.charAt( canonicalBase.length() - 1 ) == File.separatorChar )
-            {
-                canonicalBase = canonicalBase.substring( 0, canonicalBase.length() - 1 );
+            if (canonicalBase.charAt(canonicalBase.length() - 1) == File.separatorChar) {
+                canonicalBase = canonicalBase.substring(0, canonicalBase.length() - 1);
             }
 
             //
@@ -37,60 +33,45 @@ public class FileUtil
 
             String canonicalTarget;
 
-            if ( System.getProperty( "os.name" ).equals( "OS/400" ) )
-            {
+            if (System.getProperty("os.name").equals("OS/400")) {
                 canonicalTarget = targetFile.getPath();
-            }
-            else
-            {
+            } else {
                 canonicalTarget = targetFile.getCanonicalPath();
             }
 
-            if ( canonicalTarget.charAt( canonicalTarget.length() - 1 ) == File.separatorChar )
-            {
-                canonicalTarget = canonicalTarget.substring( 0, canonicalTarget.length() - 1 );
+            if (canonicalTarget.charAt(canonicalTarget.length() - 1) == File.separatorChar) {
+                canonicalTarget = canonicalTarget.substring(0, canonicalTarget.length() - 1);
             }
 
-            if ( canonicalTarget.equals( canonicalBase ) )
-            {
-                return new File( "." );
+            if (canonicalTarget.equals(canonicalBase)) {
+                return new File(".");
             }
 
             //
             // see if the prefixes are the same
             //
-            if ( canonicalBase.startsWith( "\\\\" ) )
-            {
+            if (canonicalBase.startsWith("\\\\")) {
                 //
                 // UNC file name, if target file doesn't also start with same
                 // server name, don't go there
-                int endPrefix = canonicalBase.indexOf( '\\', 2 );
-                String prefix1 = canonicalBase.substring( 0, endPrefix );
-                String prefix2 = canonicalTarget.substring( 0, endPrefix );
-                if ( !prefix1.equals( prefix2 ) )
-                {
-                    return new File( canonicalTarget );
+                int endPrefix = canonicalBase.indexOf('\\', 2);
+                String prefix1 = canonicalBase.substring(0, endPrefix);
+                String prefix2 = canonicalTarget.substring(0, endPrefix);
+                if (!prefix1.equals(prefix2)) {
+                    return new File(canonicalTarget);
                 }
-            }
-            else
-            {
-                if ( canonicalBase.startsWith( ":\\", 1 ) )
-                {
+            } else {
+                if (canonicalBase.startsWith(":\\", 1)) {
                     int endPrefix = 2;
-                    String prefix1 = canonicalBase.substring( 0, endPrefix );
-                    String prefix2 = canonicalTarget.substring( 0, endPrefix );
-                    if ( !prefix1.equals( prefix2 ) )
-                    {
-                        return new File( canonicalTarget );
+                    String prefix1 = canonicalBase.substring(0, endPrefix);
+                    String prefix2 = canonicalTarget.substring(0, endPrefix);
+                    if (!prefix1.equals(prefix2)) {
+                        return new File(canonicalTarget);
                     }
-                }
-                else
-                {
-                    if ( canonicalBase.charAt( 0 ) == '/' )
-                    {
-                        if ( canonicalTarget.charAt( 0 ) != '/' )
-                        {
-                            return new File( canonicalTarget );
+                } else {
+                    if (canonicalBase.charAt(0) == '/') {
+                        if (canonicalTarget.charAt(0) != '/') {
+                            return new File(canonicalTarget);
                         }
                     }
                 }
@@ -100,8 +81,7 @@ public class FileUtil
             int lastSeparator = -1;
             int minLength = canonicalBase.length();
 
-            if ( canonicalTarget.length() < minLength )
-            {
+            if (canonicalTarget.length() < minLength) {
                 minLength = canonicalTarget.length();
             }
 
@@ -110,76 +90,61 @@ public class FileUtil
             //
             // walk to the shorter of the two paths
             // finding the last separator they have in common
-            for ( int i = 0; i < minLength; i++ )
-            {
-                if ( canonicalTarget.charAt( i ) == canonicalBase.charAt( i ) )
-                {
-                    if ( canonicalTarget.charAt( i ) == separator )
-                    {
+            for (int i = 0; i < minLength; i++) {
+                if (canonicalTarget.charAt(i) == canonicalBase.charAt(i)) {
+                    if (canonicalTarget.charAt(i) == separator) {
                         lastSeparator = i;
                     }
-                }
-                else
-                {
+                } else {
                     firstDifference = lastSeparator + 1;
                     break;
                 }
             }
 
-            StringBuilder relativePath = new StringBuilder( 50 );
+            StringBuilder relativePath = new StringBuilder(50);
 
             //
             // walk from the first difference to the end of the base
             // adding "../" for each separator encountered
             //
-            if ( canonicalBase.length() > firstDifference )
-            {
-                relativePath.append( ".." );
-                for ( int i = firstDifference; i < canonicalBase.length(); i++ )
-                {
-                    if ( canonicalBase.charAt( i ) == separator )
-                    {
-                        relativePath.append( separator );
-                        relativePath.append( ".." );
+            if (canonicalBase.length() > firstDifference) {
+                relativePath.append("..");
+                for (int i = firstDifference; i < canonicalBase.length(); i++) {
+                    if (canonicalBase.charAt(i) == separator) {
+                        relativePath.append(separator);
+                        relativePath.append("..");
                     }
                 }
             }
 
-            if ( canonicalTarget.length() > firstDifference )
-            {
+            if (canonicalTarget.length() > firstDifference) {
                 //
                 // append the rest of the target
                 //
 
-                if ( relativePath.length() > 0 )
-                {
-                    relativePath.append( separator );
+                if (relativePath.length() > 0) {
+                    relativePath.append(separator);
                 }
 
-                relativePath.append( canonicalTarget.substring( firstDifference ) );
+                relativePath.append(canonicalTarget.substring(firstDifference));
             }
 
-            return new File( relativePath.toString() );
+            return new File(relativePath.toString());
 
-        }
-        catch ( IOException ex )
-        {
+        } catch (IOException ex) {
             // TODO more handling
         }
 
         return targetFile;
-
     }
 
-    public static File[] breakPaths( String paths )
-    {
-        String[] tokens = StringUtils.split( paths, "," );
+    public static File[] breakPaths(String paths) {
+        String[] tokens = StringUtils.split(paths, ",");
 
         File[] files = new File[tokens.length];
 
-        for ( int i = 0; i < tokens.length; ++i )
-        {
-            files[i] = new File( tokens[i] );
+        for (int i = 0; i < tokens.length; ++i) {
+            files[i] = new File(tokens[i]);
         }
 
         return files;
@@ -190,14 +155,11 @@ public class FileUtil
      * @param baseDirectory String
      * @return relative path to a base directory if possible
      */
-    public static String truncatePath( String path, String baseDirectory )
-    {
-        if ( path.contains( baseDirectory ) )
-        {
-            path = path.substring( path.indexOf( baseDirectory ) + baseDirectory.length() );
-            if ( path.startsWith( File.separator ) )
-            {
-                path = path.substring( File.separator.length() );
+    public static String truncatePath(String path, String baseDirectory) {
+        if (path.contains(baseDirectory)) {
+            path = path.substring(path.indexOf(baseDirectory) + baseDirectory.length());
+            if (path.startsWith(File.separator)) {
+                path = path.substring(File.separator.length());
             }
         }
         return path;

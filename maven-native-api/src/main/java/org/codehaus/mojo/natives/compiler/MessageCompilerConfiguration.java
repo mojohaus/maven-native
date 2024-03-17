@@ -27,9 +27,7 @@ import java.io.File;
 
 import org.codehaus.mojo.natives.ConfigurationBase;
 
-public class MessageCompilerConfiguration
-    extends ConfigurationBase
-{
+public class MessageCompilerConfiguration extends ConfigurationBase {
     /**
      * Must be in your path
      */
@@ -43,64 +41,49 @@ public class MessageCompilerConfiguration
 
     private String[] options = new String[0];
 
-    public MessageCompilerConfiguration()
-    {
-    }
+    public MessageCompilerConfiguration() {}
 
-    public String getExecutable()
-    {
+    public String getExecutable() {
         return this.executable;
     }
 
-    public void setExecutable( String executable )
-    {
+    public void setExecutable(String executable) {
         this.executable = executable;
     }
 
-    public File getWorkingDirectory()
-    {
+    public File getWorkingDirectory() {
         return this.workingDirectory;
     }
 
-    public void setWorkingDirectory( File dir )
-    {
+    public void setWorkingDirectory(File dir) {
         this.workingDirectory = dir;
     }
 
-    public String[] getOptions()
-    {
+    public String[] getOptions() {
         return this.options;
     }
 
-    public void setOptions( String[] options )
-    {
+    public void setOptions(String[] options) {
         this.options = options;
 
-        if ( this.options == null )
-        {
+        if (this.options == null) {
             this.options = new String[0];
-
         }
     }
 
-    public File getOutputDirectory()
-    {
+    public File getOutputDirectory() {
         return this.outputDirectory;
     }
 
-    public void setOutputDirectory( File dir )
-    {
+    public void setOutputDirectory(File dir) {
         this.outputDirectory = dir;
     }
 
-    public File getDebugOutputDirectory()
-    {
+    public File getDebugOutputDirectory() {
         return this.debugOutputDirectory;
     }
 
-    public void setDebugOutputDirectory( File dir )
-    {
+    public void setDebugOutputDirectory(File dir) {
         this.debugOutputDirectory = dir;
     }
-
 }

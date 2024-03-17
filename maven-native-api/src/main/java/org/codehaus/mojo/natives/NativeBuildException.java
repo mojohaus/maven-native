@@ -29,26 +29,21 @@ package org.codehaus.mojo.natives;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-
-public class NativeBuildException
-    extends RuntimeException
-{
+public class NativeBuildException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
      * @param msg
      */
-    public NativeBuildException( String msg )
-    {
-        super( msg );
+    public NativeBuildException(String msg) {
+        super(msg);
     }
 
     /**
      * @param msg
      * @param cause
      */
-    public NativeBuildException( String msg, Throwable cause )
-    {
-        super( msg, cause );
+    public NativeBuildException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 }

@@ -21,9 +21,7 @@ package org.codehaus.mojo.natives.parser;
  *
  * @author Curt Arnold
  */
-public final class WhitespaceOrLetterState
-    extends AbstractParserState
-{
+public final class WhitespaceOrLetterState extends AbstractParserState {
     /**
      * Next state if the character is found.
      */
@@ -41,10 +39,9 @@ public final class WhitespaceOrLetterState
      * @param matchLetter letter to match
      * @param nextStateArg next state if a match on the letter
      */
-    public WhitespaceOrLetterState( final AbstractParser parser, final char matchLetter,
-            final AbstractParserState nextStateArg )
-    {
-        super( parser );
+    public WhitespaceOrLetterState(
+            final AbstractParser parser, final char matchLetter, final AbstractParserState nextStateArg) {
+        super(parser);
         this.thisLetter = matchLetter;
         this.nextState = nextStateArg;
     }
@@ -56,18 +53,14 @@ public final class WhitespaceOrLetterState
      *            noMatchState otherwise.
      * @return next state
      */
-    public AbstractParserState consume( final char ch )
-    {
-        if ( ch == thisLetter )
-        {
+    public AbstractParserState consume(final char ch) {
+        if (ch == thisLetter) {
             return nextState;
         }
-        if ( ch == ' ' || ch == '\t' )
-        {
+        if (ch == ' ' || ch == '\t') {
             return this;
         }
-        if ( ch == '\n' )
-        {
+        if (ch == '\n') {
             getParser().getNewLineState();
         }
         return null;

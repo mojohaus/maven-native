@@ -23,18 +23,14 @@
  */
 package org.codehaus.mojo.natives;
 
-public class ConfigurationBase
-{
+public class ConfigurationBase {
     private EnvFactory envFactory;
 
-    public EnvFactory getEnvFactory()
-    {
+    public EnvFactory getEnvFactory() {
         return envFactory;
     }
 
-    public void setEnvFactory( EnvFactory envFactory )
-    {
+    public void setEnvFactory(EnvFactory envFactory) {
         this.envFactory = envFactory;
     }
-
 }
