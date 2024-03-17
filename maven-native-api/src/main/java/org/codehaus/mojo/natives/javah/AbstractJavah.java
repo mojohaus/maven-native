@@ -25,9 +25,4 @@ package org.codehaus.mojo.natives.javah;
 
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 
-public abstract class AbstractJavah
-    extends AbstractLogEnabled
-    implements Javah
-{
-
-}
+public abstract class AbstractJavah extends AbstractLogEnabled implements Javah {}

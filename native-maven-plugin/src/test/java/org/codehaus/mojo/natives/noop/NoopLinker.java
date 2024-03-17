@@ -2,27 +2,22 @@ package org.codehaus.mojo.natives.noop;
 
 import java.io.File;
 import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.component.annotations.Component;
 
 @Component(role = Linker.class, hint = "noop")
-public class NoopLinker
-    implements Linker
-{
+public class NoopLinker implements Linker {
 
     @Override
-    public File link( LinkerConfiguration config, List<File> compilerOutputFiles )
-        throws NativeBuildException
-    {
+    public File link(LinkerConfiguration config, List<File> compilerOutputFiles) throws NativeBuildException {
         String fileName = config.getOutputFileName();
 
-        if ( config.getOutputFileExtension() != null )
-        {
+        if (config.getOutputFileExtension() != null) {
             fileName += "." + config.getOutputFileExtension();
         }
-        return new File( config.getOutputDirectory(), fileName );
+        return new File(config.getOutputDirectory(), fileName);
     }
-
 }

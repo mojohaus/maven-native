@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.linker.Ranlib;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -32,10 +33,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = RanlibManager.class, hint = "native-ranlib-provider-manager")
-public class DefaultRanlibManager
-    extends AbstractLogEnabled
-    implements RanlibManager, Initializable
-{
+public class DefaultRanlibManager extends AbstractLogEnabled implements RanlibManager, Initializable {
     @Requirement(role = Ranlib.class)
     private Map<String, Ranlib> providers;
 
@@ -44,28 +42,22 @@ public class DefaultRanlibManager
     // ----------------------------------------------------------------------
 
     @Override
-    public void initialize()
-    {
-        if ( providers == null )
-        {
+    public void initialize() {
+        if (providers == null) {
             providers = new HashMap<>();
         }
 
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No ranlib providers configured." );
+        if (providers.size() == 0) {
+            getLogger().warn("No ranlib providers configured.");
         }
     }
 
     @Override
-    public Ranlib getRanlib( String providerType )
-        throws NoSuchNativeProviderException
-    {
-        Ranlib provider = providers.get( providerType );
+    public Ranlib getRanlib(String providerType) throws NoSuchNativeProviderException {
+        Ranlib provider = providers.get(providerType);
 
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
+        if (provider == null) {
+            throw new NoSuchNativeProviderException(providerType);
         }
 
         return provider;

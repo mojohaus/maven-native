@@ -38,9 +38,7 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
  * @since 1.0-alpha-4
  */
 @Mojo(name = "inczip", defaultPhase = LifecyclePhase.PACKAGE)
-public class NativeBundleIncludeFilesMojo
-    extends AbstractNativeMojo
-{
+public class NativeBundleIncludeFilesMojo extends AbstractNativeMojo {
 
     /**
      * Array of NativeSources containing include directories and source files.
@@ -74,47 +72,36 @@ public class NativeBundleIncludeFilesMojo
     @Component
     private MavenProjectHelper projectHelper;
 
-    public void execute()
-        throws MojoExecutionException
-    {
-        if ( skipIncludeDeployment )
-        {
+    public void execute() throws MojoExecutionException {
+        if (skipIncludeDeployment) {
             return;
         }
 
-        if ( this.sources.length != 0 )
-        {
-            try
-            {
+        if (this.sources.length != 0) {
+            try {
                 ZipArchiver archiver = new ZipArchiver();
 
                 boolean zipIt = false;
-                for ( NativeSources source : sources )
-                {
-                    if ( source.isDeployable() )
-                    {
+                for (NativeSources source : sources) {
+                    if (source.isDeployable()) {
                         DefaultFileSet fileSet = new DefaultFileSet();
-                        fileSet.setUsingDefaultExcludes( true );
-                        fileSet.setDirectory( source.getDirectory() );
-                        fileSet.setIncludes( source.getIncludes() );
-                        fileSet.setExcludes( source.getExcludes() );
-                        archiver.addFileSet( fileSet );
+                        fileSet.setUsingDefaultExcludes(true);
+                        fileSet.setDirectory(source.getDirectory());
+                        fileSet.setIncludes(source.getIncludes());
+                        fileSet.setExcludes(source.getExcludes());
+                        archiver.addFileSet(fileSet);
                         zipIt = true;
                     }
                 }
 
-                if ( zipIt )
-                {
-                    archiver.setDestFile( this.incZipFile );
+                if (zipIt) {
+                    archiver.setDestFile(this.incZipFile);
                     archiver.createArchive();
-                    projectHelper.attachArtifact( this.project, INCZIP_TYPE, null, this.incZipFile );
+                    projectHelper.attachArtifact(this.project, INCZIP_TYPE, null, this.incZipFile);
                 }
-            }
-            catch ( Exception e )
-            {
-                throw new MojoExecutionException( e.getMessage(), e );
+            } catch (Exception e) {
+                throw new MojoExecutionException(e.getMessage(), e);
             }
         }
     }
-
 }

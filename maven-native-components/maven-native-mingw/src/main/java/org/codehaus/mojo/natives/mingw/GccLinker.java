@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
 import org.codehaus.mojo.natives.linker.Linker;
@@ -40,99 +41,80 @@ import org.codehaus.plexus.util.cli.Commandline;
  * Generic MinGW linker with "-o " as its output option
  */
 @Component(role = Linker.class, hint = "mingw", instantiationStrategy = "per-lookup")
-public final class GccLinker
-    extends AbstractLinker
-{
+public final class GccLinker extends AbstractLinker {
 
     /**
      * @return Commandline of a linker base on its configuration and object files
      */
     @Override
-    protected Commandline createLinkerCommandLine( List<File> objectFiles, LinkerConfiguration config )
-        throws NativeBuildException
-    {
-        if ( config.getExecutable() == null )
-        {
-            config.setExecutable( "gcc" );
+    protected Commandline createLinkerCommandLine(List<File> objectFiles, LinkerConfiguration config)
+            throws NativeBuildException {
+        if (config.getExecutable() == null) {
+            config.setExecutable("gcc");
         }
 
         Commandline cl = new Commandline();
 
-        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
 
-        cl.setExecutable( config.getExecutable() );
+        cl.setExecutable(config.getExecutable());
 
-        if ( config.getStartOptions() != null )
-        {
-            cl.addArguments( config.getStartOptions() );
+        if (config.getStartOptions() != null) {
+            cl.addArguments(config.getStartOptions());
         }
 
         String linkerOutputOption = this.getLinkerOutputOption();
-        if ( linkerOutputOption.endsWith( " " ) )
-        {
-            cl.createArg().setValue( linkerOutputOption.substring( 0, linkerOutputOption.length() - 1 ) );
-            cl.createArg().setFile( config.getOutputFile() );
-        }
-        else
-        {
-            cl.createArg().setValue( linkerOutputOption + config.getOutputFile() );
+        if (linkerOutputOption.endsWith(" ")) {
+            cl.createArg().setValue(linkerOutputOption.substring(0, linkerOutputOption.length() - 1));
+            cl.createArg().setFile(config.getOutputFile());
+        } else {
+            cl.createArg().setValue(linkerOutputOption + config.getOutputFile());
         }
 
         // On windows to avoid command lines too long we have to use a linker response
         // file.
-        if ( config.isUsingLinkerResponseFile() )
-        {
-            try
-            {
-                File linkerFile = new File( config.getWorkingDirectory(), "objectsFile" );
-                FileWriter linkerFileWriter = new FileWriter( linkerFile, false /* Don't append */ );
-                for ( File objFile : objectFiles )
-                {
-                    linkerFileWriter.write( objFile.getPath() + "\n" );
+        if (config.isUsingLinkerResponseFile()) {
+            try {
+                File linkerFile = new File(config.getWorkingDirectory(), "objectsFile");
+                FileWriter linkerFileWriter = new FileWriter(linkerFile, false /* Don't append */);
+                for (File objFile : objectFiles) {
+                    linkerFileWriter.write(objFile.getPath() + "\n");
                 }
                 linkerFileWriter.close();
-            }
-            catch ( IOException error )
-            {
-                throw new NativeBuildException( "Error creating linker response file", error );
+            } catch (IOException error) {
+                throw new NativeBuildException("Error creating linker response file", error);
             }
 
-            cl.createArg().setValue( "@objectsFile" );
-        }
-        else
-        { // Normal behavior.
+            cl.createArg().setValue("@objectsFile");
+        } else { // Normal behavior.
 
-            for ( File objFile : objectFiles )
-            {
+            for (File objFile : objectFiles) {
                 // we need to shorten the command line since windows has limited command line
                 // length
-                String objFilePath = FileUtil.truncatePath( objFile.getPath(), config.getWorkingDirectory().getPath() );
+                String objFilePath = FileUtil.truncatePath(
+                        objFile.getPath(), config.getWorkingDirectory().getPath());
 
-                cl.createArg().setValue( objFilePath );
+                cl.createArg().setValue(objFilePath);
             }
         }
 
-        if ( config.getMiddleOptions() != null )
-        {
-            cl.addArguments( config.getMiddleOptions() );
+        if (config.getMiddleOptions() != null) {
+            cl.addArguments(config.getMiddleOptions());
         }
 
-        setCommandLineForExternalLibraries( cl, config );
+        setCommandLineForExternalLibraries(cl, config);
 
-        if ( config.getEndOptions() != null )
-        {
-            cl.addArguments( config.getEndOptions() );
+        if (config.getEndOptions() != null) {
+            cl.addArguments(config.getEndOptions());
         }
 
         return cl;
-
     }
 
     /**
      * @return output option flag of a generic C linker
      */
-    protected String getLinkerOutputOption()
-    {
+    protected String getLinkerOutputOption() {
         return "-o ";
     }
 
@@ -143,54 +125,43 @@ public final class GccLinker
      * @param config LinkerConfiguration
      * @throws NativeBuildException
      */
-    protected void setCommandLineForExternalLibraries( Commandline cl, LinkerConfiguration config )
-        throws NativeBuildException
-    {
-        if ( config.getExternalLibFileNames().size() == 0 )
-        {
+    protected void setCommandLineForExternalLibraries(Commandline cl, LinkerConfiguration config)
+            throws NativeBuildException {
+        if (config.getExternalLibFileNames().size() == 0) {
             return;
         }
 
         boolean hasUnixLinkage = false;
 
-        for ( String libFileName : config.getExternalLibFileNames() )
-        {
-            String ext = FileUtils.getExtension( libFileName );
+        for (String libFileName : config.getExternalLibFileNames()) {
+            String ext = FileUtils.getExtension(libFileName);
 
-            if ( "o".equals( ext ) || "obj".equals( ext ) || "lib".equals( ext ) || "dylib".equals( ext ) )
-            {
-                File libFile = new File( config.getExternalLibDirectory(), libFileName );
-                String relativeLibFile =
-                        FileUtil.truncatePath( libFile.getPath(), config.getWorkingDirectory().getPath() );
-                cl.createArg().setValue( relativeLibFile );
-            }
-            else if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
-            {
+            if ("o".equals(ext) || "obj".equals(ext) || "lib".equals(ext) || "dylib".equals(ext)) {
+                File libFile = new File(config.getExternalLibDirectory(), libFileName);
+                String relativeLibFile = FileUtil.truncatePath(
+                        libFile.getPath(), config.getWorkingDirectory().getPath());
+                cl.createArg().setValue(relativeLibFile);
+            } else if ("a".equals(ext) || "so".equals(ext) || "sl".equals(ext)) {
                 hasUnixLinkage = true;
             }
         }
 
-        if ( hasUnixLinkage )
-        {
-            cl.createArg().setValue( "-L" + config.getExternalLibDirectory() );
+        if (hasUnixLinkage) {
+            cl.createArg().setValue("-L" + config.getExternalLibDirectory());
         }
 
-        for ( String libFileName : config.getExternalLibFileNames() )
-        {
-            String ext = FileUtils.getExtension( libFileName );
+        for (String libFileName : config.getExternalLibFileNames()) {
+            String ext = FileUtils.getExtension(libFileName);
 
-            if ( "a".equals( ext ) || "so".equals( ext ) || "sl".equals( ext ) )
-            {
-                String libName = FileUtils.removeExtension( libFileName );
+            if ("a".equals(ext) || "so".equals(ext) || "sl".equals(ext)) {
+                String libName = FileUtils.removeExtension(libFileName);
 
-                if ( libFileName.startsWith( "lib" ) )
-                {
-                    libName = libName.substring( "lib".length() );
+                if (libFileName.startsWith("lib")) {
+                    libName = libName.substring("lib".length());
                 }
 
-                cl.createArg().setValue( "-l" + libName );
+                cl.createArg().setValue("-l" + libName);
             }
         }
     }
-
 }

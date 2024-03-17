@@ -23,56 +23,40 @@
  */
 package org.codehaus.mojo.natives;
 
-import junit.framework.TestCase;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.codehaus.plexus.util.IOUtil;
+import junit.framework.TestCase;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.IOUtil;
 
-public abstract class AbstractDependencyTest
-    extends TestCase
-{
+public abstract class AbstractDependencyTest extends TestCase {
 
-    public AbstractDependencyTest( String name )
-    {
-        super( name );
+    public AbstractDependencyTest(String name) {
+        super(name);
     }
 
-    protected void mkDir( String dirPath )
-        throws IOException
-    {
-        FileUtils.forceMkdir( new File( dirPath ) );
+    protected void mkDir(String dirPath) throws IOException {
+        FileUtils.forceMkdir(new File(dirPath));
     }
 
-    protected void rmDir( String dirPath )
-        throws IOException
-    {
-        FileUtils.deleteDirectory( dirPath );
+    protected void rmDir(String dirPath) throws IOException {
+        FileUtils.deleteDirectory(dirPath);
     }
 
-    protected void writeFile( String filePath, String content )
-        throws IOException
-    {
-        FileOutputStream fs = new FileOutputStream( filePath );
-        try
-        {
-            IOUtil.copy( content, fs );
-        }
-        finally
-        {
-            if ( fs != null )
-            {
-                IOUtil.close( fs );
+    protected void writeFile(String filePath, String content) throws IOException {
+        FileOutputStream fs = new FileOutputStream(filePath);
+        try {
+            IOUtil.copy(content, fs);
+        } finally {
+            if (fs != null) {
+                IOUtil.close(fs);
             }
         }
     }
 
-    protected void removeFile( String filePath )
-    {
-        new File( filePath ).delete();
+    protected void removeFile(String filePath) {
+        new File(filePath).delete();
     }
-
 }

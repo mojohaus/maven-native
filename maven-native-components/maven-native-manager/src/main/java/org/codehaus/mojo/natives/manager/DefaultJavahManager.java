@@ -33,10 +33,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = JavahManager.class, hint = "native-javah-provider-manager")
-public class DefaultJavahManager
-    extends AbstractLogEnabled
-    implements JavahManager, Initializable
-{
+public class DefaultJavahManager extends AbstractLogEnabled implements JavahManager, Initializable {
     @Requirement(role = Javah.class)
     private Map<String, Javah> providers;
 
@@ -45,28 +42,22 @@ public class DefaultJavahManager
     // ----------------------------------------------------------------------
 
     @Override
-    public void initialize()
-    {
-        if ( providers == null )
-        {
+    public void initialize() {
+        if (providers == null) {
             providers = new HashMap<>();
         }
 
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No linker providers configured." );
+        if (providers.size() == 0) {
+            getLogger().warn("No linker providers configured.");
         }
     }
 
     @Override
-    public Javah getJavah( String providerType )
-        throws NoSuchNativeProviderException
-    {
-        Javah provider = providers.get( providerType );
+    public Javah getJavah(String providerType) throws NoSuchNativeProviderException {
+        Javah provider = providers.get(providerType);
 
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
+        if (provider == null) {
+            throw new NoSuchNativeProviderException(providerType);
         }
 
         return provider;

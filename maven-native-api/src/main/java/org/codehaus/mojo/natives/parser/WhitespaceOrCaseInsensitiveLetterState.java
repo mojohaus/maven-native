@@ -21,9 +21,7 @@ package org.codehaus.mojo.natives.parser;
  *
  * @author Curt Arnold
  */
-public final class WhitespaceOrCaseInsensitiveLetterState
-    extends AbstractParserState
-{
+public final class WhitespaceOrCaseInsensitiveLetterState extends AbstractParserState {
     /**
      * Next state if the character is found.
      */
@@ -46,12 +44,11 @@ public final class WhitespaceOrCaseInsensitiveLetterState
      * @param matchLetter letter to match
      * @param nextStateArg next state if a match on the letter
      */
-    public WhitespaceOrCaseInsensitiveLetterState( final AbstractParser parser, final char matchLetter,
-            final AbstractParserState nextStateArg )
-    {
-        super( parser );
-        this.lowerLetter = Character.toLowerCase( matchLetter );
-        this.upperLetter = Character.toUpperCase( matchLetter );
+    public WhitespaceOrCaseInsensitiveLetterState(
+            final AbstractParser parser, final char matchLetter, final AbstractParserState nextStateArg) {
+        super(parser);
+        this.lowerLetter = Character.toLowerCase(matchLetter);
+        this.upperLetter = Character.toUpperCase(matchLetter);
         this.nextState = nextStateArg;
     }
 
@@ -61,18 +58,14 @@ public final class WhitespaceOrCaseInsensitiveLetterState
      * @param ch next character
      * @return the configured nextState if ch is the expected character or the configure noMatchState otherwise.
      */
-    public AbstractParserState consume( final char ch )
-    {
-        if ( ch == lowerLetter || ch == upperLetter )
-        {
+    public AbstractParserState consume(final char ch) {
+        if (ch == lowerLetter || ch == upperLetter) {
             return nextState;
         }
-        if ( ch == ' ' || ch == '\t' )
-        {
+        if (ch == ' ' || ch == '\t') {
             return this;
         }
-        if ( ch == '\n' )
-        {
+        if (ch == '\n') {
             getParser().getNewLineState();
         }
         return null;

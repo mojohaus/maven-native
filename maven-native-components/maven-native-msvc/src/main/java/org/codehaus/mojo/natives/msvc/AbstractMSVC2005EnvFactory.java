@@ -26,12 +26,8 @@ package org.codehaus.mojo.natives.msvc;
 /**
  * Equivalent of MSVC2005's vcvars32.bat
  */
-
-public abstract class AbstractMSVC2005EnvFactory
-    extends AbstractMSVCEnvFactory
-{
+public abstract class AbstractMSVC2005EnvFactory extends AbstractMSVCEnvFactory {
     protected static final String MSVS2005_INSTALL_ENV_KEY = "MSVS2005_INSTALL_DIR";
 
     protected static final String DEFAULT_MSVS2005_INSTALL_DIR = getProgramFiles() + "/Microsoft Visual Studio 8";
-
 }

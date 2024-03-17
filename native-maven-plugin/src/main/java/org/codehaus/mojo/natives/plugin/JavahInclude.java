@@ -20,30 +20,24 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
-public class JavahInclude
-{
+public class JavahInclude {
     private String className;
 
     private String headerName;
 
-    public String getClassName()
-    {
+    public String getClassName() {
         return className;
     }
 
-    public void setClassName( String className )
-    {
+    public void setClassName(String className) {
         this.className = className;
     }
 
-    public String getHeaderName()
-    {
+    public String getHeaderName() {
         return headerName;
     }
 
-    public void setHeaderName( String headerName )
-    {
+    public void setHeaderName(String headerName) {
         this.headerName = headerName;
     }
-
 }

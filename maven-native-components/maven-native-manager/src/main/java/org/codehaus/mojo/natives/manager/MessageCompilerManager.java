@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 
-public interface MessageCompilerManager
-{
+public interface MessageCompilerManager {
     String ROLE = MessageCompilerManager.class.getName();
 
-    MessageCompiler getMessageCompiler( String roleHint )
-        throws NoSuchNativeProviderException;
+    MessageCompiler getMessageCompiler(String roleHint) throws NoSuchNativeProviderException;
 }

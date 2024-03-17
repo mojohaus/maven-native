@@ -39,9 +39,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  * @since 1.0-alpha4
  */
 @Mojo(name = "manifest", defaultPhase = LifecyclePhase.PACKAGE)
-public class NativeManifestMojo
-    extends AbstractNativeMojo
-{
+public class NativeManifestMojo extends AbstractNativeMojo {
     /**
      * Manifest Provider.
      *
@@ -74,61 +72,47 @@ public class NativeManifestMojo
     @Component
     private ManifestManager manager;
 
-    public void execute()
-        throws MojoExecutionException
-    {
-        File linkerOutputFile = (File) this.getPluginContext().get( LINKER_OUTPUT_PATH );
+    public void execute() throws MojoExecutionException {
+        File linkerOutputFile = (File) this.getPluginContext().get(LINKER_OUTPUT_PATH);
 
-        if ( !linkerOutputFile.exists() )
-        {
+        if (!linkerOutputFile.exists()) {
             // @TODO ERROR?
             return;
         }
 
-        File linkerManifestFile = new File( linkerOutputFile.getAbsolutePath() + "." + manifestExtension );
+        File linkerManifestFile = new File(linkerOutputFile.getAbsolutePath() + "." + manifestExtension);
 
-        if ( !linkerManifestFile.exists() )
-        {
+        if (!linkerManifestFile.exists()) {
             // no need to inject manifest file into the executable
             return;
         }
 
         // @Todo check for stale output, and skip if needed
-        try
-        {
+        try {
             ManifestConfiguration config = new ManifestConfiguration();
 
-            config.setEnvFactory( this.getEnvFactory() );
-            config.setWorkingDirectory( this.workingDirectory );
-            config.setInputFile( linkerOutputFile );
-            config.setManifestFile( linkerManifestFile );
+            config.setEnvFactory(this.getEnvFactory());
+            config.setWorkingDirectory(this.workingDirectory);
+            config.setInputFile(linkerOutputFile);
+            config.setManifestFile(linkerManifestFile);
 
             Manifest Manifest = this.getManifest();
 
-            Manifest.run( config );
+            Manifest.run(config);
+        } catch (NativeBuildException e) {
+            throw new MojoExecutionException("Error executing Manifest.", e);
         }
-        catch ( NativeBuildException e )
-        {
-            throw new MojoExecutionException( "Error executing Manifest.", e );
-        }
-
     }
 
-    private Manifest getManifest()
-        throws MojoExecutionException
-    {
+    private Manifest getManifest() throws MojoExecutionException {
         Manifest Manifest;
 
-        try
-        {
-            Manifest = this.manager.getManifest( this.provider );
-        }
-        catch ( NoSuchNativeProviderException pe )
-        {
-            throw new MojoExecutionException( pe.getMessage() );
+        try {
+            Manifest = this.manager.getManifest(this.provider);
+        } catch (NoSuchNativeProviderException pe) {
+            throw new MojoExecutionException(pe.getMessage());
         }
 
         return Manifest;
     }
-
 }

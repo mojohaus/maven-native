@@ -28,31 +28,22 @@ import java.io.File;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.CommandLineUtil;
 import org.codehaus.mojo.natives.util.EnvUtil;
-
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
-public abstract class AbstractMessageCompiler
-    extends AbstractLogEnabled
-    implements MessageCompiler
-{
+public abstract class AbstractMessageCompiler extends AbstractLogEnabled implements MessageCompiler {
 
-    protected abstract Commandline getCommandLine( MessageCompilerConfiguration config, File source )
-        throws NativeBuildException;
+    protected abstract Commandline getCommandLine(MessageCompilerConfiguration config, File source)
+            throws NativeBuildException;
 
-    public void compile( MessageCompilerConfiguration config, File[] sourceFiles )
-        throws NativeBuildException
-    {
+    public void compile(MessageCompilerConfiguration config, File[] sourceFiles) throws NativeBuildException {
 
-        for ( File sourceFile : sourceFiles )
-        {
-            Commandline cl = getCommandLine( config, sourceFile );
+        for (File sourceFile : sourceFiles) {
+            Commandline cl = getCommandLine(config, sourceFile);
 
-            EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
+            EnvUtil.setupCommandlineEnv(cl, config.getEnvFactory());
 
-            CommandLineUtil.execute( cl, this.getLogger() );
+            CommandLineUtil.execute(cl, this.getLogger());
         }
-
     }
-
 }

@@ -4,10 +4,8 @@ import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
-public interface Ranlib
-{
+public interface Ranlib {
     String ROLE = Ranlib.class.getName();
 
-    void run( File file )
-        throws NativeBuildException;
+    void run(File file) throws NativeBuildException;
 }

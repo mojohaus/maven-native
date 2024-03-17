@@ -34,41 +34,33 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Manifest.class, hint = "msvc", instantiationStrategy = "per-lookup")
-public class MSVCManifest
-    extends AbstractLogEnabled
-    implements Manifest
-{
-    public void run( ManifestConfiguration config )
-        throws NativeBuildException
-    {
+public class MSVCManifest extends AbstractLogEnabled implements Manifest {
+    public void run(ManifestConfiguration config) throws NativeBuildException {
         Commandline cl = new Commandline();
 
-        cl.setExecutable( "mt.exe" );
-        cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        cl.setExecutable("mt.exe");
+        cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
 
-        cl.createArg().setValue( "-manifest" );
+        cl.createArg().setValue("-manifest");
 
         int manifestType = 0;
 
-        if ( "EXE".equalsIgnoreCase( FileUtils.getExtension( config.getInputFile().getPath() ) ) )
-        {
+        if ("EXE".equalsIgnoreCase(FileUtils.getExtension(config.getInputFile().getPath()))) {
             manifestType = 1;
-        }
-        else if ( "DLL".equalsIgnoreCase( FileUtils.getExtension( config.getInputFile().getPath() ) ) )
-        {
+        } else if ("DLL"
+                .equalsIgnoreCase(FileUtils.getExtension(config.getInputFile().getPath()))) {
             manifestType = 2;
         }
 
-        if ( manifestType == 0 )
-        {
-            throw new NativeBuildException( "Unknown manifest input file type: " + config.getInputFile() );
+        if (manifestType == 0) {
+            throw new NativeBuildException("Unknown manifest input file type: " + config.getInputFile());
         }
 
-        cl.createArg().setFile( config.getManifestFile() );
-        cl.createArg().setValue( "-outputresource:" + config.getInputFile() + ";" + manifestType );
+        cl.createArg().setFile(config.getManifestFile());
+        cl.createArg().setValue("-outputresource:" + config.getInputFile() + ";" + manifestType);
 
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
+        EnvUtil.setupCommandlineEnv(cl, config.getEnvFactory());
 
-        CommandLineUtil.execute( cl, this.getLogger() );
+        CommandLineUtil.execute(cl, this.getLogger());
     }
 }

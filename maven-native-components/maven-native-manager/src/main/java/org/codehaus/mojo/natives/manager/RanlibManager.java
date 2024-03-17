@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.linker.Ranlib;
 
-public interface RanlibManager
-{
+public interface RanlibManager {
     String ROLE = RanlibManager.class.getName();
 
-    Ranlib getRanlib( String roleHint )
-        throws NoSuchNativeProviderException;
+    Ranlib getRanlib(String roleHint) throws NoSuchNativeProviderException;
 }

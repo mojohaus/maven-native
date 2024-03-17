@@ -38,9 +38,7 @@ import org.codehaus.mojo.natives.parser.Parser;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-
-public class Dependency
-{
+public class Dependency {
     /**
      * Field source
      */
@@ -62,18 +60,15 @@ public class Dependency
 
     Dependency parent;
 
-    public Dependency( Dependency parent, File source, Parser parser, File[] includePaths )
-    {
-        init( parent, source, parser, includePaths );
+    public Dependency(Dependency parent, File source, Parser parser, File[] includePaths) {
+        init(parent, source, parser, includePaths);
     }
 
-    public Dependency( File source, Parser parser, File[] includePaths )
-    {
-        init( null, source, parser, includePaths );
+    public Dependency(File source, Parser parser, File[] includePaths) {
+        init(null, source, parser, includePaths);
     }
 
-    private void init( Dependency parent, File source, Parser parser, File[] includePaths )
-    {
+    private void init(Dependency parent, File source, Parser parser, File[] includePaths) {
         this.parent = parent;
 
         this.source = source.getPath();
@@ -82,68 +77,53 @@ public class Dependency
 
         this.parser = parser;
 
-        if ( includePaths == null )
-        {
+        if (includePaths == null) {
             this.includePaths = new File[0];
-        }
-        else
-        {
+        } else {
             this.includePaths = includePaths;
         }
     }
 
-    public void analyze()
-        throws IOException
-    {
+    public void analyze() throws IOException {
         String[] includeNames = getIncludeNames();
 
-        File[] resolvedIncludeFiles = resolveIncludeNames( includeNames );
+        File[] resolvedIncludeFiles = resolveIncludeNames(includeNames);
 
-        for ( File fileName : resolvedIncludeFiles )
-        {
-            Dependency depend = new Dependency( this, fileName, this.parser, this.includePaths );
+        for (File fileName : resolvedIncludeFiles) {
+            Dependency depend = new Dependency(this, fileName, this.parser, this.includePaths);
 
-            if ( !this.getRoot().contains( depend ) )
-            {
-                this.addDependency( depend );
+            if (!this.getRoot().contains(depend)) {
+                this.addDependency(depend);
             }
         }
 
-        for ( int i = 0; i < this.getDependencies().size(); ++i )
-        {
-            Dependency depend = this.getDependencies().get( i );
+        for (int i = 0; i < this.getDependencies().size(); ++i) {
+            Dependency depend = this.getDependencies().get(i);
             depend.analyze();
         }
-
     }
 
-    private Dependency getRoot()
-    {
+    private Dependency getRoot() {
         Dependency root = this;
 
-        while ( root.getParent() != null )
-        {
+        while (root.getParent() != null) {
             root = root.getParent();
         }
 
         return root;
     }
 
-    public Dependency getParent()
-    {
+    public Dependency getParent() {
         return this.parent;
     }
 
-    public long getCompositeLastModified()
-    {
+    public long getCompositeLastModified() {
         long currentLastModify = this.lastModified;
 
-        for ( Dependency dependency : this.getDependencies() )
-        {
+        for (Dependency dependency : this.getDependencies()) {
             long lastModified = dependency.getCompositeLastModified();
 
-            if ( lastModified > currentLastModify )
-            {
+            if (lastModified > currentLastModify) {
                 currentLastModify = lastModified;
             }
         }
@@ -151,12 +131,9 @@ public class Dependency
         return currentLastModify;
     }
 
-    private String[] getIncludeNames()
-        throws IOException
-    {
-        try ( Reader reader = new BufferedReader( new FileReader( this.source ) ) )
-        {
-            parser.parse( reader );
+    private String[] getIncludeNames() throws IOException {
+        try (Reader reader = new BufferedReader(new FileReader(this.source))) {
+            parser.parse(reader);
             return parser.getIncludes();
         }
     }
@@ -166,26 +143,21 @@ public class Dependency
      * @return
      * @throws IOException
      */
-    private File[] resolveIncludeNames( String[] includeNames )
-        throws IOException
-    {
-        ArrayList<File> resolvedIncludeFiles = new ArrayList<>( includeNames.length );
+    private File[] resolveIncludeNames(String[] includeNames) throws IOException {
+        ArrayList<File> resolvedIncludeFiles = new ArrayList<>(includeNames.length);
 
-        for ( String includeName : includeNames )
-        {
-            File resolvedFile = resolveSingleIncludeName( includeName );
+        for (String includeName : includeNames) {
+            File resolvedFile = resolveSingleIncludeName(includeName);
 
-            if ( resolvedFile != null )
-            {
-                resolvedIncludeFiles.add( resolvedFile );
+            if (resolvedFile != null) {
+                resolvedIncludeFiles.add(resolvedFile);
             }
         }
 
         File[] arrayResolvedIncludeFiles = new File[resolvedIncludeFiles.size()];
 
-        for ( int j = 0; j < arrayResolvedIncludeFiles.length; ++j )
-        {
-            arrayResolvedIncludeFiles[j] = resolvedIncludeFiles.get( j );
+        for (int j = 0; j < arrayResolvedIncludeFiles.length; ++j) {
+            arrayResolvedIncludeFiles[j] = resolvedIncludeFiles.get(j);
         }
 
         return arrayResolvedIncludeFiles;
@@ -198,21 +170,17 @@ public class Dependency
      * @return an file or null when it is not found in user include path
      * @throws IOException
      */
-
-    private File resolveSingleIncludeName( String includeName )
-        throws IOException
-    {
+    private File resolveSingleIncludeName(String includeName) throws IOException {
         File includeFile = null;
 
         File[] sourcePath = new File[1];
 
-        sourcePath[0] = new File( new File( this.source ).getParent() ); // TODO
+        sourcePath[0] = new File(new File(this.source).getParent()); // TODO
 
-        includeFile = this.resolveSingleIncludeNameFromPaths( includeName, sourcePath );
+        includeFile = this.resolveSingleIncludeNameFromPaths(includeName, sourcePath);
 
-        if ( includeFile == null )
-        {
-            includeFile = this.resolveSingleIncludeNameFromPaths( includeName, this.includePaths );
+        if (includeFile == null) {
+            includeFile = this.resolveSingleIncludeNameFromPaths(includeName, this.includePaths);
         }
 
         return includeFile;
@@ -225,17 +193,14 @@ public class Dependency
      * @param includePath
      * @return
      */
-    private File resolveSingleIncludeNameFromPaths( String includeName, File[] includePath )
-    {
+    private File resolveSingleIncludeNameFromPaths(String includeName, File[] includePath) {
         File includeFile = null;
 
-        for ( File file : includePath )
-        {
-            File tmpFile = new File( file, includeName );
+        for (File file : includePath) {
+            File tmpFile = new File(file, includeName);
 
             // make sure we dont pickup directory like STL which has no extension
-            if ( tmpFile.exists() && tmpFile.isFile() )
-            {
+            if (tmpFile.exists() && tmpFile.isFile()) {
                 includeFile = tmpFile;
 
                 break;
@@ -250,18 +215,15 @@ public class Dependency
      *
      * @param dependency
      */
-    public void addDependency( Dependency dependency )
-    {
-        getDependencies().add( dependency );
+    public void addDependency(Dependency dependency) {
+        getDependencies().add(dependency);
     }
 
     /**
      * Method getDependencies
      */
-    public java.util.List<Dependency> getDependencies()
-    {
-        if ( this.dependencies == null )
-        {
+    public java.util.List<Dependency> getDependencies() {
+        if (this.dependencies == null) {
             this.dependencies = new java.util.ArrayList<>();
         }
 
@@ -271,32 +233,26 @@ public class Dependency
     /**
      * Method getLastModified
      */
-    public long getLastModified()
-    {
+    public long getLastModified() {
         return this.lastModified;
     }
 
     /**
      * Method getSource
      */
-    public String getSource()
-    {
+    public String getSource() {
         return this.source;
     }
 
     // helper for testing only
-    boolean contains( Dependency dependent )
-    {
-        if ( this.source.equals( dependent.getSource() ) )
-        {
+    boolean contains(Dependency dependent) {
+        if (this.source.equals(dependent.getSource())) {
             return true;
         }
 
-        for ( int i = 0; i < this.getDependencies().size(); ++i )
-        {
-            Dependency node = this.getDependencies().get( i );
-            if ( node.contains( dependent ) )
-            {
+        for (int i = 0; i < this.getDependencies().size(); ++i) {
+            Dependency node = this.getDependencies().get(i);
+            if (node.contains(dependent)) {
                 return true;
             }
         }
@@ -304,12 +260,10 @@ public class Dependency
         return false;
     }
 
-    int getDeepDependencyCount()
-    {
+    int getDeepDependencyCount() {
         int ret = this.getDependencies().size();
-        for ( int i = 0; i < this.getDependencies().size(); ++i )
-        {
-            Dependency node = this.getDependencies().get( i );
+        for (int i = 0; i < this.getDependencies().size(); ++i) {
+            Dependency node = this.getDependencies().get(i);
             ret += node.getDeepDependencyCount();
         }
 

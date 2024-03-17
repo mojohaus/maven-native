@@ -23,23 +23,18 @@
  */
 package org.codehaus.mojo.natives.manager;
 
-public class NoSuchNativeProviderException
-    extends Exception
-{
+public class NoSuchNativeProviderException extends Exception {
     private static final long serialVersionUID = 1L;
 
     private String providerName;
 
-    public NoSuchNativeProviderException( String providerName )
-    {
-        super( "No such provider: '" + providerName + "'." );
+    public NoSuchNativeProviderException(String providerName) {
+        super("No such provider: '" + providerName + "'.");
 
         this.providerName = providerName;
     }
 
-    public String getProviderName()
-    {
+    public String getProviderName() {
         return providerName;
     }
-
 }

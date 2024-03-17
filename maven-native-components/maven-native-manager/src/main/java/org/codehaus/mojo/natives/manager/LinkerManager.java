@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.linker.Linker;
 
-public interface LinkerManager
-{
+public interface LinkerManager {
     String ROLE = LinkerManager.class.getName();
 
-    Linker getLinker( String roleHint )
-        throws NoSuchNativeProviderException;
+    Linker getLinker(String roleHint) throws NoSuchNativeProviderException;
 }

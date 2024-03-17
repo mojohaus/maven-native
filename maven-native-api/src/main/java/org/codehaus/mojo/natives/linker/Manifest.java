@@ -22,10 +22,8 @@ package org.codehaus.mojo.natives.linker;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 
-public interface Manifest
-{
+public interface Manifest {
     String ROLE = Manifest.class.getName();
 
-    void run( ManifestConfiguration config )
-        throws NativeBuildException;
+    void run(ManifestConfiguration config) throws NativeBuildException;
 }

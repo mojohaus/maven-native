@@ -10,14 +10,7 @@ import org.codehaus.plexus.component.annotations.Component;
  * Helper class to test native-maven-plugin' javah mojo
  */
 @Component(role = Ranlib.class, hint = "noop")
-public class NoopRanlib
-    implements Ranlib
-{
+public class NoopRanlib implements Ranlib {
 
-    public void run( File file )
-        throws NativeBuildException
-    {
-
-    }
-
+    public void run(File file) throws NativeBuildException {}
 }

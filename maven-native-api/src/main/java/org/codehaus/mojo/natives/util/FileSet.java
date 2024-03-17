@@ -1,11 +1,11 @@
 package org.codehaus.mojo.natives.util;
 
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 
 /*
  * Copyright 2001-2004 The Apache Software Foundation.
@@ -23,8 +23,7 @@ import java.util.Arrays;
  * limitations under the License.
  */
 
-public class FileSet
-{
+public class FileSet {
     private File basedir;
 
     /** List of files, all relative to the basedir. */
@@ -32,81 +31,66 @@ public class FileSet
 
     private static final File[] EMPTY_FILE_ARRAY = new File[0];
 
-    public FileSet( File basedir )
-    {
-        this( basedir, EMPTY_FILE_ARRAY );
+    public FileSet(File basedir) {
+        this(basedir, EMPTY_FILE_ARRAY);
     }
 
-    public FileSet( File basedir, File file )
-    {
-        this( basedir, new File[] { file } );
+    public FileSet(File basedir, File file) {
+        this(basedir, new File[] {file});
     }
 
-    public FileSet( File basedir, String includes, String excludes )
-        throws IOException
-    {
+    public FileSet(File basedir, String includes, String excludes) throws IOException {
         this.basedir = basedir;
 
-        excludes = this.trimCommaSeparateString( excludes );
+        excludes = this.trimCommaSeparateString(excludes);
 
-        includes = this.trimCommaSeparateString( includes );
+        includes = this.trimCommaSeparateString(includes);
 
-        files = FileUtils.getFiles( basedir, includes, excludes ).toArray( EMPTY_FILE_ARRAY );
+        files = FileUtils.getFiles(basedir, includes, excludes).toArray(EMPTY_FILE_ARRAY);
     }
 
-    public FileSet( File basedir, File[] files )
-    {
-        if ( basedir == null )
-        {
-            throw new NullPointerException( "basedir must not be null" );
+    public FileSet(File basedir, File[] files) {
+        if (basedir == null) {
+            throw new NullPointerException("basedir must not be null");
         }
 
-        if ( files == null )
-        {
-            throw new NullPointerException( "files must not be null" );
+        if (files == null) {
+            throw new NullPointerException("files must not be null");
         }
 
         this.basedir = basedir;
         this.files = files;
     }
 
-    public File getBasedir()
-    {
+    public File getBasedir() {
         return basedir;
     }
 
-    public File[] getFiles()
-    {
+    public File[] getFiles() {
         return this.files;
     }
 
-    public String toString()
-    {
-        return "basedir = " + basedir + "; files = " + Arrays.asList( files );
+    public String toString() {
+        return "basedir = " + basedir + "; files = " + Arrays.asList(files);
     }
 
     // temp solution until plexus-util is fix
 
-    private String trimCommaSeparateString( String in )
-    {
-        if ( in == null || in.trim().length() == 0 )
-        {
+    private String trimCommaSeparateString(String in) {
+        if (in == null || in.trim().length() == 0) {
             return "";
         }
 
         StringBuilder out = new StringBuilder();
 
-        String[] tokens = StringUtils.split( in, "," );
-        for ( int i = 0; i < tokens.length; ++i )
-        {
-            if ( i != 0 )
-            {
-                out.append( "," );
+        String[] tokens = StringUtils.split(in, ",");
+        for (int i = 0; i < tokens.length; ++i) {
+            if (i != 0) {
+                out.append(",");
             }
-            out.append( tokens[i].trim() );
+            out.append(tokens[i].trim());
         }
 
         return out.toString();
     }
-
 }

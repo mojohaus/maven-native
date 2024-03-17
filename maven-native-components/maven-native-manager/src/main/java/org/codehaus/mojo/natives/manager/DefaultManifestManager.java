@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.linker.Manifest;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -32,10 +33,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = ManifestManager.class, hint = "native-manifest-provider-manager")
-public class DefaultManifestManager
-    extends AbstractLogEnabled
-    implements ManifestManager, Initializable
-{
+public class DefaultManifestManager extends AbstractLogEnabled implements ManifestManager, Initializable {
     @Requirement(role = Manifest.class)
     private Map<String, Manifest> providers;
 
@@ -44,28 +42,22 @@ public class DefaultManifestManager
     // ----------------------------------------------------------------------
 
     @Override
-    public void initialize()
-    {
-        if ( providers == null )
-        {
+    public void initialize() {
+        if (providers == null) {
             providers = new HashMap<>();
         }
 
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No manifest providers configured." );
+        if (providers.size() == 0) {
+            getLogger().warn("No manifest providers configured.");
         }
     }
 
     @Override
-    public Manifest getManifest( String providerType )
-        throws NoSuchNativeProviderException
-    {
-        Manifest provider = providers.get( providerType );
+    public Manifest getManifest(String providerType) throws NoSuchNativeProviderException {
+        Manifest provider = providers.get(providerType);
 
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
+        if (provider == null) {
+            throw new NoSuchNativeProviderException(providerType);
         }
 
         return provider;

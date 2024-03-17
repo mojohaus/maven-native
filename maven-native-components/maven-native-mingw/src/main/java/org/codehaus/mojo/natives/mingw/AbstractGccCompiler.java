@@ -24,124 +24,103 @@
 package org.codehaus.mojo.natives.mingw;
 
 import java.io.File;
-import org.codehaus.plexus.util.cli.Commandline;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.AbstractCompiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.mojo.natives.parser.CParser;
+import org.codehaus.mojo.natives.parser.Parser;
+import org.codehaus.plexus.util.cli.Commandline;
 
-public abstract class AbstractGccCompiler
-    extends AbstractCompiler
-{
+public abstract class AbstractGccCompiler extends AbstractCompiler {
 
     /**
      * resuable parser in one Compilation session
      */
-
     private Parser parser = new CParser();
 
     protected abstract String getOutputFileOption();
 
-    protected Parser getParser()
-    {
+    protected Parser getParser() {
         return this.parser;
     }
 
     /**
      * Setup Compiler Command line
      */
-    protected Commandline getCommandLine( File srcFile, File destFile, CompilerConfiguration config )
-        throws NativeBuildException
-    {
+    protected Commandline getCommandLine(File srcFile, File destFile, CompilerConfiguration config)
+            throws NativeBuildException {
 
-        if ( config.getExecutable() == null )
-        {
-            config.setExecutable( "gcc" );
+        if (config.getExecutable() == null) {
+            config.setExecutable("gcc");
         }
 
         Commandline cl = new Commandline();
 
-        cl.setExecutable( config.getExecutable() );
+        cl.setExecutable(config.getExecutable());
 
-        if ( config.getWorkingDirectory() != null )
-        {
-            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        if (config.getWorkingDirectory() != null) {
+            cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
         }
 
-        this.setStartOptions( cl, config );
+        this.setStartOptions(cl, config);
 
-        this.setIncludePaths( cl, config.getIncludePaths() );
+        this.setIncludePaths(cl, config.getIncludePaths());
 
-        this.setIncludePaths( cl, config.getSystemIncludePaths() );
+        this.setIncludePaths(cl, config.getSystemIncludePaths());
 
-        this.setMiddleOptions( cl, config );
+        this.setMiddleOptions(cl, config);
 
-        this.setOutputArgs( cl, destFile );
+        this.setOutputArgs(cl, destFile);
 
-        this.setSourceArgs( cl, srcFile );
+        this.setSourceArgs(cl, srcFile);
 
-        this.setEndOptions( cl, config );
+        this.setEndOptions(cl, config);
 
         return cl;
     }
 
-    private void setOptions( Commandline cl, String[] options )
-    {
-        if ( options != null )
-        {
-            for ( String option : options )
-            {
-                cl.createArg().setValue( option );
+    private void setOptions(Commandline cl, String[] options) {
+        if (options != null) {
+            for (String option : options) {
+                cl.createArg().setValue(option);
             }
         }
     }
 
-    private void setStartOptions( Commandline cl, CompilerConfiguration config )
-    {
-        this.setOptions( cl, config.getStartOptions() );
+    private void setStartOptions(Commandline cl, CompilerConfiguration config) {
+        this.setOptions(cl, config.getStartOptions());
     }
 
-    private void setMiddleOptions( Commandline cl, CompilerConfiguration config )
-    {
-        this.setOptions( cl, config.getMiddleOptions() );
+    private void setMiddleOptions(Commandline cl, CompilerConfiguration config) {
+        this.setOptions(cl, config.getMiddleOptions());
     }
 
-    private void setEndOptions( Commandline cl, CompilerConfiguration config )
-    {
-        this.setOptions( cl, config.getEndOptions() );
+    private void setEndOptions(Commandline cl, CompilerConfiguration config) {
+        this.setOptions(cl, config.getEndOptions());
     }
 
-    private void setIncludePaths( Commandline cl, File[] includePaths )
-    {
-        if ( includePaths != null )
-        {
-            for ( File includePath : includePaths )
-            {
-                cl.createArg().setValue( "-I" + includePath.getPath() );
+    private void setIncludePaths(Commandline cl, File[] includePaths) {
+        if (includePaths != null) {
+            for (File includePath : includePaths) {
+                cl.createArg().setValue("-I" + includePath.getPath());
             }
         }
     }
 
-    private void setOutputArgs( Commandline cl, File outputFile )
-    {
+    private void setOutputArgs(Commandline cl, File outputFile) {
         String outputFileOption = this.getOutputFileOption();
 
-        if ( outputFileOption.endsWith( " " ) )
-        {
-            cl.createArg().setValue( outputFileOption.trim() );
-            cl.createArg().setValue( outputFile.getPath() );
-        }
-        else
-        {
-            cl.createArg().setValue( outputFileOption + outputFile.getPath() );
+        if (outputFileOption.endsWith(" ")) {
+            cl.createArg().setValue(outputFileOption.trim());
+            cl.createArg().setValue(outputFile.getPath());
+        } else {
+            cl.createArg().setValue(outputFileOption + outputFile.getPath());
         }
     }
 
-    private void setSourceArgs( Commandline cl, File srcFile )
-    {
-        cl.createArg().setValue( "-c" );
-        cl.createArg().setValue( srcFile.getPath() );
+    private void setSourceArgs(Commandline cl, File srcFile) {
+        cl.createArg().setValue("-c");
+        cl.createArg().setValue(srcFile.getPath());
     }
 }

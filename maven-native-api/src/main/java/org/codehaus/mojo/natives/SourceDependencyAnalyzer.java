@@ -32,37 +32,27 @@ import org.codehaus.mojo.natives.parser.Parser;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-
-public class SourceDependencyAnalyzer
-{
-    public static boolean isStaled( File source, File dest, Parser parser, File[] includePaths )
-        throws NativeBuildException
-    {
-        if ( !source.exists() )
-        {
-            throw new NativeBuildException( source.getPath() + " not found." );
+public class SourceDependencyAnalyzer {
+    public static boolean isStaled(File source, File dest, Parser parser, File[] includePaths)
+            throws NativeBuildException {
+        if (!source.exists()) {
+            throw new NativeBuildException(source.getPath() + " not found.");
         }
 
         // quick compare with the source where the user likely to change first
-        if ( ( !dest.exists() ) || ( dest.lastModified() < source.lastModified() ) )
-        {
+        if ((!dest.exists()) || (dest.lastModified() < source.lastModified())) {
             return true;
         }
 
         // analyze the depenencies of the source file to detect any new changes
-        Dependency dependency = new Dependency( null, source, parser, includePaths );
+        Dependency dependency = new Dependency(null, source, parser, includePaths);
 
-        try
-        {
+        try {
             dependency.analyze();
-        }
-        catch ( IOException ioe )
-        {
-            throw new NativeBuildException( "Error analysing " + source.getPath() + ". Reason: " + ioe.getMessage() );
+        } catch (IOException ioe) {
+            throw new NativeBuildException("Error analysing " + source.getPath() + ". Reason: " + ioe.getMessage());
         }
 
         return dest.lastModified() < dependency.getCompositeLastModified();
-
     }
-
 }

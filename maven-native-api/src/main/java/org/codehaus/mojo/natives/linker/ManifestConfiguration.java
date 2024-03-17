@@ -30,9 +30,7 @@ import org.codehaus.mojo.natives.ConfigurationBase;
 /*
  * ManifestConfiguration contains inputs by the user
  */
-public class ManifestConfiguration
-    extends ConfigurationBase
-{
+public class ManifestConfiguration extends ConfigurationBase {
 
     private File workingDirectory;
 
@@ -40,34 +38,27 @@ public class ManifestConfiguration
 
     private File manifestFile;
 
-    public File getInputFile()
-    {
+    public File getInputFile() {
         return inputFile;
     }
 
-    public void setInputFile( File inputFile )
-    {
+    public void setInputFile(File inputFile) {
         this.inputFile = inputFile;
     }
 
-    public File getManifestFile()
-    {
+    public File getManifestFile() {
         return manifestFile;
     }
 
-    public void setManifestFile( File manifestFile )
-    {
+    public void setManifestFile(File manifestFile) {
         this.manifestFile = manifestFile;
     }
 
-    public File getWorkingDirectory()
-    {
+    public File getWorkingDirectory() {
         return this.workingDirectory;
     }
 
-    public void setWorkingDirectory( File dir )
-    {
+    public void setWorkingDirectory(File dir) {
         this.workingDirectory = dir;
     }
-
 }

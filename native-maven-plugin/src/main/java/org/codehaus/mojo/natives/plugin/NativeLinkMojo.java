@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -46,9 +47,7 @@ import org.codehaus.plexus.util.StringUtils;
  * Link all previously built object and dependent library files into final build artifact
  */
 @Mojo(name = "link", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class NativeLinkMojo
-    extends AbstractNativeMojo
-{
+public class NativeLinkMojo extends AbstractNativeMojo {
 
     /**
      * Override this property if permitted by compilerProvider
@@ -196,12 +195,9 @@ public class NativeLinkMojo
     private boolean checkStaleLinkage;
 
     @Override
-    public void execute()
-        throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
 
-        if ( StringUtils.isEmpty( this.classifier ) )
-        {
+        if (StringUtils.isEmpty(this.classifier)) {
             this.classifier = null;
         }
 
@@ -209,69 +205,57 @@ public class NativeLinkMojo
 
         this.config = this.createLinkerConfiguration();
 
-        try
-        {
+        try {
             List<File> allCompilerOuputFiles = this.getAllCompilersOutputFileList();
 
-            File outputFile = linker.link( config, allCompilerOuputFiles );
+            File outputFile = linker.link(config, allCompilerOuputFiles);
             allCompilerOuputFiles.clear();
 
             // to be used by post linker mojo like native:manifest
-            @SuppressWarnings({ "unused", "unchecked" })
-            Object unchecked = this.getPluginContext().put( AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile );
+            @SuppressWarnings({"unused", "unchecked"})
+            Object unchecked = this.getPluginContext().put(AbstractNativeMojo.LINKER_OUTPUT_PATH, outputFile);
 
-        }
-        catch ( IOException | NativeBuildException ioe )
-        {
-            throw new MojoExecutionException( ioe.getMessage(), ioe );
+        } catch (IOException | NativeBuildException ioe) {
+            throw new MojoExecutionException(ioe.getMessage(), ioe);
         }
 
-        if ( this.attach )
-        {
+        if (this.attach) {
             this.attachPrimaryArtifact();
 
             this.attachSecondaryArtifacts();
         }
     }
 
-    private LinkerConfiguration createLinkerConfiguration()
-        throws MojoExecutionException
-    {
+    private LinkerConfiguration createLinkerConfiguration() throws MojoExecutionException {
         LinkerConfiguration config = new LinkerConfiguration();
-        config.setWorkingDirectory( this.workingDirectory );
-        config.setExecutable( this.linkerExecutable );
-        config.setStartOptions( removeEmptyOptions( this.linkerStartOptions ) );
-        config.setMiddleOptions( removeEmptyOptions( this.linkerMiddleOptions ) );
-        config.setEndOptions( removeEmptyOptions( this.linkerEndOptions ) );
-        config.setOutputDirectory( this.linkerOutputDirectory );
-        config.setOutputFileName( this.linkerFinalName );
-        config.setOutputFileExtension( this.linkerFinalNameExt );
-        config.setExternalLibDirectory( this.externalLibDirectory );
-        config.setExternalLibFileNames( this.getLibFileNames() );
-        config.setEnvFactory( this.getEnvFactory() );
-        config.setUsingLinkerResponseFile( usingLinkerResponseFile );
-        config.setCheckStaleLinkage( this.checkStaleLinkage );
+        config.setWorkingDirectory(this.workingDirectory);
+        config.setExecutable(this.linkerExecutable);
+        config.setStartOptions(removeEmptyOptions(this.linkerStartOptions));
+        config.setMiddleOptions(removeEmptyOptions(this.linkerMiddleOptions));
+        config.setEndOptions(removeEmptyOptions(this.linkerEndOptions));
+        config.setOutputDirectory(this.linkerOutputDirectory);
+        config.setOutputFileName(this.linkerFinalName);
+        config.setOutputFileExtension(this.linkerFinalNameExt);
+        config.setExternalLibDirectory(this.externalLibDirectory);
+        config.setExternalLibFileNames(this.getLibFileNames());
+        config.setEnvFactory(this.getEnvFactory());
+        config.setUsingLinkerResponseFile(usingLinkerResponseFile);
+        config.setCheckStaleLinkage(this.checkStaleLinkage);
 
         return config;
     }
 
-    private Linker getLinker()
-        throws MojoExecutionException
-    {
+    private Linker getLinker() throws MojoExecutionException {
         Linker linker;
 
-        try
-        {
-            if ( this.linkerProvider == null )
-            {
+        try {
+            if (this.linkerProvider == null) {
                 this.linkerProvider = this.compilerProvider;
             }
 
-            linker = this.manager.getLinker( this.linkerProvider );
-        }
-        catch ( NoSuchNativeProviderException pe )
-        {
-            throw new MojoExecutionException( pe.getMessage() );
+            linker = this.manager.getLinker(this.linkerProvider);
+        } catch (NoSuchNativeProviderException pe) {
+            throw new MojoExecutionException(pe.getMessage());
         }
 
         return linker;
@@ -280,96 +264,89 @@ public class NativeLinkMojo
     /**
      *
      */
-    private void attachPrimaryArtifact()
-    {
+    private void attachPrimaryArtifact() {
         Artifact artifact = this.project.getArtifact();
 
-        if ( null == this.classifier )
-        {
-            artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                    + this.project.getArtifact().getArtifactHandler().getExtension() ) );
-        }
-        else
-        {
+        if (null == this.classifier) {
+            artifact.setFile(new File(
+                    this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
+                            + this.project.getArtifact().getArtifactHandler().getExtension()));
+        } else {
             // install primary artifact as a classifier
 
-            DefaultArtifact clone = new DefaultArtifact( artifact.getGroupId(), artifact.getArtifactId(),
-                    artifact.getVersionRange().cloneOf(), artifact.getScope(), artifact.getType(), classifier,
-                    artifact.getArtifactHandler(), artifact.isOptional() );
+            DefaultArtifact clone = new DefaultArtifact(
+                    artifact.getGroupId(),
+                    artifact.getArtifactId(),
+                    artifact.getVersionRange().cloneOf(),
+                    artifact.getScope(),
+                    artifact.getType(),
+                    classifier,
+                    artifact.getArtifactHandler(),
+                    artifact.isOptional());
 
-            clone.setRelease( artifact.isRelease() );
-            clone.setResolvedVersion( artifact.getVersion() );
-            clone.setResolved( artifact.isResolved() );
-            clone.setFile( artifact.getFile() );
+            clone.setRelease(artifact.isRelease());
+            clone.setResolvedVersion(artifact.getVersion());
+            clone.setResolved(artifact.isResolved());
+            clone.setFile(artifact.getFile());
 
-            if ( artifact.getAvailableVersions() != null )
-            {
-                clone.setAvailableVersions( new ArrayList<>( artifact.getAvailableVersions() ) );
+            if (artifact.getAvailableVersions() != null) {
+                clone.setAvailableVersions(new ArrayList<>(artifact.getAvailableVersions()));
             }
 
-            clone.setBaseVersion( artifact.getBaseVersion() );
-            clone.setDependencyFilter( artifact.getDependencyFilter() );
+            clone.setBaseVersion(artifact.getBaseVersion());
+            clone.setDependencyFilter(artifact.getDependencyFilter());
 
-            if ( artifact.getDependencyTrail() != null )
-            {
-                clone.setDependencyTrail( new ArrayList<>( artifact.getDependencyTrail() ) );
+            if (artifact.getDependencyTrail() != null) {
+                clone.setDependencyTrail(new ArrayList<>(artifact.getDependencyTrail()));
             }
 
-            clone.setDownloadUrl( artifact.getDownloadUrl() );
-            clone.setRepository( artifact.getRepository() );
+            clone.setDownloadUrl(artifact.getDownloadUrl());
+            clone.setRepository(artifact.getRepository());
 
-            clone.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                    + this.project.getArtifact().getArtifactHandler().getExtension() ) );
+            clone.setFile(new File(
+                    this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
+                            + this.project.getArtifact().getArtifactHandler().getExtension()));
 
-            project.setArtifact( clone );
+            project.setArtifact(clone);
         }
     }
 
-    private void attachSecondaryArtifacts()
-    {
+    private void attachSecondaryArtifacts() {
         final String[] tokens;
-        if ( this.linkerSecondaryOutputExtensions != null )
-        {
-            tokens = StringUtils.split( this.linkerSecondaryOutputExtensions, "," );
-        }
-        else
-        {
+        if (this.linkerSecondaryOutputExtensions != null) {
+            tokens = StringUtils.split(this.linkerSecondaryOutputExtensions, ",");
+        } else {
             tokens = new String[0];
         }
 
-        for ( String token : tokens )
-        {
+        for (String token : tokens) {
             // TODO: shouldn't need classifier
-            Artifact artifact = artifactFactory.createArtifact( project.getGroupId(), project.getArtifactId(),
-                    project.getVersion(), this.classifier, token.trim() );
-            artifact.setFile( new File( this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "."
-                    + token.trim() ) );
+            Artifact artifact = artifactFactory.createArtifact(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), this.classifier, token.trim());
+            artifact.setFile(new File(
+                    this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "." + token.trim()));
 
-            project.addAttachedArtifact( artifact );
+            project.addAttachedArtifact(artifact);
         }
-
     }
 
-    private List<String> getLibFileNames()
-        throws MojoExecutionException
-    {
+    private List<String> getLibFileNames() throws MojoExecutionException {
         List<String> libList = new ArrayList<>();
 
         Set<Artifact> artifacts = this.project.getArtifacts();
 
-        for ( Artifact artifact : artifacts )
-        {
-            if ( INCZIP_TYPE.equals( artifact.getType() ) )
-            {
+        for (Artifact artifact : artifacts) {
+            if (INCZIP_TYPE.equals(artifact.getType())) {
                 continue;
             }
 
-            String libFileName = FileUtils.filename( this.getDependencyFile( artifact, true ).getPath() );
+            String libFileName =
+                    FileUtils.filename(this.getDependencyFile(artifact, true).getPath());
 
-            libList.add( libFileName );
+            libList.add(libFileName);
         }
 
-        libList = this.reorderLibDependencies( libList );
+        libList = this.reorderLibDependencies(libList);
 
         return libList;
     }
@@ -379,26 +356,20 @@ public class NativeLinkMojo
      *
      * @return
      */
-    private List<String> getDependenciesFileOrderList()
-        throws MojoExecutionException
-    {
+    private List<String> getDependenciesFileOrderList() throws MojoExecutionException {
         List<String> list = new ArrayList<>();
 
-        if ( this.linkingOrderLibs != null )
-        {
-            for ( String element : linkingOrderLibs )
-            {
-                Artifact artifact = lookupDependencyUsingGroupArtifactIdPair( element );
+        if (this.linkingOrderLibs != null) {
+            for (String element : linkingOrderLibs) {
+                Artifact artifact = lookupDependencyUsingGroupArtifactIdPair(element);
 
-                if ( artifact != null )
-                {
-                    String libFileName = FileUtils.filename( this.getDependencyFile( artifact, false ).getPath() );
+                if (artifact != null) {
+                    String libFileName = FileUtils.filename(
+                            this.getDependencyFile(artifact, false).getPath());
 
-                    list.add( libFileName );
-                }
-                else
-                {
-                    throw new MojoExecutionException( element + " not found on project dependencies." );
+                    list.add(libFileName);
+                } else {
+                    throw new MojoExecutionException(element + " not found on project dependencies.");
                 }
             }
         }
@@ -415,77 +386,64 @@ public class NativeLinkMojo
      * @return
      * @throws MojoExecutionException
      */
-    private Artifact lookupDependencyUsingGroupArtifactIdPair( String groupArtifactIdPair )
-        throws MojoExecutionException
-    {
-        String[] tokens = StringUtils.split( groupArtifactIdPair, ":" );
+    private Artifact lookupDependencyUsingGroupArtifactIdPair(String groupArtifactIdPair)
+            throws MojoExecutionException {
+        String[] tokens = StringUtils.split(groupArtifactIdPair, ":");
 
-        if ( tokens.length != 2 )
-        {
-            throw new MojoExecutionException( "Invalid groupId and artifactId pair: " + groupArtifactIdPair );
+        if (tokens.length != 2) {
+            throw new MojoExecutionException("Invalid groupId and artifactId pair: " + groupArtifactIdPair);
         }
 
         Set<Artifact> allDependencyArtifacts = project.getDependencyArtifacts();
 
-        for ( Artifact artifact : allDependencyArtifacts )
-        {
-            if ( INCZIP_TYPE.equals( artifact.getType() ) )
-            {
+        for (Artifact artifact : allDependencyArtifacts) {
+            if (INCZIP_TYPE.equals(artifact.getType())) {
                 continue;
             }
 
-            if ( tokens[0].equals( artifact.getGroupId() ) && tokens[1].equals( artifact.getArtifactId() ) )
-            {
+            if (tokens[0].equals(artifact.getGroupId()) && tokens[1].equals(artifact.getArtifactId())) {
                 return artifact;
             }
         }
 
         return null;
-
     }
 
-    private List<String> reorderLibDependencies( List<String> libs )
-        throws MojoExecutionException
-    {
+    private List<String> reorderLibDependencies(List<String> libs) throws MojoExecutionException {
         List<String> requestedOrderList = getDependenciesFileOrderList();
 
-        if ( requestedOrderList.size() != 0 )
-        {
+        if (requestedOrderList.size() != 0) {
             // remove from original list first
-            for ( String s : requestedOrderList )
-            {
-                libs.remove( s );
+            for (String s : requestedOrderList) {
+                libs.remove(s);
             }
 
-            requestedOrderList.addAll( libs );
+            requestedOrderList.addAll(libs);
 
             return requestedOrderList;
-        }
-        else
-        {
+        } else {
             return libs;
         }
     }
 
-    private File getDependencyFile( Artifact artifact, boolean doCopy )
-        throws MojoExecutionException
-    {
+    private File getDependencyFile(Artifact artifact, boolean doCopy) throws MojoExecutionException {
 
-        File newLocation = new File( this.externalLibDirectory,
-                artifact.getArtifactId() + "." + artifact.getArtifactHandler().getExtension() );
+        File newLocation = new File(
+                this.externalLibDirectory,
+                artifact.getArtifactId() + "." + artifact.getArtifactHandler().getExtension());
 
-        try
-        {
-            if ( doCopy && !artifact.getFile().isDirectory()
-                    && ( !newLocation.exists() || newLocation.lastModified() <= artifact.getFile().lastModified() ) )
-            {
-                FileUtils.copyFile( artifact.getFile(), newLocation );
+        try {
+            if (doCopy
+                    && !artifact.getFile().isDirectory()
+                    && (!newLocation.exists()
+                            || newLocation.lastModified() <= artifact.getFile().lastModified())) {
+                FileUtils.copyFile(artifact.getFile(), newLocation);
             }
-        }
-        catch ( IOException ioe )
-        {
-            throw new MojoExecutionException( "Unable to copy dependency to staging area.  Could not copy "
-                    + artifact.getFile() + " to " + newLocation, ioe );
+        } catch (IOException ioe) {
+            throw new MojoExecutionException(
+                    "Unable to copy dependency to staging area.  Could not copy " + artifact.getFile() + " to "
+                            + newLocation,
+                    ioe);
         }
 
         return newLocation;
@@ -499,9 +457,7 @@ public class NativeLinkMojo
      */
     private LinkerConfiguration config;
 
-    protected LinkerConfiguration getLgetLinkerConfiguration()
-    {
+    protected LinkerConfiguration getLgetLinkerConfiguration() {
         return this.config;
     }
-
 }

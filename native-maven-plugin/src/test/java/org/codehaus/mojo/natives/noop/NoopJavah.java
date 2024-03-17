@@ -9,14 +9,7 @@ import org.codehaus.plexus.component.annotations.Component;
  * Helper class to test native-maven-plugin' javah mojo
  */
 @Component(role = Javah.class, hint = "noop")
-public class NoopJavah
-    implements Javah
-{
+public class NoopJavah implements Javah {
 
-    public void compile( JavahConfiguration config )
-        throws NativeBuildException
-    {
-
-    }
-
+    public void compile(JavahConfiguration config) throws NativeBuildException {}
 }

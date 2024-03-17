@@ -22,6 +22,7 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -39,9 +40,7 @@ import org.codehaus.plexus.util.FileUtils;
  * Compile Windows resource files
  */
 @Mojo(name = "resource-compile", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public class NativeResourceCompileMojo
-    extends AbstractNativeMojo
-{
+public class NativeResourceCompileMojo extends AbstractNativeMojo {
 
     /**
      * Compiler Provider Type
@@ -90,53 +89,41 @@ public class NativeResourceCompileMojo
     private ResourceCompilerManager manager;
 
     @Override
-    public void execute()
-        throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
 
-        if ( !this.resourceCompilerOutputDirectory.exists() )
-        {
+        if (!this.resourceCompilerOutputDirectory.exists()) {
             this.resourceCompilerOutputDirectory.mkdirs();
         }
 
-        FileUtils.mkdir( project.getBuild().getDirectory() );
+        FileUtils.mkdir(project.getBuild().getDirectory());
 
         ResourceCompiler compiler = this.getResourceCompiler();
 
         ResourceCompilerConfiguration config = new ResourceCompilerConfiguration();
-        config.setExecutable( this.resourceCompilerExecutable );
-        config.setWorkingDirectory( this.workingDirectory );
-        config.setOptions( NativeMojoUtils.trimParams( this.resourceCompilerOptions ) );
-        config.setOutputDirectory( this.resourceCompilerOutputDirectory );
-        config.setEnvFactory( this.getEnvFactory() );
+        config.setExecutable(this.resourceCompilerExecutable);
+        config.setWorkingDirectory(this.workingDirectory);
+        config.setOptions(NativeMojoUtils.trimParams(this.resourceCompilerOptions));
+        config.setOutputDirectory(this.resourceCompilerOutputDirectory);
+        config.setEnvFactory(this.getEnvFactory());
 
-        try
-        {
+        try {
             List<File> resourceOutputFiles;
-            resourceOutputFiles = compiler.compile( config, this.resources );
+            resourceOutputFiles = compiler.compile(config, this.resources);
 
-            this.saveCompilerOutputFilePaths( resourceOutputFiles );
+            this.saveCompilerOutputFilePaths(resourceOutputFiles);
+        } catch (NativeBuildException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         }
-        catch ( NativeBuildException e )
-        {
-            throw new MojoExecutionException( e.getMessage(), e );
-        }
-
     }
 
-    private ResourceCompiler getResourceCompiler()
-        throws MojoExecutionException
-    {
+    private ResourceCompiler getResourceCompiler() throws MojoExecutionException {
         ResourceCompiler rc;
 
-        try
-        {
-            rc = this.manager.getResourceCompiler( this.provider );
+        try {
+            rc = this.manager.getResourceCompiler(this.provider);
 
-        }
-        catch ( NoSuchNativeProviderException pe )
-        {
-            throw new MojoExecutionException( pe.getMessage() );
+        } catch (NoSuchNativeProviderException pe) {
+            throw new MojoExecutionException(pe.getMessage());
         }
 
         return rc;

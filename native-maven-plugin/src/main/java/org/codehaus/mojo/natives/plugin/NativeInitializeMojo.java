@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -36,21 +37,16 @@ import org.apache.maven.project.MavenProject;
  * Initialize build lifecycle
  */
 @Mojo(name = "initialize", defaultPhase = LifecyclePhase.INITIALIZE)
-public class NativeInitializeMojo
-    extends AbstractMojo
-{
+public class NativeInitializeMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
 
     @Override
-    public void execute()
-        throws MojoExecutionException
-    {
-        File buildDirectory = new File( this.project.getBuild().getDirectory() );
+    public void execute() throws MojoExecutionException {
+        File buildDirectory = new File(this.project.getBuild().getDirectory());
 
-        if ( !buildDirectory.exists() )
-        {
+        if (!buildDirectory.exists()) {
             buildDirectory.mkdirs();
         }
 
@@ -60,19 +56,16 @@ public class NativeInitializeMojo
         // version
         String finalName = project.getArtifactId();
 
-        project.getBuild().setFinalName( finalName );
+        project.getBuild().setFinalName(finalName);
 
         // we need to clear out object files list since it possible that compile phase
         // gets called
         // mulitple times
         // and produce duplicate objects, and therefore will fail at link phase
         @SuppressWarnings("unchecked")
-        List<File> objList = (List<File>) this.getPluginContext().get( AbstractNativeMojo.LINKER_INPUT_LIST_NAME );
-        if ( objList != null )
-        {
+        List<File> objList = (List<File>) this.getPluginContext().get(AbstractNativeMojo.LINKER_INPUT_LIST_NAME);
+        if (objList != null) {
             objList.clear();
         }
-
     }
-
 }

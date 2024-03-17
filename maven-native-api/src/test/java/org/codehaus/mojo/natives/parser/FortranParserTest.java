@@ -19,19 +19,14 @@ package org.codehaus.mojo.natives.parser;
 import java.io.CharArrayReader;
 import java.io.IOException;
 
-import org.codehaus.mojo.natives.parser.FortranParser;
-
-public final class FortranParserTest
-    extends AbstractParserTest
-{
+public final class FortranParserTest extends AbstractParserTest {
     /**
      * Constructor.
      *
      * @param name String test name
      */
-    public FortranParserTest( final String name )
-    {
-        super( name );
+    public FortranParserTest(final String name) {
+        super(name);
     }
 
     /**
@@ -39,15 +34,13 @@ public final class FortranParserTest
      *
      * @throws IOException test fails on IOException
      */
-    public void testINCLUDE()
-        throws IOException
-    {
-        CharArrayReader reader = new CharArrayReader( "INCLUDE 'foo.inc' nowhatever  ".toCharArray() );
+    public void testINCLUDE() throws IOException {
+        CharArrayReader reader = new CharArrayReader("INCLUDE 'foo.inc' nowhatever  ".toCharArray());
         FortranParser parser = new FortranParser();
-        parser.parse( reader );
+        parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals( includes.length, 1 );
-        assertEquals( "foo.inc", includes[0] );
+        assertEquals(includes.length, 1);
+        assertEquals("foo.inc", includes[0]);
     }
 
     /**
@@ -55,15 +48,13 @@ public final class FortranParserTest
      *
      * @throws IOException test fails on IOException
      */
-    public void testInClUdE()
-        throws IOException
-    {
-        CharArrayReader reader = new CharArrayReader( "InClUdE 'foo.inc'  ".toCharArray() );
+    public void testInClUdE() throws IOException {
+        CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
-        parser.parse( reader );
+        parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals( includes.length, 1 );
-        assertEquals( "foo.inc", includes[0] );
+        assertEquals(includes.length, 1);
+        assertEquals("foo.inc", includes[0]);
     }
 
     /**
@@ -71,16 +62,13 @@ public final class FortranParserTest
      *
      * @throws IOException test fails on IOException
      */
-    public void testMultipleInClUdE()
-        throws IOException
-    {
-        CharArrayReader reader = new CharArrayReader( "InClUdE 'foo.inc'\ninclude 'bar.inc'  ".toCharArray() );
+    public void testMultipleInClUdE() throws IOException {
+        CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'\ninclude 'bar.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
-        parser.parse( reader );
+        parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals( includes.length, 2 );
-        assertEquals( "foo.inc", includes[0] );
-        assertEquals( "bar.inc", includes[1] );
+        assertEquals(includes.length, 2);
+        assertEquals("foo.inc", includes[0]);
+        assertEquals("bar.inc", includes[1]);
     }
-
 }

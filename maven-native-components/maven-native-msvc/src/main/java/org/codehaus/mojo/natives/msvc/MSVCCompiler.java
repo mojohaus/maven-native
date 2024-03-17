@@ -26,6 +26,7 @@ package org.codehaus.mojo.natives.msvc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.AbstractCCompiler;
 import org.codehaus.mojo.natives.compiler.Compiler;
@@ -34,20 +35,15 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = Compiler.class, hint = "msvc")
-public class MSVCCompiler
-    extends AbstractCCompiler
-{
+public class MSVCCompiler extends AbstractCCompiler {
     private Map<String, String> environmentVariables;
 
-    protected void setEnvironmentVariables( Map<String, String> envs )
-    {
+    protected void setEnvironmentVariables(Map<String, String> envs) {
         this.environmentVariables = envs;
     }
 
-    protected Map<String, String> getEnvironmentVariables()
-    {
-        if ( this.environmentVariables == null )
-        {
+    protected Map<String, String> getEnvironmentVariables() {
+        if (this.environmentVariables == null) {
             return new HashMap<>();
         }
 
@@ -55,23 +51,19 @@ public class MSVCCompiler
     }
 
     @Override
-    protected String getOutputFileOption()
-    {
+    protected String getOutputFileOption() {
         return "/Fo";
     }
 
     @Override
-    protected Commandline getCommandLine( File src, File dest, CompilerConfiguration config )
-        throws NativeBuildException
-    {
-        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-        {
-            config.setExecutable( "cl.exe" );
+    protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config)
+            throws NativeBuildException {
+        if (config.getExecutable() == null || config.getExecutable().trim().length() == 0) {
+            config.setExecutable("cl.exe");
         }
 
-        Commandline cl = super.getCommandLine( src, dest, config );
+        Commandline cl = super.getCommandLine(src, dest, config);
 
         return cl;
     }
-
 }

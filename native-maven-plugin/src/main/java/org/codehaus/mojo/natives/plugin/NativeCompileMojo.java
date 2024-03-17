@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -40,9 +41,7 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  * Compile source files into native object files
  */
 @Mojo(name = "compile", defaultPhase = LifecyclePhase.COMPILE)
-public class NativeCompileMojo
-    extends AbstractNativeMojo
-{
+public class NativeCompileMojo extends AbstractNativeMojo {
 
     /**
      * Compiler Provider Type
@@ -138,23 +137,17 @@ public class NativeCompileMojo
     private CompilerManager manager;
 
     @Override
-    public void execute()
-        throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
 
         Compiler compiler;
 
-        try
-        {
-            compiler = this.manager.getCompiler( this.compilerProvider );
-        }
-        catch ( NoSuchNativeProviderException pe )
-        {
-            throw new MojoExecutionException( pe.getMessage() );
+        try {
+            compiler = this.manager.getCompiler(this.compilerProvider);
+        } catch (NoSuchNativeProviderException pe) {
+            throw new MojoExecutionException(pe.getMessage());
         }
 
-        if ( this.javahOS != null )
-        {
+        if (this.javahOS != null) {
             this.addJavaHIncludePaths();
         }
 
@@ -163,115 +156,99 @@ public class NativeCompileMojo
         CompilerConfiguration config = this.createProviderConfiguration();
 
         List<File> objectFiles;
-        try
-        {
-            objectFiles = compiler.compile( config, NativeSources.getAllSourceFiles( this.sources ) );
-        }
-        catch ( NativeBuildException e )
-        {
-            throw new MojoExecutionException( e.getMessage(), e );
+        try {
+            objectFiles = compiler.compile(config, NativeSources.getAllSourceFiles(this.sources));
+        } catch (NativeBuildException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         }
 
-        this.saveCompilerOutputFilePaths( objectFiles );
-
+        this.saveCompilerOutputFilePaths(objectFiles);
     }
 
-    private void addJavaHIncludePaths()
-    {
-        List<NativeSources> sourceArray = new ArrayList<>( Arrays.asList( this.sources ) );
+    private void addJavaHIncludePaths() {
+        List<NativeSources> sourceArray = new ArrayList<>(Arrays.asList(this.sources));
 
         NativeSources jdkIncludeSource = new NativeSources();
 
-        jdkIncludeSource.setDirectory( this.jdkIncludePath );
+        jdkIncludeSource.setDirectory(this.jdkIncludePath);
 
-        jdkIncludeSource.setDependencyAnalysisParticipation( false );
+        jdkIncludeSource.setDependencyAnalysisParticipation(false);
 
-        sourceArray.add( jdkIncludeSource );
+        sourceArray.add(jdkIncludeSource);
 
-        File jdkOsIncludeDir = new File( this.jdkIncludePath, this.javahOS );
+        File jdkOsIncludeDir = new File(this.jdkIncludePath, this.javahOS);
 
         NativeSources jdkIncludeOsSource = new NativeSources();
 
-        jdkIncludeOsSource.setDirectory( jdkOsIncludeDir );
+        jdkIncludeOsSource.setDirectory(jdkOsIncludeDir);
 
-        jdkIncludeOsSource.setDependencyAnalysisParticipation( false );
+        jdkIncludeOsSource.setDependencyAnalysisParticipation(false);
 
-        sourceArray.add( jdkIncludeOsSource );
+        sourceArray.add(jdkIncludeOsSource);
 
-        this.sources = sourceArray.toArray( new NativeSources[sourceArray.size()] );
-
+        this.sources = sourceArray.toArray(new NativeSources[sourceArray.size()]);
     }
 
     /**
      * Pickup additional source paths that previous phases added to source root Note: we intentionally ignore the first
      * item of source root ( ie ${project.build.directory}/classes since this plugin never use it.
      */
-    private void addAdditionalIncludePath()
-    {
+    private void addAdditionalIncludePath() {
         List<?> additionalIncludePaths = project.getCompileSourceRoots();
 
-        boolean includeDependencyFound = this.getPluginContext().get( AbstractNativeMojo.INCZIP_FOUND ) != null;
+        boolean includeDependencyFound = this.getPluginContext().get(AbstractNativeMojo.INCZIP_FOUND) != null;
 
-        if ( !includeDependencyFound )
-        {
-            if ( additionalIncludePaths == null || additionalIncludePaths.size() < 2 )
-            {
+        if (!includeDependencyFound) {
+            if (additionalIncludePaths == null || additionalIncludePaths.size() < 2) {
                 return;
             }
         }
 
-        if ( this.sources == null )
-        {
+        if (this.sources == null) {
             return;
         }
 
-        List<NativeSources> sourceArray = new ArrayList<>( Arrays.asList( this.sources ) );
+        List<NativeSources> sourceArray = new ArrayList<>(Arrays.asList(this.sources));
 
-        if ( additionalIncludePaths.size() > 1 )
-        {
-            for ( int i = 1; i < additionalIncludePaths.size(); ++i )
-            {
-                File genIncludeDir = new File( additionalIncludePaths.get( i ).toString() );
+        if (additionalIncludePaths.size() > 1) {
+            for (int i = 1; i < additionalIncludePaths.size(); ++i) {
+                File genIncludeDir = new File(additionalIncludePaths.get(i).toString());
 
                 NativeSources genIncludeSource = new NativeSources();
 
-                genIncludeSource.setDirectory( genIncludeDir );
+                genIncludeSource.setDirectory(genIncludeDir);
 
-                sourceArray.add( genIncludeSource );
+                sourceArray.add(genIncludeSource);
             }
         }
 
-        if ( includeDependencyFound )
-        {
+        if (includeDependencyFound) {
             NativeSources dependencyIncludeSource = new NativeSources();
-            dependencyIncludeSource.setDependencyAnalysisParticipation( false );
-            dependencyIncludeSource.setDirectory( this.dependencyIncludeDirectory );
+            dependencyIncludeSource.setDependencyAnalysisParticipation(false);
+            dependencyIncludeSource.setDirectory(this.dependencyIncludeDirectory);
 
-            sourceArray.add( dependencyIncludeSource );
+            sourceArray.add(dependencyIncludeSource);
         }
 
-        this.sources = sourceArray.toArray( new NativeSources[sourceArray.size()] );
-
+        this.sources = sourceArray.toArray(new NativeSources[sourceArray.size()]);
     }
 
     /*
      * use protected scope for unit test purpose
      */
-    protected CompilerConfiguration createProviderConfiguration()
-        throws MojoExecutionException
-    {
+    protected CompilerConfiguration createProviderConfiguration() throws MojoExecutionException {
         this.config = new CompilerConfiguration();
-        config.setWorkingDirectory( this.workingDirectory );
-        config.setExecutable( this.compilerExecutable );
-        config.setStartOptions( removeEmptyOptions( this.compilerStartOptions ) );
-        config.setMiddleOptions( removeEmptyOptions( this.compilerMiddleOptions ) );
-        config.setEndOptions( removeEmptyOptions( this.compilerEndOptions ) );
-        config.setIncludePaths( NativeSources.getIncludePaths( this.sources ) );
-        config.setSystemIncludePaths( NativeSources.getSystemIncludePaths( this.sources ) );
-        config.setOutputDirectory( this.compilerOutputDirectory );
-        config.setObjectFileExtension( this.objectFileExtension );
-        config.setEnvFactory( this.getEnvFactory() );
-        config.setNumberOfConcurrentCompilation( numberOfConcurrentCompilation );
+        config.setWorkingDirectory(this.workingDirectory);
+        config.setExecutable(this.compilerExecutable);
+        config.setStartOptions(removeEmptyOptions(this.compilerStartOptions));
+        config.setMiddleOptions(removeEmptyOptions(this.compilerMiddleOptions));
+        config.setEndOptions(removeEmptyOptions(this.compilerEndOptions));
+        config.setIncludePaths(NativeSources.getIncludePaths(this.sources));
+        config.setSystemIncludePaths(NativeSources.getSystemIncludePaths(this.sources));
+        config.setOutputDirectory(this.compilerOutputDirectory);
+        config.setObjectFileExtension(this.objectFileExtension);
+        config.setEnvFactory(this.getEnvFactory());
+        config.setNumberOfConcurrentCompilation(numberOfConcurrentCompilation);
 
         return config;
     }
@@ -289,8 +266,7 @@ public class NativeCompileMojo
      *
      * @return
      */
-    protected CompilerConfiguration getCompilerConfiguration()
-    {
+    protected CompilerConfiguration getCompilerConfiguration() {
         return this.config;
     }
 }

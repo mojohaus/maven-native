@@ -3,6 +3,7 @@ package org.codehaus.mojo.natives.noop;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
@@ -13,24 +14,18 @@ import org.codehaus.plexus.util.FileUtils;
  * Helper class to test native-maven-plugin
  */
 @Component(role = Compiler.class, hint = "noop")
-public class NoopCompiler
-    implements Compiler
-{
+public class NoopCompiler implements Compiler {
 
     @Override
-    public List<File> compile( CompilerConfiguration config, File[] sourceFiles )
-        throws NativeBuildException
-    {
-        List<File> compilerOutputFiles = new ArrayList<>( sourceFiles.length );
+    public List<File> compile(CompilerConfiguration config, File[] sourceFiles) throws NativeBuildException {
+        List<File> compilerOutputFiles = new ArrayList<>(sourceFiles.length);
 
-        for ( File sourceFile : sourceFiles )
-        {
-            File source = new File( sourceFile.toString() );
+        for (File sourceFile : sourceFiles) {
+            File source = new File(sourceFile.toString());
 
-            File objectFile = this.getObjectFile( source, config );
+            File objectFile = this.getObjectFile(source, config);
 
-            compilerOutputFiles.add( objectFile );
-
+            compilerOutputFiles.add(objectFile);
         }
 
         return compilerOutputFiles;
@@ -39,8 +34,7 @@ public class NoopCompiler
     /**
      * @return
      */
-    protected String getObjectFileExtension()
-    {
+    protected String getObjectFileExtension() {
         // no need to test system specific extension
         return "o";
     }
@@ -51,14 +45,12 @@ public class NoopCompiler
      * @param sourceFile
      * @return
      */
-    private File getObjectFile( File sourceFile, CompilerConfiguration config )
-    {
+    private File getObjectFile(File sourceFile, CompilerConfiguration config) {
         String srcPath = sourceFile.getPath();
 
-        String destPath = config.getOutputDirectory().getPath() + "/" + FileUtils.basename( srcPath )
+        String destPath = config.getOutputDirectory().getPath() + "/" + FileUtils.basename(srcPath)
                 + this.getObjectFileExtension();
 
-        return new File( destPath );
+        return new File(destPath);
     }
-
 }

@@ -23,46 +23,47 @@
  */
 package org.codehaus.mojo.natives.bcc;
 
-import static org.junit.Assert.assertArrayEquals;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertArrayEquals;
 
-public class TLibLinkerTest
-    extends TestCase
-{
+public class TLibLinkerTest extends TestCase {
 
-    public void testCommandLine()
-    {
+    public void testCommandLine() {
         TLibLinker linker = new TLibLinker();
 
         LinkerConfiguration config = new LinkerConfiguration();
 
-        config.setWorkingDirectory( new File( "." ) );
+        config.setWorkingDirectory(new File("."));
 
-        String[] options = { "/C" };
-        config.setStartOptions( options );
-        config.setOutputFileName( "tlib" );
-        config.setOutputFileExtension( "lib" );
-        config.setOutputDirectory( new File( "target" ) );
+        String[] options = {"/C"};
+        config.setStartOptions(options);
+        config.setOutputFileName("tlib");
+        config.setOutputFileExtension("lib");
+        config.setOutputDirectory(new File("target"));
 
         List<File> objectFiles = new ArrayList<>();
-        objectFiles.add( new File( "target" + File.separator + "a.obj" ) );
-        objectFiles.add( new File( "target" + File.separator + "b.obj" ) );
-        objectFiles.add( new File( "target" + File.separator + "c.obj" ) );
+        objectFiles.add(new File("target" + File.separator + "a.obj"));
+        objectFiles.add(new File("target" + File.separator + "b.obj"));
+        objectFiles.add(new File("target" + File.separator + "c.obj"));
 
-        Commandline cl = linker.createLinkerCommandLine( objectFiles, config );
+        Commandline cl = linker.createLinkerCommandLine(objectFiles, config);
 
-        assertArrayEquals( new String[] { "tlib", "\"target" + File.separator + "tlib.lib\"", "/C",
-                "+\"target" + File.separator + "a.obj\"", "+\"target" + File.separator + "b.obj\"",
-                "+\"target" + File.separator + "c.obj\"" }, cl.getArguments() );
-
+        assertArrayEquals(
+                new String[] {
+                    "tlib",
+                    "\"target" + File.separator + "tlib.lib\"",
+                    "/C",
+                    "+\"target" + File.separator + "a.obj\"",
+                    "+\"target" + File.separator + "b.obj\"",
+                    "+\"target" + File.separator + "c.obj\""
+                },
+                cl.getArguments());
     }
-
 }

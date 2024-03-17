@@ -34,56 +34,48 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
 @Component(role = ResourceCompiler.class, hint = "msvc")
-public class MSVCResourceCompiler
-    extends AbstractResourceCompiler
-{
+public class MSVCResourceCompiler extends AbstractResourceCompiler {
 
-    protected Commandline getCommandLine( ResourceCompilerConfiguration config, File source )
-        throws NativeBuildException
-    {
+    protected Commandline getCommandLine(ResourceCompilerConfiguration config, File source)
+            throws NativeBuildException {
 
         Commandline cl = new Commandline();
 
-        EnvUtil.setupCommandlineEnv( cl, config.getEnvFactory() );
+        EnvUtil.setupCommandlineEnv(cl, config.getEnvFactory());
 
-        if ( config.getWorkingDirectory() != null )
-        {
-            cl.setWorkingDirectory( config.getWorkingDirectory().getPath() );
+        if (config.getWorkingDirectory() != null) {
+            cl.setWorkingDirectory(config.getWorkingDirectory().getPath());
         }
 
-        if ( config.getExecutable() == null || config.getExecutable().trim().length() == 0 )
-        {
-            config.setExecutable( "rc.exe" );
+        if (config.getExecutable() == null || config.getExecutable().trim().length() == 0) {
+            config.setExecutable("rc.exe");
         }
-        cl.setExecutable( config.getExecutable().trim() );
+        cl.setExecutable(config.getExecutable().trim());
 
-        cl.addArguments( config.getOptions() );
+        cl.addArguments(config.getOptions());
 
-        for ( int i = 0; i < config.getIncludePaths().length; ++i )
-        {
+        for (int i = 0; i < config.getIncludePaths().length; ++i) {
             String includePath = config.getIncludePaths()[i].getPath();
 
-            cl.createArg().setValue( "/i" );
+            cl.createArg().setValue("/i");
 
-            cl.createArg().setValue( includePath );
+            cl.createArg().setValue(includePath);
         }
 
-        for ( int i = 0; i < config.getSystemIncludePaths().length; ++i )
-        {
+        for (int i = 0; i < config.getSystemIncludePaths().length; ++i) {
             String includePath = config.getSystemIncludePaths()[i].getPath();
 
-            cl.createArg().setValue( "/i" );
+            cl.createArg().setValue("/i");
 
-            cl.createArg().setValue( includePath );
+            cl.createArg().setValue(includePath);
         }
 
-        cl.createArg().setValue( "/fo" );
+        cl.createArg().setValue("/fo");
 
-        cl.createArg().setValue( config.getOutputFile( source ).getPath() );
+        cl.createArg().setValue(config.getOutputFile(source).getPath());
 
-        cl.createArg().setValue( source.getPath() );
+        cl.createArg().setValue(source.getPath());
 
         return cl;
     }
-
 }

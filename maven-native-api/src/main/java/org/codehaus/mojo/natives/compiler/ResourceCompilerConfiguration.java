@@ -28,9 +28,7 @@ import java.io.File;
 import org.codehaus.mojo.natives.ConfigurationBase;
 import org.codehaus.plexus.util.FileUtils;
 
-public class ResourceCompilerConfiguration
-    extends ConfigurationBase
-{
+public class ResourceCompilerConfiguration extends ConfigurationBase {
     private static final File[] EMPTY_FILE_ARRAY = new File[0];
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
@@ -52,91 +50,72 @@ public class ResourceCompilerConfiguration
 
     private File[] systemIncludePaths = EMPTY_FILE_ARRAY;
 
-    public ResourceCompilerConfiguration()
-    {
-    }
+    public ResourceCompilerConfiguration() {}
 
-    public String getExecutable()
-    {
+    public String getExecutable() {
         return this.executable;
     }
 
-    public void setExecutable( String executable )
-    {
+    public void setExecutable(String executable) {
         this.executable = executable;
     }
 
-    public File getWorkingDirectory()
-    {
+    public File getWorkingDirectory() {
         return this.workingDirectory;
     }
 
-    public void setWorkingDirectory( File dir )
-    {
+    public void setWorkingDirectory(File dir) {
         this.workingDirectory = dir;
     }
 
-    public String[] getOptions()
-    {
+    public String[] getOptions() {
         return this.options;
     }
 
-    public void setOptions( String[] options )
-    {
+    public void setOptions(String[] options) {
         this.options = options;
 
-        if ( this.options == null )
-        {
+        if (this.options == null) {
             this.options = EMPTY_STRING_ARRAY;
         }
     }
 
-    public File getOutputDirectory()
-    {
+    public File getOutputDirectory() {
         return this.outputDirectory;
     }
 
-    public void setOutputDirectory( File dir )
-    {
+    public void setOutputDirectory(File dir) {
         this.outputDirectory = dir;
     }
 
-    public File getDebugOutputDirectory()
-    {
+    public File getDebugOutputDirectory() {
         return this.debugOutputDirectory;
     }
 
-    public void setDebugOutputDirectory( File dir )
-    {
+    public void setDebugOutputDirectory(File dir) {
         this.debugOutputDirectory = dir;
     }
 
-    public File[] getIncludePaths()
-    {
+    public File[] getIncludePaths() {
         return this.includePaths;
     }
 
-    public void setIncludePaths( File[] paths )
-    {
+    public void setIncludePaths(File[] paths) {
         this.includePaths = paths;
 
-        if ( this.includePaths == null )
-        {
+        if (this.includePaths == null) {
             this.includePaths = EMPTY_FILE_ARRAY;
         }
     }
 
-    public File[] getSystemIncludePaths()
-    {
+    public File[] getSystemIncludePaths() {
         return this.systemIncludePaths;
     }
 
-    public void setSystemIncludePaths( File[] paths )
-    {
+    public void setSystemIncludePaths(File[] paths) {
         this.systemIncludePaths = paths;
 
-        if ( this.systemIncludePaths == null )
-        {
+        if (this.systemIncludePaths == null) {
             this.systemIncludePaths = EMPTY_FILE_ARRAY;
         }
     }
@@ -144,13 +123,11 @@ public class ResourceCompilerConfiguration
     // //////////////////////////////////////////////////////////
     // HELPER
     // /////////////////////////////////////////////////////////
-    public File getOutputFile( File src )
-    {
+    public File getOutputFile(File src) {
         String srcPath = src.getPath();
 
-        String destPath = this.getOutputDirectory().getPath() + "/" + FileUtils.basename( srcPath ) + "res";
+        String destPath = this.getOutputDirectory().getPath() + "/" + FileUtils.basename(srcPath) + "res";
 
-        return new File( destPath );
+        return new File(destPath);
     }
-
 }

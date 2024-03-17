@@ -25,54 +25,40 @@ import java.io.Reader;
  *
  * @author Curt Arnold
  */
-public abstract class AbstractParser
-{
+public abstract class AbstractParser {
 
-    protected AbstractParser()
-    {
-    }
+    protected AbstractParser() {}
 
-    protected abstract void addFilename( String filename );
+    protected abstract void addFilename(String filename);
 
     public abstract AbstractParserState getNewLineState();
 
-    protected void parse( Reader reader )
-        throws IOException
-    {
+    protected void parse(Reader reader) throws IOException {
         char[] buf = new char[4096];
         AbstractParserState newLineState = getNewLineState();
         AbstractParserState state = newLineState;
         int charsRead = -1;
 
-        do
-        {
-            charsRead = reader.read( buf, 0, buf.length );
-            if ( state == null )
-            {
-                for ( int i = 0; i < charsRead; i++ )
-                {
-                    if ( buf[i] == '\n' )
-                    {
+        do {
+            charsRead = reader.read(buf, 0, buf.length);
+            if (state == null) {
+                for (int i = 0; i < charsRead; i++) {
+                    if (buf[i] == '\n') {
                         state = newLineState;
                         break;
                     }
                 }
             }
 
-            if ( state != null )
-            {
-                for ( int i = 0; i < charsRead; i++ )
-                {
-                    state = state.consume( buf[i] );
+            if (state != null) {
+                for (int i = 0; i < charsRead; i++) {
+                    state = state.consume(buf[i]);
                     //
                     // didn't match a production, skip to a new line
                     //
-                    if ( state == null )
-                    {
-                        for ( ; i < charsRead; i++ )
-                        {
-                            if ( buf[i] == '\n' )
-                            {
+                    if (state == null) {
+                        for (; i < charsRead; i++) {
+                            if (buf[i] == '\n') {
                                 state = newLineState;
                                 break;
                             }
@@ -81,7 +67,6 @@ public abstract class AbstractParser
                 }
             }
 
-        }
-        while ( charsRead >= 0 );
+        } while (charsRead >= 0);
     }
 }

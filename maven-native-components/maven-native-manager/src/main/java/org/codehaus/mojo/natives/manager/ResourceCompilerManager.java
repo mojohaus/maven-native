@@ -25,10 +25,8 @@ package org.codehaus.mojo.natives.manager;
 
 import org.codehaus.mojo.natives.compiler.ResourceCompiler;
 
-public interface ResourceCompilerManager
-{
+public interface ResourceCompilerManager {
     String ROLE = ResourceCompilerManager.class.getName();
 
-    ResourceCompiler getResourceCompiler( String roleHint )
-        throws NoSuchNativeProviderException;
+    ResourceCompiler getResourceCompiler(String roleHint) throws NoSuchNativeProviderException;
 }

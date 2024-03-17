@@ -30,13 +30,9 @@ import org.codehaus.plexus.component.annotations.Component;
  * Generic C/CPP compiler with "-o" as its output option
  */
 @Component(role = Compiler.class, hint = "generic-classic", instantiationStrategy = "per-lookup")
-public class CCompilerClassic
-    extends AbstractCCompiler
-{
+public class CCompilerClassic extends AbstractCCompiler {
 
-    protected String getOutputFileOption()
-    {
+    protected String getOutputFileOption() {
         return "-o";
     }
-
 }

@@ -25,6 +25,7 @@ package org.codehaus.mojo.natives.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -32,10 +33,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
 @Component(role = MessageCompilerManager.class, hint = "native-message-compiler-provider-manager")
-public class DefaultMessageCompilerManager
-    extends AbstractLogEnabled
-    implements MessageCompilerManager, Initializable
-{
+public class DefaultMessageCompilerManager extends AbstractLogEnabled implements MessageCompilerManager, Initializable {
     @Requirement(role = MessageCompiler.class)
     private Map<String, MessageCompiler> providers;
 
@@ -44,29 +42,23 @@ public class DefaultMessageCompilerManager
     // ----------------------------------------------------------------------
 
     @Override
-    public void initialize()
-    {
-        if ( providers == null )
-        {
+    public void initialize() {
+        if (providers == null) {
             providers = new HashMap<>();
         }
 
-        if ( providers.size() == 0 )
-        {
-            getLogger().warn( "No compiler providers configured." );
+        if (providers.size() == 0) {
+            getLogger().warn("No compiler providers configured.");
         }
     }
 
     @Override
-    public MessageCompiler getMessageCompiler( String providerType )
-        throws NoSuchNativeProviderException
-    {
+    public MessageCompiler getMessageCompiler(String providerType) throws NoSuchNativeProviderException {
 
-        MessageCompiler provider = providers.get( providerType );
+        MessageCompiler provider = providers.get(providerType);
 
-        if ( provider == null )
-        {
-            throw new NoSuchNativeProviderException( providerType );
+        if (provider == null) {
+            throw new NoSuchNativeProviderException(providerType);
         }
 
         return provider;
