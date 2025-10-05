@@ -16,7 +16,7 @@
       <id>dtran</id>
       <name>Dan T. Tran</name>
       <email>dantran@gmail.com</email>
-      <organization/>
+      <organization />
       <roles>
         <role>Lead Developer</role>
       </roles>
@@ -253,7 +253,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore/>
+                        <ignore />
                       </action>
                     </pluginExecution>
                   </pluginExecutions>
