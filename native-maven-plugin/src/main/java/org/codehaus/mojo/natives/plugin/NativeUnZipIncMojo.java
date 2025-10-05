@@ -130,7 +130,7 @@ public class NativeUnZipIncMojo extends AbstractNativeMojo {
     private List<Artifact> getIncZipDependencies() {
         List<Artifact> list = new ArrayList<>();
 
-        Set<Artifact> artifacts = this.project.getDependencyArtifacts();
+        Set<Artifact> artifacts = this.project.getArtifacts();
 
         if (artifacts != null) {
             for (Artifact artifact : artifacts) {
