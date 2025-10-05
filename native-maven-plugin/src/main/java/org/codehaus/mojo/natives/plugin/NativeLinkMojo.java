@@ -394,7 +394,7 @@ public class NativeLinkMojo extends AbstractNativeMojo {
             throw new MojoExecutionException("Invalid groupId and artifactId pair: " + groupArtifactIdPair);
         }
 
-        Set<Artifact> allDependencyArtifacts = project.getDependencyArtifacts();
+        Set<Artifact> allDependencyArtifacts = project.getArtifacts();
 
         for (Artifact artifact : allDependencyArtifacts) {
             if (INCZIP_TYPE.equals(artifact.getType())) {
