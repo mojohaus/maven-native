@@ -131,6 +131,9 @@ public class CompilerConfiguration extends ConfigurationBase {
     }
 
     public String[] getMiddleOptions() {
+        if (this.middleOptions == null) {
+            return new String[0];
+        }
         return this.middleOptions;
     }
 
@@ -139,6 +142,9 @@ public class CompilerConfiguration extends ConfigurationBase {
     }
 
     public String[] getEndOptions() {
+        if (this.endOptions == null) {
+            return new String[0];
+        }
         return this.endOptions;
     }
 

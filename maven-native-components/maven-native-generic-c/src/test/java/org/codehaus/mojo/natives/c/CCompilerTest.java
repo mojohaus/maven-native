@@ -138,4 +138,21 @@ public class CCompilerTest extends PlexusTestCase {
         };
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
+
+    public void testNullOptionsNoNPE() {
+        // Test that null middle and end options don't cause NPE
+        File[] includePaths = {new File("p1"), new File("p2")};
+        config.setIncludePaths(includePaths);
+
+        String[] startOptions = {"-s1", "-s2"};
+        config.setStartOptions(startOptions);
+        // middleOptions and endOptions are intentionally left as null
+
+        Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
+
+        String[] expected = new String[] {
+            "gcc", "-s1", "-s2", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]
+        };
+        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+    }
 }
