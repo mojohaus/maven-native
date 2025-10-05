@@ -32,4 +32,20 @@ public class MSVCCompilerTest extends PlexusTestCase {
         String[] expected = new String[] {"cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2]};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
+
+    public void testNullOptionsNoNPE() {
+        // Test that null middle and end options don't cause NPE - reproduces issue from GitHub
+        File[] includePaths = {new File("p1"), new File("p2")};
+        config.setIncludePaths(includePaths);
+
+        String[] startOptions = {"-s1", "-s2"};
+        config.setStartOptions(startOptions);
+        // middleOptions and endOptions are intentionally left as null to test the fix
+
+        Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
+
+        String[] expected =
+                new String[] {"cl.exe", "-s1", "-s2", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2]};
+        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+    }
 }
