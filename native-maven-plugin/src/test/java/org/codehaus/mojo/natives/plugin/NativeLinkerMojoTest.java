@@ -105,4 +105,55 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         assertEquals(linkerFinalNameExt, conf.getOutputFileExtension());
         assertEquals(new File("target/some-final-name.some-extension"), conf.getOutputFile());
     }
+
+    public void testOutputDirectoryCreation() throws Exception {
+        NativeLinkMojo mojo = getMojo();
+
+        // simulate object files
+        List<File> objectList = new ArrayList<>();
+        objectList.add(new File("o1.o"));
+        objectList.add(new File("o2.o"));
+        mojo.saveCompilerOutputFilePaths(objectList);
+
+        // simulate artifact
+        ArtifactHandler artifactHandler = new DefaultArtifactHandler();
+
+        Artifact artifact = new DefaultArtifact(
+                "test",
+                "test",
+                VersionRange.createFromVersion("1.0-SNAPSHOT"),
+                "compile",
+                "exe",
+                null,
+                artifactHandler);
+        mojo.getProject().setArtifact(artifact);
+
+        // simulate artifacts
+        mojo.getProject().setArtifacts(new HashSet<>()); // no extern libs for now
+
+        String linkerFinalName = "test-output";
+        setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
+
+        // Set a non-existent output directory
+        File nonExistentDir = new File(getBasedir(), "target/test-output-" + System.currentTimeMillis());
+        if (nonExistentDir.exists()) {
+            nonExistentDir.delete();
+        }
+        setVariableValueToObject(mojo, "linkerOutputDirectory", nonExistentDir);
+
+        try {
+            assertFalse("Output directory should not exist before link", nonExistentDir.exists());
+
+            mojo.execute();
+
+            // Verify the directory was created
+            assertTrue("Output directory should be created by link method", nonExistentDir.exists());
+            assertTrue("Output directory should be a directory", nonExistentDir.isDirectory());
+        } finally {
+            // Clean up
+            if (nonExistentDir.exists()) {
+                nonExistentDir.delete();
+            }
+        }
+    }
 }

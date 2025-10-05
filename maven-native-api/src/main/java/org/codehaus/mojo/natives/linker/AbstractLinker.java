@@ -41,6 +41,10 @@ public abstract class AbstractLinker extends AbstractLogEnabled implements Linke
     @Override
     public File link(LinkerConfiguration config, List<File> compilerOutputFiles)
             throws NativeBuildException, IOException {
+        if (!config.getOutputDirectory().exists()) {
+            config.getOutputDirectory().mkdirs();
+        }
+
         if (isStaled(config, compilerOutputFiles)) {
             // TODO validate config to make sure required fields are available
             Commandline cl = this.createLinkerCommandLine(compilerOutputFiles, config);

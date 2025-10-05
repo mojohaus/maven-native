@@ -13,6 +13,10 @@ public class NoopLinker implements Linker {
 
     @Override
     public File link(LinkerConfiguration config, List<File> compilerOutputFiles) throws NativeBuildException {
+        if (!config.getOutputDirectory().exists()) {
+            config.getOutputDirectory().mkdirs();
+        }
+
         String fileName = config.getOutputFileName();
 
         if (config.getOutputFileExtension() != null) {
