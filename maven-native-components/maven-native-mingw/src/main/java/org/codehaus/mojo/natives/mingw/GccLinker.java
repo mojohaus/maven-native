@@ -60,7 +60,7 @@ public final class GccLinker extends AbstractLinker {
         cl.setExecutable(config.getExecutable());
 
         if (config.getStartOptions() != null) {
-            cl.addArguments(config.getStartOptions());
+            cl.addArguments(transformOptionsForGcc(config.getStartOptions()));
         }
 
         String linkerOutputOption = this.getLinkerOutputOption();
@@ -99,13 +99,13 @@ public final class GccLinker extends AbstractLinker {
         }
 
         if (config.getMiddleOptions() != null) {
-            cl.addArguments(config.getMiddleOptions());
+            cl.addArguments(transformOptionsForGcc(config.getMiddleOptions()));
         }
 
         setCommandLineForExternalLibraries(cl, config);
 
         if (config.getEndOptions() != null) {
-            cl.addArguments(config.getEndOptions());
+            cl.addArguments(transformOptionsForGcc(config.getEndOptions()));
         }
 
         return cl;
