@@ -38,6 +38,31 @@ public abstract class AbstractLinker extends AbstractLogEnabled implements Linke
     protected abstract Commandline createLinkerCommandLine(List<File> objectFiles, LinkerConfiguration config)
             throws NativeBuildException;
 
+    /**
+     * Transform linker options for GCC 4.6+ compatibility.
+     * Options starting with "--" are linker-specific and must be prefixed with "-Wl,"
+     * when using gcc/g++ as the linker driver.
+     *
+     * @param options the original options array
+     * @return transformed options array with "-Wl," prefix added to linker-specific options
+     */
+    protected String[] transformOptionsForGcc(String[] options) {
+        if (options == null) {
+            return null;
+        }
+
+        String[] transformedOptions = new String[options.length];
+        for (int i = 0; i < options.length; i++) {
+            String option = options[i];
+            if (option != null && option.startsWith("--")) {
+                transformedOptions[i] = "-Wl," + option;
+            } else {
+                transformedOptions[i] = option;
+            }
+        }
+        return transformedOptions;
+    }
+
     @Override
     public File link(LinkerConfiguration config, List<File> compilerOutputFiles)
             throws NativeBuildException, IOException {

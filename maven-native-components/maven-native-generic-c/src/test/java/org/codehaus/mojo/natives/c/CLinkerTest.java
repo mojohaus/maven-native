@@ -123,6 +123,30 @@ public class CLinkerTest extends PlexusTestCase {
         assertEquals("-lfile3", cl.getArguments()[index + 3]);
     }
 
+    public void testLinkerOptionsTransformation() {
+        String[] startOptions = {"--whole-archive", "-lfoo"};
+        String[] middleOptions = {"--as-needed", "-lbar"};
+        String[] endOptions = {"--no-whole-archive", "-Wl,--export-dynamic"};
+
+        config.setStartOptions(startOptions);
+        config.setMiddleOptions(middleOptions);
+        config.setEndOptions(endOptions);
+
+        Commandline cl = this.getCommandline(new ArrayList<>(0));
+
+        List<String> args = Arrays.asList(cl.getArguments());
+
+        // Verify that -- options are transformed with -Wl, prefix
+        assertTrue(args.contains("-Wl,--whole-archive"));
+        assertTrue(args.contains("-Wl,--as-needed"));
+        assertTrue(args.contains("-Wl,--no-whole-archive"));
+
+        // Verify that regular options and already prefixed options are preserved
+        assertTrue(args.contains("-lfoo"));
+        assertTrue(args.contains("-lbar"));
+        assertTrue(args.contains("-Wl,--export-dynamic"));
+    }
+
     // ///////////////////////// HELPERS //////////////////////////////////////
     private Commandline getCommandline() throws NativeBuildException {
         return this.linker.createLinkerCommandLine(defautlObjectFiles, config);
