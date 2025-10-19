@@ -73,10 +73,12 @@ public class NativeBundleIncludeFilesMojo extends AbstractNativeMojo {
     private MavenProjectHelper projectHelper;
 
     public void execute() throws MojoExecutionException {
-        if (skip || skipIncludeDeployment) {
-            if (skip) {
-                getLog().info("Skipping include bundling (native.skip=true)");
-            }
+        if (skip) {
+            getLog().info("Skipping include bundling (native.skip=true)");
+            return;
+        }
+
+        if (skipIncludeDeployment) {
             return;
         }
 
