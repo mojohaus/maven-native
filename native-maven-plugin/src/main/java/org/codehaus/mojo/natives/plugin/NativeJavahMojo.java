@@ -361,6 +361,10 @@ public class NativeJavahMojo extends AbstractNativeMojo {
         config.setUseEnvClasspath(useEnvClasspath);
         config.setClassNames(classNames);
         config.setJavahPath(this.javahPath);
+        java.util.List<String> sourceRoots = this.project.getCompileSourceRoots();
+        if (sourceRoots != null) {
+            config.setSourceRoots(sourceRoots.toArray(new String[0]));
+        }
 
         return config;
     }
