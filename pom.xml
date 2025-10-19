@@ -210,6 +210,7 @@
               <createBackupFile>false</createBackupFile>
               <lineSeparator>\n</lineSeparator>
               <expandEmptyElements>false</expandEmptyElements>
+              <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
               <nrOfIndentSpace>2</nrOfIndentSpace>
               <sortDependencies>scope,groupId,artifactId</sortDependencies>
               <sortProperties>true</sortProperties>

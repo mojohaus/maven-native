@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lifecycleMappingMetadata>
+  <pluginExecutions>
+    <!-- Generate JNI headers from Java classes -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>javah</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <execute>
+          <runOnIncremental>true</runOnIncremental>
+          <runOnConfiguration>true</runOnConfiguration>
+        </execute>
+      </action>
+    </pluginExecution>
+    
+    <!-- Unzip include files -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>unzip-inc</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <execute>
+          <runOnIncremental>false</runOnIncremental>
+          <runOnConfiguration>true</runOnConfiguration>
+        </execute>
+      </action>
+    </pluginExecution>
+    
+    <!-- Compile message resources -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>compile-message</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <execute>
+          <runOnIncremental>true</runOnIncremental>
+          <runOnConfiguration>true</runOnConfiguration>
+        </execute>
+      </action>
+    </pluginExecution>
+    
+    <!-- Compile native resources -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>resource-compile</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <execute>
+          <runOnIncremental>true</runOnIncremental>
+          <runOnConfiguration>true</runOnConfiguration>
+        </execute>
+      </action>
+    </pluginExecution>
+    
+    <!-- Initialize plugin - ignore as it's just configuration -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>initialize</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    
+    <!-- Native compilation - ignore as Eclipse doesn't manage native builds -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>compile</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    
+    <!-- Link native code - ignore as Eclipse doesn't manage native linking -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>link</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    
+    <!-- Create manifest - ignore as it's part of packaging -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>manifest</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    
+    <!-- Generate static library index - ignore as it's part of packaging -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>ranlib</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+    
+    <!-- Bundle include files - ignore as it's part of packaging -->
+    <pluginExecution>
+      <pluginExecutionFilter>
+        <goals>
+          <goal>inczip</goal>
+        </goals>
+      </pluginExecutionFilter>
+      <action>
+        <ignore />
+      </action>
+    </pluginExecution>
+  </pluginExecutions>
+</lifecycleMappingMetadata>
