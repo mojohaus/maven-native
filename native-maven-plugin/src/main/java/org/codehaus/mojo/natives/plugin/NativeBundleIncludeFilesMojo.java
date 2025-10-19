@@ -79,6 +79,7 @@ public class NativeBundleIncludeFilesMojo extends AbstractNativeMojo {
         }
 
         if (skipIncludeDeployment) {
+            getLog().info("Skipping include bundling (skipIncludeDeployment=true)");
             return;
         }
 
