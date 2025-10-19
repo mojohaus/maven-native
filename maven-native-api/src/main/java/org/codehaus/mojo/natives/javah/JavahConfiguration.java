@@ -58,6 +58,11 @@ public class JavahConfiguration {
 
     private boolean verbose = false;
 
+    /**
+     * Source roots for finding Java source files (needed for javac -h on Java 10+)
+     */
+    private String[] sourceRoots;
+
     public void setOutputDirectory(File dir) {
         this.outputDirectory = dir;
     }
@@ -120,5 +125,13 @@ public class JavahConfiguration {
 
     public void setWorkingDirectory(File dir) {
         this.workingDirectory = dir;
+    }
+
+    public void setSourceRoots(String[] sourceRoots) {
+        this.sourceRoots = sourceRoots;
+    }
+
+    public String[] getSourceRoots() {
+        return this.sourceRoots;
     }
 }
