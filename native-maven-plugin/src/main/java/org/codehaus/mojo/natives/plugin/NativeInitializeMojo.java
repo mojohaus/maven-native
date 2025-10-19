@@ -42,8 +42,21 @@ public class NativeInitializeMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
 
+    /**
+     * Set to true to skip the execution of native plugin mojos.
+     *
+     * @since 1.0-M2
+     */
+    @Parameter(property = "native.skip", defaultValue = "false")
+    protected boolean skip;
+
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping native initialization (native.skip=true)");
+            return;
+        }
+
         File buildDirectory = new File(this.project.getBuild().getDirectory());
 
         if (!buildDirectory.exists()) {

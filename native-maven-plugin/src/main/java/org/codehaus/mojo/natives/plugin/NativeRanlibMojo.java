@@ -66,6 +66,10 @@ public class NativeRanlibMojo extends AbstractNativeMojo {
     private RanlibManager manager;
 
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping ranlib (native.skip=true)");
+            return;
+        }
 
         try {
             String finalName = this.project.getBuild().getFinalName();

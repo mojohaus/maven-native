@@ -33,4 +33,31 @@ public class NativeInitializeMojoTest extends AbstractMojoTestCase {
 
         assertEquals("someArtifactId", mojo.project.getBuild().getFinalName());
     }
+
+    public void testSkip() throws Exception {
+        File pluginXml = new File(getBasedir(), "src/test/resources/initialize/plugin-config-skip.xml");
+        NativeInitializeMojo mojo = (NativeInitializeMojo) lookupMojo("initialize", pluginXml);
+        assertNotNull(mojo);
+
+        // simulate artifact
+        ArtifactHandler artifactHandler = new DefaultArtifactHandler();
+        Artifact artifact = new DefaultArtifact(
+                "test",
+                "test",
+                VersionRange.createFromVersion("1.0-SNAPSHOT"),
+                "compile",
+                "exe",
+                null,
+                artifactHandler);
+        mojo.project.setArtifact(artifact);
+        mojo.setPluginContext(new HashMap<>());
+
+        String originalFinalName = mojo.project.getBuild().getFinalName();
+
+        // Execute the mojo with skip=true
+        mojo.execute();
+
+        // When skip is true, the final name should not be changed
+        assertEquals(originalFinalName, mojo.project.getBuild().getFinalName());
+    }
 }
