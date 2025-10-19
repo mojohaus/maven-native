@@ -11,7 +11,7 @@ import org.codehaus.plexus.util.Os;
  */
 public class TestUtils {
 
-    private static final String[] WINDOWS_COMMANDLINE_PARTS = {"cmd.exe", "/X", "/C"};
+    private static final String[] WINDOWS_COMMANDLINE_PARTS = {"cmd.exe", "/X", "/D", "/C"};
 
     private static final List<String> WINDOWS_COMMANDLINE_PARTS_ASLIST = new ArrayList<>();
 
