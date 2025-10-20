@@ -73,6 +73,11 @@ public class NativeManifestMojo extends AbstractNativeMojo {
     private ManifestManager manager;
 
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping manifest generation (native.skip=true)");
+            return;
+        }
+
         File linkerOutputFile = (File) this.getPluginContext().get(LINKER_OUTPUT_PATH);
 
         if (!linkerOutputFile.exists()) {

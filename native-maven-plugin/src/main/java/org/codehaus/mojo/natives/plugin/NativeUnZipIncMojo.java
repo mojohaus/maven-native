@@ -66,6 +66,11 @@ public class NativeUnZipIncMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping unzip includes (native.skip=true)");
+            return;
+        }
+
         if (unpackIncZipDepenedencies()) {
             @SuppressWarnings({"unused", "unchecked"})
             Object unchecked = this.getPluginContext().put(AbstractNativeMojo.INCZIP_FOUND, Boolean.TRUE);

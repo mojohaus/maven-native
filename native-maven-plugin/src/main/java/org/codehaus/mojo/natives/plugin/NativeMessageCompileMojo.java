@@ -90,6 +90,10 @@ public class NativeMessageCompileMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping message compilation (native.skip=true)");
+            return;
+        }
 
         if (!this.messageCompilerOutputDirectory.exists()) {
             this.messageCompilerOutputDirectory.mkdirs();

@@ -1,0 +1,26 @@
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+          <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub" />
+          <compilerProvider>noop</compilerProvider>
+          <skip>true</skip>
+          <workingDirectory>${basedir}</workingDirectory>
+          <compilerOutputDirectory>target</compilerOutputDirectory>
+          <compilerExecutable>someExe</compilerExecutable>
+          <sources>
+            <source>
+              <directory>src/main/native/dir1</directory>
+              <fileNames>
+                <fileName>file11.c</fileName>
+              </fileNames>
+            </source>
+          </sources>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

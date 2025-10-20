@@ -102,4 +102,20 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         assertEquals(new File("someJDKPath"), config.getSystemIncludePaths()[0]);
         assertEquals(new File("someJDKPath/someOS"), config.getSystemIncludePaths()[1]);
     }
+
+    public void testSkip() throws Exception {
+        File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config-skip.xml");
+        NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
+        assertNotNull(mojo);
+
+        mojo.setPluginContext(new HashMap<>());
+
+        // Execute the mojo - it should skip and not compile anything
+        mojo.execute();
+
+        // Since skip is true, the mojo should not have created a configuration
+        // and should not have added any compiler output files
+        List<File> objectFileList = mojo.getAllCompilersOutputFileList();
+        assertEquals(0, objectFileList.size());
+    }
 }

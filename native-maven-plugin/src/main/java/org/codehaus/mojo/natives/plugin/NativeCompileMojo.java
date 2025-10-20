@@ -138,6 +138,10 @@ public class NativeCompileMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping native compilation (native.skip=true)");
+            return;
+        }
 
         Compiler compiler;
 

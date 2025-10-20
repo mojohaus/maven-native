@@ -90,6 +90,10 @@ public class NativeResourceCompileMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping resource compilation (native.skip=true)");
+            return;
+        }
 
         if (!this.resourceCompilerOutputDirectory.exists()) {
             this.resourceCompilerOutputDirectory.mkdirs();
