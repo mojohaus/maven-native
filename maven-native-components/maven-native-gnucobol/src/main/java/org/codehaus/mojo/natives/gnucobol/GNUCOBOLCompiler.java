@@ -27,7 +27,7 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.plexus.component.annotations.Component;
 
 /**
- * Generic C/CPP compiler with "-o " as its output option
+ * GNU COBOL compiler with "-o " as its output option
  */
 @Component(
         role = Compiler.class,

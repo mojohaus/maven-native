@@ -39,7 +39,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
- * Generic C/CPP linker with "-o " as its output option
+ * GNU COBOL linker with "-o " as its output option
  */
 @Component(role = Linker.class, hint = "gnucobol", instantiationStrategy = "per-lookup")
 public class GNUCOBOLLinker extends AbstractLinker {

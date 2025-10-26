@@ -21,7 +21,7 @@ import java.io.Reader;
 import java.util.Vector;
 
 /**
- * A parser that extracts #include statements from a Reader.
+ * A parser that extracts COPY statements from a COBOL source file.
  *
  * @author Adam Murdoch
  * @author Curt Arnold
@@ -36,12 +36,13 @@ public final class CobolParser extends AbstractParser implements Parser {
         AbstractParserState bracket = new FilenameState(this, new char[] {'>'});
         AbstractParserState postE = new PostE(this, bracket, quote);
         //
-        // opy
+        // copy
         //
         AbstractParserState y = new LetterState(this, 'y', postE, null);
         AbstractParserState p = new LetterState(this, 'p', y, null);
         AbstractParserState o = new LetterState(this, 'o', p, null);
-        newLineState = new LetterState(this, 'o', o, null);
+        AbstractParserState c = new LetterState(this, 'c', o, null);
+        newLineState = new LetterState(this, 'c', c, null);
     }
 
     @Override
