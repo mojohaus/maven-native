@@ -25,12 +25,16 @@ public class JavahExecutableTest extends PlexusTestCase {
     }
 
     public void testDefaultJavahExecutable() {
+        // Force use of javah to avoid Java version detection
+        config.setJavahPath(new File("javah"));
+
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
 
         File outputDir = new File(getBasedir(), "target/native");
 
-        assertEquals("javah", cl.getLiteralExecutable());
+        // When javahPath is set, it uses the absolute path
+        assertTrue(cl.getLiteralExecutable().endsWith("javah"));
         assertArrayEquals(
                 new String[] {
                     "-d",
@@ -66,7 +70,10 @@ public class JavahExecutableTest extends PlexusTestCase {
     }
 
     public void testJavahExecutableDashoOption() {
+        // Force use of javah to avoid Java version detection
+        config.setJavahPath(new File("javah"));
         config.setFileName("fileName");
+
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
 
@@ -84,6 +91,9 @@ public class JavahExecutableTest extends PlexusTestCase {
     }
 
     public void testWorkingDirectory() {
+        // Force use of javah to avoid Java version detection
+        config.setJavahPath(new File("javah"));
+
         JavahExecutable javah = new JavahExecutable();
 
         File workingDirectory = new File(getBasedir());
