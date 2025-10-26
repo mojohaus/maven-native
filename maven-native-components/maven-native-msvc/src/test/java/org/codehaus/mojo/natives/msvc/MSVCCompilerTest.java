@@ -30,7 +30,7 @@ public class MSVCCompilerTest extends PlexusTestCase {
     public void testSimpleCompilation() {
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2]};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testNullOptionsNoNPE() {
@@ -46,6 +46,6 @@ public class MSVCCompilerTest extends PlexusTestCase {
 
         String[] expected =
                 new String[] {"cl.exe", "-s1", "-s2", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2]};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 }

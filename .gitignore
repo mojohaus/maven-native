@@ -2,6 +2,8 @@
 .classpath
 .project
 .settings/
+.metadata/
+.recommenders/
 
 # Intellij
 .idea/
@@ -22,3 +24,6 @@ Thumbs.db
 log/
 target/
 *.bak
+
+# Vim
+*~

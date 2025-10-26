@@ -20,6 +20,7 @@ public class CCompilerClassicTest extends PlexusTestCase {
         CCompilerClassic compiler = new CCompilerClassic();
         Commandline cl = compiler.getCommandLine(new File("source.c"), new File("object.o"), config);
         String[] expected = new String[] {"gcc", "-oobject.o", "-c", "source.c"};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        String[] commandLine = cl.getRawCommandline();
+        assertArrayEquals(formPlatformCommandline(expected), commandLine);
     }
 }

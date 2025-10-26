@@ -21,7 +21,7 @@ public class MSVCLinkerTest extends PlexusTestCase {
 
     private static final File objectFile1 = new File("source2.obj");
 
-    private List<File> defautlObjectFiles;
+    private List<File> defaultObjectFiles;
 
     private String basedir;
 
@@ -29,9 +29,9 @@ public class MSVCLinkerTest extends PlexusTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        this.defautlObjectFiles = new ArrayList<>();
-        this.defautlObjectFiles.add(objectFile0);
-        this.defautlObjectFiles.add(objectFile1);
+        this.defaultObjectFiles = new ArrayList<>();
+        this.defaultObjectFiles.add(objectFile0);
+        this.defaultObjectFiles.add(objectFile1);
 
         this.linker = new MSVCLinker();
         this.config = new LinkerConfiguration();
@@ -51,11 +51,11 @@ public class MSVCLinkerTest extends PlexusTestCase {
     public void testSimpleLinkerCommand() {
         Commandline cl = this.getCommandline();
         String[] expected = new String[] {"link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj"};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     // ///////////////////////// HELPERS //////////////////////////////////////
     private Commandline getCommandline() throws NativeBuildException {
-        return this.linker.createLinkerCommandLine(defautlObjectFiles, config);
+        return this.linker.createLinkerCommandLine(defaultObjectFiles, config);
     }
 }
