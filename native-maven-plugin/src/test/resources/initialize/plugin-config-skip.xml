@@ -1,0 +1,15 @@
+<project>
+  <build>
+    <finalName>someName</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+          <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub" />
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

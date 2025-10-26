@@ -72,6 +72,14 @@ public abstract class AbstractNativeMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project.build.directory}/native/include")
     protected File dependencyIncludeDirectory;
 
+    /**
+     * Set to true to skip the execution of native plugin mojos.
+     *
+     * @since 1.0-M2
+     */
+    @Parameter(property = "native.skip", defaultValue = "false")
+    protected boolean skip;
+
     protected static String[] removeEmptyOptions(List<String> args) {
         return NativeMojoUtils.trimParams(args);
     }

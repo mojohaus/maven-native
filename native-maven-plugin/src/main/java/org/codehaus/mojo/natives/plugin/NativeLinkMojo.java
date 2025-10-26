@@ -196,6 +196,10 @@ public class NativeLinkMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping native linking (native.skip=true)");
+            return;
+        }
 
         if (StringUtils.isEmpty(this.classifier)) {
             this.classifier = null;

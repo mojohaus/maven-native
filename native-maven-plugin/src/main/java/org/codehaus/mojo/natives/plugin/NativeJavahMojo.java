@@ -189,6 +189,10 @@ public class NativeJavahMojo extends AbstractNativeMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping javah (native.skip=true)");
+            return;
+        }
 
         this.discoverAdditionalJNIClassName();
 
