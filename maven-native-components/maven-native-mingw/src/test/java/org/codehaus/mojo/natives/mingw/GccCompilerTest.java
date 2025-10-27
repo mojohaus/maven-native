@@ -31,14 +31,14 @@ public class GccCompilerTest extends PlexusTestCase {
     public void testSimpleCompilation() {
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"gcc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testNonDefaultExecutable() {
         this.config.setExecutable("cc");
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testStartOptions() {
@@ -49,7 +49,7 @@ public class GccCompilerTest extends PlexusTestCase {
 
         String[] expected =
                 new String[] {"gcc", "-s1", "-s2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testIncludePaths() {
@@ -61,7 +61,7 @@ public class GccCompilerTest extends PlexusTestCase {
 
         String[] expected =
                 new String[] {"gcc", "-Ip1", "-Ip2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testSystemIncludePaths() {
@@ -78,7 +78,7 @@ public class GccCompilerTest extends PlexusTestCase {
         String[] expected = new String[] {
             "gcc", "-Ip1", "-Ip2", "-Isp1", "-Isp2", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]
         };
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testMiddleOptions() {
@@ -105,7 +105,7 @@ public class GccCompilerTest extends PlexusTestCase {
             simpleArgv[2],
             simpleArgv[3]
         };
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 
     public void testEndOptions() {
@@ -136,6 +136,6 @@ public class GccCompilerTest extends PlexusTestCase {
             "-e1",
             "-e2"
         };
-        assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
+        assertArrayEquals(formPlatformCommandline(expected), cl.getRawCommandline());
     }
 }

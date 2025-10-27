@@ -27,6 +27,12 @@ public class PostE extends AbstractParserState {
         this.quote = quote;
     }
 
+    public PostE(CobolParser parser, AbstractParserState bracket, AbstractParserState quote) {
+        super(parser);
+        this.bracket = bracket;
+        this.quote = quote;
+    }
+
     public AbstractParserState consume(char ch) {
         switch (ch) {
             case ' ':

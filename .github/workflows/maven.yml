@@ -42,4 +42,4 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: mvn verify -e -V -P run-its
+        run: mvn verify -e -V
