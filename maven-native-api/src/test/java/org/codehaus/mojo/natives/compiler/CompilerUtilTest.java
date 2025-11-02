@@ -4,10 +4,14 @@ import java.io.File;
 
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.Os;
+import org.junit.jupiter.api.Test;
 
-public class CompilerUtilTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public void testGetObjectFileFromSourceWithNoExtension() {
+class CompilerUtilTest extends PlexusTestCase {
+
+    @Test
+    void getObjectFileFromSourceWithNoExtension() {
         File source;
 
         if (Os.isFamily("windows")) {
@@ -24,7 +28,8 @@ public class CompilerUtilTest extends PlexusTestCase {
                 objectFile);
     }
 
-    public void testGetObjectFileWithKnownExtension() {
+    @Test
+    void getObjectFileWithKnownExtension() {
 
         File source = new File("target/somefile.c");
 

@@ -9,9 +9,14 @@ import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.jupiter.api.Test;
 
-public class NativeInitializeMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class NativeInitializeMojoTest extends AbstractMojoTestCase {
+    @Test
+    void mojoLookup() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/initialize/plugin-config.xml");
         NativeInitializeMojo mojo = (NativeInitializeMojo) lookupMojo("initialize", pluginXml);
         assertNotNull(mojo);
@@ -34,7 +39,8 @@ public class NativeInitializeMojoTest extends AbstractMojoTestCase {
         assertEquals("someArtifactId", mojo.project.getBuild().getFinalName());
     }
 
-    public void testSkip() throws Exception {
+    @Test
+    void skip() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/initialize/plugin-config-skip.xml");
         NativeInitializeMojo mojo = (NativeInitializeMojo) lookupMojo("initialize", pluginXml);
         assertNotNull(mojo);

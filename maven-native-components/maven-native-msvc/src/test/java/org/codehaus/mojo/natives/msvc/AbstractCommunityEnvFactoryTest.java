@@ -9,10 +9,17 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-    public void testPathValidation() throws IOException {
+class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
+
+    @Test
+    void pathValidation() throws Exception {
         CommunityEnvFactoryMock mock = new CommunityEnvFactoryMock();
 
         try {
@@ -20,8 +27,8 @@ public class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
             mock.createEnvs("17.0", "x86");
             fail("Path validation must fail");
         } catch (NativeBuildException e) {
-            assertEquals(
-                    e.getMessage(), "Directory 'C:\\Program Files\\VS 2017\\Ultimate' is not a VS Community directory");
+            assertEquals("Directory 'C:\\Program Files\\VS 2017\\Ultimate' is not a VS Community directory",
+                    e.getMessage());
         }
 
         try {
@@ -29,7 +36,7 @@ public class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
             mock.createEnvs("17.0", "x86");
             fail("Path validation must fail");
         } catch (NativeBuildException e) {
-            assertEquals(e.getMessage(), "Can not find VS Community version '17.0'");
+            assertEquals("Can not find VS Community version '17.0'", e.getMessage());
         }
 
         File tempDir = createCommunityDir(true);
@@ -42,17 +49,16 @@ public class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
         }
     }
 
-    public void testCommandGeneration() throws IOException {
+    @Test
+    void commandGeneration() throws Exception {
         CommunityEnvFactoryMock mock = new CommunityEnvFactoryMock();
 
         File tempDir = createCommunityDir(false);
-        try {
+        Assertions.assertDoesNotThrow(() -> {
             mock.setVsInstallPathMock(tempDir.getAbsolutePath());
             mock.createEnvs("17.0", "x64");
             assertTrue(mock.getRecordedCommandFileContent().contains(tempDir.getAbsolutePath()));
-        } catch (NativeBuildException e) {
-            fail("Must not fail");
-        }
+        }, "Must not fail");
     }
 
     private File createCommunityDir(boolean isFile) throws IOException {

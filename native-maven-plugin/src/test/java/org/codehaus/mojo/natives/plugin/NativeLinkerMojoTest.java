@@ -13,8 +13,15 @@ import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.junit.jupiter.api.Test;
 
-public class NativeLinkerMojoTest extends AbstractMojoTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class NativeLinkerMojoTest extends AbstractMojoTestCase {
     private NativeLinkMojo getMojo() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/linker/plugin-config.xml");
         NativeLinkMojo mojo = (NativeLinkMojo) lookupMojo("link", pluginXml);
@@ -25,7 +32,8 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         return mojo;
     }
 
-    public void testExecute() throws Exception {
+    @Test
+    void execute() throws Exception {
         NativeLinkMojo mojo = getMojo();
 
         // simulate object files
@@ -65,7 +73,8 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         assertEquals(new File("target/some-final-name.null"), conf.getOutputFile());
     }
 
-    public void testExecuteWithFinalNameExtension() throws Exception {
+    @Test
+    void executeWithFinalNameExtension() throws Exception {
         NativeLinkMojo mojo = getMojo();
 
         // simulate object files
@@ -106,7 +115,8 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         assertEquals(new File("target/some-final-name.some-extension"), conf.getOutputFile());
     }
 
-    public void testOutputDirectoryCreation() throws Exception {
+    @Test
+    void outputDirectoryCreation() throws Exception {
         NativeLinkMojo mojo = getMojo();
 
         // simulate object files
@@ -142,13 +152,13 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         setVariableValueToObject(mojo, "linkerOutputDirectory", nonExistentDir);
 
         try {
-            assertFalse("Output directory should not exist before link", nonExistentDir.exists());
+            assertFalse(nonExistentDir.exists(), "Output directory should not exist before link");
 
             mojo.execute();
 
             // Verify the directory was created
-            assertTrue("Output directory should be created by link method", nonExistentDir.exists());
-            assertTrue("Output directory should be a directory", nonExistentDir.isDirectory());
+            assertTrue(nonExistentDir.exists(), "Output directory should be created by link method");
+            assertTrue(nonExistentDir.isDirectory(), "Output directory should be a directory");
         } finally {
             // Clean up
             if (nonExistentDir.exists()) {

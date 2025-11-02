@@ -9,8 +9,13 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class CLinkerTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class CLinkerTest extends PlexusTestCase {
     private CLinker linker;
 
     private LinkerConfiguration config;
@@ -23,8 +28,8 @@ public class CLinkerTest extends PlexusTestCase {
 
     private String basedir;
 
-    @Override
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         super.setUp();
 
         this.defautlObjectFiles = new ArrayList<>();
@@ -40,14 +45,16 @@ public class CLinkerTest extends PlexusTestCase {
         config.setOutputFileName("test");
     }
 
-    public void testDefaultLinkerExecutable() {
+    @Test
+    void defaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
 
         assertEquals("gcc", cl.getLiteralExecutable());
         assertEquals(basedir, cl.getWorkingDirectory().getPath());
     }
 
-    public void testOverrideLinkerExecutable() {
+    @Test
+    void overrideLinkerExecutable() {
         config.setExecutable("ld");
 
         Commandline cl = this.getCommandline();
@@ -55,7 +62,8 @@ public class CLinkerTest extends PlexusTestCase {
         assertEquals("ld", cl.getLiteralExecutable());
     }
 
-    public void testObjectFileList() {
+    @Test
+    void objectFileList() {
         Commandline cl = this.getCommandline();
 
         int index = Arrays.asList(cl.getArguments()).indexOf("source1.o");
@@ -63,7 +71,8 @@ public class CLinkerTest extends PlexusTestCase {
         assertEquals("source2.o", cl.getArguments()[index + 1]);
     }
 
-    public void testLinkerResponseFile() {
+    @Test
+    void linkerResponseFile() {
         this.config.setUsingLinkerResponseFile(true);
         this.config.setWorkingDirectory(new File(getBasedir(), "target"));
         Commandline cl = this.getCommandline();
@@ -71,7 +80,8 @@ public class CLinkerTest extends PlexusTestCase {
         assertTrue(Arrays.asList(cl.getArguments()).contains("@objectsFile"));
     }
 
-    public void testRelativeObjectFileList() {
+    @Test
+    void relativeObjectFileList() {
         ArrayList<File> objectFiles = new ArrayList<>(2);
         objectFiles.add(new File(config.getOutputDirectory(), "file1.o"));
         objectFiles.add(new File(config.getOutputDirectory(), "file2.o"));
@@ -83,7 +93,8 @@ public class CLinkerTest extends PlexusTestCase {
         assertEquals("target" + File.separator + "file2.o", cl.getArguments()[index + 1]);
     }
 
-    public void testOptions() {
+    @Test
+    void options() {
         String[] options = {"-o1", "-o2", "-o3"};
         config.setStartOptions(options);
 
@@ -95,7 +106,8 @@ public class CLinkerTest extends PlexusTestCase {
         assertEquals("-o3", cl.getArguments()[index + 2]);
     }
 
-    public void testExternalUnixLibraries() {
+    @Test
+    void externalUnixLibraries() {
         config.setExternalLibDirectory(new File("theLib"));
 
         List<String> externalLibFileNames = new ArrayList<>();
@@ -123,7 +135,8 @@ public class CLinkerTest extends PlexusTestCase {
         assertEquals("-lfile3", cl.getArguments()[index + 3]);
     }
 
-    public void testLinkerOptionsTransformation() {
+    @Test
+    void linkerOptionsTransformation() {
         String[] startOptions = {"--whole-archive", "-lfoo"};
         String[] middleOptions = {"--as-needed", "-lbar"};
         String[] endOptions = {"--no-whole-archive", "-Wl,--export-dynamic"};

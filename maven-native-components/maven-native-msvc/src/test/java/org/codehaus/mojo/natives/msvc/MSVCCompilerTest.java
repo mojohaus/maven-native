@@ -5,11 +5,13 @@ import java.io.File;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class MSVCCompilerTest extends PlexusTestCase {
+class MSVCCompilerTest extends PlexusTestCase {
     private MSVCCompiler compiler;
 
     private CompilerConfiguration config;
@@ -20,20 +22,23 @@ public class MSVCCompilerTest extends PlexusTestCase {
 
     private static String[] simpleArgv = {"/Foobject.obj", "-c", "source.c"};
 
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         super.setUp();
 
         this.compiler = new MSVCCompiler();
         this.config = new CompilerConfiguration();
     }
 
-    public void testSimpleCompilation() {
+    @Test
+    void simpleCompilation() {
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2]};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testNullOptionsNoNPE() {
+    @Test
+    void nullOptionsNoNPE() {
         // Test that null middle and end options don't cause NPE - reproduces issue from GitHub
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);

@@ -8,11 +8,14 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MSVCLinkerTest extends PlexusTestCase {
+class MSVCLinkerTest extends PlexusTestCase {
     private MSVCLinker linker;
 
     private LinkerConfiguration config;
@@ -25,8 +28,8 @@ public class MSVCLinkerTest extends PlexusTestCase {
 
     private String basedir;
 
-    @Override
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         super.setUp();
 
         this.defautlObjectFiles = new ArrayList<>();
@@ -42,13 +45,15 @@ public class MSVCLinkerTest extends PlexusTestCase {
         config.setOutputFileName("test");
     }
 
-    public void testDefaultLinkerExecutable() {
+    @Test
+    void defaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
         assertEquals("link.exe", cl.getLiteralExecutable());
         assertEquals(basedir, cl.getWorkingDirectory().getPath());
     }
 
-    public void testSimpleLinkerCommand() {
+    @Test
+    void simpleLinkerCommand() {
         Commandline cl = this.getCommandline();
         String[] expected = new String[] {"link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj"};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());

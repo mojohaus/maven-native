@@ -6,7 +6,9 @@ import java.util.TreeMap;
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.logging.LoggerManager;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MSVC2019EnvFactoryTest extends PlexusTestCase {
     private Logger logger;
@@ -15,7 +17,8 @@ public class MSVC2019EnvFactoryTest extends PlexusTestCase {
         return logger;
     }
 
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         super.setUp();
 
         LoggerManager loggerManager = lookup(LoggerManager.class);
@@ -23,7 +26,8 @@ public class MSVC2019EnvFactoryTest extends PlexusTestCase {
         logger = loggerManager.getLoggerForComponent(this.getClass().toString());
     }
 
-    public void testMSVC2019x64Env() {
+    @Test
+    void msvc2019x64Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019x64EnvFactory envFact = new MSVC2019x64EnvFactory();
@@ -31,16 +35,17 @@ public class MSVC2019EnvFactoryTest extends PlexusTestCase {
             logger.info(envFact.getClass().getName() + "env=" + env);
             Map<String, String> envCaseInsenstiveKeys = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             envCaseInsenstiveKeys.putAll(env);
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
-            Assert.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
         }
     }
 
-    public void testMSVC2019x86Env() {
+    @Test
+    void msvc2019x86Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019x86EnvFactory envFact = new MSVC2019x86EnvFactory();
@@ -48,16 +53,17 @@ public class MSVC2019EnvFactoryTest extends PlexusTestCase {
             logger.info(envFact.getClass().getName() + ":env=" + env);
             Map<String, String> envCaseInsenstiveKeys = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             envCaseInsenstiveKeys.putAll(env);
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
-            Assert.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
         }
     }
 
-    public void testMSVC2019x86AMD64Env() {
+    @Test
+    void msvc2019x86AMD64Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019x86AMD64EnvFactory envFact = new MSVC2019x86AMD64EnvFactory();
@@ -65,16 +71,17 @@ public class MSVC2019EnvFactoryTest extends PlexusTestCase {
             logger.info(envFact.getClass().getName() + ":env=" + env);
             Map<String, String> envCaseInsenstiveKeys = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             envCaseInsenstiveKeys.putAll(env);
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
-            Assert.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
         }
     }
 
-    public void testMSVC2019AMD64x864Env() {
+    @Test
+    void msvc2019amd64x864Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019AMD64x86EnvFactory envFact = new MSVC2019AMD64x86EnvFactory();
@@ -82,12 +89,12 @@ public class MSVC2019EnvFactoryTest extends PlexusTestCase {
             logger.info(envFact.getClass().getName() + ":env=" + env);
             Map<String, String> envCaseInsenstiveKeys = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             envCaseInsenstiveKeys.putAll(env);
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
-            Assert.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
-            Assert.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSINSTALLDIR"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("INCLUDE"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertEquals("x64", envCaseInsenstiveKeys.get("VSCMD_ARG_HOST_ARCH"));
+            Assertions.assertTrue(envCaseInsenstiveKeys.containsKey("VSCMD_ARG_TGT_ARCH"));
+            Assertions.assertEquals("x86", envCaseInsenstiveKeys.get("VSCMD_ARG_TGT_ARCH"));
         }
     }
 }

@@ -16,13 +16,10 @@
  */
 package org.codehaus.mojo.natives.parser;
 
-import junit.framework.TestCase;
-
 /**
  * Tests for the CParser class
  */
-public abstract class AbstractParserTest extends TestCase {
+public abstract class AbstractParserTest {
     public AbstractParserTest(String name) {
-        super(name);
     }
 }

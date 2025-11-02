@@ -11,10 +11,17 @@ import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.jupiter.api.Test;
 
-public class NativeUnZipIncMojoTest extends AbstractMojoTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    public void testTransitiveIncZipDependencies() throws Exception {
+class NativeUnZipIncMojoTest extends AbstractMojoTestCase {
+
+    @Test
+    void transitiveIncZipDependencies() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/unzipinc/plugin-config.xml");
         NativeUnZipIncMojo mojo = (NativeUnZipIncMojo) lookupMojo("unzipinc", pluginXml);
         assertNotNull(mojo);
@@ -71,7 +78,7 @@ public class NativeUnZipIncMojoTest extends AbstractMojoTestCase {
 
         // Verify that both direct and transitive inczip dependencies are included
         assertNotNull(incZipDeps);
-        assertEquals("Should include both direct and transitive inczip dependencies", 2, incZipDeps.size());
+        assertEquals(2, incZipDeps.size(), "Should include both direct and transitive inczip dependencies");
 
         // Verify that jar artifact is not included
         boolean hasDirectInczip = false;
@@ -88,8 +95,8 @@ public class NativeUnZipIncMojoTest extends AbstractMojoTestCase {
             }
         }
 
-        assertTrue("Should include direct inczip dependency", hasDirectInczip);
-        assertTrue("Should include transitive inczip dependency", hasTransitiveInczip);
-        assertFalse("Should not include jar dependency", hasJar);
+        assertTrue(hasDirectInczip, "Should include direct inczip dependency");
+        assertTrue(hasTransitiveInczip, "Should include transitive inczip dependency");
+        assertFalse(hasJar, "Should not include jar dependency");
     }
 }

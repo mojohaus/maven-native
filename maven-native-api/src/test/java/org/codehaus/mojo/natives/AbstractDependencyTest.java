@@ -27,14 +27,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import junit.framework.TestCase;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 
-public abstract class AbstractDependencyTest extends TestCase {
+public abstract class AbstractDependencyTest {
 
     public AbstractDependencyTest(String name) {
-        super(name);
     }
 
     protected void mkDir(String dirPath) throws IOException {

@@ -27,15 +27,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class TLibLinkerTest extends TestCase {
+class TLibLinkerTest {
 
-    public void testCommandLine() {
+    @Test
+    void commandLine() {
         TLibLinker linker = new TLibLinker();
 
         LinkerConfiguration config = new LinkerConfiguration();

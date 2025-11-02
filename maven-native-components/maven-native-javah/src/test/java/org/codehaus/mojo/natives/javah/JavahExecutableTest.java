@@ -4,13 +4,17 @@ import java.io.File;
 
 import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class JavahExecutableTest extends PlexusTestCase {
+class JavahExecutableTest extends PlexusTestCase {
     private JavahConfiguration config;
 
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         super.setUp();
 
         this.config = new JavahConfiguration();
@@ -24,7 +28,8 @@ public class JavahExecutableTest extends PlexusTestCase {
         config.setOutputDirectory(new File(getBasedir(), "target/native"));
     }
 
-    public void testDefaultJavahExecutable() {
+    @Test
+    void defaultJavahExecutable() {
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
 
@@ -43,7 +48,8 @@ public class JavahExecutableTest extends PlexusTestCase {
                 cl.getArguments());
     }
 
-    public void testConfiguredJavahExecutable() {
+    @Test
+    void configuredJavahExecutable() {
         File javaBin = new File("/java/home/bin");
 
         JavahExecutable javah = new JavahExecutable();
@@ -65,7 +71,8 @@ public class JavahExecutableTest extends PlexusTestCase {
                 cl.getArguments());
     }
 
-    public void testJavahExecutableDashoOption() {
+    @Test
+    void javahExecutableDashoOption() {
         config.setFileName("fileName");
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
@@ -83,7 +90,8 @@ public class JavahExecutableTest extends PlexusTestCase {
                 cl.getArguments());
     }
 
-    public void testWorkingDirectory() {
+    @Test
+    void workingDirectory() {
         JavahExecutable javah = new JavahExecutable();
 
         File workingDirectory = new File(getBasedir());

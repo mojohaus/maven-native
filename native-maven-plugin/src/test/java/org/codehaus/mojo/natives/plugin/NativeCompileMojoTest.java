@@ -6,15 +6,21 @@ import java.util.List;
 
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import org.junit.jupiter.api.Test;
 
-public class NativeCompileMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class NativeCompileMojoTest extends AbstractMojoTestCase {
+    @Test
+    void mojoLookup() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config.xml");
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
         assertNotNull(mojo);
     }
 
-    public void testSources() throws Exception {
+    @Test
+    void sources() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config.xml");
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
         assertNotNull(mojo);
@@ -83,7 +89,8 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         assertEquals(new File("target/file22.o"), objectFileList.get(3));
     }
 
-    public void testJavahOS() throws Exception {
+    @Test
+    void javahOS() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config-javahOS.xml");
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
         assertNotNull(mojo);
@@ -103,7 +110,8 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         assertEquals(new File("someJDKPath/someOS"), config.getSystemIncludePaths()[1]);
     }
 
-    public void testSkip() throws Exception {
+    @Test
+    void skip() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config-skip.xml");
         NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
         assertNotNull(mojo);

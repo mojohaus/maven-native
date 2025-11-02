@@ -8,9 +8,13 @@ import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.jupiter.api.Test;
 
-public class NativeRanlibMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class NativeRanlibMojoTest extends AbstractMojoTestCase {
+    @Test
+    void mojoLookup() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/linker/plugin-config-ranlib.xml");
         NativeRanlibMojo mojo = (NativeRanlibMojo) lookupMojo("ranlib", pluginXml);
         assertNotNull(mojo);

@@ -4,15 +4,21 @@ import java.io.File;
 
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.mojo.natives.javah.JavahConfiguration;
+import org.junit.jupiter.api.Test;
 
-public class NativeJavahMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class NativeJavahMojoTest extends AbstractMojoTestCase {
+    @Test
+    void mojoLookup() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/javah/plugin-config.xml");
         NativeJavahMojo mojo = (NativeJavahMojo) lookupMojo("javah", pluginXml);
         assertNotNull(mojo);
     }
 
-    public void testClassPathBeginsWithProjectOutputDirectory() throws Exception {
+    @Test
+    void classPathBeginsWithProjectOutputDirectory() throws Exception {
         File pluginXml = new File(getBasedir(), "src/test/resources/javah/plugin-config.xml");
         NativeJavahMojo mojo = (NativeJavahMojo) this.lookupMojo("javah", pluginXml);
 

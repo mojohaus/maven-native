@@ -19,6 +19,10 @@ package org.codehaus.mojo.natives.parser;
 import java.io.CharArrayReader;
 import java.io.IOException;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public final class FortranParserTest extends AbstractParserTest {
     /**
      * Constructor.
@@ -34,12 +38,13 @@ public final class FortranParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testINCLUDE() throws IOException {
+    @Test
+    void include() throws Exception {
         CharArrayReader reader = new CharArrayReader("INCLUDE 'foo.inc' nowhatever  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.inc", includes[0]);
     }
 
@@ -48,12 +53,13 @@ public final class FortranParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testInClUdE() throws IOException {
+    @Test
+    void inClUdE() throws Exception {
         CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.inc", includes[0]);
     }
 
@@ -62,12 +68,13 @@ public final class FortranParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testMultipleInClUdE() throws IOException {
+    @Test
+    void multipleInClUdE() throws Exception {
         CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'\ninclude 'bar.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 2);
+        assertEquals(2, includes.length);
         assertEquals("foo.inc", includes[0]);
         assertEquals("bar.inc", includes[1]);
     }

@@ -19,6 +19,10 @@ package org.codehaus.mojo.natives.parser;
 import java.io.CharArrayReader;
 import java.io.IOException;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Tests for the CParser class.
  */
@@ -37,12 +41,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testImmediateImportBracket() throws IOException {
+    @Test
+    void immediateImportBracket() throws Exception {
         CharArrayReader reader = new CharArrayReader("#import <foo.h> nowhatever  ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.h", includes[0]);
     }
 
@@ -51,12 +56,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testImmediateImportQuote() throws IOException {
+    @Test
+    void immediateImportQuote() throws Exception {
         CharArrayReader reader = new CharArrayReader("#import \"foo.h\"   ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.h", includes[0]);
     }
 
@@ -65,12 +71,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testImmediateIncludeBracket() throws IOException {
+    @Test
+    void immediateIncludeBracket() throws Exception {
         CharArrayReader reader = new CharArrayReader("#include      <foo.h>   ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.h", includes[0]);
     }
 
@@ -79,12 +86,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException.
      */
-    public void testImmediateIncludeQuote() throws IOException {
+    @Test
+    void immediateIncludeQuote() throws Exception {
         CharArrayReader reader = new CharArrayReader("#include     \"foo.h\"   ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.h", includes[0]);
     }
 
@@ -93,12 +101,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testIncompleteImmediateImportBracket() throws IOException {
+    @Test
+    void incompleteImmediateImportBracket() throws Exception {
         CharArrayReader reader = new CharArrayReader("#import <foo.h   ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 0);
+        assertEquals(0, includes.length);
     }
 
     /**
@@ -106,12 +115,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testIncompleteImmediateImportQuote() throws IOException {
+    @Test
+    void incompleteImmediateImportQuote() throws Exception {
         CharArrayReader reader = new CharArrayReader("#import \"foo.h   ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 0);
+        assertEquals(0, includes.length);
     }
 
     /**
@@ -119,12 +129,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testIncompleteImmediateIncludeBracket() throws IOException {
+    @Test
+    void incompleteImmediateIncludeBracket() throws Exception {
         CharArrayReader reader = new CharArrayReader("#include <foo.h   ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 0);
+        assertEquals(0, includes.length);
     }
 
     /**
@@ -132,12 +143,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testIncompleteImmediateIncludeQuote() throws IOException {
+    @Test
+    void incompleteImmediateIncludeQuote() throws Exception {
         CharArrayReader reader = new CharArrayReader("#include     \"foo.h    ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 0);
+        assertEquals(0, includes.length);
     }
 
     /**
@@ -145,12 +157,13 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testNoQuoteOrBracket() throws IOException {
+    @Test
+    void noQuoteOrBracket() throws Exception {
         CharArrayReader reader = new CharArrayReader("#include foo.h  ".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 0);
+        assertEquals(0, includes.length);
     }
 
     /**
@@ -158,11 +171,12 @@ public final class CParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testNotFirstWhitespace() throws IOException {
+    @Test
+    void notFirstWhitespace() throws Exception {
         CharArrayReader reader = new CharArrayReader("//#include \"foo.h\"".toCharArray());
         CParser parser = new CParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 0);
+        assertEquals(0, includes.length);
     }
 }
