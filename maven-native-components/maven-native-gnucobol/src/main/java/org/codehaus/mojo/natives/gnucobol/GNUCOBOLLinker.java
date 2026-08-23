@@ -38,9 +38,16 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
 /**
- * GNU COBOL linker with "-o " as its output option
+ * GNU COBOL linker with "-o " as its output option.
+ * <p>
+ * No build-mode flag is passed, so cobc applies its own default of "-m", which produces a dynamically loadable
+ * module. To produce an executable instead, pass "-x" through the linker start options.
  */
-@Component(role = Linker.class, hint = "gnucobol", instantiationStrategy = "per-lookup")
+@Component(
+        role = Linker.class,
+        hint = "gnucobol",
+        instantiationStrategy = "per-lookup",
+        description = "GNU Cobol linker")
 public class GNUCOBOLLinker extends AbstractLinker {
 
     @Override

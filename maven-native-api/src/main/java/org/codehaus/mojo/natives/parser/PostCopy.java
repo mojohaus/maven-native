@@ -28,15 +28,12 @@ public class PostCopy extends AbstractParserState {
 
     private final AbstractParserState doubleQuote;
 
-    private final AbstractParserState bracket;
-
     private final FilenameState unquoted;
 
     public PostCopy(AbstractParser parser) {
         super(parser);
         this.singleQuote = new FilenameState(parser, new char[] {'\''});
         this.doubleQuote = new FilenameState(parser, new char[] {'"'});
-        this.bracket = new FilenameState(parser, new char[] {'>'});
         this.unquoted = new FilenameState(parser, new char[] {'.', ' ', '\t', '\r', '\n'});
     }
 
@@ -46,8 +43,6 @@ public class PostCopy extends AbstractParserState {
             case ' ':
             case '\t':
                 return this;
-            case '<':
-                return bracket;
             case '"':
                 return doubleQuote;
             case '\'':

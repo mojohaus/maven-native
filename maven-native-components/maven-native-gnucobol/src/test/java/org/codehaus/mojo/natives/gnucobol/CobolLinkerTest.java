@@ -78,6 +78,33 @@ public class CobolLinkerTest extends PlexusTestCase {
         assertEquals("cobc-alt", cl.getLiteralExecutable());
     }
 
+    /**
+     * cobc has no build-mode flag by default, and its own default is "-m" (a dynamically loadable module) rather than
+     * "-x" (an executable). The linker deliberately emits no mode flag, leaving the choice to the caller. Pinned so
+     * the default cannot change unnoticed.
+     */
+    public void testNoBuildModeFlagByDefault() {
+        Commandline cl = this.getCommandline();
+
+        List<String> args = Arrays.asList(cl.getArguments());
+        assertFalse("cobc build mode must not be forced by the linker", args.contains("-x"));
+        assertFalse("cobc build mode must not be forced by the linker", args.contains("-m"));
+        assertFalse("cobc build mode must not be forced by the linker", args.contains("-b"));
+    }
+
+    /**
+     * An executable is produced by passing "-x" through the start options, which must land before the output option.
+     */
+    public void testExecutableBuildModeViaStartOptions() {
+        config.setStartOptions(new String[] {"-x"});
+
+        Commandline cl = this.getCommandline();
+
+        String[] args = cl.getArguments();
+        assertEquals("-x", args[0]);
+        assertEquals("-o", args[1]);
+    }
+
     public void testObjectFileList() {
         Commandline cl = this.getCommandline();
 
