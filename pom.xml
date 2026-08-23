@@ -124,6 +124,11 @@
       </dependency>
       <dependency>
         <groupId>org.codehaus.mojo.natives</groupId>
+        <artifactId>maven-native-gnucobol</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo.natives</groupId>
         <artifactId>maven-native-javah</artifactId>
         <version>${project.version}</version>
       </dependency>
