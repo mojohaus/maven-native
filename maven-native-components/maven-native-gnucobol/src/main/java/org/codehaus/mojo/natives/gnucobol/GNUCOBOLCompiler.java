@@ -27,7 +27,8 @@ import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.plexus.component.annotations.Component;
 
 /**
- * GNU COBOL compiler with "-o " as its output option
+ * GNU COBOL compiler with "-o " as its output option. Sources are compiled to object files with "-c"; linkage is left
+ * to {@link GNUCOBOLLinker}.
  */
 @Component(
         role = Compiler.class,

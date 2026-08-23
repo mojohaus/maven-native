@@ -33,7 +33,7 @@ import org.codehaus.mojo.natives.parser.Parser;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public abstract class AbstractCobolCompiler extends AbstractCompiler {
-    private Parser parser = new CobolParser();
+    private final Parser parser = new CobolParser();
 
     protected abstract String getOutputFileOption();
 
@@ -66,6 +66,8 @@ public abstract class AbstractCobolCompiler extends AbstractCompiler {
         this.setMiddleOptions(cl, config);
 
         this.setOutputArgs(cl, destFile);
+
+        this.setCompileOnlyArg(cl);
 
         this.setSourceArgs(cl, srcFile);
 
@@ -113,8 +115,15 @@ public abstract class AbstractCobolCompiler extends AbstractCompiler {
         }
     }
 
-    private void setSourceArgs(Commandline cl, File srcFile) {
+    /**
+     * cobc defaults to building a dynamically loadable module. The compile phase must stop at the object file and
+     * leave linkage to {@link GNUCOBOLLinker}, so "-c" is always passed here.
+     */
+    private void setCompileOnlyArg(Commandline cl) {
         cl.createArg().setValue("-c");
+    }
+
+    private void setSourceArgs(Commandline cl, File srcFile) {
         cl.createArg().setValue(srcFile.getPath());
     }
 }

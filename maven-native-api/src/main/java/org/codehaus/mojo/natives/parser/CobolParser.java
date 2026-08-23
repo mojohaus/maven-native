@@ -25,13 +25,14 @@ package org.codehaus.mojo.natives.parser;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A parser that extracts COPY statements from a COBOL Reader.
  */
 public final class CobolParser extends AbstractParser implements Parser {
-    private final Vector<String> includes = new Vector<>();
+    private final List<String> includes = new ArrayList<>();
 
     private final AbstractParserState newLineState;
 
@@ -40,7 +41,7 @@ public final class CobolParser extends AbstractParser implements Parser {
         AbstractParserState y = new CaseInsensitiveLetterState(this, 'Y', postCopy, null);
         AbstractParserState p = new CaseInsensitiveLetterState(this, 'P', y, null);
         AbstractParserState o = new CaseInsensitiveLetterState(this, 'O', p, null);
-        newLineState = new WhitespaceOrCaseInsensitiveLetterState(this, 'C', o);
+        newLineState = new CobolLineStartState(this, 'C', o);
     }
 
     @Override
@@ -48,16 +49,14 @@ public final class CobolParser extends AbstractParser implements Parser {
         if (include != null) {
             String trimmed = include.trim();
             if (!trimmed.isEmpty()) {
-                includes.addElement(trimmed);
+                includes.add(trimmed);
             }
         }
     }
 
     @Override
     public String[] getIncludes() {
-        String[] retval = new String[includes.size()];
-        includes.copyInto(retval);
-        return retval;
+        return includes.toArray(new String[0]);
     }
 
     @Override
@@ -67,7 +66,7 @@ public final class CobolParser extends AbstractParser implements Parser {
 
     @Override
     public void parse(Reader reader) throws IOException {
-        includes.setSize(0);
+        includes.clear();
         super.parse(reader);
     }
 }
