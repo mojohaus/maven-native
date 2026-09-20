@@ -51,7 +51,7 @@
     <url>https://travis-ci.org/mojohaus/maven-native</url>
   </ciManagement>
   <properties>
-    <maven.api.version>3.3.9</maven.api.version>
+    <mavenVersion>3.9.16</mavenVersion>
     <project.build.outputTimestamp>2026-09-11T20:16:25Z</project.build.outputTimestamp>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
   </properties>
@@ -74,33 +74,28 @@
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
-        <artifactId>maven-aether-provider</artifactId>
-        <version>${maven.api.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.maven</groupId>
         <artifactId>maven-artifact</artifactId>
-        <version>${maven.api.version}</version>
+        <version>${mavenVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-compat</artifactId>
-        <version>${maven.api.version}</version>
+        <version>${mavenVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-core</artifactId>
-        <version>${maven.api.version}</version>
+        <version>${mavenVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-model</artifactId>
-        <version>${maven.api.version}</version>
+        <version>${mavenVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-plugin-api</artifactId>
-        <version>${maven.api.version}</version>
+        <version>${mavenVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven.plugin-testing</groupId>
