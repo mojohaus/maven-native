@@ -24,6 +24,8 @@ jobs:
     name: Verify
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v5
     with:
+      # package, not compile: the maven-native-generic-c site needs the maven-native-test test-jar
+      ff-site-goal: "-DskipTests -P reporting package site site:stage"
       matrix-exclude: >
         [
           {"os": "macos-latest", "jdk": "8"},
