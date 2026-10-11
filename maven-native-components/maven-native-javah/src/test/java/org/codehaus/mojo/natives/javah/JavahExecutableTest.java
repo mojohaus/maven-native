@@ -2,17 +2,18 @@ package org.codehaus.mojo.natives.javah;
 
 import java.io.File;
 
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JavahExecutableTest extends PlexusTestCase {
+public class JavahExecutableTest {
     private JavahConfiguration config;
 
-    public void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    void setUp() throws Exception {
         this.config = new JavahConfiguration();
 
         String[] classPaths = {"path1", "path2"};
@@ -24,7 +25,8 @@ public class JavahExecutableTest extends PlexusTestCase {
         config.setOutputDirectory(new File(getBasedir(), "target/native"));
     }
 
-    public void testDefaultJavahExecutable() {
+    @Test
+    void testDefaultJavahExecutable() {
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
 
@@ -43,7 +45,8 @@ public class JavahExecutableTest extends PlexusTestCase {
                 cl.getArguments());
     }
 
-    public void testConfiguredJavahExecutable() {
+    @Test
+    void testConfiguredJavahExecutable() {
         File javaBin = new File("/java/home/bin");
 
         JavahExecutable javah = new JavahExecutable();
@@ -65,7 +68,8 @@ public class JavahExecutableTest extends PlexusTestCase {
                 cl.getArguments());
     }
 
-    public void testJavahExecutableDashoOption() {
+    @Test
+    void testJavahExecutableDashoOption() {
         config.setFileName("fileName");
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
@@ -83,7 +87,8 @@ public class JavahExecutableTest extends PlexusTestCase {
                 cl.getArguments());
     }
 
-    public void testWorkingDirectory() {
+    @Test
+    void testWorkingDirectory() {
         JavahExecutable javah = new JavahExecutable();
 
         File workingDirectory = new File(getBasedir());
@@ -92,5 +97,9 @@ public class JavahExecutableTest extends PlexusTestCase {
         Commandline cl = javah.createJavahCommand(config);
 
         assertEquals(workingDirectory, cl.getWorkingDirectory());
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

@@ -2,19 +2,25 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.codehaus.mojo.natives.javah.JavahConfiguration;
+import org.junit.jupiter.api.Test;
 
-public class NativeJavahMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/javah/plugin-config.xml");
-        NativeJavahMojo mojo = (NativeJavahMojo) lookupMojo("javah", pluginXml);
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@MojoTest
+public class NativeJavahMojoTest {
+    @Test
+    @InjectMojo(goal = "javah", pom = "src/test/resources/javah/plugin-config.xml")
+    void testMojoLookup(NativeJavahMojo mojo) throws Exception {
         assertNotNull(mojo);
     }
 
-    public void testClassPathBeginsWithProjectOutputDirectory() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/javah/plugin-config.xml");
-        NativeJavahMojo mojo = (NativeJavahMojo) this.lookupMojo("javah", pluginXml);
+    @Test
+    @InjectMojo(goal = "javah", pom = "src/test/resources/javah/plugin-config.xml")
+    void testClassPathBeginsWithProjectOutputDirectory(NativeJavahMojo mojo) throws Exception {
 
         mojo.execute();
 
@@ -27,11 +33,15 @@ public class NativeJavahMojoTest extends AbstractMojoTestCase {
 
         assertEquals(mojo.getProject().getBuild().getOutputDirectory(), classesDir);
 
-        assertEquals(new File("target/javah"), config.getOutputDirectory());
+        assertEquals(new File(getBasedir(), "target/javah"), config.getOutputDirectory());
 
         assertEquals(new File(getBasedir()), config.getWorkingDirectory());
 
         // in test mode, the project starts out of 0 source root instead of 1
         assertEquals(1, mojo.getProject().getCompileSourceRoots().size());
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

@@ -3,16 +3,17 @@ package org.codehaus.mojo.natives;
 import java.io.File;
 import java.util.List;
 
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.FileUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class NativeSourcesTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class NativeSourcesTest {
     File workDirectory;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    void setUp() throws Exception {
         workDirectory = new File(getBasedir(), "/target/NativeSourceTest");
         if (workDirectory.exists()) {
             FileUtils.deleteDirectory(workDirectory);
@@ -21,7 +22,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         workDirectory.mkdirs();
     }
 
-    public void testFileNamesOnly() {
+    @Test
+    void testFileNamesOnly() {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -32,7 +34,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         assertEquals(2, files.size());
     }
 
-    public void testEmptyIncludes() {
+    @Test
+    void testEmptyIncludes() {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -48,7 +51,8 @@ public class NativeSourcesTest extends PlexusTestCase {
     }
 
     // merge include wild card list with fileNames array
-    public void testMerge() throws Exception {
+    @Test
+    void testMerge() throws Exception {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -67,7 +71,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         assertEquals(3, files.size());
     }
 
-    public void testDuplicateFiles() throws Exception {
+    @Test
+    void testDuplicateFiles() throws Exception {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -85,7 +90,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         assertEquals(2, files.size());
     }
 
-    public void testEmpty() {
+    @Test
+    void testEmpty() {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] includes = {"*.*"};
@@ -96,7 +102,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         assertEquals(0, files.size());
     }
 
-    public void testGetAllSourceFiles() throws Exception {
+    @Test
+    void testGetAllSourceFiles() throws Exception {
         NativeSources source = new NativeSources();
 
         source.setDirectory(this.workDirectory);
@@ -118,7 +125,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         assertEquals(6, files.length);
     }
 
-    public void testEmptyFileNames() throws Exception {
+    @Test
+    void testEmptyFileNames() throws Exception {
         NativeSources source = new NativeSources();
 
         source.setDirectory(this.workDirectory);
@@ -134,7 +142,8 @@ public class NativeSourcesTest extends PlexusTestCase {
         assertEquals(1, files.size());
     }
 
-    public void testExcludes() throws Exception {
+    @Test
+    void testExcludes() throws Exception {
 
         new File(this.workDirectory, "someFile.c").createNewFile();
         new File(this.workDirectory, "someFile.cpp").createNewFile();
@@ -162,5 +171,9 @@ public class NativeSourcesTest extends PlexusTestCase {
         String[] excludes4 = {"someFile.c", "someFile.cpp"};
         source.setExcludes(excludes4);
         assertEquals(0, source.getFiles().size());
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

@@ -30,10 +30,15 @@ import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class CobolLinkerTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class CobolLinkerTest {
     private GNUCOBOLLinker linker;
 
     private LinkerConfiguration config;
@@ -46,10 +51,8 @@ public class CobolLinkerTest extends PlexusTestCase {
 
     private String basedir;
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    void setUp() throws Exception {
         this.defaultObjectFiles = new ArrayList<>();
         this.defaultObjectFiles.add(objectFile0);
         this.defaultObjectFiles.add(objectFile1);
@@ -63,14 +66,16 @@ public class CobolLinkerTest extends PlexusTestCase {
         config.setOutputFileName("test");
     }
 
-    public void testDefaultLinkerExecutable() {
+    @Test
+    void testDefaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
 
         assertEquals("cobc", cl.getLiteralExecutable());
         assertEquals(basedir, cl.getWorkingDirectory().getPath());
     }
 
-    public void testOverrideLinkerExecutable() {
+    @Test
+    void testOverrideLinkerExecutable() {
         config.setExecutable("cobc-alt");
 
         Commandline cl = this.getCommandline();
@@ -83,19 +88,21 @@ public class CobolLinkerTest extends PlexusTestCase {
      * "-x" (an executable). The linker deliberately emits no mode flag, leaving the choice to the caller. Pinned so
      * the default cannot change unnoticed.
      */
-    public void testNoBuildModeFlagByDefault() {
+    @Test
+    void testNoBuildModeFlagByDefault() {
         Commandline cl = this.getCommandline();
 
         List<String> args = Arrays.asList(cl.getArguments());
-        assertFalse("cobc build mode must not be forced by the linker", args.contains("-x"));
-        assertFalse("cobc build mode must not be forced by the linker", args.contains("-m"));
-        assertFalse("cobc build mode must not be forced by the linker", args.contains("-b"));
+        assertFalse(args.contains("-x"), "cobc build mode must not be forced by the linker");
+        assertFalse(args.contains("-m"), "cobc build mode must not be forced by the linker");
+        assertFalse(args.contains("-b"), "cobc build mode must not be forced by the linker");
     }
 
     /**
      * An executable is produced by passing "-x" through the start options, which must land before the output option.
      */
-    public void testExecutableBuildModeViaStartOptions() {
+    @Test
+    void testExecutableBuildModeViaStartOptions() {
         config.setStartOptions(new String[] {"-x"});
 
         Commandline cl = this.getCommandline();
@@ -105,7 +112,8 @@ public class CobolLinkerTest extends PlexusTestCase {
         assertEquals("-o", args[1]);
     }
 
-    public void testObjectFileList() {
+    @Test
+    void testObjectFileList() {
         Commandline cl = this.getCommandline();
 
         int index = Arrays.asList(cl.getArguments()).indexOf("source1.o");
@@ -113,7 +121,8 @@ public class CobolLinkerTest extends PlexusTestCase {
         assertEquals("source2.o", cl.getArguments()[index + 1]);
     }
 
-    public void testLinkerResponseFile() {
+    @Test
+    void testLinkerResponseFile() {
         this.config.setUsingLinkerResponseFile(true);
         this.config.setWorkingDirectory(new File(getBasedir(), "target"));
         Commandline cl = this.getCommandline();
@@ -121,7 +130,8 @@ public class CobolLinkerTest extends PlexusTestCase {
         assertTrue(Arrays.asList(cl.getArguments()).contains("@objectsFile"));
     }
 
-    public void testRelativeObjectFileList() {
+    @Test
+    void testRelativeObjectFileList() {
         ArrayList<File> objectFiles = new ArrayList<>(2);
         objectFiles.add(new File(config.getOutputDirectory(), "file1.o"));
         objectFiles.add(new File(config.getOutputDirectory(), "file2.o"));
@@ -133,7 +143,8 @@ public class CobolLinkerTest extends PlexusTestCase {
         assertEquals("target" + File.separator + "file2.o", cl.getArguments()[index + 1]);
     }
 
-    public void testOptions() {
+    @Test
+    void testOptions() {
         String[] options = {"-o1", "-o2", "-o3"};
         config.setStartOptions(options);
 
@@ -145,7 +156,8 @@ public class CobolLinkerTest extends PlexusTestCase {
         assertEquals("-o3", cl.getArguments()[index + 2]);
     }
 
-    public void testExternalUnixLibraries() {
+    @Test
+    void testExternalUnixLibraries() {
         config.setExternalLibDirectory(new File("theLib"));
 
         List<String> externalLibFileNames = new ArrayList<>();
@@ -173,5 +185,9 @@ public class CobolLinkerTest extends PlexusTestCase {
 
     private Commandline getCommandline(List<File> objectFiles) throws NativeBuildException {
         return this.linker.createLinkerCommandLine(objectFiles, config);
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

@@ -28,17 +28,17 @@ import java.io.IOException;
 
 import org.codehaus.mojo.natives.parser.CParser;
 import org.codehaus.mojo.natives.parser.Parser;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DependencyTest extends AbstractDependencyTest {
-
-    public DependencyTest(String name) {
-        super(name);
-    }
 
     /**
      * Source has includes, but include path is not given
      **/
-    public void testNoneParticipateDepedencyAnalysisInclude() throws IOException {
+    @Test
+    void testNoneParticipateDepedencyAnalysisInclude() throws IOException {
         String testSrcDir = "target/test/testNoneParticipateDepedencyAnalysisInclude/c/";
         String testSource = testSrcDir + "test1.c";
 
@@ -60,7 +60,8 @@ public class DependencyTest extends AbstractDependencyTest {
         assertEquals(0, dependency.getDependencies().size());
     }
 
-    public void testCyclicOnTheSameSource() throws IOException {
+    @Test
+    void testCyclicOnTheSameSource() throws IOException {
         String testIncDir = "target/test/testCyclicOnTheSameSource/h/";
         String testSource = testIncDir + "test1.h";
 
@@ -85,7 +86,8 @@ public class DependencyTest extends AbstractDependencyTest {
     /*
      * Makesure depedencies tree does not contain duplicate node
      */
-    public void testCyclicDependencyAnalysis() throws IOException, InterruptedException {
+    @Test
+    void testCyclicDependencyAnalysis() throws IOException, InterruptedException {
         String testSrcDir = "target/test/testCyclicDependencyAnalysis/c/";
         String testIncDir = "target/test/testCyclicDependencyAnalysis/h/";
 

@@ -4,19 +4,25 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
+import org.junit.jupiter.api.Test;
 
-public class NativeCompileMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config.xml");
-        NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@MojoTest
+public class NativeCompileMojoTest {
+    @Test
+    @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config.xml")
+    void testMojoLookup(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
     }
 
-    public void testSources() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config.xml");
-        NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
+    @Test
+    @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config.xml")
+    void testSources(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // must init this
@@ -39,7 +45,7 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
 
         assertEquals("someExe", config.getExecutable());
 
-        assertEquals(new File("target"), config.getOutputDirectory());
+        assertEquals(new File(getBasedir(), "target"), config.getOutputDirectory());
 
         assertEquals(4, config.getStartOptions().length);
         assertEquals("-s0", config.getStartOptions()[0]);
@@ -62,14 +68,14 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         // there are 2 source element with dependencyAnalysisParticipation is set to
         // false
         assertEquals(2, config.getSystemIncludePaths().length);
-        assertEquals(new File("src/main/native/dir4"), config.getSystemIncludePaths()[0]);
-        assertEquals(new File("src/main/native/dir5"), config.getSystemIncludePaths()[1]);
+        assertEquals(new File(getBasedir(), "src/main/native/dir4"), config.getSystemIncludePaths()[0]);
+        assertEquals(new File(getBasedir(), "src/main/native/dir5"), config.getSystemIncludePaths()[1]);
 
         // there are 3 normal source elements + 2 javah include
         assertEquals(3, config.getIncludePaths().length);
-        assertEquals(new File("src/main/native/dir1"), config.getIncludePaths()[0]);
-        assertEquals(new File("src/main/native/dir2"), config.getIncludePaths()[1]);
-        assertEquals(new File("src/main/native/dir3"), config.getIncludePaths()[2]);
+        assertEquals(new File(getBasedir(), "src/main/native/dir1"), config.getIncludePaths()[0]);
+        assertEquals(new File(getBasedir(), "src/main/native/dir2"), config.getIncludePaths()[1]);
+        assertEquals(new File(getBasedir(), "src/main/native/dir3"), config.getIncludePaths()[2]);
         // until maven project stub is fixes were we can simulate more than 1 source
         // root in the list
         // assertEquals( new File( "target/javah" ), config.getIncludePaths()[3] );
@@ -77,15 +83,15 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         // we have 4 source files, so in output directory, there must be 4 object files
         List<File> objectFileList = mojo.getAllCompilersOutputFileList();
         assertEquals(4, objectFileList.size());
-        assertEquals(new File("target/file11.o"), objectFileList.get(0));
-        assertEquals(new File("target/file12.o"), objectFileList.get(1));
-        assertEquals(new File("target/file21.o"), objectFileList.get(2));
-        assertEquals(new File("target/file22.o"), objectFileList.get(3));
+        assertEquals(new File(getBasedir(), "target/file11.o"), objectFileList.get(0));
+        assertEquals(new File(getBasedir(), "target/file12.o"), objectFileList.get(1));
+        assertEquals(new File(getBasedir(), "target/file21.o"), objectFileList.get(2));
+        assertEquals(new File(getBasedir(), "target/file22.o"), objectFileList.get(3));
     }
 
-    public void testJavahOS() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config-javahOS.xml");
-        NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
+    @Test
+    @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config-javahOS.xml")
+    void testJavahOS(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         mojo.setPluginContext(new HashMap<>());
@@ -99,13 +105,13 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         // javah induces 2 system include paths into configuration
         assertEquals(2, config.getSystemIncludePaths().length);
         // note "somJDKPath comes from the simulated pom above
-        assertEquals(new File("someJDKPath"), config.getSystemIncludePaths()[0]);
-        assertEquals(new File("someJDKPath/someOS"), config.getSystemIncludePaths()[1]);
+        assertEquals(new File(getBasedir(), "someJDKPath"), config.getSystemIncludePaths()[0]);
+        assertEquals(new File(getBasedir(), "someJDKPath/someOS"), config.getSystemIncludePaths()[1]);
     }
 
-    public void testSkip() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/compiler/plugin-config-skip.xml");
-        NativeCompileMojo mojo = (NativeCompileMojo) lookupMojo("compile", pluginXml);
+    @Test
+    @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config-skip.xml")
+    void testSkip(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         mojo.setPluginContext(new HashMap<>());
@@ -117,5 +123,9 @@ public class NativeCompileMojoTest extends AbstractMojoTestCase {
         // and should not have added any compiler output files
         List<File> objectFileList = mojo.getAllCompilersOutputFileList();
         assertEquals(0, objectFileList.size());
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

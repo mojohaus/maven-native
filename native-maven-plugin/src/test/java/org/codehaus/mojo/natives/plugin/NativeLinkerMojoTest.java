@@ -6,27 +6,36 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoExtension;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.junit.jupiter.api.Test;
 
-public class NativeLinkerMojoTest extends AbstractMojoTestCase {
-    private NativeLinkMojo getMojo() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/linker/plugin-config.xml");
-        NativeLinkMojo mojo = (NativeLinkMojo) lookupMojo("link", pluginXml);
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@MojoTest
+public class NativeLinkerMojoTest {
+    private void init(NativeLinkMojo mojo) {
         assertNotNull(mojo);
 
         // must init this
         mojo.setPluginContext(new HashMap<>());
-        return mojo;
     }
 
-    public void testExecute() throws Exception {
-        NativeLinkMojo mojo = getMojo();
+    @Test
+    @InjectMojo(goal = "link", pom = "src/test/resources/linker/plugin-config.xml")
+    void testExecute(NativeLinkMojo mojo) throws Exception {
+        init(mojo);
 
         // simulate object files
         List<File> objectList = new ArrayList<>();
@@ -51,22 +60,24 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         mojo.getProject().setArtifacts(new HashSet<>()); // no extern libs for now
 
         String linkerFinalName = "some-final-name";
-        setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
+        MojoExtension.setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
 
         mojo.execute();
 
         LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
 
         // "target is set in the stub
-        assertEquals(new File("target"), conf.getOutputDirectory());
+        assertEquals(new File(getBasedir(), "target"), conf.getOutputDirectory());
         assertEquals(linkerFinalName, conf.getOutputFileName());
         assertNull(conf.getOutputFileExtension());
         // current artifactHandler mocking return null extension name
-        assertEquals(new File("target/some-final-name.null"), conf.getOutputFile());
+        assertEquals(new File(getBasedir(), "target/some-final-name.null"), conf.getOutputFile());
     }
 
-    public void testExecuteWithFinalNameExtension() throws Exception {
-        NativeLinkMojo mojo = getMojo();
+    @Test
+    @InjectMojo(goal = "link", pom = "src/test/resources/linker/plugin-config.xml")
+    void testExecuteWithFinalNameExtension(NativeLinkMojo mojo) throws Exception {
+        init(mojo);
 
         // simulate object files
         List<File> objectList = new ArrayList<>();
@@ -91,23 +102,25 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         mojo.getProject().setArtifacts(new HashSet<>()); // no extern libs for now
 
         String linkerFinalName = "some-final-name";
-        setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
+        MojoExtension.setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
         String linkerFinalNameExt = "some-extension";
-        setVariableValueToObject(mojo, "linkerFinalNameExt", linkerFinalNameExt);
+        MojoExtension.setVariableValueToObject(mojo, "linkerFinalNameExt", linkerFinalNameExt);
 
         mojo.execute();
 
         LinkerConfiguration conf = mojo.getLgetLinkerConfiguration();
 
         // "target is set in the stub
-        assertEquals(new File("target"), conf.getOutputDirectory());
+        assertEquals(new File(getBasedir(), "target"), conf.getOutputDirectory());
         assertEquals(linkerFinalName, conf.getOutputFileName());
         assertEquals(linkerFinalNameExt, conf.getOutputFileExtension());
-        assertEquals(new File("target/some-final-name.some-extension"), conf.getOutputFile());
+        assertEquals(new File(getBasedir(), "target/some-final-name.some-extension"), conf.getOutputFile());
     }
 
-    public void testOutputDirectoryCreation() throws Exception {
-        NativeLinkMojo mojo = getMojo();
+    @Test
+    @InjectMojo(goal = "link", pom = "src/test/resources/linker/plugin-config.xml")
+    void testOutputDirectoryCreation(NativeLinkMojo mojo) throws Exception {
+        init(mojo);
 
         // simulate object files
         List<File> objectList = new ArrayList<>();
@@ -132,28 +145,32 @@ public class NativeLinkerMojoTest extends AbstractMojoTestCase {
         mojo.getProject().setArtifacts(new HashSet<>()); // no extern libs for now
 
         String linkerFinalName = "test-output";
-        setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
+        MojoExtension.setVariableValueToObject(mojo, "linkerFinalName", linkerFinalName);
 
         // Set a non-existent output directory
         File nonExistentDir = new File(getBasedir(), "target/test-output-" + System.currentTimeMillis());
         if (nonExistentDir.exists()) {
             nonExistentDir.delete();
         }
-        setVariableValueToObject(mojo, "linkerOutputDirectory", nonExistentDir);
+        MojoExtension.setVariableValueToObject(mojo, "linkerOutputDirectory", nonExistentDir);
 
         try {
-            assertFalse("Output directory should not exist before link", nonExistentDir.exists());
+            assertFalse(nonExistentDir.exists(), "Output directory should not exist before link");
 
             mojo.execute();
 
             // Verify the directory was created
-            assertTrue("Output directory should be created by link method", nonExistentDir.exists());
-            assertTrue("Output directory should be a directory", nonExistentDir.isDirectory());
+            assertTrue(nonExistentDir.exists(), "Output directory should be created by link method");
+            assertTrue(nonExistentDir.isDirectory(), "Output directory should be a directory");
         } finally {
             // Clean up
             if (nonExistentDir.exists()) {
                 nonExistentDir.delete();
             }
         }
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }
