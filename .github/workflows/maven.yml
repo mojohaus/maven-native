@@ -21,44 +21,12 @@ on: [push, pull_request]
 
 jobs:
   build:
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        java: [8, 11, 17]
-      fail-fast: false
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Set up JDK
-        uses: actions/setup-java@v6
-        with:
-          java-version: ${{ matrix.java }}
-          distribution: 'zulu'
-          cache: 'maven'
-
-      - name: Build with Maven
-        run: mvn verify -e -V -P run-its
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: Test Results ${{ matrix.os }}-jdk${{ matrix.java }}
-          path: |
-            **/target/surefire-reports/TEST*.xml
-            **/target/failsafe-reports/TEST*.xml
-
-  event_file:
-    name: Publish event file
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload
-        uses: actions/upload-artifact@v7
-        with:
-          name: Event File
-          path: ${{ github.event_path }}
+    name: Verify
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v5
+    with:
+      matrix-exclude: >
+        [
+          {"os": "macos-latest", "jdk": "8"},
+          {"os": "macos-latest", "jdk": "21"},
+          {"os": "windows-latest", "jdk": "21"}
+        ]
