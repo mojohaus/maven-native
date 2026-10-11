@@ -130,9 +130,8 @@ public abstract class AbstractCompiler extends AbstractLogEnabled implements Com
      * Figure out the object file relative path from a given source file
      *
      * @param sourceFile
-     * @param workingDirectory
      * @param outputDirectory
-     * @param config
+     * @param objectFileExtension
      * @return
      */
     protected static File getObjectFile(File sourceFile, File outputDirectory, String objectFileExtension)

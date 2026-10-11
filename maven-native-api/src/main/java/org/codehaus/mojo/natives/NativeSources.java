@@ -30,7 +30,6 @@ import org.codehaus.plexus.util.DirectoryScanner;
  * Compilable list of source file in a directory
  *
  * @author dantran@gmail.com
- * @description
  * @version $Id$
  */
 public class NativeSources {
