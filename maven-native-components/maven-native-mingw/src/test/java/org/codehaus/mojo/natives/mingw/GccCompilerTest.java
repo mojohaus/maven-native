@@ -3,13 +3,14 @@ package org.codehaus.mojo.natives.mingw;
 import java.io.File;
 
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class GccCompilerTest extends PlexusTestCase {
+public class GccCompilerTest {
 
     private GccCompiler compiler;
 
@@ -21,27 +22,29 @@ public class GccCompilerTest extends PlexusTestCase {
 
     private static String[] simpleArgv = {"-o", "object.o", "-c", "source.c"};
 
-    public void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    void setUp() throws Exception {
         this.compiler = new GccCompiler();
         this.config = new CompilerConfiguration();
     }
 
-    public void testSimpleCompilation() {
+    @Test
+    void testSimpleCompilation() {
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"gcc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testNonDefaultExecutable() {
+    @Test
+    void testNonDefaultExecutable() {
         this.config.setExecutable("cc");
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testStartOptions() {
+    @Test
+    void testStartOptions() {
         String[] startOptions = {"-s1", "-s2"};
         config.setStartOptions(startOptions);
 
@@ -52,7 +55,8 @@ public class GccCompilerTest extends PlexusTestCase {
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testIncludePaths() {
+    @Test
+    void testIncludePaths() {
         File[] includePaths = {new File("p1"), new File("p2")};
 
         config.setIncludePaths(includePaths);
@@ -64,7 +68,8 @@ public class GccCompilerTest extends PlexusTestCase {
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testSystemIncludePaths() {
+    @Test
+    void testSystemIncludePaths() {
         File[] includePaths = {new File("p1"), new File("p2")};
 
         File[] systemIncludePaths = {new File("sp1"), new File("sp2")};
@@ -81,7 +86,8 @@ public class GccCompilerTest extends PlexusTestCase {
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testMiddleOptions() {
+    @Test
+    void testMiddleOptions() {
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);
 
@@ -108,7 +114,8 @@ public class GccCompilerTest extends PlexusTestCase {
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
-    public void testEndOptions() {
+    @Test
+    void testEndOptions() {
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);
 

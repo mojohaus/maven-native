@@ -3,17 +3,23 @@ package org.codehaus.mojo.natives.plugin;
 import java.io.File;
 import java.util.HashMap;
 
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.jupiter.api.Test;
 
-public class NativeInitializeMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/initialize/plugin-config.xml");
-        NativeInitializeMojo mojo = (NativeInitializeMojo) lookupMojo("initialize", pluginXml);
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@MojoTest
+public class NativeInitializeMojoTest {
+    @Test
+    @InjectMojo(goal = "initialize", pom = "src/test/resources/initialize/plugin-config.xml")
+    void testMojoLookup(NativeInitializeMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // simulate artifact
@@ -34,9 +40,9 @@ public class NativeInitializeMojoTest extends AbstractMojoTestCase {
         assertEquals("someArtifactId", mojo.project.getBuild().getFinalName());
     }
 
-    public void testSkip() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/initialize/plugin-config-skip.xml");
-        NativeInitializeMojo mojo = (NativeInitializeMojo) lookupMojo("initialize", pluginXml);
+    @Test
+    @InjectMojo(goal = "initialize", pom = "src/test/resources/initialize/plugin-config-skip.xml")
+    void testSkip(NativeInitializeMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // simulate artifact
@@ -59,5 +65,9 @@ public class NativeInitializeMojoTest extends AbstractMojoTestCase {
 
         // When skip is true, the final name should not be changed
         assertEquals(originalFinalName, mojo.project.getBuild().getFinalName());
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

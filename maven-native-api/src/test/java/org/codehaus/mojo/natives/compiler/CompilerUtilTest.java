@@ -2,12 +2,15 @@ package org.codehaus.mojo.natives.compiler;
 
 import java.io.File;
 
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.Os;
+import org.junit.jupiter.api.Test;
 
-public class CompilerUtilTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public void testGetObjectFileFromSourceWithNoExtension() {
+public class CompilerUtilTest {
+
+    @Test
+    void testGetObjectFileFromSourceWithNoExtension() {
         File source;
 
         if (Os.isFamily("windows")) {
@@ -24,7 +27,8 @@ public class CompilerUtilTest extends PlexusTestCase {
                 objectFile);
     }
 
-    public void testGetObjectFileWithKnownExtension() {
+    @Test
+    void testGetObjectFileWithKnownExtension() {
 
         File source = new File("target/somefile.c");
 

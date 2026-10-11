@@ -7,10 +7,14 @@ import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class GccLinkerTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class GccLinkerTest {
 
     private GccLinker linker;
 
@@ -24,9 +28,8 @@ public class GccLinkerTest extends PlexusTestCase {
 
     private String basedir;
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    void setUp() throws Exception {
         this.defautlObjectFiles = new ArrayList<>();
         this.defautlObjectFiles.add(objectFile0);
         this.defautlObjectFiles.add(objectFile1);
@@ -40,21 +43,24 @@ public class GccLinkerTest extends PlexusTestCase {
         config.setOutputFileName("test");
     }
 
-    public void testDefaultLinkerExecutable() {
+    @Test
+    void testDefaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
 
         assertEquals("gcc", cl.getLiteralExecutable());
         assertEquals(basedir, cl.getWorkingDirectory().getPath());
     }
 
-    public void testOverrideLinkerExecutable() {
+    @Test
+    void testOverrideLinkerExecutable() {
         config.setExecutable("ld");
 
         Commandline cl = this.getCommandline();
         assertEquals("ld", cl.getLiteralExecutable());
     }
 
-    public void testObjectFileList() {
+    @Test
+    void testObjectFileList() {
         Commandline cl = this.getCommandline();
 
         int index = Arrays.asList(cl.getArguments()).indexOf("source1.o");
@@ -62,14 +68,16 @@ public class GccLinkerTest extends PlexusTestCase {
         assertEquals("source2.o", cl.getArguments()[index + 1]);
     }
 
-    public void testLinkerResponseFile() {
+    @Test
+    void testLinkerResponseFile() {
         this.config.setUsingLinkerResponseFile(true);
         this.config.setWorkingDirectory(new File(getBasedir(), "target"));
         Commandline cl = this.getCommandline();
         assertTrue(cl.toString().contains("@objectsFile"));
     }
 
-    public void testRelativeObjectFileList() {
+    @Test
+    void testRelativeObjectFileList() {
         ArrayList<File> objectFiles = new ArrayList<>(2);
         objectFiles.add(new File(config.getOutputDirectory(), "file1.o"));
         objectFiles.add(new File(config.getOutputDirectory(), "file2.o"));
@@ -81,7 +89,8 @@ public class GccLinkerTest extends PlexusTestCase {
         assertEquals("target" + File.separator + "file2.o", cl.getArguments()[index + 1]);
     }
 
-    public void testOptions() {
+    @Test
+    void testOptions() {
         String[] options = {"-o1", "-o2", "-o3"};
         config.setStartOptions(options);
 
@@ -93,7 +102,8 @@ public class GccLinkerTest extends PlexusTestCase {
         assertEquals("-o3", cl.getArguments()[index + 2]);
     }
 
-    public void testExternalUnixLibraries() {
+    @Test
+    void testExternalUnixLibraries() {
         config.setExternalLibDirectory(new File("theLib"));
 
         List<String> externalLibFileNames = new ArrayList<>();
@@ -121,7 +131,8 @@ public class GccLinkerTest extends PlexusTestCase {
         assertEquals("-lfile3", cl.getArguments()[index + 3]);
     }
 
-    public void testLinkerOptionsTransformation() {
+    @Test
+    void testLinkerOptionsTransformation() {
         String[] startOptions = {"--whole-archive", "-lfoo"};
         String[] middleOptions = {"--as-needed", "-lbar"};
         String[] endOptions = {"--no-whole-archive", "-Wl,--export-dynamic"};
@@ -152,5 +163,9 @@ public class GccLinkerTest extends PlexusTestCase {
 
     private Commandline getCommandline(List<File> objectFiles) throws NativeBuildException {
         return this.linker.createLinkerCommandLine(objectFiles, config);
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

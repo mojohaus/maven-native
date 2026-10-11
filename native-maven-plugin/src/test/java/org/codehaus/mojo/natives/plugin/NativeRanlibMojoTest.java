@@ -2,17 +2,22 @@ package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
 
+import org.apache.maven.api.plugin.testing.InjectMojo;
+import org.apache.maven.api.plugin.testing.MojoTest;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.versioning.VersionRange;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.junit.jupiter.api.Test;
 
-public class NativeRanlibMojoTest extends AbstractMojoTestCase {
-    public void testMojoLookup() throws Exception {
-        File pluginXml = new File(getBasedir(), "src/test/resources/linker/plugin-config-ranlib.xml");
-        NativeRanlibMojo mojo = (NativeRanlibMojo) lookupMojo("ranlib", pluginXml);
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@MojoTest
+public class NativeRanlibMojoTest {
+    @Test
+    @InjectMojo(goal = "ranlib", pom = "src/test/resources/linker/plugin-config-ranlib.xml")
+    void testMojoLookup(NativeRanlibMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // simulate artifact
@@ -29,5 +34,9 @@ public class NativeRanlibMojoTest extends AbstractMojoTestCase {
         mojo.getProject().setArtifact(artifact);
 
         mojo.execute();
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

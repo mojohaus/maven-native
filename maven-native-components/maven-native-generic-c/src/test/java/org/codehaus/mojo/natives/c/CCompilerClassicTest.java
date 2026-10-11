@@ -3,19 +3,20 @@ package org.codehaus.mojo.natives.c;
 import java.io.File;
 
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.Test;
 
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class CCompilerClassicTest extends PlexusTestCase {
+public class CCompilerClassicTest {
 
     /**
      * Simple test, note: -o option has no space
      *
      */
-    public void testSimpleCompilation() {
+    @Test
+    void testSimpleCompilation() {
         CompilerConfiguration config = new CompilerConfiguration();
         CCompilerClassic compiler = new CCompilerClassic();
         Commandline cl = compiler.getCommandLine(new File("source.c"), new File("object.o"), config);

@@ -6,13 +6,15 @@ import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MSVCLinkerTest extends PlexusTestCase {
+public class MSVCLinkerTest {
     private MSVCLinker linker;
 
     private LinkerConfiguration config;
@@ -25,10 +27,8 @@ public class MSVCLinkerTest extends PlexusTestCase {
 
     private String basedir;
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    void setUp() throws Exception {
         this.defautlObjectFiles = new ArrayList<>();
         this.defautlObjectFiles.add(objectFile0);
         this.defautlObjectFiles.add(objectFile1);
@@ -42,13 +42,15 @@ public class MSVCLinkerTest extends PlexusTestCase {
         config.setOutputFileName("test");
     }
 
-    public void testDefaultLinkerExecutable() {
+    @Test
+    void testDefaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
         assertEquals("link.exe", cl.getLiteralExecutable());
         assertEquals(basedir, cl.getWorkingDirectory().getPath());
     }
 
-    public void testSimpleLinkerCommand() {
+    @Test
+    void testSimpleLinkerCommand() {
         Commandline cl = this.getCommandline();
         String[] expected = new String[] {"link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj"};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
@@ -57,5 +59,9 @@ public class MSVCLinkerTest extends PlexusTestCase {
     // ///////////////////////// HELPERS //////////////////////////////////////
     private Commandline getCommandline() throws NativeBuildException {
         return this.linker.createLinkerCommandLine(defautlObjectFiles, config);
+    }
+
+    private static String getBasedir() {
+        return System.getProperty("basedir", new File("").getAbsolutePath());
     }
 }

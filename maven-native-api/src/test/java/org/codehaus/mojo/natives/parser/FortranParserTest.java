@@ -19,22 +19,19 @@ package org.codehaus.mojo.natives.parser;
 import java.io.CharArrayReader;
 import java.io.IOException;
 
-public final class FortranParserTest extends AbstractParserTest {
-    /**
-     * Constructor.
-     *
-     * @param name String test name
-     */
-    public FortranParserTest(final String name) {
-        super(name);
-    }
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public final class FortranParserTest {
 
     /**
      * Checks parsing of INCLUDE 'foo.inc'.
      *
      * @throws IOException test fails on IOException
      */
-    public void testINCLUDE() throws IOException {
+    @Test
+    void testINCLUDE() throws IOException {
         CharArrayReader reader = new CharArrayReader("INCLUDE 'foo.inc' nowhatever  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
@@ -48,7 +45,8 @@ public final class FortranParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testInClUdE() throws IOException {
+    @Test
+    void testInClUdE() throws IOException {
         CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
@@ -62,7 +60,8 @@ public final class FortranParserTest extends AbstractParserTest {
      *
      * @throws IOException test fails on IOException
      */
-    public void testMultipleInClUdE() throws IOException {
+    @Test
+    void testMultipleInClUdE() throws IOException {
         CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'\ninclude 'bar.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);

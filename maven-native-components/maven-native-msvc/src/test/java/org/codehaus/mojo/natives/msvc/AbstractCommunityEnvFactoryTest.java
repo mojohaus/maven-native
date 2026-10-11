@@ -6,13 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.PlexusTestCase;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.junit.jupiter.api.Test;
 
-public class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-    public void testPathValidation() throws IOException {
+public class AbstractCommunityEnvFactoryTest {
+
+    @Test
+    void testPathValidation() throws IOException {
         CommunityEnvFactoryMock mock = new CommunityEnvFactoryMock();
 
         try {
@@ -42,7 +47,8 @@ public class AbstractCommunityEnvFactoryTest extends PlexusTestCase {
         }
     }
 
-    public void testCommandGeneration() throws IOException {
+    @Test
+    void testCommandGeneration() throws IOException {
         CommunityEnvFactoryMock mock = new CommunityEnvFactoryMock();
 
         File tempDir = createCommunityDir(false);
