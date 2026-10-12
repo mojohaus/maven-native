@@ -24,16 +24,15 @@
 package org.codehaus.mojo.natives.parser;
 
 import java.io.CharArrayReader;
-import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class CobolParserTest {
+final class CobolParserTest {
 
     @Test
-    void testDoubleQuotedCopy() throws IOException {
+    void doubleQuotedCopy() throws Exception {
         CharArrayReader reader = new CharArrayReader("       COPY \"mycopy.cpy\".".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -43,7 +42,7 @@ public final class CobolParserTest {
     }
 
     @Test
-    void testSingleQuotedCopy() throws IOException {
+    void singleQuotedCopy() throws Exception {
         CharArrayReader reader = new CharArrayReader("       COPY 'mycopy.cpy'.".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -53,7 +52,7 @@ public final class CobolParserTest {
     }
 
     @Test
-    void testUnquotedCopy() throws IOException {
+    void unquotedCopy() throws Exception {
         CharArrayReader reader = new CharArrayReader("       COPY MYCOPY.".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -63,7 +62,7 @@ public final class CobolParserTest {
     }
 
     @Test
-    void testCaseInsensitiveCopy() throws IOException {
+    void caseInsensitiveCopy() throws Exception {
         CharArrayReader reader = new CharArrayReader("   copy \"header.cpy\"\n   CoPy 'footer.cpy'  ".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -77,7 +76,7 @@ public final class CobolParserTest {
      * Fixed format sources may carry a sequence number in columns 1 to 6, which is skipped.
      */
     @Test
-    void testSequenceAreaIsSkipped() throws IOException {
+    void sequenceAreaIsSkipped() throws Exception {
         CharArrayReader reader = new CharArrayReader("000100     COPY \"mycopy.cpy\".".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -90,7 +89,7 @@ public final class CobolParserTest {
      * A comment line is skipped because the indicator character is neither whitespace, a digit, nor "C".
      */
     @Test
-    void testCommentLineIsIgnored() throws IOException {
+    void commentLineIsIgnored() throws Exception {
         CharArrayReader reader = new CharArrayReader("      * COPY \"mycopy.cpy\".\n".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -101,7 +100,7 @@ public final class CobolParserTest {
      * A comment line is still a comment when it carries a sequence number.
      */
     @Test
-    void testSequenceNumberedCommentLineIsIgnored() throws IOException {
+    void sequenceNumberedCommentLineIsIgnored() throws Exception {
         CharArrayReader reader = new CharArrayReader("000100* COPY \"mycopy.cpy\".\n".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -112,7 +111,7 @@ public final class CobolParserTest {
      * A continuation line is not the start of a directive either.
      */
     @Test
-    void testContinuationLineIsIgnored() throws IOException {
+    void continuationLineIsIgnored() throws Exception {
         CharArrayReader reader = new CharArrayReader("000100- COPY \"mycopy.cpy\".\n".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -123,7 +122,7 @@ public final class CobolParserTest {
      * Skipping the sequence area must not turn a level number into the start of a directive.
      */
     @Test
-    void testLevelNumberIsNotACopy() throws IOException {
+    void levelNumberIsNotACopy() throws Exception {
         CharArrayReader reader = new CharArrayReader("       01 CUSTOMER-RECORD.\n".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -135,7 +134,7 @@ public final class CobolParserTest {
      * spurious include. Harmless (it only costs a staleness lookup) but pinned so it is not rediscovered as a bug.
      */
     @Test
-    void testCopyPrefixedNameYieldsSpuriousInclude() throws IOException {
+    void copyPrefixedNameYieldsSpuriousInclude() throws Exception {
         CharArrayReader reader = new CharArrayReader("       COPY-FILES.".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -149,7 +148,7 @@ public final class CobolParserTest {
      * characters here: they are ordinary characters of an unquoted name, which still ends at the first period.
      */
     @Test
-    void testAngleBracketsAreNotQuotingCharacters() throws IOException {
+    void angleBracketsAreNotQuotingCharacters() throws Exception {
         CharArrayReader reader = new CharArrayReader("       COPY <mycopy>.".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -162,7 +161,7 @@ public final class CobolParserTest {
      * An unquoted copybook name is a COBOL word and cannot contain a period, so the name ends at the first one.
      */
     @Test
-    void testUnquotedNameEndsAtFirstPeriod() throws IOException {
+    void unquotedNameEndsAtFirstPeriod() throws Exception {
         CharArrayReader reader = new CharArrayReader("       COPY MYCOPY.CPY.".toCharArray());
         CobolParser parser = new CobolParser();
         parser.parse(reader);
@@ -172,7 +171,7 @@ public final class CobolParserTest {
     }
 
     @Test
-    void testCarriageReturnLineEndings() throws IOException {
+    void carriageReturnLineEndings() throws Exception {
         CharArrayReader reader =
                 new CharArrayReader("       COPY \"first.cpy\".\r\n       COPY SECOND.\r\n".toCharArray());
         CobolParser parser = new CobolParser();
@@ -184,7 +183,7 @@ public final class CobolParserTest {
     }
 
     @Test
-    void testParseResetsPreviousIncludes() throws IOException {
+    void parseResetsPreviousIncludes() throws Exception {
         CobolParser parser = new CobolParser();
         parser.parse(new CharArrayReader("       COPY \"first.cpy\".".toCharArray()));
         parser.parse(new CharArrayReader("       COPY \"second.cpy\".".toCharArray()));
@@ -194,7 +193,7 @@ public final class CobolParserTest {
     }
 
     @Test
-    void testMultipleCopies() throws IOException {
+    void multipleCopies() throws Exception {
         String source = "       IDENTIFICATION DIVISION.\n"
                 + "       PROGRAM-ID. TESTPROG.\n"
                 + "       ENVIRONMENT DIVISION.\n"

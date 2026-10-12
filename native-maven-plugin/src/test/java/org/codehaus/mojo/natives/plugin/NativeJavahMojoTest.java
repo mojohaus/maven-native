@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @MojoTest
-public class NativeJavahMojoTest {
+class NativeJavahMojoTest {
     @Test
     @InjectMojo(goal = "javah", pom = "src/test/resources/javah/plugin-config.xml")
-    void testMojoLookup(NativeJavahMojo mojo) throws Exception {
+    void mojoLookup(NativeJavahMojo mojo) throws Exception {
         assertNotNull(mojo);
     }
 
     @Test
     @InjectMojo(goal = "javah", pom = "src/test/resources/javah/plugin-config.xml")
-    void testClassPathBeginsWithProjectOutputDirectory(NativeJavahMojo mojo) throws Exception {
+    void classPathBeginsWithProjectOutputDirectory(NativeJavahMojo mojo) throws Exception {
 
         mojo.execute();
 

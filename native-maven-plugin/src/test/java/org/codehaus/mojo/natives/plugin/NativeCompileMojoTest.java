@@ -13,16 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @MojoTest
-public class NativeCompileMojoTest {
+class NativeCompileMojoTest {
     @Test
     @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config.xml")
-    void testMojoLookup(NativeCompileMojo mojo) throws Exception {
+    void mojoLookup(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
     }
 
     @Test
     @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config.xml")
-    void testSources(NativeCompileMojo mojo) throws Exception {
+    void sources(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // must init this
@@ -91,7 +91,7 @@ public class NativeCompileMojoTest {
 
     @Test
     @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config-javahOS.xml")
-    void testJavahOS(NativeCompileMojo mojo) throws Exception {
+    void javahOS(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         mojo.setPluginContext(new HashMap<>());
@@ -111,7 +111,7 @@ public class NativeCompileMojoTest {
 
     @Test
     @InjectMojo(goal = "compile", pom = "src/test/resources/compiler/plugin-config-skip.xml")
-    void testSkip(NativeCompileMojo mojo) throws Exception {
+    void skip(NativeCompileMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         mojo.setPluginContext(new HashMap<>());

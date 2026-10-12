@@ -33,10 +33,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class TLibLinkerTest {
+class TLibLinkerTest {
 
     @Test
-    void testCommandLine() {
+    void commandLine() {
         TLibLinker linker = new TLibLinker();
 
         LinkerConfiguration config = new LinkerConfiguration();

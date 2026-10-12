@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class MSVCCompilerTest {
+class MSVCCompilerTest {
     private MSVCCompiler compiler;
 
     private CompilerConfiguration config;
@@ -28,14 +28,14 @@ public class MSVCCompilerTest {
     }
 
     @Test
-    void testSimpleCompilation() {
+    void simpleCompilation() {
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"cl.exe", simpleArgv[0], simpleArgv[1], simpleArgv[2]};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());
     }
 
     @Test
-    void testNullOptionsNoNPE() {
+    void nullOptionsNoNPE() {
         // Test that null middle and end options don't cause NPE - reproduces issue from GitHub
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);

@@ -24,7 +24,7 @@ public class MSVC2019EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2019x64Env() {
+    void msvc2019x64Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019x64EnvFactory envFact = new MSVC2019x64EnvFactory();
@@ -42,7 +42,7 @@ public class MSVC2019EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2019x86Env() {
+    void msvc2019x86Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019x86EnvFactory envFact = new MSVC2019x86EnvFactory();
@@ -60,7 +60,7 @@ public class MSVC2019EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2019x86AMD64Env() {
+    void msvc2019x86AMD64Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019x86AMD64EnvFactory envFact = new MSVC2019x86AMD64EnvFactory();
@@ -78,7 +78,7 @@ public class MSVC2019EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2019AMD64x864Env() {
+    void msvc2019amd64x864Env() {
 
         if (System.getenv("VS160COMNTOOLS") != null) {
             MSVC2019AMD64x86EnvFactory envFact = new MSVC2019AMD64x86EnvFactory();

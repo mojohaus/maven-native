@@ -16,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @MojoTest
-public class NativeInitializeMojoTest {
+class NativeInitializeMojoTest {
     @Test
     @InjectMojo(goal = "initialize", pom = "src/test/resources/initialize/plugin-config.xml")
-    void testMojoLookup(NativeInitializeMojo mojo) throws Exception {
+    void mojoLookup(NativeInitializeMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // simulate artifact
@@ -42,7 +42,7 @@ public class NativeInitializeMojoTest {
 
     @Test
     @InjectMojo(goal = "initialize", pom = "src/test/resources/initialize/plugin-config-skip.xml")
-    void testSkip(NativeInitializeMojo mojo) throws Exception {
+    void skip(NativeInitializeMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // simulate artifact

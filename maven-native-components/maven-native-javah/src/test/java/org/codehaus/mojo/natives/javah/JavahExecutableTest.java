@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JavahExecutableTest {
+class JavahExecutableTest {
     private JavahConfiguration config;
 
     @BeforeEach
@@ -26,7 +26,7 @@ public class JavahExecutableTest {
     }
 
     @Test
-    void testDefaultJavahExecutable() {
+    void defaultJavahExecutable() {
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
 
@@ -46,7 +46,7 @@ public class JavahExecutableTest {
     }
 
     @Test
-    void testConfiguredJavahExecutable() {
+    void configuredJavahExecutable() {
         File javaBin = new File("/java/home/bin");
 
         JavahExecutable javah = new JavahExecutable();
@@ -69,7 +69,7 @@ public class JavahExecutableTest {
     }
 
     @Test
-    void testJavahExecutableDashoOption() {
+    void javahExecutableDashoOption() {
         config.setFileName("fileName");
         JavahExecutable javah = new JavahExecutable();
         Commandline cl = javah.createJavahCommand(config);
@@ -88,7 +88,7 @@ public class JavahExecutableTest {
     }
 
     @Test
-    void testWorkingDirectory() {
+    void workingDirectory() {
         JavahExecutable javah = new JavahExecutable();
 
         File workingDirectory = new File(getBasedir());

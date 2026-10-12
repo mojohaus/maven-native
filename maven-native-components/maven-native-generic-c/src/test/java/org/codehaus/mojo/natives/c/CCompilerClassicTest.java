@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class CCompilerClassicTest {
+class CCompilerClassicTest {
 
     /**
      * Simple test, note: -o option has no space
      *
      */
     @Test
-    void testSimpleCompilation() {
+    void simpleCompilation() {
         CompilerConfiguration config = new CompilerConfiguration();
         CCompilerClassic compiler = new CCompilerClassic();
         Commandline cl = compiler.getCommandLine(new File("source.c"), new File("object.o"), config);

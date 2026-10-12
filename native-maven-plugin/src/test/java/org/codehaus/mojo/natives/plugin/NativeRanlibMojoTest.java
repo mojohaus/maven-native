@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @MojoTest
-public class NativeRanlibMojoTest {
+class NativeRanlibMojoTest {
     @Test
     @InjectMojo(goal = "ranlib", pom = "src/test/resources/linker/plugin-config-ranlib.xml")
-    void testMojoLookup(NativeRanlibMojo mojo) throws Exception {
+    void mojoLookup(NativeRanlibMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // simulate artifact

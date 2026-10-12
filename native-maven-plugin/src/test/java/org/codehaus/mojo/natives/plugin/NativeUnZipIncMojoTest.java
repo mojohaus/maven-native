@@ -20,11 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MojoTest
-public class NativeUnZipIncMojoTest {
+class NativeUnZipIncMojoTest {
 
     @Test
     @InjectMojo(goal = "unzipinc", pom = "src/test/resources/unzipinc/plugin-config.xml")
-    void testTransitiveIncZipDependencies(NativeUnZipIncMojo mojo) throws Exception {
+    void transitiveIncZipDependencies(NativeUnZipIncMojo mojo) throws Exception {
         assertNotNull(mojo);
 
         // Set up plugin context

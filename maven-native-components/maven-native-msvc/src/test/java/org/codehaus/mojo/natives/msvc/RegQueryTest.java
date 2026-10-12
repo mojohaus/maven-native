@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class RegQueryTest {
+class RegQueryTest {
     @Test
-    void testRegQuery() {
+    void regQuery() {
         if (Os.isFamily("windows")) {
             String value = RegQuery.getValue(
                     "REG_SZ", "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion", "ProgramFilesDir");

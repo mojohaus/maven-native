@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CLinkerTest {
+class CLinkerTest {
     private CLinker linker;
 
     private LinkerConfiguration config;
@@ -43,7 +43,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testDefaultLinkerExecutable() {
+    void defaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
 
         assertEquals("gcc", cl.getLiteralExecutable());
@@ -51,7 +51,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testOverrideLinkerExecutable() {
+    void overrideLinkerExecutable() {
         config.setExecutable("ld");
 
         Commandline cl = this.getCommandline();
@@ -60,7 +60,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testObjectFileList() {
+    void objectFileList() {
         Commandline cl = this.getCommandline();
 
         int index = Arrays.asList(cl.getArguments()).indexOf("source1.o");
@@ -69,7 +69,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testLinkerResponseFile() {
+    void linkerResponseFile() {
         this.config.setUsingLinkerResponseFile(true);
         this.config.setWorkingDirectory(new File(getBasedir(), "target"));
         Commandline cl = this.getCommandline();
@@ -78,7 +78,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testRelativeObjectFileList() {
+    void relativeObjectFileList() {
         ArrayList<File> objectFiles = new ArrayList<>(2);
         objectFiles.add(new File(config.getOutputDirectory(), "file1.o"));
         objectFiles.add(new File(config.getOutputDirectory(), "file2.o"));
@@ -91,7 +91,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testOptions() {
+    void options() {
         String[] options = {"-o1", "-o2", "-o3"};
         config.setStartOptions(options);
 
@@ -104,7 +104,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testExternalUnixLibraries() {
+    void externalUnixLibraries() {
         config.setExternalLibDirectory(new File("theLib"));
 
         List<String> externalLibFileNames = new ArrayList<>();
@@ -133,7 +133,7 @@ public class CLinkerTest {
     }
 
     @Test
-    void testLinkerOptionsTransformation() {
+    void linkerOptionsTransformation() {
         String[] startOptions = {"--whole-archive", "-lfoo"};
         String[] middleOptions = {"--as-needed", "-lbar"};
         String[] endOptions = {"--no-whole-archive", "-Wl,--export-dynamic"};
