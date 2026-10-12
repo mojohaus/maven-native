@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CompilerUtilTest {
+class CompilerUtilTest {
 
     @Test
-    void testGetObjectFileFromSourceWithNoExtension() {
+    void getObjectFileFromSourceWithNoExtension() {
         File source;
 
         if (Os.isFamily("windows")) {
@@ -28,7 +28,7 @@ public class CompilerUtilTest {
     }
 
     @Test
-    void testGetObjectFileWithKnownExtension() {
+    void getObjectFileWithKnownExtension() {
 
         File source = new File("target/somefile.c");
 

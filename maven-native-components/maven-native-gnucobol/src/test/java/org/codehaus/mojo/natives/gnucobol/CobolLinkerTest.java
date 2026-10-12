@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CobolLinkerTest {
+class CobolLinkerTest {
     private GNUCOBOLLinker linker;
 
     private LinkerConfiguration config;
@@ -67,7 +67,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testDefaultLinkerExecutable() {
+    void defaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
 
         assertEquals("cobc", cl.getLiteralExecutable());
@@ -75,7 +75,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testOverrideLinkerExecutable() {
+    void overrideLinkerExecutable() {
         config.setExecutable("cobc-alt");
 
         Commandline cl = this.getCommandline();
@@ -89,7 +89,7 @@ public class CobolLinkerTest {
      * the default cannot change unnoticed.
      */
     @Test
-    void testNoBuildModeFlagByDefault() {
+    void noBuildModeFlagByDefault() {
         Commandline cl = this.getCommandline();
 
         List<String> args = Arrays.asList(cl.getArguments());
@@ -102,7 +102,7 @@ public class CobolLinkerTest {
      * An executable is produced by passing "-x" through the start options, which must land before the output option.
      */
     @Test
-    void testExecutableBuildModeViaStartOptions() {
+    void executableBuildModeViaStartOptions() {
         config.setStartOptions(new String[] {"-x"});
 
         Commandline cl = this.getCommandline();
@@ -113,7 +113,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testObjectFileList() {
+    void objectFileList() {
         Commandline cl = this.getCommandline();
 
         int index = Arrays.asList(cl.getArguments()).indexOf("source1.o");
@@ -122,7 +122,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testLinkerResponseFile() {
+    void linkerResponseFile() {
         this.config.setUsingLinkerResponseFile(true);
         this.config.setWorkingDirectory(new File(getBasedir(), "target"));
         Commandline cl = this.getCommandline();
@@ -131,7 +131,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testRelativeObjectFileList() {
+    void relativeObjectFileList() {
         ArrayList<File> objectFiles = new ArrayList<>(2);
         objectFiles.add(new File(config.getOutputDirectory(), "file1.o"));
         objectFiles.add(new File(config.getOutputDirectory(), "file2.o"));
@@ -144,7 +144,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testOptions() {
+    void options() {
         String[] options = {"-o1", "-o2", "-o3"};
         config.setStartOptions(options);
 
@@ -157,7 +157,7 @@ public class CobolLinkerTest {
     }
 
     @Test
-    void testExternalUnixLibraries() {
+    void externalUnixLibraries() {
         config.setExternalLibDirectory(new File("theLib"));
 
         List<String> externalLibFileNames = new ArrayList<>();

@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MSVC2012EnvFactoryTest {
+class MSVC2012EnvFactoryTest {
 
     @Test
-    void testMSVC2012x86Env() {
+    void msvc2012x86Env() {
 
         if (System.getenv("VS110COMNTOOLS") != null) {
             MSVC2012x86EnvFactory envFact = new MSVC2012x86EnvFactory();

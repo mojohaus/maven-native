@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class FortranParserTest {
+final class FortranParserTest {
 
     /**
      * Checks parsing of INCLUDE 'foo.inc'.
@@ -31,12 +31,12 @@ public final class FortranParserTest {
      * @throws IOException test fails on IOException
      */
     @Test
-    void testINCLUDE() throws IOException {
+    void include() throws Exception {
         CharArrayReader reader = new CharArrayReader("INCLUDE 'foo.inc' nowhatever  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.inc", includes[0]);
     }
 
@@ -46,12 +46,12 @@ public final class FortranParserTest {
      * @throws IOException test fails on IOException
      */
     @Test
-    void testInClUdE() throws IOException {
+    void inClUdE() throws Exception {
         CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 1);
+        assertEquals(1, includes.length);
         assertEquals("foo.inc", includes[0]);
     }
 
@@ -61,12 +61,12 @@ public final class FortranParserTest {
      * @throws IOException test fails on IOException
      */
     @Test
-    void testMultipleInClUdE() throws IOException {
+    void multipleInClUdE() throws Exception {
         CharArrayReader reader = new CharArrayReader("InClUdE 'foo.inc'\ninclude 'bar.inc'  ".toCharArray());
         FortranParser parser = new FortranParser();
         parser.parse(reader);
         String[] includes = parser.getIncludes();
-        assertEquals(includes.length, 2);
+        assertEquals(2, includes.length);
         assertEquals("foo.inc", includes[0]);
         assertEquals("bar.inc", includes[1]);
     }

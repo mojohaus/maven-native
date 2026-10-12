@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MojoTest
-public class NativeLinkerMojoTest {
+class NativeLinkerMojoTest {
     private void init(NativeLinkMojo mojo) {
         assertNotNull(mojo);
 
@@ -34,7 +34,7 @@ public class NativeLinkerMojoTest {
 
     @Test
     @InjectMojo(goal = "link", pom = "src/test/resources/linker/plugin-config.xml")
-    void testExecute(NativeLinkMojo mojo) throws Exception {
+    void execute(NativeLinkMojo mojo) throws Exception {
         init(mojo);
 
         // simulate object files
@@ -76,7 +76,7 @@ public class NativeLinkerMojoTest {
 
     @Test
     @InjectMojo(goal = "link", pom = "src/test/resources/linker/plugin-config.xml")
-    void testExecuteWithFinalNameExtension(NativeLinkMojo mojo) throws Exception {
+    void executeWithFinalNameExtension(NativeLinkMojo mojo) throws Exception {
         init(mojo);
 
         // simulate object files
@@ -119,7 +119,7 @@ public class NativeLinkerMojoTest {
 
     @Test
     @InjectMojo(goal = "link", pom = "src/test/resources/linker/plugin-config.xml")
-    void testOutputDirectoryCreation(NativeLinkMojo mojo) throws Exception {
+    void outputDirectoryCreation(NativeLinkMojo mojo) throws Exception {
         init(mojo);
 
         // simulate object files

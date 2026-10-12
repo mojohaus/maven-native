@@ -14,7 +14,7 @@ import static org.codehaus.mojo.natives.test.TestUtils.formPlatformCommandline;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MSVCLinkerTest {
+class MSVCLinkerTest {
     private MSVCLinker linker;
 
     private LinkerConfiguration config;
@@ -43,14 +43,14 @@ public class MSVCLinkerTest {
     }
 
     @Test
-    void testDefaultLinkerExecutable() {
+    void defaultLinkerExecutable() {
         Commandline cl = this.getCommandline();
         assertEquals("link.exe", cl.getLiteralExecutable());
         assertEquals(basedir, cl.getWorkingDirectory().getPath());
     }
 
     @Test
-    void testSimpleLinkerCommand() {
+    void simpleLinkerCommand() {
         Commandline cl = this.getCommandline();
         String[] expected = new String[] {"link.exe", "/out:" + config.getOutputFile(), "source1.obj", "source2.obj"};
         assertArrayEquals(formPlatformCommandline(expected), cl.getCommandline());

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NativeSourcesTest {
+class NativeSourcesTest {
     File workDirectory;
 
     @BeforeEach
@@ -23,7 +23,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testFileNamesOnly() {
+    void fileNamesOnly() {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -35,7 +35,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testEmptyIncludes() {
+    void emptyIncludes() {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -52,7 +52,7 @@ public class NativeSourcesTest {
 
     // merge include wild card list with fileNames array
     @Test
-    void testMerge() throws Exception {
+    void merge() throws Exception {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -72,7 +72,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testDuplicateFiles() throws Exception {
+    void duplicateFiles() throws Exception {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] fileNames = {"file1.c", "file2.c"};
@@ -91,7 +91,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testEmpty() {
+    void empty() {
         NativeSources source = new NativeSources();
         source.setDirectory(this.workDirectory);
         String[] includes = {"*.*"};
@@ -103,7 +103,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testGetAllSourceFiles() throws Exception {
+    void getAllSourceFiles() throws Exception {
         NativeSources source = new NativeSources();
 
         source.setDirectory(this.workDirectory);
@@ -126,7 +126,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testEmptyFileNames() throws Exception {
+    void emptyFileNames() throws Exception {
         NativeSources source = new NativeSources();
 
         source.setDirectory(this.workDirectory);
@@ -143,7 +143,7 @@ public class NativeSourcesTest {
     }
 
     @Test
-    void testExcludes() throws Exception {
+    void excludes() throws Exception {
 
         new File(this.workDirectory, "someFile.c").createNewFile();
         new File(this.workDirectory, "someFile.cpp").createNewFile();

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.codehaus.mojo.natives.test.TestUtils.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class CCompilerTest {
+class CCompilerTest {
     private CCompiler compiler;
 
     private CompilerConfiguration config;
@@ -28,7 +28,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testSimpleCompilation() {
+    void simpleCompilation() {
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
 
         String[] expected = new String[] {"gcc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
@@ -36,7 +36,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testNonDefaultExecutable() {
+    void nonDefaultExecutable() {
         this.config.setExecutable("cc");
         Commandline cl = compiler.getCommandLine(sourceFile, objectFile, config);
         String[] expected = new String[] {"cc", simpleArgv[0], simpleArgv[1], simpleArgv[2], simpleArgv[3]};
@@ -44,7 +44,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testStartOptions() {
+    void startOptions() {
         String[] startOptions = {"-s1", "-s2"};
         config.setStartOptions(startOptions);
 
@@ -56,7 +56,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testIncludePaths() {
+    void includePaths() {
         File[] includePaths = {new File("p1"), new File("p2")};
 
         config.setIncludePaths(includePaths);
@@ -69,7 +69,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testSystemIncludePaths() {
+    void systemIncludePaths() {
         File[] includePaths = {new File("p1"), new File("p2")};
 
         File[] systemIncludePaths = {new File("sp1"), new File("sp2")};
@@ -87,7 +87,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testMiddleOptions() {
+    void middleOptions() {
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);
 
@@ -115,7 +115,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testEndOptions() {
+    void endOptions() {
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);
 
@@ -147,7 +147,7 @@ public class CCompilerTest {
     }
 
     @Test
-    void testNullOptionsNoNPE() {
+    void nullOptionsNoNPE() {
         // Test that null middle and end options don't cause NPE
         File[] includePaths = {new File("p1"), new File("p2")};
         config.setIncludePaths(includePaths);

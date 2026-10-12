@@ -24,7 +24,7 @@ public class MSVC2022EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2022x64Env() {
+    void msvc2022x64Env() {
 
         if (System.getenv("VS170COMNTOOLS") != null) {
             MSVC2022x64EnvFactory envFact = new MSVC2022x64EnvFactory();
@@ -42,7 +42,7 @@ public class MSVC2022EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2022x86Env() {
+    void msvc2022x86Env() {
 
         if (System.getenv("VS170COMNTOOLS") != null) {
             MSVC2022x86EnvFactory envFact = new MSVC2022x86EnvFactory();
@@ -60,7 +60,7 @@ public class MSVC2022EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2022x86AMD64Env() {
+    void msvc2022x86AMD64Env() {
 
         if (System.getenv("VS170COMNTOOLS") != null) {
             MSVC2022x86AMD64EnvFactory envFact = new MSVC2022x86AMD64EnvFactory();
@@ -78,7 +78,7 @@ public class MSVC2022EnvFactoryTest {
     }
 
     @Test
-    void testMSVC2022AMD64x864Env() {
+    void msvc2022amd64x864Env() {
 
         if (System.getenv("VS170COMNTOOLS") != null) {
             MSVC2022AMD64x86EnvFactory envFact = new MSVC2022AMD64x86EnvFactory();
