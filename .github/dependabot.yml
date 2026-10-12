@@ -2,6 +2,10 @@ version: 2
 updates:
   - package-ecosystem: "maven"
     directory: "/"
+    exclude-paths:
+      - "native-maven-plugin/src/it/**"
+      - "native-maven-plugin/src/it-repo/**"
+      - "native-maven-plugin/src/test/resources/**"
     schedule:
       interval: "monthly"
     groups:

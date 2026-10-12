@@ -24,9 +24,9 @@
 
     <!-- just here to test MOJO-1448 -->
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.28</version>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
       <scope>runtime</scope>
     </dependency>
   </dependencies>
