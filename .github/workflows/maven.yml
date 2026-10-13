@@ -24,9 +24,6 @@ jobs:
     name: Verify
     uses: mojohaus/.github/.github/workflows/maven-verify.yml@master
     with:
-      # no run-its profile here; Maven 4 fails on a requested profile that does not exist
-      ff-goal: 'verify'
-      verify-goal: 'verify'
       # package, not compile: the maven-native-generic-c site needs the maven-native-test test-jar
       ff-site-goal: "-DskipTests -P reporting package site site:stage"
 
