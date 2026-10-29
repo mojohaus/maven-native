@@ -23,18 +23,20 @@
  */
 package org.codehaus.mojo.natives.msvc;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.AbstractCCompiler;
-import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
-@Component(role = Compiler.class, hint = "msvc")
+@Named("msvc")
+@Singleton
 public class MSVCCompiler extends AbstractCCompiler {
     private Map<String, String> environmentVariables;
 

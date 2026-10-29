@@ -23,18 +23,21 @@
  */
 package org.codehaus.mojo.natives.manager;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
-@Component(role = MessageCompilerManager.class, hint = "native-message-compiler-provider-manager")
+@Named("native-message-compiler-provider-manager")
+@Singleton
 public class DefaultMessageCompilerManager extends AbstractLogEnabled implements MessageCompilerManager, Initializable {
-    @Requirement(role = MessageCompiler.class)
+    @Inject
     private Map<String, MessageCompiler> providers;
 
     // ----------------------------------------------------------------------

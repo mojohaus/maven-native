@@ -1,14 +1,17 @@
 package org.codehaus.mojo.natives.noop;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.io.File;
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.component.annotations.Component;
 
-@Component(role = Linker.class, hint = "noop")
+@Named("noop")
+@Singleton
 public class NoopLinker implements Linker {
 
     @Override

@@ -23,13 +23,12 @@
  */
 package org.codehaus.mojo.natives.mingw;
 
-import org.codehaus.mojo.natives.compiler.Compiler;
-import org.codehaus.plexus.component.annotations.Component;
+import javax.inject.Named;
 
 /**
  * Generic MinGW compiler with "-o " as its output option
  */
-@Component(role = Compiler.class, hint = "mingw", instantiationStrategy = "per-lookup")
+@Named("mingw")
 public class GccCompiler extends AbstractGccCompiler {
 
     protected String getOutputFileOption() {

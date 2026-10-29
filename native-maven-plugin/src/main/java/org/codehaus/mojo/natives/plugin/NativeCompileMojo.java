@@ -20,13 +20,14 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -35,6 +36,7 @@ import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.codehaus.mojo.natives.manager.CompilerManager;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
 /**
@@ -42,6 +44,12 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  */
 @Mojo(name = "compile", defaultPhase = LifecyclePhase.COMPILE)
 public class NativeCompileMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeCompileMojo(EnvFactoryManager envFactoryManager, CompilerManager manager) {
+        super(envFactoryManager);
+        this.manager = manager;
+    }
 
     /**
      * Compiler Provider Type
@@ -133,8 +141,7 @@ public class NativeCompileMojo extends AbstractNativeMojo {
     @Parameter(defaultValue = "1")
     protected int numberOfConcurrentCompilation;
 
-    @Component
-    private CompilerManager manager;
+    private final CompilerManager manager;
 
     @Override
     public void execute() throws MojoExecutionException {

@@ -20,11 +20,12 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -32,6 +33,7 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.NativeSources;
 import org.codehaus.mojo.natives.compiler.ResourceCompiler;
 import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
 import org.codehaus.plexus.util.FileUtils;
@@ -41,6 +43,12 @@ import org.codehaus.plexus.util.FileUtils;
  */
 @Mojo(name = "resource-compile", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class NativeResourceCompileMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeResourceCompileMojo(EnvFactoryManager envFactoryManager, ResourceCompilerManager manager) {
+        super(envFactoryManager);
+        this.manager = manager;
+    }
 
     /**
      * Compiler Provider Type
@@ -85,8 +93,7 @@ public class NativeResourceCompileMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-2
      */
-    @Component
-    private ResourceCompilerManager manager;
+    private final ResourceCompilerManager manager;
 
     @Override
     public void execute() throws MojoExecutionException {

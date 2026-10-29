@@ -20,6 +20,8 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +32,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -38,6 +39,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.LinkerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.plexus.util.FileUtils;
@@ -48,6 +50,13 @@ import org.codehaus.plexus.util.StringUtils;
  */
 @Mojo(name = "link", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeLinkMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeLinkMojo(EnvFactoryManager envFactoryManager, LinkerManager manager, ArtifactFactory artifactFactory) {
+        super(envFactoryManager);
+        this.manager = manager;
+        this.artifactFactory = artifactFactory;
+    }
 
     /**
      * Override this property if permitted by compilerProvider
@@ -143,16 +152,14 @@ public class NativeLinkMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-2
      */
-    @Component
-    private LinkerManager manager;
+    private final LinkerManager manager;
 
     /**
      * Internal
      *
      * @since 1.0-alpha-2
      */
-    @Component
-    private ArtifactFactory artifactFactory;
+    private final ArtifactFactory artifactFactory;
 
     /**
      * Dependent libraries with version + classifier removed are copied to this directory to be linked to the build

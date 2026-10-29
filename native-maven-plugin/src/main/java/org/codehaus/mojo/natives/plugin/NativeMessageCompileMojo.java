@@ -20,17 +20,19 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.MessageCompiler;
 import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.MessageCompilerManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
@@ -39,6 +41,12 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  */
 @Mojo(name = "compile-message", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class NativeMessageCompileMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeMessageCompileMojo(EnvFactoryManager envFactoryManager, MessageCompilerManager manager) {
+        super(envFactoryManager);
+        this.manager = manager;
+    }
 
     /**
      * Compiler Provider Type
@@ -85,8 +93,7 @@ public class NativeMessageCompileMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-2
      */
-    @Component
-    private MessageCompilerManager manager;
+    private final MessageCompilerManager manager;
 
     @Override
     public void execute() throws MojoExecutionException {
