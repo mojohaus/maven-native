@@ -20,15 +20,17 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.mojo.natives.NativeSources;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.plexus.archiver.util.DefaultFileSet;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 
@@ -39,6 +41,12 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
  */
 @Mojo(name = "inczip", defaultPhase = LifecyclePhase.PACKAGE)
 public class NativeBundleIncludeFilesMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeBundleIncludeFilesMojo(EnvFactoryManager envFactoryManager, MavenProjectHelper projectHelper) {
+        super(envFactoryManager);
+        this.projectHelper = projectHelper;
+    }
 
     /**
      * Array of NativeSources containing include directories and source files.
@@ -69,8 +77,7 @@ public class NativeBundleIncludeFilesMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-4
      */
-    @Component
-    private MavenProjectHelper projectHelper;
+    private final MavenProjectHelper projectHelper;
 
     public void execute() throws MojoExecutionException {
         if (skip) {

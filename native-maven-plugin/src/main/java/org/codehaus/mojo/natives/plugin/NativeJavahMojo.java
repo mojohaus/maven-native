@@ -20,6 +20,8 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +37,6 @@ import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -45,6 +46,7 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.javah.Javah;
 import org.codehaus.mojo.natives.javah.JavahConfiguration;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.JavahManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.plexus.archiver.util.DefaultFileSet;
@@ -60,6 +62,14 @@ import org.codehaus.plexus.util.StringUtils;
         defaultPhase = LifecyclePhase.GENERATE_SOURCES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeJavahMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeJavahMojo(
+            EnvFactoryManager envFactoryManager, JavahManager manager, MavenProjectHelper projectHelper) {
+        super(envFactoryManager);
+        this.manager = manager;
+        this.projectHelper = projectHelper;
+    }
 
     /**
      * Javah Provider.
@@ -171,16 +181,14 @@ public class NativeJavahMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-2
      */
-    @Component
-    private JavahManager manager;
+    private final JavahManager manager;
 
     /**
      * Maven ProjectHelper.
      *
      * @since 1.0-alpha-8
      */
-    @Component
-    private MavenProjectHelper projectHelper;
+    private final MavenProjectHelper projectHelper;
 
     /**
      * For unit test only

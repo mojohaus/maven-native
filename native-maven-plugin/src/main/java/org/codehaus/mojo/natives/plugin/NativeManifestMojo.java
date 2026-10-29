@@ -20,16 +20,18 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Manifest;
 import org.codehaus.mojo.natives.linker.ManifestConfiguration;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.ManifestManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 
@@ -40,6 +42,12 @@ import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
  */
 @Mojo(name = "manifest", defaultPhase = LifecyclePhase.PACKAGE)
 public class NativeManifestMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeManifestMojo(EnvFactoryManager envFactoryManager, ManifestManager manager) {
+        super(envFactoryManager);
+        this.manager = manager;
+    }
     /**
      * Manifest Provider.
      *
@@ -69,8 +77,7 @@ public class NativeManifestMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-4
      */
-    @Component
-    private ManifestManager manager;
+    private final ManifestManager manager;
 
     public void execute() throws MojoExecutionException {
         if (skip) {

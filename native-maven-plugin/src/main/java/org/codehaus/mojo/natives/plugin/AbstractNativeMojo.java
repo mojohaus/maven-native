@@ -29,7 +29,6 @@ import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.natives.EnvFactory;
@@ -37,6 +36,11 @@ import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 
 public abstract class AbstractNativeMojo extends AbstractMojo {
+
+    protected AbstractNativeMojo(EnvFactoryManager envFactoryManager) {
+        this.envFactoryManager = envFactoryManager;
+    }
+
     public static final String LINKER_INPUT_LIST_NAME = "NativeLinkerInputListName";
 
     public static final String LINKER_OUTPUT_PATH = "NativeLinkerOutputPath";
@@ -63,8 +67,7 @@ public abstract class AbstractNativeMojo extends AbstractMojo {
     @Parameter
     private String envFactoryName;
 
-    @Component
-    protected EnvFactoryManager envFactoryManager;
+    protected final EnvFactoryManager envFactoryManager;
 
     /**
      * Directory to unpack .inczip dependency files to be included as system include path

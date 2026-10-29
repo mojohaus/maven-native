@@ -23,18 +23,21 @@
  */
 package org.codehaus.mojo.natives.manager;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.linker.Ranlib;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
-@Component(role = RanlibManager.class, hint = "native-ranlib-provider-manager")
+@Named("native-ranlib-provider-manager")
+@Singleton
 public class DefaultRanlibManager extends AbstractLogEnabled implements RanlibManager, Initializable {
-    @Requirement(role = Ranlib.class)
+    @Inject
     private Map<String, Ranlib> providers;
 
     // ----------------------------------------------------------------------

@@ -23,18 +23,18 @@
  */
 package org.codehaus.mojo.natives.bcc;
 
+import javax.inject.Named;
+
 import java.io.File;
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CLinker;
-import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 
-@Component(role = Linker.class, hint = "bcc", instantiationStrategy = "per-lookup")
+@Named("bcc")
 public class BCCLinker extends CLinker {
 
     public static final String DEFAULT_EXECUTABLE = "ilink32";

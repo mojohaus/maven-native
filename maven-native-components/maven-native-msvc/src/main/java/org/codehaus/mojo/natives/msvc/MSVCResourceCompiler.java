@@ -23,17 +23,19 @@
  */
 package org.codehaus.mojo.natives.msvc;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.AbstractResourceCompiler;
-import org.codehaus.mojo.natives.compiler.ResourceCompiler;
 import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.util.EnvUtil;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
-@Component(role = ResourceCompiler.class, hint = "msvc")
+@Named("msvc")
+@Singleton
 public class MSVCResourceCompiler extends AbstractResourceCompiler {
 
     protected Commandline getCommandLine(ResourceCompilerConfiguration config, File source)

@@ -23,13 +23,12 @@
  */
 package org.codehaus.mojo.natives.c;
 
-import org.codehaus.mojo.natives.compiler.Compiler;
-import org.codehaus.plexus.component.annotations.Component;
+import javax.inject.Named;
 
 /**
  * Generic C/CPP compiler with "-o " as its output option
  */
-@Component(role = Compiler.class, hint = "generic", instantiationStrategy = "per-lookup")
+@Named("generic")
 public class CCompiler extends AbstractCCompiler {
 
     protected String getOutputFileOption() {

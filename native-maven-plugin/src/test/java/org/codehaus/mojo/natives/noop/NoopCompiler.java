@@ -1,5 +1,8 @@
 package org.codehaus.mojo.natives.noop;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +10,13 @@ import java.util.List;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Helper class to test native-maven-plugin
  */
-@Component(role = Compiler.class, hint = "noop")
+@Named("noop")
+@Singleton
 public class NoopCompiler implements Compiler {
 
     @Override

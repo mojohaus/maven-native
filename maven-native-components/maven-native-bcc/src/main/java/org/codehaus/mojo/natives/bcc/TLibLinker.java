@@ -23,17 +23,17 @@
  */
 package org.codehaus.mojo.natives.bcc;
 
+import javax.inject.Named;
+
 import java.io.File;
 import java.util.List;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.AbstractLinker;
-import org.codehaus.mojo.natives.linker.Linker;
 import org.codehaus.mojo.natives.linker.LinkerConfiguration;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
-@Component(role = Linker.class, hint = "tlib", instantiationStrategy = "per-lookup")
+@Named("tlib")
 public class TLibLinker extends AbstractLinker {
 
     public static final String EXECUTABLE = "tlib";

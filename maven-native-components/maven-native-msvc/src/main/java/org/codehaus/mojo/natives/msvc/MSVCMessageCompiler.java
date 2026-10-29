@@ -23,17 +23,19 @@
  */
 package org.codehaus.mojo.natives.msvc;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.compiler.AbstractMessageCompiler;
-import org.codehaus.mojo.natives.compiler.MessageCompiler;
 import org.codehaus.mojo.natives.compiler.MessageCompilerConfiguration;
 import org.codehaus.mojo.natives.util.EnvUtil;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
-@Component(role = MessageCompiler.class, hint = "msvc")
+@Named("msvc")
+@Singleton
 public class MSVCMessageCompiler extends AbstractMessageCompiler {
 
     protected Commandline getCommandLine(MessageCompilerConfiguration config, File source) throws NativeBuildException {

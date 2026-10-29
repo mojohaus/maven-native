@@ -1,16 +1,19 @@
 package org.codehaus.mojo.natives.manager;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.EnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.component.annotations.Component;
 
 /**
  * Construct EnvFactory
  */
-@Component(role = EnvFactoryManager.class, hint = "default", instantiationStrategy = "singleton")
+@Named("default")
+@Singleton
 public class DefaultEnvFactoryManager implements EnvFactoryManager {
     private Map<String, EnvFactory> envFactoryCache = new HashMap<>();
 

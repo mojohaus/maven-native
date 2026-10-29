@@ -23,16 +23,16 @@
  */
 package org.codehaus.mojo.natives.bcc;
 
+import javax.inject.Named;
+
 import java.io.File;
 
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.c.CCompiler;
-import org.codehaus.mojo.natives.compiler.Compiler;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.Commandline;
 
-@Component(role = Compiler.class, hint = "bcc", instantiationStrategy = "per-lookup")
+@Named("bcc")
 public class BCCCompiler extends CCompiler {
 
     protected Commandline getCommandLine(File src, File dest, CompilerConfiguration config)

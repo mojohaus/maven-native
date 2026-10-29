@@ -23,15 +23,17 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.linker.Ranlib;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.RanlibManager;
 
@@ -40,6 +42,12 @@ import org.codehaus.mojo.natives.manager.RanlibManager;
  */
 @Mojo(name = "ranlib", defaultPhase = LifecyclePhase.PACKAGE)
 public class NativeRanlibMojo extends AbstractNativeMojo {
+
+    @Inject
+    public NativeRanlibMojo(EnvFactoryManager envFactoryManager, RanlibManager manager) {
+        super(envFactoryManager);
+        this.manager = manager;
+    }
 
     /**
      * Where to place the final packaging
@@ -62,8 +70,7 @@ public class NativeRanlibMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-2
      */
-    @Component
-    private RanlibManager manager;
+    private final RanlibManager manager;
 
     public void execute() throws MojoExecutionException {
         if (skip) {

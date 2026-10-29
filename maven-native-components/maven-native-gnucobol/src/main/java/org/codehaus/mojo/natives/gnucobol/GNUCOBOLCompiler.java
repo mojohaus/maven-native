@@ -23,18 +23,13 @@
  */
 package org.codehaus.mojo.natives.gnucobol;
 
-import org.codehaus.mojo.natives.compiler.Compiler;
-import org.codehaus.plexus.component.annotations.Component;
+import javax.inject.Named;
 
 /**
  * GNU COBOL compiler with "-o " as its output option. Sources are compiled to object files with "-c"; linkage is left
  * to {@link GNUCOBOLLinker}.
  */
-@Component(
-        role = Compiler.class,
-        hint = "gnucobol",
-        instantiationStrategy = "per-lookup",
-        description = "GNU Cobol compiler")
+@Named("gnucobol")
 public class GNUCOBOLCompiler extends AbstractCobolCompiler {
 
     @Override

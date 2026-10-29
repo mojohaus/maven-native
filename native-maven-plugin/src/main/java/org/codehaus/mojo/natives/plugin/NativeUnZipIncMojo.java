@@ -20,6 +20,8 @@
  */
 package org.codehaus.mojo.natives.plugin;
 
+import javax.inject.Inject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,11 +31,11 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 
@@ -48,6 +50,12 @@ import org.codehaus.plexus.archiver.manager.ArchiverManager;
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeUnZipIncMojo extends AbstractNativeMojo {
 
+    @Inject
+    public NativeUnZipIncMojo(EnvFactoryManager envFactoryManager, ArchiverManager archiverManager) {
+        super(envFactoryManager);
+        this.archiverManager = archiverManager;
+    }
+
     /**
      * Internal
      *
@@ -61,8 +69,7 @@ public class NativeUnZipIncMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-4
      */
-    @Component
-    private ArchiverManager archiverManager;
+    private final ArchiverManager archiverManager;
 
     @Override
     public void execute() throws MojoExecutionException {

@@ -58,6 +58,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>javax.inject</groupId>
+        <artifactId>javax.inject</artifactId>
+        <version>1</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.bcel</groupId>
         <artifactId>bcel</artifactId>
         <version>6.13.0</version>
@@ -144,11 +149,6 @@
       </dependency>
       <dependency>
         <groupId>org.codehaus.plexus</groupId>
-        <artifactId>plexus-component-annotations</artifactId>
-        <version>2.2.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-container-default</artifactId>
         <version>2.1.1</version>
         <exclusions>
@@ -179,15 +179,6 @@
     </dependency>
   </dependencies>
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-component-metadata</artifactId>
-          <version>2.2.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>com.github.ekryd.sortpom</groupId>

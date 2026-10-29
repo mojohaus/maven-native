@@ -23,18 +23,21 @@
  */
 package org.codehaus.mojo.natives.manager;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.linker.Linker;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 
-@Component(role = LinkerManager.class, hint = "native-linker-provider-manager")
+@Named("native-linker-provider-manager")
+@Singleton
 public class DefaultLinkerManager extends AbstractLogEnabled implements LinkerManager, Initializable {
-    @Requirement(role = Linker.class)
+    @Inject
     private Map<String, Linker> providers;
 
     // ----------------------------------------------------------------------
