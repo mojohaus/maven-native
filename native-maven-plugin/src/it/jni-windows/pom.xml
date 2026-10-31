@@ -1,0 +1,27 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo.natives.it</groupId>
+    <artifactId>it-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo.natives.it.jni</groupId>
+  <artifactId>jni-windows</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>JNI Example - Windows</name>
+
+  <packaging>pom</packaging>
+
+  <description>Builds the Java class and its hello.dll, then runs the test that loads the library</description>
+
+  <modules>
+    <!-- Maven 4 resolves the parents of reactor modules from the reactor only; jni brings in java and native -->
+    <module>..</module>
+    <module>../jni</module>
+    <module>../jni/native/win32</module>
+  </modules>
+
+</project>

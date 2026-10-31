@@ -34,6 +34,8 @@
 
   <build>
 
+    <finalName>${project.artifactId}</finalName>
+
     <testSourceDirectory>../src/test/java</testSourceDirectory>
 
     <plugins>
@@ -44,14 +46,9 @@
         <configuration>
           <workingDirectory>${project.build.directory}</workingDirectory>
 
-          <!--  trigger javah -->
+          <!-- jni.h, and jni_md.h in include/win32 -->
+          <jdkIncludePath>${java.home}/include</jdkIncludePath>
           <javahOS>win32</javahOS>
-          <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
-          <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
-          <javahOutputFileName>HelloWorld.h</javahOutputFileName>
-          <javahClassNames>
-            <javahClassName>HelloWorld</javahClassName>
-          </javahClassNames>
 
           <!--  compiler configuration -->
           <compilerProvider>msvc</compilerProvider>
@@ -72,6 +69,10 @@
               <fileNames>
                 <fileName>HelloWorld.c</fileName>
               </fileNames>
+            </source>
+            <!-- HelloWorld.h, written by javac -h in the java module -->
+            <source>
+              <directory>../../java/target/native/javah</directory>
             </source>
           </sources>
           <compilerStartOptions>
@@ -94,12 +95,6 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <forkMode>once</forkMode>
-          <!--
-          <environmentVariables>
-            <path>${project.build.directory};${java.library.path}</path>
-          </environmentVariables>
-          -->
 
           <!--
             If you have single dll, then set

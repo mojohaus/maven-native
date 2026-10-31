@@ -90,6 +90,28 @@
 
   <profiles>
     <profile>
+      <id>msvc-2022</id>
+      <activation>
+        <property>
+          <name>env.VS170COMNTOOLS</name>
+        </property>
+      </activation>
+      <properties>
+        <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2022x64EnvFactory</msvc.env.factory>
+      </properties>
+    </profile>
+    <profile>
+      <id>msvc-2019</id>
+      <activation>
+        <property>
+          <name>env.VS160COMNTOOLS</name>
+        </property>
+      </activation>
+      <properties>
+        <msvc.env.factory>org.codehaus.mojo.natives.msvc.MSVC2019x64EnvFactory</msvc.env.factory>
+      </properties>
+    </profile>
+    <profile>
       <id>msvc-2013</id>
       <activation>
         <property>
