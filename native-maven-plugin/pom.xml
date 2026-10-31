@@ -128,4 +128,47 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>run-its</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <configuration>
+              <environmentVariables>
+                <!-- each IT is a short-lived JVM: C2 compilation and parallel GC only add startup time -->
+                <JAVA_TOOL_OPTIONS>-XX:TieredStopAtLevel=1 -XX:+UseSerialGC</JAVA_TOOL_OPTIONS>
+              </environmentVariables>
+              <projectsDirectory>src/it</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+              <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+              <!-- jni and linkages hold the fixture modules; the aggregators next to them are the ITs, one per OS family -->
+              <pomIncludes>
+                <pomInclude>jni-*/pom.xml</pomInclude>
+                <pomInclude>linkages-*/pom.xml</pomInclude>
+              </pomIncludes>
+              <postBuildHookScript>verify</postBuildHookScript>
+              <goals>
+                <goal>verify</goal>
+              </goals>
+              <properties>
+                <native.plugin.version>${project.version}</native.plugin.version>
+              </properties>
+            </configuration>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <goals>
+                  <goal>install</goal>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

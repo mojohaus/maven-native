@@ -2,12 +2,6 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>mojo-parent</artifactId>
-    <version>40</version>
-  </parent>
-
   <groupId>org.codehaus.mojo.natives.it</groupId>
   <artifactId>it-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -25,13 +19,10 @@
   </dependencies>
 
 
-  <modules>
-    <module>jni</module>
-    <module>linkages</module>
-    <module>staticlib</module>
-  </modules>
-
   <properties>
+    <maven.compiler.release>11</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- native.plugin.version, the version of the plugin under test, is passed in by the invoker execution -->
   </properties>
 
   <build>
@@ -40,7 +31,17 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>native-maven-plugin</artifactId>
-          <version>1.0-alpha-10-SNAPSHOT</version>
+          <version>${native.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.16.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.6.1</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>

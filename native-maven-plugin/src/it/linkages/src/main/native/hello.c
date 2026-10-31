@@ -4,7 +4,8 @@
 
 
 
-void main()
+int main()
 {
     printf( "%s\n", helloFunc() );
+    return 0;
 }
