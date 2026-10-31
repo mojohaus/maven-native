@@ -1,34 +1,16 @@
 
-import junit.framework.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HelloWorldTest
-    extends TestCase {
-
-    public HelloWorldTest(String name)
-    {
-      super(name);
-    }
-
-    protected void setUp()
-        throws Exception
-    {
-        super.setUp();
-    }
-
-    protected void tearDown()
-        throws Exception
-    {
-        super.tearDown();
-    }
-
+{
+    @Test
     public void testNativeHelloWorld()
         throws Exception
     {
         HelloWorld app = new HelloWorld();
 
-        this.assertEquals( "Hello Native World!", app.sayHello() );
+        assertEquals( "Hello Native World!", app.sayHello() );
     }
-
-
 }
-
