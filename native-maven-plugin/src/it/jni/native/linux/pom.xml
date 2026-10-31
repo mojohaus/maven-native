@@ -35,8 +35,8 @@
         <extensions>true</extensions>       
         <configuration>
         
-          <!-- jni.h and jni_md.h; the default ${java.home}/../include only exists below a JRE directory of JDK 8 -->
-          <jdkIncludePath>${java.home}/include</jdkIncludePath>
+          <!-- jni.h; jni_md.h is in its linux subdirectory -->
+          <jdkIncludePath>${jdk.include.path}</jdkIncludePath>
           <javahOS>linux</javahOS>
           
           <compilerProvider>generic</compilerProvider>
