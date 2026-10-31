@@ -43,16 +43,44 @@ in `native-maven-plugin/src/main/resources/META-INF/plexus/components.xml`, not 
 
 ## Integration tests
 
-- There are none that the build runs. The POMs under `native-maven-plugin/src/it` (`jni`,
-  `linkages`, `staticlib`) are not wired to `maven-invoker-plugin`, there is no `run-its`
-  profile, and they have no `verify.groovy`. They use JUnit 4 and an old `mojo-parent`, and
-  target an old plugin snapshot, so treat them as examples. Do not update them.
+- `maven-invoker-plugin` runs them under the `run-its` profile of `native-maven-plugin/pom.xml`.
+  mojo-parent only manages the plugin version; it defines no profile. The ITs call `gcc`, `ar` and
+  `ranlib`, so they need those on the path:
+
+  ```shell
+  mvn -B -P run-its verify -pl native-maven-plugin -am
+  mvn -B -P run-its verify -pl native-maven-plugin -am -DskipTests -Dinvoker.test=jni-linux
+  ```
+- Each IT is an aggregator directory directly under `native-maven-plugin/src/it`, with an
+  `invoker.properties` that selects the OS family and a `verify.groovy` of plain `assert`s:
+
+  |                IT                 |                        Runs on                        |                              Asserts                               |
+  |-----------------------------------|-------------------------------------------------------|--------------------------------------------------------------------|
+  | `linkages-linux`                  | Linux                                                 | static and dynamic builds link, and the executables print the text |
+  | `jni-linux`                       | Linux                                                 | `javac -h` header, `libhello.so` exports the symbol, JNI test ran  |
+  | `jni-macosx`                      | macOS                                                 | the same with `libhello.dylib`                                     |
+  | `jni-windows`, `linkages-windows` | Windows with `VSnnnCOMNTOOLS` set (`selector.groovy`) | the same with MSVC                                                 |
+
+  Their modules live in `src/it/jni` and `src/it/linkages` and are listed by relative path, together
+  with the parent POMs: Maven 4 resolves the parents of reactor modules from the reactor only.
+
+- The fixtures take the plugin version from `-Dnative.plugin.version`, which the invoker execution
+  sets; set it yourself to build one by hand.
+
+- JNI headers come from `javac -h` in the `hello` module. The `native:javah` goal needs a `javah`
+  executable, which JDK 10 and later do not ship, so no IT runs it.
+
+- On JDK 9 and later the `jdkIncludePath` default of `native:compile` (`${java.home}/../include`)
+  points outside the JDK, so the JNI fixtures set it from `jdk.include.path`.
+
+- The macOS and Windows ITs were written without access to those systems. Treat a failure there as a
+  fixture problem first.
 
 ## Continuous integration
 
-- `.github/workflows/maven.yml` calls the shared `maven-verify.yml@v5` workflow from
-  `apache/maven-gh-actions-shared`, with `verify` as the build goal. It does not use `-P run-its`
-  because Maven 4 fails on a requested profile that does not exist.
+- `.github/workflows/maven.yml` calls the shared `maven-verify.yml` workflow of `mojohaus/.github`.
+  Its default build goal is `-P "?run-its" verify`, so the ITs run on every matrix entry (Linux,
+  macOS and Windows; JDK 8, 21 and 25 where the matrix does not exclude them).
 - The site build runs `package`, not `compile`, because the `maven-native-generic-c` site needs
   the `maven-native-test` test-jar.
 - Branches pushed to this repository build under the `push` event.
