@@ -11,7 +11,7 @@
   <groupId>org.codehaus.mojo.natives.it.jni.linux</groupId>
   <artifactId>libhello</artifactId>
   
-  <name>JNI - Linux  </name>
+  <name>JNI - Linux</name>
   
   <packaging>so</packaging>
   
@@ -24,7 +24,7 @@
   </dependencies>
   
   <build>
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}</finalName>
     
     <testSourceDirectory>../src/test/java</testSourceDirectory>
     
@@ -35,11 +35,9 @@
         <extensions>true</extensions>       
         <configuration>
         
-          <!--  trigger javah -->          
+          <!-- jni.h and jni_md.h; the default ${java.home}/../include only exists below a JRE directory of JDK 8 -->
+          <jdkIncludePath>${java.home}/include</jdkIncludePath>
           <javahOS>linux</javahOS>
-          <javahClassNames>
-            <javahClassName>HelloWorld</javahClassName>
-          </javahClassNames>
           
           <compilerProvider>generic</compilerProvider>
           <compilerStartOptions>
@@ -51,6 +49,10 @@
               <fileNames>
                 <fileName>HelloWorld.c</fileName>
               </fileNames>
+            </source>
+            <!-- HelloWorld.h, written by javac -h in the java module -->
+            <source>
+              <directory>../../java/target/native/javah</directory>
             </source>
           </sources>
             
@@ -65,10 +67,7 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <forkMode>once</forkMode>
-          <environmentVariables>
-            <LD_LIBRARY_PATH>${project.build.directory}</LD_LIBRARY_PATH>
-          </environmentVariables>
+          <argLine>-Djava.library.path=${project.build.directory}</argLine>
         </configuration>
       </plugin>
 
