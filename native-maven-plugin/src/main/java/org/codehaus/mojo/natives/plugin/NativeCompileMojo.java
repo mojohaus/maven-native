@@ -110,11 +110,13 @@ public class NativeCompileMojo extends AbstractNativeMojo {
     private String javahOS;
 
     /**
-     * JDK native include directory
+     * JDK native include directory. Defaults to the {@code include} directory of the JDK running Maven:
+     * {@code ${java.home}/include}, or {@code ${java.home}/../include} on Java 8, where {@code java.home} is the
+     * JDK's {@code jre} directory.
      *
      * @since 1.0-alpha-2
      */
-    @Parameter(defaultValue = "${java.home}/../include")
+    @Parameter
     private File jdkIncludePath;
 
     /**
@@ -176,10 +178,19 @@ public class NativeCompileMojo extends AbstractNativeMojo {
         this.saveCompilerOutputFilePaths(objectFiles);
     }
 
+    static File defaultJdkIncludePath(File javaHome) {
+        File include = new File(javaHome, "include");
+        return include.isDirectory() ? include : new File(javaHome.getParentFile(), "include");
+    }
+
     private void addJavaHIncludePaths() {
         List<NativeSources> sourceArray = new ArrayList<>(Arrays.asList(this.sources));
 
         NativeSources jdkIncludeSource = new NativeSources();
+
+        if (this.jdkIncludePath == null) {
+            this.jdkIncludePath = defaultJdkIncludePath(new File(System.getProperty("java.home")));
+        }
 
         jdkIncludeSource.setDirectory(this.jdkIncludePath);
 
