@@ -13,4 +13,19 @@
 
   <name>JNI - Java</name>
 
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs>
+            <!-- javah is gone from JDK 10 on; javac writes the JNI header the native modules include -->
+            <arg>-h</arg>
+            <arg>${project.build.directory}/native/javah</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
