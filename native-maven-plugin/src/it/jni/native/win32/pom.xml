@@ -46,8 +46,8 @@
         <configuration>
           <workingDirectory>${project.build.directory}</workingDirectory>
 
-          <!-- jni.h, and jni_md.h in include/win32 -->
-          <jdkIncludePath>${java.home}/include</jdkIncludePath>
+          <!-- jni.h; jni_md.h is in its win32 subdirectory -->
+          <jdkIncludePath>${jdk.include.path}</jdkIncludePath>
           <javahOS>win32</javahOS>
 
           <!--  compiler configuration -->

@@ -20,8 +20,10 @@
 
 
   <properties>
-    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.release>8</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- the directory holding jni.h: next to the jre directory on JDK 8, inside java.home from JDK 9 on -->
+    <jdk.include.path>${java.home}/../include</jdk.include.path>
     <!-- native.plugin.version, the version of the plugin under test, is passed in by the invoker execution -->
   </properties>
 
@@ -89,6 +91,15 @@
   </build>
 
   <profiles>
+    <profile>
+      <id>jdk9+</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <properties>
+        <jdk.include.path>${java.home}/include</jdk.include.path>
+      </properties>
+    </profile>
     <profile>
       <id>msvc-2022</id>
       <activation>
