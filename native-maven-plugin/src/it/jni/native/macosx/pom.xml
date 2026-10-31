@@ -13,7 +13,7 @@
 
   <name>JNI - MacOSX  </name>
 
-  <packaging>jnilib</packaging>
+  <packaging>dylib</packaging>
 
   <dependencies>
     <dependency>
@@ -27,7 +27,7 @@
 
 
   <build>
-    <finalName>${artifactId}</finalName>
+    <finalName>${project.artifactId}</finalName>
 
     <testSourceDirectory>../src/test/java</testSourceDirectory>
 
@@ -37,14 +37,9 @@
         <artifactId>native-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
+          <!-- jni.h, and jni_md.h in include/darwin -->
           <jdkIncludePath>${java.home}/include</jdkIncludePath>
-          <javahOS>macosx</javahOS>
-          <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
-          <!-- demonstrate we can override location of javah generate directory and use javah -o option instead" -->
-          <javahOutputFileName>HelloWorld.h</javahOutputFileName>
-          <javahClassNames>
-            <javahClassName>HelloWorld</javahClassName>
-          </javahClassNames>
+          <javahOS>darwin</javahOS>
 
           <compilerProvider>generic</compilerProvider>
           <compilerStartOptions>
@@ -57,10 +52,14 @@
                 <fileName>HelloWorld.c</fileName>
               </fileNames>
             </source>
+            <!-- HelloWorld.h, written by javac -h in the java module -->
+            <source>
+              <directory>../../java/target/native/javah</directory>
+            </source>
           </sources>
 
           <linkerStartOptions>
-            <linkerStartOption>-prebind -dynamiclib -lc -ldl</linkerStartOption>
+            <linkerStartOption>-dynamiclib -lc -ldl</linkerStartOption>
           </linkerStartOptions>
 
         </configuration>
@@ -71,10 +70,7 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <forkMode>once</forkMode>
-          <environmentVariables>
-            <DYLD_LIBRARY_PATH>${project.build.directory}</DYLD_LIBRARY_PATH>
-          </environmentVariables>
+          <argLine>-Djava.library.path=${project.build.directory}</argLine>
         </configuration>
       </plugin>
 
