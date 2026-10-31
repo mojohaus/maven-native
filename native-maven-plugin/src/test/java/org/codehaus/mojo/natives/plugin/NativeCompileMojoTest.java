@@ -1,6 +1,8 @@
 package org.codehaus.mojo.natives.plugin;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import org.apache.maven.api.plugin.testing.InjectMojo;
 import org.apache.maven.api.plugin.testing.MojoTest;
 import org.codehaus.mojo.natives.compiler.CompilerConfiguration;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -107,6 +110,21 @@ class NativeCompileMojoTest {
         // note "somJDKPath comes from the simulated pom above
         assertEquals(new File(getBasedir(), "someJDKPath"), config.getSystemIncludePaths()[0]);
         assertEquals(new File(getBasedir(), "someJDKPath/someOS"), config.getSystemIncludePaths()[1]);
+    }
+
+    @Test
+    void defaultJdkIncludePathOnJava9AndLater(@TempDir Path jdk) throws Exception {
+        Files.createDirectories(jdk.resolve("include"));
+
+        assertEquals(jdk.resolve("include").toFile(), NativeCompileMojo.defaultJdkIncludePath(jdk.toFile()));
+    }
+
+    @Test
+    void defaultJdkIncludePathOnJava8(@TempDir Path jdk) throws Exception {
+        Files.createDirectories(jdk.resolve("include"));
+        Path jre = Files.createDirectories(jdk.resolve("jre"));
+
+        assertEquals(jdk.resolve("include").toFile(), NativeCompileMojo.defaultJdkIncludePath(jre.toFile()));
     }
 
     @Test
