@@ -1,7 +1,25 @@
- ------
- Native Maven Plugin: Usage
- ------
- Dan T. Tran
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+# Native Maven Plugin: Usage
+
+Dan T. Tran
  <dantran@gmail.com>
  ------
  September 29, 2005
@@ -20,9 +38,8 @@ Usage
   
   * Determine your compiler and linker arguments  
    
-  []
   
-* Packaging Type
+## Packaging Type
 
   Native plugin supports the following packaging types:
 
@@ -46,7 +63,6 @@ Usage
   
   * uexe
   
-  []
   
   One of these packaging types will go into the your pom.xml's packaging element.
   
@@ -62,7 +78,7 @@ Usage
   
   Here is example of declaring your packaging type and plugin header
   
-----------------------
+```xml
   
   <project>
    ...
@@ -80,9 +96,9 @@ Usage
        </plugin>
      </plugins>
    </build>
-----------------------
+```
       
-* Dependencies
+## Dependencies
 
     * Dependencies with type <lib>, <so> and <a>, <sl>, <jnilib>, <dylib> <o>, and <obj>    
       will be linked to final artifact at link step.
@@ -91,7 +107,6 @@ Usage
       
     * You can explicitly add linker dependencies through normal linker option.
     
-    []
     
     Internally, this plugin copies all dependencies to $\{project.build.directory}/lib
     without the version tag.  
@@ -99,7 +114,7 @@ Usage
     The following example shows 2 .so dependency files, and other files in
     linker option to be linked to the final output file.
   
-----------------------
+```xml
   
   <project>
    ...
@@ -140,10 +155,10 @@ Usage
      </plugins>
    </build>
     
-----------------------   
+```
    
      
-* Include paths and source files  
+## Include paths and source files
 
   Include paths and source files are configured using <Source> configuration.
   The following example shows a set of compilable source files consist of:
@@ -153,11 +168,10 @@ Usage
       
     * <file3.c> and <file4.c> under $\{basedir}/src/main/native>
    
-   []
    
   Include paths consist of all \<{directory}\> under \<{sources}\>
   
-------------------------
+```xml
 
    <build>   
      <plugins>
@@ -211,9 +225,9 @@ Usage
        </plugin>
      </plugins>
    </build>
-------------------------
+```
 
-* Compiler/Linker Provider
+## Compiler/Linker Provider
 
   If you are on a UNIX system, use the default <generic>, or <generic-classic> but overwrite 
   <compilerExecutable> and <linkerExecutable> configuration specific to 
@@ -231,7 +245,6 @@ Usage
     * Output options such as "-o" for generic compiler/linker,  "-Fo" for msvc compiler, 
       and "/out:" msvc linker, etc. 
       
-    []
     
   Other notes:
   
@@ -243,14 +256,13 @@ Usage
     * Concurrent compilations are supported via <numberOfConcurrentCompilation> configuration.
     
     
-    []
     
     
     The following example use <generic-classic> with executable as <CC>.
     Note since we dont change the linker provider, it is will use the same
     name as the compiler provider name.
     
-------------------------
+```xml
 
    <build>   
      <plugins>
@@ -265,9 +277,9 @@ Usage
      </plugins>
    </build>
    
------------------------        
+```
   
-* Compiler/Linker arguments 
+## Compiler/Linker arguments
 
   You can inject your specific compiler and linker arguments to the final compiler 
   and linker command lines via:
@@ -284,11 +296,6 @@ Usage
     
     * \<linkerEndOptions\> 
     
-    []
     
   Usually a pair of \<compilerStartOptions\> and \<linkerStartOptions\>
   should be sufficient.
-  
-  
-  
-
