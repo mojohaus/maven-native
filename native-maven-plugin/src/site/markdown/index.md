@@ -1,56 +1,65 @@
- ------
- Introduction
- ------
- Dan T. Tran
- <dantran@gmail.com>
- ------
- 2010-05-22
- ------
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+# Introduction
 
 Native Maven Plugin
 
-  Use this plugin to compile c and c++ source under Maven 2 with  
-  compilers such as gcc, msvc, gcj etc ... 
+Use this plugin to compile c and c++ source under Maven 2 with  
+compilers such as gcc, msvc, gcj etc ...
 
-* Usage
-  
-  Instructions on how to use the Native Maven Plugin can be found on the {{{./usage.html}usage page}}.
-  
-* Goals Overview
+## Usage
 
-  The following contains summaries of all main goals. They work together in {{{./lifecycle.html}custom build lifecycle }}.
+Instructions on how to use the Native Maven Plugin can be found on the [usage page](./usage.html).
 
-  * {{{./initialize-mojo.html}native:initialize}}: Initialize build lifecycle 
-  
-  * {{{./unzipinc-mojo.html}native:unzipinc}}: Unpack dependencies with .inczip type to be included in include path at compile time
-   
-  * {{{./compile-mojo.html}native:compile}}: Compile source files into native object files 
+## Goals Overview
 
-  * {{{./inczip-mojo.html}native:inczip}}: Bundle header files to be installed/deployed 
-  
-  * {{{./link-mojo.html}native:link}}: Link all previously built object and dependent library files into final build artifact 
-  
-  * {{{./javah-mojo.html}native:javah}}: Generate JNI include files based on a set of class names
-   
-  * {{{./ranlib-mojo.html}native:ranlib}}: ranlib a Unix linker output file 
-  
-  * {{{./resource-compile-mojo.html}native:resource-compile}}: Compile Windows resource files 
-  
-  * {{{./compile-message-mojo.html}native:compile-message}}: Compile Windows message files 
+The following contains summaries of all main goals. They work together in [custom build lifecycle](./lifecycle.html).
 
-  * {{{./manifest-mojo.html}native:manifest}}: Build native manifest ( msvc only ) 
-  
-  []
-  
-  
-* Examples
+* [native:initialize](./initialize-mojo.html): Initialize build lifecycle
 
-  * Buildable examples can be found in 
-  {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/}SCM}}
+* [native:unzipinc](./unzipinc-mojo.html): Unpack dependencies with .inczip type to be included in include path at compile time
 
-  * {{{./examples/jni-dll.html}Build DLL with JNI}}.
+* [native:compile](./compile-mojo.html): Compile source files into native object files
 
-  * {{{./examples/static-lib-ranlib.html}Build static library including ranlib}}.
-  
-  * {{{./examples/share-lib.html}Build share library on Unix}}.
-  
+* [native:inczip](./inczip-mojo.html): Bundle header files to be installed/deployed
+
+* [native:link](./link-mojo.html): Link all previously built object and dependent library files into final build artifact
+
+* [native:javah](./javah-mojo.html): Generate JNI include files based on a set of class names
+
+* [native:ranlib](./ranlib-mojo.html): ranlib a Unix linker output file
+
+* [native:resource-compile](./resource-compile-mojo.html): Compile Windows resource files
+
+* [native:compile-message](./compile-message-mojo.html): Compile Windows message files
+
+* [native:manifest](./manifest-mojo.html): Build native manifest ( msvc only )
+
+## Examples
+
+* Buildable examples can be found in
+  [SCM](http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/)
+
+* [Build DLL with JNI](./examples/jni-dll.html).
+
+* [Build static library including ranlib](./examples/static-lib-ranlib.html).
+
+* [Build share library on Unix](./examples/share-lib.html).
+
