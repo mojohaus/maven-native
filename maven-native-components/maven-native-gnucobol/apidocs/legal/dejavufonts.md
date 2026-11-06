@@ -1,10 +1,10 @@
 ## DejaVu fonts v2.37
 
 ### DejaVu License
-
 <pre>
 Fonts are (c) Bitstream (see below). DejaVu changes are in public domain.
 Glyphs imported from Arev fonts are (c) Tavmjong Bah (see below)
+
 
 Bitstream Vera Fonts Copyright
 ------------------------------
@@ -54,7 +54,7 @@ Inc., respectively. For further information, contact: fonts at gnome dot
 org.
 
 Arev Fonts Copyright
---------------------
+------------------------------
 
 Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.
 
@@ -103,7 +103,6 @@ from Tavmjong Bah. For further information, contact: tavmjong @ free
 
 TeX Gyre DJV Math
 -----------------
-
 Fonts are (c) Bitstream (see below). DejaVu changes are in public domain.
 
 Math extensions done by B. Jackowski, P. Strzelczyk and P. Pianowski
@@ -190,4 +189,3 @@ has requested that any alterations which yield different font metrics be
 given a different name.
 
 </pre>
-
