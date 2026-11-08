@@ -55,13 +55,23 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Generate JNI include files based on a set of class names
+ * Generate JNI include files based on a set of class names.
+ *
+ * @deprecated The {@code javah} tool was removed in Java 10, so this goal fails on Java 10 and later. Let the
+ *             <a href="https://maven.apache.org/plugins/maven-compiler-plugin/">maven-compiler-plugin</a> write the
+ *             header files instead: set its {@code headerOutputDirectory} parameter (the {@code -h} option of
+ *             {@code javac}, available since Java 8). This goal is removed in the next major version.
  */
+@Deprecated
 @Mojo(
         name = "javah",
         defaultPhase = LifecyclePhase.GENERATE_SOURCES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class NativeJavahMojo extends AbstractNativeMojo {
+
+    static final String DEPRECATION_WARNING = "native:javah is deprecated and is removed in the next major version: "
+            + "the javah tool does not exist in Java 10 and later. Set headerOutputDirectory of the "
+            + "maven-compiler-plugin (javac -h) to generate the JNI headers instead.";
 
     @Inject
     public NativeJavahMojo(
@@ -207,6 +217,8 @@ public class NativeJavahMojo extends AbstractNativeMojo {
         if (this.javahClassNames.size() == 0 && this.javahIncludes.size() == 0) {
             return;
         }
+
+        getLog().warn(DEPRECATION_WARNING);
 
         try {
             if (this.javahClassNames.size() != 0) {

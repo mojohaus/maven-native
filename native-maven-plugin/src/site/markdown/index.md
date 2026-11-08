@@ -42,7 +42,9 @@ The following contains summaries of all main goals. They work together in [custo
 
 * [native:link](./link-mojo.html): Link all previously built object and dependent library files into final build artifact
 
-* [native:javah](./javah-mojo.html): Generate JNI include files based on a set of class names
+* [native:javah](./javah-mojo.html): Generate JNI include files based on a set of class names.
+  Deprecated, and removed in the next major version: the `javah` tool does not exist in Java 10 and later.
+  Set `headerOutputDirectory` of the `maven-compiler-plugin` (the `-h` option of `javac`) instead.
 
 * [native:ranlib](./ranlib-mojo.html): ranlib a Unix linker output file
 
