@@ -250,6 +250,9 @@ Usage
   
     * Javah goal is invoked automatically at <generate-sources> phase for all shared library ( dll, so, etc ). See example for details.
       However, it is skipped when there is no <javahClassNames> available. 
+      The goal is deprecated and removed in the next major version, because the `javah` tool does not exist in Java 10
+      and later. Set `headerOutputDirectory` of the `maven-compiler-plugin` (the `-h` option of `javac`) to generate the
+      JNI headers instead.
   
     * Manifest goal is invoked right after linker step for MSVC that support manifest file ( ie Visual Studio 2005 and 2008 )
     
