@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.codehaus.mojo.natives</groupId>
   <artifactId>maven-native</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.2.1</version>
   <packaging>pom</packaging>
   <name>Maven Native</name>
   <developers>
@@ -39,7 +39,7 @@
   <scm>
     <connection>scm:git:https://github.com/mojohaus/maven-native.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mojohaus/maven-native.git</developerConnection>
-    <tag>maven-native-1.0-M1</tag>
+    <tag>1.2.1</tag>
     <url>https://github.com/mojohaus/maven-native</url>
   </scm>
   <issueManagement>
@@ -52,7 +52,7 @@
   </ciManagement>
   <properties>
     <mavenVersion>3.9.16</mavenVersion>
-    <project.build.outputTimestamp>2026-11-06T10:47:13Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-11-09T21:07:54Z</project.build.outputTimestamp>
     <scmpublish.content>${project.build.directory}/staging/maven-native</scmpublish.content>
   </properties>
   <dependencyManagement>
