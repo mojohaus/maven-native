@@ -41,13 +41,8 @@ public abstract class AbstractDependencyTest {
     }
 
     protected void writeFile(String filePath, String content) throws IOException {
-        FileOutputStream fs = new FileOutputStream(filePath);
-        try {
+        try (FileOutputStream fs = new FileOutputStream(filePath)) {
             IOUtil.copy(content, fs);
-        } finally {
-            if (fs != null) {
-                IOUtil.close(fs);
-            }
         }
     }
 
