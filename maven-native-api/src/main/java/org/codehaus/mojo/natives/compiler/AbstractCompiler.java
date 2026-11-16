@@ -87,7 +87,7 @@ public abstract class AbstractCompiler extends AbstractLogEnabled implements Com
                 }
 
             } else {
-                this.getLogger().debug((objectFile + " is up to date."));
+                this.getLogger().debug(objectFile + " is up to date.");
             }
         }
 
@@ -156,13 +156,11 @@ public abstract class AbstractCompiler extends AbstractLogEnabled implements Com
                     "Failed to figure out object file name for " + sourceFile + ": " + e.getMessage(), e);
         }
 
-        File objectFile = new File(outputDirectory, objectFileName);
-
-        return objectFile;
+        return new File(outputDirectory, objectFileName);
     }
 
     private class CompilerThreadPoolExecutor extends ThreadPoolExecutor {
-        private boolean errorFound = false;
+        private boolean errorFound;
 
         public synchronized void setErrorFound(boolean errorFound) {
             this.errorFound = errorFound;
@@ -203,7 +201,7 @@ public abstract class AbstractCompiler extends AbstractLogEnabled implements Com
 
         private Logger logger;
 
-        private boolean skip = false;
+        private boolean skip;
 
         public void setSkip(boolean skip) {
             this.skip = skip;

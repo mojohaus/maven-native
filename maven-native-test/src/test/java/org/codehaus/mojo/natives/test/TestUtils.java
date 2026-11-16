@@ -9,7 +9,7 @@ import org.codehaus.plexus.util.Os;
 /**
  * Contains utility methods used by tests.
  */
-public class TestUtils {
+public final class TestUtils {
 
     private static final String[] WINDOWS_COMMANDLINE_PARTS = {"cmd.exe", "/X", "/D", "/C"};
 

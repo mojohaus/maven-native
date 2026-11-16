@@ -13,7 +13,7 @@ public class EnvStreamConsumer implements StreamConsumer {
 
     private Map<String, String> envs = new HashMap<>();
 
-    private boolean startParsing = false;
+    private boolean startParsing;
 
     @Override
     public void consumeLine(String line) {

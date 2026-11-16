@@ -214,14 +214,14 @@ public class NativeJavahMojo extends AbstractNativeMojo {
 
         this.discoverAdditionalJNIClassName();
 
-        if (this.javahClassNames.size() == 0 && this.javahIncludes.size() == 0) {
+        if (this.javahClassNames.isEmpty() && this.javahIncludes.isEmpty()) {
             return;
         }
 
         getLog().warn(DEPRECATION_WARNING);
 
         try {
-            if (this.javahClassNames.size() != 0) {
+            if (!this.javahClassNames.isEmpty()) {
                 this.config = this.createProviderConfiguration(
                         javahClassNames.toArray(new String[javahClassNames.size()]), this.javahOutputFileName);
                 this.getJavah().compile(config);

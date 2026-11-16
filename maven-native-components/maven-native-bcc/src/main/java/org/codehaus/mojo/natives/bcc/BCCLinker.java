@@ -66,7 +66,7 @@ public class BCCLinker extends CLinker {
         }
 
         for (String fileName : config.getExternalLibFileNames()) {
-            if (!FileUtils.getExtension(fileName).equalsIgnoreCase("res")) {
+            if (!"res".equalsIgnoreCase(FileUtils.getExtension(fileName))) {
                 cl.createArg().setFile(new File(config.getExternalLibDirectory(), fileName));
             }
         }
@@ -82,7 +82,7 @@ public class BCCLinker extends CLinker {
         // res file
         cl.createArg().setValue(",");
         for (String fileName : config.getExternalLibFileNames()) {
-            if (FileUtils.getExtension(fileName).equalsIgnoreCase("res")) {
+            if ("res".equalsIgnoreCase(FileUtils.getExtension(fileName))) {
                 cl.createArg().setFile(new File(config.getExternalLibDirectory(), fileName));
             }
         }

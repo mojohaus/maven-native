@@ -357,9 +357,7 @@ public class NativeLinkMojo extends AbstractNativeMojo {
             libList.add(libFileName);
         }
 
-        libList = this.reorderLibDependencies(libList);
-
-        return libList;
+        return this.reorderLibDependencies(libList);
     }
 
     /**
@@ -423,7 +421,7 @@ public class NativeLinkMojo extends AbstractNativeMojo {
     private List<String> reorderLibDependencies(List<String> libs) throws MojoExecutionException {
         List<String> requestedOrderList = getDependenciesFileOrderList();
 
-        if (requestedOrderList.size() != 0) {
+        if (!requestedOrderList.isEmpty()) {
             // remove from original list first
             for (String s : requestedOrderList) {
                 libs.remove(s);
