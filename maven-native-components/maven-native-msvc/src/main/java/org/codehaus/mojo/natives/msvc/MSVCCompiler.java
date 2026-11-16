@@ -64,8 +64,6 @@ public class MSVCCompiler extends AbstractCCompiler {
             config.setExecutable("cl.exe");
         }
 
-        Commandline cl = super.getCommandLine(src, dest, config);
-
-        return cl;
+        return super.getCommandLine(src, dest, config);
     }
 }

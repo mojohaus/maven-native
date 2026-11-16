@@ -42,7 +42,7 @@ public class NativeSources {
     /**
      * Hint Maven to bundle up all file under 'directory' and deploy
      */
-    private boolean deployable = false;
+    private boolean deployable;
 
     /**
      * ANT expression to get all compilable source files

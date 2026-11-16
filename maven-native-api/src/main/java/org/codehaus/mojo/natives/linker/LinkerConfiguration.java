@@ -149,9 +149,7 @@ public class LinkerConfiguration extends ConfigurationBase {
      * @return
      */
     public File getOutputFile() {
-        File out = new File(this.outputDirectory, this.outputFileName + "." + this.outputFileExtension);
-
-        return out;
+        return new File(this.outputDirectory, this.outputFileName + "." + this.outputFileExtension);
     }
 
     public List<String> getExternalLibFileNames() {

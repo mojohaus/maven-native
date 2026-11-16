@@ -54,9 +54,9 @@ public class JavahConfiguration {
      */
     private String[] classPaths;
 
-    private boolean useEnvClasspath = false;
+    private boolean useEnvClasspath;
 
-    private boolean verbose = false;
+    private boolean verbose;
 
     public void setOutputDirectory(File dir) {
         this.outputDirectory = dir;

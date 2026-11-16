@@ -44,9 +44,7 @@ public class MSVCLinker extends CLinker {
             config.setExecutable("link.exe");
         }
 
-        Commandline cl = super.createLinkerCommandLine(objectFiles, config);
-
-        return cl;
+        return super.createLinkerCommandLine(objectFiles, config);
     }
 
     @Override

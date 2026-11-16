@@ -113,7 +113,7 @@ public class NativeUnZipIncMojo extends AbstractNativeMojo {
             }
         }
 
-        return files.size() != 0;
+        return !files.isEmpty();
     }
 
     protected void unpackZipFile(File zipFile) throws MojoExecutionException {

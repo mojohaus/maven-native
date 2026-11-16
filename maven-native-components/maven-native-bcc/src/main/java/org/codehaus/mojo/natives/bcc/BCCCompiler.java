@@ -41,9 +41,7 @@ public class BCCCompiler extends CCompiler {
             config.setExecutable("bcc32");
         }
 
-        Commandline cl = super.getCommandLine(src, dest, config);
-
-        return cl;
+        return super.getCommandLine(src, dest, config);
     }
 
     protected String getOutputFileOption() {

@@ -47,7 +47,7 @@ public class Dependency {
     /**
      * Field lastModified
      */
-    private long lastModified = 0;
+    private long lastModified;
 
     /**
      * Field dependencies

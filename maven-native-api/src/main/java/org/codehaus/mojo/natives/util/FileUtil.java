@@ -33,7 +33,7 @@ public class FileUtil {
 
             String canonicalTarget;
 
-            if (System.getProperty("os.name").equals("OS/400")) {
+            if ("OS/400".equals(System.getProperty("os.name"))) {
                 canonicalTarget = targetFile.getPath();
             } else {
                 canonicalTarget = targetFile.getCanonicalPath();

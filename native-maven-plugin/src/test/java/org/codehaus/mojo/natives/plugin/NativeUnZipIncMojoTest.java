@@ -87,11 +87,11 @@ class NativeUnZipIncMojoTest {
         boolean hasJar = false;
 
         for (Artifact artifact : incZipDeps) {
-            if (artifact.getArtifactId().equals("direct-headers")) {
+            if ("direct-headers".equals(artifact.getArtifactId())) {
                 hasDirectInczip = true;
-            } else if (artifact.getArtifactId().equals("transitive-headers")) {
+            } else if ("transitive-headers".equals(artifact.getArtifactId())) {
                 hasTransitiveInczip = true;
-            } else if (artifact.getArtifactId().equals("some-jar")) {
+            } else if ("some-jar".equals(artifact.getArtifactId())) {
                 hasJar = true;
             }
         }

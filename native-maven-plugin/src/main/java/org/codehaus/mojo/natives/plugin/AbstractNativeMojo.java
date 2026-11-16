@@ -113,7 +113,7 @@ public abstract class AbstractNativeMojo extends AbstractMojo {
         return this.project;
     }
 
-    private EnvFactory envFactory = null;
+    private EnvFactory envFactory;
 
     protected EnvFactory getEnvFactory() throws MojoExecutionException {
         if (envFactory == null && envFactoryName != null) {

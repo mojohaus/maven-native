@@ -127,7 +127,7 @@ public final class GccLinker extends AbstractLinker {
      */
     protected void setCommandLineForExternalLibraries(Commandline cl, LinkerConfiguration config)
             throws NativeBuildException {
-        if (config.getExternalLibFileNames().size() == 0) {
+        if (config.getExternalLibFileNames().isEmpty()) {
             return;
         }
 
