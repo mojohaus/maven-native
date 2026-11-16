@@ -26,6 +26,7 @@ public class FilenameState extends AbstractParserState {
         this.terminators = terminators.clone();
     }
 
+    @Override
     public AbstractParserState consume(char ch) {
         for (char terminator : terminators) {
             if (ch == terminator) {

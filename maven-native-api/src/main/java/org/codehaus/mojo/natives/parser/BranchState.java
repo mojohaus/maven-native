@@ -34,6 +34,7 @@ public class BranchState extends AbstractParserState {
         this.noMatchState = noMatchState;
     }
 
+    @Override
     public AbstractParserState consume(char ch) {
         AbstractParserState state;
         for (int i = 0; i < branchChars.length; i++) {

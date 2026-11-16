@@ -53,6 +53,7 @@ public final class WhitespaceOrLetterState extends AbstractParserState {
      *            noMatchState otherwise.
      * @return next state
      */
+    @Override
     public AbstractParserState consume(final char ch) {
         if (ch == thisLetter) {
             return nextState;

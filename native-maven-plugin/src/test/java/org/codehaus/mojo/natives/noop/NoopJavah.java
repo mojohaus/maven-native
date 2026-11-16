@@ -14,5 +14,6 @@ import org.codehaus.mojo.natives.javah.JavahConfiguration;
 @Singleton
 public class NoopJavah implements Javah {
 
+    @Override
     public void compile(JavahConfiguration config) throws NativeBuildException {}
 }

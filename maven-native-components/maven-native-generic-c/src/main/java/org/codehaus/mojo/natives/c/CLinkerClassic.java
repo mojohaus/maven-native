@@ -30,6 +30,7 @@ import javax.inject.Named;
  */
 @Named("generic-classic")
 public class CLinkerClassic extends CLinker {
+    @Override
     protected String getLinkerOutputOption() {
         return "-o";
     }

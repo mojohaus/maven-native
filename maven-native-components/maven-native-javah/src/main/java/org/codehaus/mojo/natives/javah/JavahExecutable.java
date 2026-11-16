@@ -32,6 +32,7 @@ import org.codehaus.plexus.util.cli.Commandline;
 public class JavahExecutable extends AbstractJavah {
     public JavahExecutable() {}
 
+    @Override
     public void compile(JavahConfiguration config) throws NativeBuildException {
         Commandline cl = this.createJavahCommand(config);
 
