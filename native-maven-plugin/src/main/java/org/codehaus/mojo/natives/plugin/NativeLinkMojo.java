@@ -208,7 +208,7 @@ public class NativeLinkMojo extends AbstractNativeMojo {
             return;
         }
 
-        if (StringUtils.isEmpty(this.classifier)) {
+        if (this.classifier == null || this.classifier.isEmpty()) {
             this.classifier = null;
         }
 
