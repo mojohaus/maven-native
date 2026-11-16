@@ -36,6 +36,7 @@ import org.codehaus.plexus.util.cli.Commandline;
 
 @Named("msvc")
 public class MSVCManifest extends AbstractLogEnabled implements Manifest {
+    @Override
     public void run(ManifestConfiguration config) throws NativeBuildException {
         Commandline cl = new Commandline();
 

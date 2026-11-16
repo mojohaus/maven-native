@@ -31,6 +31,7 @@ import javax.inject.Named;
 @Named("generic")
 public class CCompiler extends AbstractCCompiler {
 
+    @Override
     protected String getOutputFileOption() {
         return "-o ";
     }

@@ -8,6 +8,7 @@ import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.cli.Commandline;
 
 public class DefaultRanlib extends AbstractLogEnabled implements Ranlib {
+    @Override
     public void run(File file) throws NativeBuildException {
         Commandline cl = new Commandline();
 

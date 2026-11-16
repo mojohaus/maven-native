@@ -62,6 +62,7 @@ public final class LetterState extends AbstractParserState {
      * @param ch next character
      * @return the configured nextState if ch is the expected character or the configure noMatchState otherwise.
      */
+    @Override
     public AbstractParserState consume(final char ch) {
         if (ch == thisLetter) {
             return nextState;

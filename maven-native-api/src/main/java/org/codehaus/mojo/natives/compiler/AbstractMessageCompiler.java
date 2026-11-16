@@ -36,6 +36,7 @@ public abstract class AbstractMessageCompiler extends AbstractLogEnabled impleme
     protected abstract Commandline getCommandLine(MessageCompilerConfiguration config, File source)
             throws NativeBuildException;
 
+    @Override
     public void compile(MessageCompilerConfiguration config, File[] sourceFiles) throws NativeBuildException {
 
         for (File sourceFile : sourceFiles) {

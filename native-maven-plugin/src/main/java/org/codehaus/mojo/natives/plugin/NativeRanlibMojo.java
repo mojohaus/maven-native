@@ -72,6 +72,7 @@ public class NativeRanlibMojo extends AbstractNativeMojo {
      */
     private final RanlibManager manager;
 
+    @Override
     public void execute() throws MojoExecutionException {
         if (skip) {
             getLog().info("Skipping ranlib (native.skip=true)");

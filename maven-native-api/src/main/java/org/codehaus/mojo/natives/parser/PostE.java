@@ -27,6 +27,7 @@ public class PostE extends AbstractParserState {
         this.quote = quote;
     }
 
+    @Override
     public AbstractParserState consume(char ch) {
         switch (ch) {
             case ' ':

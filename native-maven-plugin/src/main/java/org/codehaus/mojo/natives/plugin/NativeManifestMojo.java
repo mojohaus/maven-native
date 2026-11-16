@@ -79,6 +79,7 @@ public class NativeManifestMojo extends AbstractNativeMojo {
      */
     private final ManifestManager manager;
 
+    @Override
     public void execute() throws MojoExecutionException {
         if (skip) {
             getLog().info("Skipping manifest generation (native.skip=true)");

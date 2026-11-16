@@ -15,5 +15,6 @@ import org.codehaus.mojo.natives.linker.Ranlib;
 @Singleton
 public class NoopRanlib implements Ranlib {
 
+    @Override
     public void run(File file) throws NativeBuildException {}
 }

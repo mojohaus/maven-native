@@ -10,18 +10,22 @@ public class BuildStub extends Build {
 
     private String finalName = "some-final-name";
 
+    @Override
     public String getOutputDirectory() {
         return "fake-output-directory";
     }
 
+    @Override
     public String getFinalName() {
         return this.finalName;
     }
 
+    @Override
     public void setFinalName(String name) {
         this.finalName = name;
     }
 
+    @Override
     public String getDirectory() {
         return "target";
     }

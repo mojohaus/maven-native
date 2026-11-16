@@ -31,6 +31,7 @@ import javax.inject.Named;
 @Named("mingw")
 public class GccCompiler extends AbstractGccCompiler {
 
+    @Override
     protected String getOutputFileOption() {
         return "-o ";
     }
