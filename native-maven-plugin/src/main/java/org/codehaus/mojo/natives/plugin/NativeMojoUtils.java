@@ -26,8 +26,6 @@ package org.codehaus.mojo.natives.plugin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.plexus.util.StringUtils;
-
 public class NativeMojoUtils {
     /**
      * Remove/trim empty or null member of a string array
@@ -47,7 +45,7 @@ public class NativeMojoUtils {
                 continue;
             }
 
-            String[] tokens = StringUtils.split(arg);
+            String[] tokens = arg.split("\\s+");
 
             for (String token : tokens) {
                 if (token == null || token.trim().length() == 0) {
