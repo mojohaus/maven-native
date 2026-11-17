@@ -2,10 +2,11 @@ package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.NativeBuildException;
-import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -26,7 +27,7 @@ class AbstractMSVC2017CircaEnvFactoryHelper {
                 + "\\VC\\Auxiliary\\Build\\vcvarsall.bat " + platform + "\r\n"
                 + "echo " + EnvStreamConsumer.START_PARSING_INDICATOR + "\r\n"
                 + "set\r\n";
-        FileUtils.fileWrite(tmpFile.getAbsolutePath(), buffer);
+        Files.write(tmpFile.toPath(), buffer.getBytes(StandardCharsets.UTF_8));
 
         return tmpFile;
     }

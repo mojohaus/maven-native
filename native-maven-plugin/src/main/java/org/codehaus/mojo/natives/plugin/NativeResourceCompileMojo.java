@@ -36,7 +36,6 @@ import org.codehaus.mojo.natives.compiler.ResourceCompilerConfiguration;
 import org.codehaus.mojo.natives.manager.EnvFactoryManager;
 import org.codehaus.mojo.natives.manager.NoSuchNativeProviderException;
 import org.codehaus.mojo.natives.manager.ResourceCompilerManager;
-import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Compile Windows resource files
@@ -106,7 +105,7 @@ public class NativeResourceCompileMojo extends AbstractNativeMojo {
             this.resourceCompilerOutputDirectory.mkdirs();
         }
 
-        FileUtils.mkdir(project.getBuild().getDirectory());
+        new File(project.getBuild().getDirectory()).mkdirs();
 
         ResourceCompiler compiler = this.getResourceCompiler();
 
