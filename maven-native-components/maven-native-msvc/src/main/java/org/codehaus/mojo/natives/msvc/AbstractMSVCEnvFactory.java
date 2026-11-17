@@ -2,12 +2,13 @@ package org.codehaus.mojo.natives.msvc;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Map;
 
 import org.codehaus.mojo.natives.AbstractEnvFactory;
 import org.codehaus.mojo.natives.NativeBuildException;
 import org.codehaus.mojo.natives.util.EnvUtil;
-import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.DefaultConsumer;
@@ -87,7 +88,7 @@ public abstract class AbstractMSVCEnvFactory extends AbstractEnvFactory {
                 + "echo " + EnvStreamConsumer.START_PARSING_INDICATOR + "\r\n"
                 + "set\n\r";
 
-        FileUtils.fileWrite(tmpFile.getAbsolutePath(), buffer);
+        Files.write(tmpFile.toPath(), buffer.getBytes(StandardCharsets.UTF_8));
 
         return tmpFile;
     }
