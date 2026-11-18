@@ -31,7 +31,7 @@ This example uses the default compiler(gcc) to build the source, then
 override the linkerProvider to have Unix 'ar' to build the static
 library, after that apply Unix 'ranlib' on the output of 'ar' command.
 Complete example is
-[here](http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/linkages/linux-x86/libFuncStatic).
+[here](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it/linkages/linux-x86/libFuncStatic).
 
 ```xml
 <project>

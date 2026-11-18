@@ -57,7 +57,7 @@ The following contains summaries of all main goals. They work together in [custo
 ## Examples
 
 * Buildable examples can be found in
-  [SCM](http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/)
+  [SCM](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it/)
 
 * [Build DLL with JNI](./examples/jni-dll.html).
 

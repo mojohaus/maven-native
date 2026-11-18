@@ -40,7 +40,7 @@ Note:
   global environment to accomodate all compilers.
 
 * Checkout real examples in
-  [svn](http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/)
+  [svn](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it/)
 
 ```xml
 <project>
