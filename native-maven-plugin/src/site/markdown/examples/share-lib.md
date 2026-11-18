@@ -31,7 +31,7 @@ This example uses the default compiler(gcc) and linker(gcc) to build
 a share library on Unix.  Note that user is responsible to specify
 all the need option to make a share library at link time.
 Complete example is
-[here](http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/linkages/linux-x86/libFuncDynamic).
+[here](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it/linkages/linux-x86/libFuncDynamic).
 
 ```xml
 <project>
