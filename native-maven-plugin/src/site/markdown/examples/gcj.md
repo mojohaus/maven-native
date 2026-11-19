@@ -33,7 +33,7 @@ Note:
 
 * <--main=full.class.name> is mandatory and must be the complete name of the java class that implements the main() entry.
 
-* Checkout real examples in [svn](http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/gcj)
+* Check out the [integration test examples](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it) for the native builds currently supported.
 
 ```xml
 <project>
