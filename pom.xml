@@ -46,10 +46,6 @@
     <system>GitHub</system>
     <url>https://github.com/mojohaus/maven-native/issues/</url>
   </issueManagement>
-  <ciManagement>
-    <system>Travis-CI</system>
-    <url>https://travis-ci.org/mojohaus/maven-native</url>
-  </ciManagement>
   <properties>
     <mavenVersion>3.9.16</mavenVersion>
     <project.build.outputTimestamp>2026-11-09T21:08:30Z</project.build.outputTimestamp>
@@ -66,11 +62,6 @@
         <groupId>org.apache.bcel</groupId>
         <artifactId>bcel</artifactId>
         <version>6.13.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.21.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
