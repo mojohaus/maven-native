@@ -25,5 +25,5 @@ under the License.
 
 ### Unable to invoke stand-alone native:linker.
 
-<br/>
-Standalone native:linker is not supported.  Invoke "mvn compile" instead
+The `native:link` goal cannot be invoked stand-alone. Invoke `mvn compile` instead, so that the goals before it in the
+[build lifecycle](./lifecycle.html) run too.

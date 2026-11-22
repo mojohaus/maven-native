@@ -21,8 +21,10 @@ under the License.
 
 Native Maven Plugin
 
-Use this plugin to compile c and c++ source under Maven 2 with  
-compilers such as gcc, msvc, gcj etc ...
+Use this plugin to compile C and C++ source (and COBOL, with GNU COBOL) with compilers such as gcc, msvc and bcc,
+and to link and package the result as a Maven artifact: executables, shared and static libraries and object files.
+
+The plugin requires Maven 3.9.0 or later and Java 8 or later.
 
 ## Usage
 
@@ -64,4 +66,6 @@ The following contains summaries of all main goals. They work together in [custo
 * [Build static library including ranlib](./examples/static-lib-ranlib.html).
 
 * [Build share library on Unix](./examples/share-lib.html).
+
+* [Compile Java code using GNU gcj](./examples/gcj.html).
 

@@ -19,17 +19,15 @@ under the License.
 
 # Maven 2 Native Plugin - Static Library Example
 
-Dan T. Tran
-<dantran@gmail.com>
--------------------
-
+Dan T. Tran  
+<dantran@gmail.com>  
 September 29, 2005
 
-Build static library including ranlib on Unix
+## Build static library including ranlib on Unix
 
-This example uses the default compiler(gcc) to build the source, then
-override the linkerProvider to have Unix 'ar' to build the static
-library, after that apply Unix 'ranlib' on the output of 'ar' command.
+This example uses the default compiler (gcc) to build the source, then
+overrides the `linkerProvider` with `ar` to build the static
+library, and after that applies Unix `ranlib` on the output of the `ar` command.
 Complete example is
 [here](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it/linkages/linux-x86/libFuncStatic).
 
@@ -72,7 +70,7 @@ Complete example is
         <executions>
           <execution>
             <id>ranlib</id>
-            <phase>package</package>
+            <phase>package</phase>
             <goals>
               <goal>ranlib</goal>
             </goals>
