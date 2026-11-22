@@ -19,24 +19,22 @@ under the License.
 
 # Maven 2 Native Plugin - Share Library Example
 
-Dan T. Tran
-<dantran@gmail.com>
--------------------
-
+Dan T. Tran  
+<dantran@gmail.com>  
 September 29, 2005
 
-Build share library on Unix
+## Build share library on Unix
 
-This example uses the default compiler(gcc) and linker(gcc) to build
-a share library on Unix.  Note that user is responsible to specify
-all the need option to make a share library at link time.
+This example uses the default compiler (gcc) and linker (gcc) to build
+a shared library on Unix. Note that the user is responsible to specify
+all the needed options to make a shared library at link time.
 Complete example is
 [here](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it/linkages/linux-x86/libFuncDynamic).
 
 ```xml
 <project>
    ...
-  <packaging>a</packaging>
+  <packaging>so</packaging>
    ...
   <build>
     <plugins>

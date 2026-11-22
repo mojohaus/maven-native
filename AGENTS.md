@@ -24,7 +24,7 @@ in `native-maven-plugin/src/main/resources/META-INF/plexus/components.xml`, not 
   formats Java with palantir-java-format and also reformats Markdown, including this file and the
   README.
 - Only `native-maven-plugin` declares `<prerequisites><maven>3.9.0</maven>`. The modules compile
-  against `mavenVersion` (3.9.16, set in the root POM).
+  against `mavenVersion`, set in the root POM.
 - Fields of the mojo classes are plugin parameters; renaming one changes the plugin's
   configuration API.
 - The project is MIT licensed, unlike most of MojoHaus. Keep each file's existing header.
@@ -92,9 +92,33 @@ in `native-maven-plugin/src/main/resources/META-INF/plexus/components.xml`, not 
   stay below 3.10, Checkstyle below 10, and `plexus-xml` below 4, because 4.x depends on the
   Maven 4 XML API.
 
+## Documentation updates
+
+A change that users or contributors can notice ships with the documentation it affects, in the same pull
+request. A refactor with no visible effect needs none.
+
+- The site belongs to `native-maven-plugin`; the other modules have no site pages. A new goal, parameter or
+  default: the Javadoc of the mojo field, which becomes the goal page, and the goal list in
+  `native-maven-plugin/src/site/markdown/index.md`.
+- A new or changed provider, packaging type or lifecycle binding: `providers.md`, `usage.md` and `lifecycle.md` in
+  `native-maven-plugin/src/site/markdown`. The lifecycle page mirrors `META-INF/plexus/components.xml`, and the
+  environment factory list in `envfactory.md` mirrors the `*EnvFactory` classes in `maven-native-msvc` and
+  `maven-native-bcc`.
+- The pages are plain Markdown; use tables and fenced code blocks, not the APT markup they were converted from.
+  Only the first plugin declaration of `usage.md` carries a version, written as
+  `<version><!-- latest release --></version>`; the examples leave it out, so none goes stale.
+- A page added, removed or renamed: the menu in `native-maven-plugin/src/site/site.xml`. Never rename a published
+  page; its URL is linked from elsewhere.
+- The Maven or Java requirement, or how to build and release: `README.md`, and the opening of
+  `native-maven-plugin/src/site/markdown/index.md`.
+- A new convention, build gate or test fixture: this file.
+
+Check the result with `mvn package site -pl native-maven-plugin -am` and open
+`native-maven-plugin/target/site/index.html`.
+
 ## Pull requests
 
 - Squash and rebase merges are enabled; merge commits are not. Release Drafter, through the shared
-  `apache/maven-gh-actions-shared` workflow, builds the release notes from pull request titles
+  release-drafter workflow, builds the release notes from pull request titles
   and labels, so the title should describe the change for a user.
 

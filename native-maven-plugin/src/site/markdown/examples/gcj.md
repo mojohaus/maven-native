@@ -19,19 +19,18 @@ under the License.
 
 # Maven 2 Native Plugin
 
-Marco Lessard
-<marco.lessard@marmitamots.ca>
-------------------------------
-
+Marco Lessard  
+<marco.lessard@marmitamots.ca>  
 September 14, 2009
 
-Compile Java code using GNU gcj
+## Compile Java code using GNU gcj
 
-The example uses GNU gcj to generate native executable from java source.
+The example uses GNU gcj to generate a native executable from Java source. GCC removed `gcj` in version 7, so this
+needs an older GCC installation.
 
 Note:
 
-* <--main=full.class.name> is mandatory and must be the complete name of the java class that implements the main() entry.
+* `--main=full.class.name` is mandatory and must be the complete name of the java class that implements the main() entry.
 
 * Check out the [integration test examples](https://github.com/mojohaus/maven-native/tree/master/native-maven-plugin/src/it) for the native builds currently supported.
 
@@ -50,7 +49,7 @@ Note:
         <extensions>true</extensions>
         <configuration>
           <compilerExecutable>gcj</compilerExecutable>
-          <compilerOutputDirectory}${project.build.directory}/objs</compilerOutputDirectory>
+          <compilerOutputDirectory>${project.build.directory}/objs</compilerOutputDirectory>
           <sources>
             <source>
               <directory>src/main/java</directory>

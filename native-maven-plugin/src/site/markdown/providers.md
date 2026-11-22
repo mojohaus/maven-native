@@ -19,53 +19,49 @@ under the License.
 
 # Maven 2 Native Plugin - Providers
 
-Dan T. Tran
-<dantran@gmail.com>
--------------------
-
+Dan T. Tran  
+<dantran@gmail.com>  
 September 29, 2005
 
-Compiler/Linker Providers
+## Compiler/Linker Providers
 
-*Compiler Provider
+Select the compiler with `compilerProvider` and the linker with `linkerProvider`. The linker provider defaults to
+the compiler provider, which defaults to `generic`. The executable of a provider can be changed with
+`compilerExecutable` and `linkerExecutable`.
 
-*-----------------+------------+-------------------------------------------+
-| Provider        | Executable | Note
-*-----------------+------------+-------------------------------------------+
-| generic         | gcc        | Compiler with "-o " option ( gcc, Sun CC, hpux cc, etc )
-*-----------------+------------+-------------------------------------------+
-| generic-classic | gcc        | Compiler with "-o" option ( gcc, IBM xlc, etc )
-*-----------------+------------+-------------------------------------------+
-| msvc            | cl         |
-*-----------------+------------+-------------------------------------------+
-| bcc             | bcc32      |
-*-----------------+------------+-------------------------------------------+
-| mingw           | gcc        | Compiler with "-o " option, targeting MinGW
-*-----------------+------------+-------------------------------------------+
-| gnucobol        | cobc       | GNU COBOL compiler; sources are compiled to objects with "-c"
-*-----------------+------------+-------------------------------------------+
+### Compiler Provider
 
-*Linker Provider
+|    Provider     | Executable |                             Note                              |
+|-----------------|------------|---------------------------------------------------------------|
+| generic         | gcc        | Compiler with "-o " option ( gcc, Sun CC, hpux cc, etc )      |
+| generic-classic | gcc        | Compiler with "-o" option ( gcc, IBM xlc, etc )               |
+| msvc            | cl         |                                                               |
+| bcc             | bcc32      |                                                               |
+| mingw           | gcc        | Compiler with "-o " option, targeting MinGW                   |
+| gnucobol        | cobc       | GNU COBOL compiler; sources are compiled to objects with "-c" |
 
-*-----------------+------------+--------------------------------------------+
-| Provider        | Executable | Note
-*-----------------+------------+--------------------------------------------+
-| generic         | gcc        | Linker with "-o " option ( gcc, Sun CC, hpux, cc, unix ld, etc )
-*-----------------+------------+--------------------------------------------+
-| generic-classic | gcc        | Linker with "-o" option ( gcc, IBM xlc, etc )
-*-----------------+------------+--------------------------------------------+
-| msvc            | link       |
-*-----------------+------------+--------------------------------------------+
-| bcc             | ilink32    |
-*-----------------+------------+--------------------------------------------+
-| tlib            | tlib       |
-*-----------------+------------+--------------------------------------------+
-| mingw           | gcc        | Linker with "-o " option, targeting MinGW
-*-----------------+------------+--------------------------------------------+
-| gnucobol        | cobc       | GNU COBOL linker, see the build mode note below
-*-----------------+------------+--------------------------------------------+
+### Linker Provider
 
-*GNU COBOL build mode
+|    Provider     | Executable |                               Note                                |
+|-----------------|------------|-------------------------------------------------------------------|
+| generic         | gcc        | Linker with "-o " option ( gcc, Sun CC, hpux, cc, unix ld, etc )  |
+| generic-classic | gcc        | Linker with "-o" option ( gcc, IBM xlc, etc )                     |
+| msvc            | link       |                                                                   |
+| bcc             | ilink32    |                                                                   |
+| tlib            | tlib       |                                                                   |
+| mingw           | gcc        | Linker with "-o " option, targeting MinGW                         |
+| gnucobol        | cobc       | GNU COBOL linker, see the build mode note below                   |
+| ar              | ar         | Archiver for static libraries; use it with the `a` packaging type |
+
+The `ar` provider is used in the [static library example](./examples/static-lib-ranlib.html).
+
+### Other Tools
+
+The resource compiler (`resource-compile` goal) has the providers `msvc`, `bcc` and `mingw`, the latter running
+`windres`. The message compiler (`compile-message` goal) and the manifest tool (`manifest` goal) have the provider
+`msvc`. The `ranlib` goal uses its `provider` parameter, which defaults to `default`.
+
+### GNU COBOL build mode
 
 The `gnucobol` linker passes no build-mode flag, so `cobc` applies its own
 default of `-m` and produces a dynamically loadable module. This is the inverse
@@ -73,22 +69,22 @@ of the `gcc`-based providers, where the bare form produces an executable.
 
 To link an executable, pass `-x` through the linker start options:
 
-+-----------------+
+```xml
 <plugin>
-<groupId>org.codehaus.mojo</groupId>
-<artifactId>native-maven-plugin</artifactId>
-<extensions>true</extensions>
-<configuration>
-<compilerProvider>gnucobol</compilerProvider>
-<linkerProvider>gnucobol</linkerProvider>
-<linkerStartOptions>
-<linkerStartOption>-x</linkerStartOption>
-</linkerStartOptions>
-</configuration>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>native-maven-plugin</artifactId>
+  <extensions>true</extensions>
+  <configuration>
+    <compilerProvider>gnucobol</compilerProvider>
+    <linkerProvider>gnucobol</linkerProvider>
+    <linkerStartOptions>
+      <linkerStartOption>-x</linkerStartOption>
+    </linkerStartOptions>
+  </configuration>
 </plugin>
-+-----------------+
+```
 
-*COPY dependency scanning
+### COPY dependency scanning
 
 Copybook dependencies are detected from `COPY` directives so that a change to a
 copybook forces recompilation of the sources that use it. The directive must be the
