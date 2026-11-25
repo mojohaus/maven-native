@@ -42,8 +42,12 @@ def members = { File archive ->
     return out.readLines()*.trim()
 }
 
-def isElf = { File f -> f.bytes.length > 4 && f.bytes[0] == 0x7f && f.bytes[1] == (byte) 'E' && f.bytes[2] == (byte) 'L' && f.bytes[3] == (byte) 'F' }
-def contains = { File f, String needle -> new String(f.bytes, 'ISO-8859-1').contains(needle) }
+def isElf = { File f ->
+    f.bytes.length> 4 && f.bytes[0] == 0x7f && f.bytes[1] == (byte) 'E' && f.bytes[2] == (byte) 'L' && f.bytes[3] == (byte) 'F'
+}
+def contains = { File f, String needle ->
+    new String(f.bytes, 'ISO-8859-1').contains(needle)
+}
 
 def linux = new File(basedir, '../linkages/linux-x86')
 
