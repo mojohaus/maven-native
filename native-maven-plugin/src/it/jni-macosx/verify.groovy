@@ -36,7 +36,9 @@ assert header.text.contains('Java_HelloWorld_sayHello') : 'HelloWorld.h does not
 def lib = new File(nativeModule, 'target/libhello.dylib')
 assert lib.isFile() : "missing ${lib}"
 def bytes = lib.bytes
-def magic = bytes.length > 4 ? bytes[0..3].collect { String.format('%02x', it & 0xff) }.join() : ''
+def magic = bytes.length > 4 ? bytes[0..3].collect {
+    String.format('%02x', it & 0xff)
+}.join() : ''
 assert magic in ['cffaedfe', 'feedfacf', 'cafebabe'] : 'libhello.dylib is not a Mach-O object'
 assert new String(bytes, 'ISO-8859-1').contains('Java_HelloWorld_sayHello') : 'libhello.dylib does not export Java_HelloWorld_sayHello'
 

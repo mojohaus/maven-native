@@ -28,7 +28,9 @@ def win32 = new File(basedir, '../linkages/win32')
 def files = { String module, String extension ->
     def target = new File(win32, "${module}/target")
     assert target.isDirectory() : "missing ${target}"
-    return target.listFiles().findAll { it.isFile() && it.name.endsWith(extension) }
+    return target.listFiles().findAll {
+        it.isFile() && it.name.endsWith(extension)
+    }
 }
 
 // Runs a built executable and returns its stdout; the library directories go on PATH, where Windows looks for DLLs
