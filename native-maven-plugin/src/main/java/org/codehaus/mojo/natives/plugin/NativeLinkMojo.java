@@ -30,7 +30,7 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -52,10 +52,11 @@ import org.codehaus.plexus.util.StringUtils;
 public class NativeLinkMojo extends AbstractNativeMojo {
 
     @Inject
-    public NativeLinkMojo(EnvFactoryManager envFactoryManager, LinkerManager manager, ArtifactFactory artifactFactory) {
+    public NativeLinkMojo(
+            EnvFactoryManager envFactoryManager, LinkerManager manager, ArtifactHandlerManager artifactHandlerManager) {
         super(envFactoryManager);
         this.manager = manager;
-        this.artifactFactory = artifactFactory;
+        this.artifactHandlerManager = artifactHandlerManager;
     }
 
     /**
@@ -159,7 +160,7 @@ public class NativeLinkMojo extends AbstractNativeMojo {
      *
      * @since 1.0-alpha-2
      */
-    private final ArtifactFactory artifactFactory;
+    private final ArtifactHandlerManager artifactHandlerManager;
 
     /**
      * Dependent libraries with version + classifier removed are copied to this directory to be linked to the build
@@ -332,8 +333,15 @@ public class NativeLinkMojo extends AbstractNativeMojo {
 
         for (String token : tokens) {
             // TODO: shouldn't need classifier
-            Artifact artifact = artifactFactory.createArtifact(
-                    project.getGroupId(), project.getArtifactId(), project.getVersion(), this.classifier, token.trim());
+            String type = token.trim();
+            Artifact artifact = new DefaultArtifact(
+                    project.getGroupId(),
+                    project.getArtifactId(),
+                    project.getVersion(),
+                    this.classifier,
+                    type,
+                    null,
+                    artifactHandlerManager.getArtifactHandler(type));
             artifact.setFile(new File(
                     this.linkerOutputDirectory + "/" + this.project.getBuild().getFinalName() + "." + token.trim()));
 
